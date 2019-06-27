@@ -1,5 +1,8 @@
 import colors from "../static/data/colors.json";
 
+const bad = "#cf5555";
+const good = "#3182bd";
+
 /**
   The object exported by this file will be used as a base config for any
   d3plus-react visualization rendered on the page.
@@ -63,8 +66,40 @@ export default {
     }
   },
   shapeConfig: {
+    Area: {
+      strokeWidth: d => {
+        const c = findColor(d);
+        return [good, bad].includes(c) ? 1 : 0;
+      }
+    },
+    Bar: {
+      labelConfig: {
+        fontSize: () => 13
+      },
+      strokeWidth: d => {
+        const c = findColor(d);
+        return [good, bad].includes(c) ? 1 : 0;
+      }
+    },
+    fill: findColor,
     labelConfig: {
-      fontFamily: "Roboto"
+      fontSize: () => 13
+    },
+    Line: {
+      curve: "monotoneX",
+      stroke: findColor,
+      strokeWidth: 3,
+      strokeLinecap: "round"
+    },
+    Path: {
+      fillOpacity: 0.75,
+      strokeOpacity: 0.25
+    },
+    Rect: {
+      labelConfig: {
+        fontResize: true,
+        padding: 0
+      }
     }
   }
 };

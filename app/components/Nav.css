@@ -1,0 +1,45 @@
+.nav {
+  height: 40px;
+  left: 0;
+  padding: 10px 15px;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  transform: translateX(0);
+  transition: background-color .75s;
+  width: 100%;
+  z-index: 21;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: var(--white);
+  text-transform: uppercase;
+  & div {
+    flex: 1;
+    display: flex;
+    &.nav-center {
+      justify-content: center;
+      & .nav-subtitle {
+        color: #57a520;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 20px;
+        line-height: 1.35rem;
+        text-transform: none;
+        font-weight: 700;
+      }
+    }
+    &.nav-right {
+      justify-content: flex-end;
+    }
+  }
+  & .menu {
+    font-size: 12px;
+    margin-left: 5px;
+  }
+  &.background {
+    background-color: rgba(20,27,46);
+  }
+  & .profile-logo {
+    width: 160px;
+  }
+}

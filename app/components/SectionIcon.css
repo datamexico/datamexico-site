@@ -1,0 +1,15 @@
+.SectionIcon {
+  display: flex;
+  color: var(--white);
+  flex-direction: column;
+  padding: 5px 25px;
+  cursor: pointer;
+  align-items: center;
+  & .icon {
+    width: 30px;
+  }
+  & .label {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+}
