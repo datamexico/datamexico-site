@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Barlow|Chivo|Barlow+Condensed&display=swap');
 
 body {
-  font-family: "Chivo", sans-serif;
+  font-family: "Chivo", sans-serif !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -44,7 +44,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .container {
-  margin: auto;
   max-width: 100%;
   padding: 30px;
 }

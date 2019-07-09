@@ -1,0 +1,45 @@
+.mex-tile {
+  align-items: center;
+  background-color: var(--dark);
+  border: 1px solid #979aa2;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  height: 150px;
+  justify-content: center;
+  margin: 15px 0;
+  overflow: hidden;
+  position: relative;
+  transition: border-color .25s;
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  text-transform: uppercase;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 20px;
+  z-index: 1;
+  transition: all 1s;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: var(--white);
+    background-size: 110% auto;
+    transition: all 1s;
+    font-size: 22px;
+    border: 1px solid var(--white);
+  }
+  &:hover::before {
+    background: rgba(0, 0, 0, 0.4);
+  }
+}

@@ -1,0 +1,31 @@
+.search-result {
+  & a {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 6px;
+    color: var(--black);
+
+    &:hover {
+      text-decoration: none;
+      color: var(--black);
+      background-color: var(--hover);
+    }
+  }
+  & .icon {
+    margin-right: 6px;
+    vertical-align: top;
+    width: 26px;
+  }
+  & .result-text {
+    & .title {
+      font-size: 16px;
+      line-height: 20px;
+      margin-bottom: 2px;
+    }
+    & .level-title {
+      color: var(--dark-2);
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+  }
+}

@@ -6,13 +6,14 @@ import {connect} from "react-redux";
 import {Profile as CMSProfile, Topic} from "@datawheel/canon-cms";
 import libs from "@datawheel/canon-cms/src/utils/libs";
 
-import "./style.css";
 import Stat from "../../components/Stat";
 
 import {Geomap} from "d3plus-react";
 import SectionIcon from "../../components/SectionIcon";
 import {Icon} from "@blueprintjs/core";
 import Nav from "../../components/Nav";
+
+import "./style.css";
 
 class Profile extends React.Component {
   state = {

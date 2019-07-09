@@ -11,7 +11,7 @@ class Nav extends React.Component {
   }
 
   render() {
-    const {className, title, t} = this.props;
+    const {className, logo, title, t} = this.props;
     const {isOpen} = this.state;
     return <div className={`${className} nav`}>
       {isOpen && <NavMenu />}
@@ -19,7 +19,7 @@ class Nav extends React.Component {
         <span onClick={() => this.setState({isOpen: true})}><Icon icon="menu" /> <span className="menu">{t("Menu")}</span></span>
       </div>
       <div className="nav-center">
-        <img className="profile-logo" src="/icons/logo-horizontal.svg" alt=""/>
+        {logo || className === "background" && <img className="profile-logo" src="/icons/logo-horizontal.svg" alt=""/>}
         <span className="nav-subtitle">{title}</span>
       </div>
       <div className="nav-right">
@@ -31,6 +31,7 @@ class Nav extends React.Component {
 
 Nav.defaultProps = {
   className: "",
+  logo: true,
   title: ""
 };
 

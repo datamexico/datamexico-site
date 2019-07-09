@@ -15,7 +15,6 @@
 #   import style from "style.yml";
 #
 
-dark: "rgb(61, 71, 55)"
 light: "rgb(101, 111, 95)"
 
 nav-height: 40px
@@ -61,5 +60,7 @@ cms-nav-height: "2rem"
 sidebar-width: "18rem"
 
 # datamexico-styles
-green: ""
+green: "#3F908E"
 red: ""
+dark: "#141b2e"
+hover: "#ececec"
