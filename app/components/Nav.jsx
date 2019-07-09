@@ -19,7 +19,7 @@ class Nav extends React.Component {
         <span onClick={() => this.setState({isOpen: true})}><Icon icon="menu" /> <span className="menu">{t("Menu")}</span></span>
       </div>
       <div className="nav-center">
-        {logo || className === "background" && <img className="profile-logo" src="/icons/logo-horizontal.svg" alt=""/>}
+        {(logo || className === "background") && <a className="profile-logo" href="/" data-refresh="true"><img src="/icons/logo-horizontal.svg" alt=""/></a>}
         <span className="nav-subtitle">{title}</span>
       </div>
       <div className="nav-right">

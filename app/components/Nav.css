@@ -40,6 +40,10 @@
     background-color: rgba(20,27,46);
   }
   & .profile-logo {
-    width: 160px;
+    margin-right: 5px;
+    width: 150px;
+    & img {
+      width: 100%;
+    }
   }
 }
