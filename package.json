@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/datamexico/datamexico#readme",
   "dependencies": {
-    "@datawheel/canon-cms": "^0.6.2",
+    "@datawheel/canon-cms": "^0.7.1",
     "@datawheel/canon-core": "^0.17.29",
     "mondrian-rest-client": "^1.1.3"
   }

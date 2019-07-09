@@ -25,15 +25,15 @@ nested:
   color2: "black"
 
 # grayscale
-white:   "#ffffff"
-light-1: "#f8f9fa"
-light-2: "#e8eef1"
-light-3: "#cfdae2"
-gray:    "#aebdcc"
-dark-1:  "#8a97ae"
-dark-2:  "#596277"
-dark-3:  "#3e4455"
-black:   "#181a21"
+white:   "#FFFFFF"
+light-1: "#F8F9FA"
+light-2: "#ECEFF1"
+light-3: "#CFDAE2"
+gray:    "#AEBDCC"
+dark-1:  "#8A97AE"
+dark-2:  "#2A2F3B"
+dark-3:  "#20242E"
+black:   "#181A21"
 
 # accent colors
 accent:       "#FFCD33"
@@ -42,8 +42,9 @@ accent-dark:  "#C4960B"
 accent-black: "#7F6516"
 
 # UI colors
-alert:       "#75224D"
-alert-light: "#992C64"
+alert-dark:   "#75224D"
+alert:        "#992C64"
+alert-light:  "#DB64A6"
 
 type-number:      "#8EB6FF"
 type-number-dark: "#2D4A7F"
@@ -51,13 +52,17 @@ type-number-dark: "#2D4A7F"
 type-string:      "#B9E28C"
 type-string-dark: "#62873B"
 
+type-boolean:      "#FFD65B"
+type-boolean-dark: "#7F6516"
+
 type-error:       "#DB64A6"
 type-error-dark:  "#75224D"
 
 # measurements
 nav-height: "50px"
-cms-nav-height: "2rem"
-sidebar-width: "18rem"
+cms-nav-height: "3.125rem"
+sidebar-width: "17rem"
+toolbox-width: "22.5rem"
 
 # datamexico-styles
 green: "#3F908E"

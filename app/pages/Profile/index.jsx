@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {withNamespaces} from "react-i18next";
 import {fetchData} from "@datawheel/canon-core";
 import {connect} from "react-redux";
-import {Profile as CMSProfile, Topic} from "@datawheel/canon-cms";
+import {Profile as CMSProfile, Section} from "@datawheel/canon-cms";
 import libs from "@datawheel/canon-cms/src/utils/libs";
 
 import Stat from "../../components/Stat";
@@ -59,7 +59,7 @@ class Profile extends React.Component {
 
   render() {
     const {profile, t} = this.props;
-    const {subtitle, topics, variables} = profile;
+    const {subtitle, sections, variables} = profile;
     const {scrolled} = this.state;
     return <div id="Profile" onScroll={this.handleScroll}>
       <Nav
@@ -116,8 +116,8 @@ class Profile extends React.Component {
         </div>
       </div>
       <div className="container">
-        {topics.map(topic =>
-          <Topic
+        {sections.map(topic =>
+          <Section
             key={topic.slug}
             router={this.props.router}
             contents={topic}
@@ -130,7 +130,7 @@ class Profile extends React.Component {
 
 
 Profile.need = [
-  fetchData("profile", "/api/profile/?slug=<pslug>&id=<pid>&locale=<i18n.locale>"),
+  fetchData("profile", "/api/profile/?slug1=<pslug>&id1=<pid>&locale=<i18n.locale>"),
   fetchData("formatters", "/api/formatters")
 ];
 
