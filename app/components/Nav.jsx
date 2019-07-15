@@ -1,9 +1,10 @@
 import React from "react";
 import {withNamespaces} from "react-i18next";
 import {Icon} from "@blueprintjs/core";
+import NavMenu from "./NavMenu";
 
 import "./Nav.css";
-import NavMenu from "./NavMenu";
+
 
 class Nav extends React.Component {
   state = {
@@ -14,9 +15,12 @@ class Nav extends React.Component {
     const {className, logo, title, t} = this.props;
     const {isOpen} = this.state;
     return <div className={`${className} nav`}>
-      {isOpen && <NavMenu />}
+      <NavMenu
+        dialogClassName={isOpen ? "slide-active" : "slide-leave"}
+        run={isOpen => this.setState({isOpen})}
+      />
       <div className="nav-left">
-        <span onClick={() => this.setState({isOpen: true})}><Icon icon="menu" /> <span className="menu">{t("Menu")}</span></span>
+        <span onClick={() => this.setState({isOpen: !this.state.isOpen})}><Icon icon="menu" /> <span className="menu">{t("Menu")}</span></span>
       </div>
       <div className="nav-center">
         {(logo || className === "background") && <a className="profile-logo" href="/" data-refresh="true"><img src="/icons/logo-horizontal.svg" alt=""/></a>}
