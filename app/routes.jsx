@@ -14,7 +14,7 @@ export default function RouteCreate() {
       <IndexRoute component={Home} />
       <Route path="/admin" component={Builder} />
       <Route exact path="/profile2/:pslug/:pid" component={Profile} />
-      <Route exact path="/profile/:pslug/:pid" component={CMSProfile} />
+      <Route exact path="/profile/:slug/:id" component={CMSProfile} />
     </Route>
   );
 }
