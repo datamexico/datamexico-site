@@ -1,5 +1,5 @@
 import React from "react";
-import {Dialog, Position} from "@blueprintjs/core";
+import {Dialog, Position, Icon} from "@blueprintjs/core";
 
 import "./NavMenu.css";
 
@@ -9,17 +9,21 @@ class NavMenu extends React.Component {
   }
 
   render() {
-    const {isOpen} = this.state;
+    const {isOpen} = this.props;
     const {dialogClassName} = this.props;
 
     return <Dialog
       className={`${dialogClassName} nav-menu`}
       isOpen={isOpen}
       transitionName={"slide"}
-      // lazy={false}
+      lazy={false}
+      backdropClassName={dialogClassName}
       onClose={() => this.props.run(false)}
     >
       <div className="nav-menu-content">
+        <span className="close-button">
+          <Icon icon="cross" />
+        </span>
         <div>
           <ul>
             <li>Home</li>

@@ -14,13 +14,15 @@ class Nav extends React.Component {
   render() {
     const {className, logo, title, t} = this.props;
     const {isOpen} = this.state;
+    console.log(isOpen);
     return <div className={`${className} nav`}>
       <NavMenu
-        dialogClassName={isOpen ? "slide-active" : "slide-leave"}
+        isOpen={isOpen}
+        dialogClassName={isOpen ? "slide-enter" : "slide-exit"}
         run={isOpen => this.setState({isOpen})}
       />
       <div className="nav-left">
-        <span onClick={() => this.setState({isOpen: !this.state.isOpen})}><Icon icon="menu" /> <span className="menu">{t("Menu")}</span></span>
+        <span onClick={() => this.setState({isOpen: !isOpen})}><Icon icon="menu" /> <span className="menu">{t("Menu")}</span></span>
       </div>
       <div className="nav-center">
         {(logo || className === "background") && <a className="profile-logo" href="/" data-refresh="true"><img src="/icons/logo-horizontal.svg" alt=""/></a>}

@@ -32,6 +32,16 @@
   height: 100vh;
   color: var(--white);
 
+  & .close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    & svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
   & ul {
     list-style: none;
     margin-left: -20px;
