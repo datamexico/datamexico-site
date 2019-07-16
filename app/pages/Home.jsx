@@ -20,6 +20,13 @@ export default class Home extends Component {
   handleSearch = e => {
     const {results} = this.state;
     const query = e.target.value;
+
+    axios.get(`/api/search?q=${query}`).then(resp => {
+      const data = resp.data.results;
+      const results = data.map(d => ({id: d.id, name: d.name, slug: d.profile, level: d.hierarchy}));
+      this.setState({results, resultsFilter: results});
+    });
+
     const resultsFilter = results.filter(d => d.name.toLowerCase().indexOf(query.toLowerCase()) >= 0);
 
     const isOpen = query.length > 2;
@@ -30,11 +37,6 @@ export default class Home extends Component {
   componentDidMount() {
     window.addEventListener("scroll", this.handleScroll);
     // eslint-disable-next-line no-undef
-    axios.get(`${__BASE__}cubes/inegi_population/members.jsonrecords?level=Geography.Municipality`).then(resp => {
-      const data = resp.data.data;
-      const results = data.map(d => ({id: d.ID, name: d.Label, slug: "geo", level: "Municipality"}));
-      this.setState({results, resultsFilter: results});
-    });
   }
 
   componentWillUnmount() {
@@ -72,7 +74,7 @@ export default class Home extends Component {
             <Popover
               className="search-popover"
               content={<ul className="search-results">
-                {resultsFilter.slice(0, 5).map((d, i) => <SearchResult
+                {resultsFilter.map((d, i) => <SearchResult
                   key={`search_result_${d.id}_${i}`}
                   id={d.id}
                   slug={d.slug}
