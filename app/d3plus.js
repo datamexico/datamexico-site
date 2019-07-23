@@ -65,6 +65,13 @@ export default {
       width: () => 20
     }
   },
+
+  colorScaleConfig: {
+    scale: "jenks"
+  },
+  ocean: "transparent",
+  tiles: false,
+
   shapeConfig: {
     Area: {
       strokeWidth: d => {
