@@ -14,6 +14,7 @@ import {Icon} from "@blueprintjs/core";
 import Nav from "../../components/Nav";
 
 import "./style.css";
+import Footer from "../../components/Footer";
 
 class Profile extends React.Component {
   state = {
@@ -66,71 +67,15 @@ class Profile extends React.Component {
         className={scrolled ? "background" : ""}
         title={scrolled ? variables.name : ""}
       />
-      <div className="hero" style={{backgroundImage: `url(/images/${variables.id}.jpg), url(/images/background.jpg)`}}>
-        <h1 className="profile-title">{variables.name}</h1>
-        <div className="stats">
-          {Array.from({length: 6}, (v, k) => k + 1).map(d => {
-            if (variables[`stat${d}`]) {
-              const stat = variables[`stat${d}`];
-              return <Stat title={stat.title} value={stat.value} subtitle={stat.subtitle} />;
-            }
-            return null;
-          }, [])}
-        </div>
-        <div className="section-icons">
-          <SectionIcon />
-          <SectionIcon />
-          <SectionIcon />
-          <SectionIcon />
-        </div>
-      </div>
-
-      <div className="lead">
-        <div className="container">
-          <div className="columns">
-            <div className="column">
-              <div className="lead-descriptions">
-                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, etiam cubilia fames ultrices proin taciti montes, massa himenaeos class in sed dapibus. Primis sodales arcu aliquam accumsan ultrices bibendum in non dis, sed tempus facilisi quam class imperdiet morbi sollicitudin condimentum, varius potenti sociosqu cursus tellus nascetur eleifend euismod. Diam lectus hac auctor sem montes felis nunc ridiculus porta platea, inceptos tempor sociosqu venenatis libero odio placerat a mauris, dictumst per mollis erat integer aliquam proin eu nam.</p>
-                <p>Suscipit habitasse pharetra tortor augue dignissim tempus nulla class, id himenaeos lectus dui iaculis felis dis, faucibus orci sed vivamus pretium neque leo. Rhoncus class ornare senectus auctor lectus risus habitasse, quam condimentum metus vulputate accumsan ut, pretium penatibus egestas erat nibh montes. Ultrices dis et sed leo ad, maecenas interdum ac suscipit, dui libero eros mus.</p>
-              </div>
-            </div>
-            <div className="column is-1-4">
-              <Geomap
-                config={{
-                  data: [],
-                  topojson: "/topojson/Entities.json",
-                  height: 200,
-                  width: 300,
-                  ocean: "transparent",
-                  zoom: false,
-                  shapeConfig: {
-                    Path: {
-                      fill: d => d.properties.ent_id === variables.id ? "#408f4e" : "#FFFFFF"
-                    }
-                  },
-                  tiles: false
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container">
-        {sections.map(topic =>
-          <Section
-            key={topic.slug}
-            router={this.props.router}
-            contents={topic}
-          />
-        )}
-      </div>
+      <CMSProfile {...this.props} />
+      <Footer />
     </div>;
   }
 }
 
 
 Profile.need = [
-  fetchData("profile", "/api/profile/?slug1=<pslug>&id1=<pid>&locale=<i18n.locale>"),
+  fetchData("profile", "/api/profile/?slug=<slug>&id=<id>&slug2=<slug2>&id2=<id2>&slug3=<slug3>&id3=<id3>&locale=<i18n.locale>"),
   fetchData("formatters", "/api/formatters")
 ];
 

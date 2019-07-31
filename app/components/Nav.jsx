@@ -14,8 +14,8 @@ class Nav extends React.Component {
   render() {
     const {className, logo, title, t} = this.props;
     const {isOpen} = this.state;
-    console.log(isOpen);
-    return <div className={`${className} nav`}>
+
+    return <div className={`${className} nav click`}>
       <NavMenu
         isOpen={isOpen}
         dialogClassName={isOpen ? "slide-enter" : "slide-exit"}
@@ -29,7 +29,7 @@ class Nav extends React.Component {
         <span className="nav-subtitle">{title}</span>
       </div>
       <div className="nav-right">
-        <Icon icon="search" />
+        <Icon icon="search" className="click" />
       </div>
     </div>;
   }

@@ -1,20 +1,41 @@
 import React, {Component} from "react";
+import {withNamespaces} from "react-i18next";
 import axios from "axios";
 
 import "./Home.css";
 import {Button, Icon, InputGroup, Popover} from "@blueprintjs/core";
 import Tile from "../components/Tile";
 import TileTitle from "../components/TileTitle";
+import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import SearchResult from "../components/SearchResult";
 
-export default class Home extends Component {
+import "../styles/SharePanel.css";
+
+class Home extends Component {
 
   state = {
-    scrolled: false,
     isOpenSearchResults: false,
     results: [],
-    resultsFilter: []
+    resultsFilter: [],
+    scrolled: false
+  };
+
+  componentDidMount = () => {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  componentWillUnmount = () => {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
+  handleScroll = () => {
+    if (window.scrollY > 5) {
+      this.setState({scrolled: true});
+    }
+    else {
+      this.setState({scrolled: false});
+    }
   };
 
   handleSearch = e => {
@@ -34,28 +55,10 @@ export default class Home extends Component {
   }
 
 
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
-    // eslint-disable-next-line no-undef
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
-  }
-
-  handleScroll = () => {
-    if (window.scrollY > 5) {
-      this.setState({scrolled: true});
-    }
-    else {
-      this.setState({scrolled: false});
-    }
-
-  };
-
-
   render() {
     const {resultsFilter, scrolled, isOpenSearchResults} = this.state;
+    const {t} = this.props;
+
     return (
       <div id="Home">
         <Nav
@@ -64,11 +67,11 @@ export default class Home extends Component {
           logo={false}
         />
         <div className="hero">
-          <div className="">
+          <div className="hero-logo">
             <img src="/icons/logo.svg" width="300px" />
           </div>
           <h2 className="tagline">
-            EXPLORA, VISUALIZA, COMPARA, Y DESCARGA DATOS MEXICANOS
+            {t("EXPLORA, VISUALIZA, COMPARA, Y DESCARGA DATOS MEXICANOS")}
           </h2>
           <div>
             <Popover
@@ -107,7 +110,7 @@ export default class Home extends Component {
             <div className="column">
               <TileTitle
                 icon="geo"
-                title="Cities & Places"
+                title={t("Cities & Places")}
               />
 
               <Tile
@@ -138,7 +141,8 @@ export default class Home extends Component {
             </div>
             <div className="column">
               <TileTitle
-                title="Coming soon..."
+                icon="industry"
+                title={t("Industries")}
               />
               <Tile />
               <Tile />
@@ -148,7 +152,8 @@ export default class Home extends Component {
             </div>
             <div className="column">
               <TileTitle
-                title="Coming soon..."
+                icon="occupations"
+                title={t("Occupations")}
               />
               <Tile />
               <Tile />
@@ -158,7 +163,7 @@ export default class Home extends Component {
             </div>
             <div className="column">
               <TileTitle
-                title="Coming soon..."
+                title={t("Products")}
               />
               <Tile />
               <Tile />
@@ -170,60 +175,11 @@ export default class Home extends Component {
         </div>
 
         {/* Footer */}
-        <footer id="Footer" className="footer">
-          <div className="container">
-            <div className="columns">
-              <div className="column">
+        <Footer />
 
-                <div className="footer-links">
-                  <div className="explore-columns">
-                    <div className="explore-column">
-                      <h4>Explore</h4>
-                      <ul>
-                        <li>Profiles</li>
-                      </ul>
-                    </div>
-                    <div className="explore-column">
-                      <h4>Sources</h4>
-                      <ul>
-                        <li>Data Sources</li>
-                        <li>API</li>
-                        <li>Classifications</li>
-                        <li>Contact us</li>
-                      </ul>
-                    </div>
-                    <div className="explore-column">
-                      <h4>About</h4>
-                      <ul>
-                        <li>Background</li>
-                        <li>In the press</li>
-                        <li>Team</li>
-                        <li>Glossary</li>
-                        <li>Terms of use</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-              <div className="column footer-contact">
-                <InputGroup
-                  leftIcon="envelope"
-                  className="footer-email"
-                  placeholder="Your email address"
-                  rightElement={<span>Sign In<Icon icon="arrow-right" /></span>}
-                />
-                <div className="sponsors">
-                  <img className="brand" src="/icons/SE.svg" alt="" />
-                  <img className="brand" src="/icons/matt-white.svg" alt="" />
-                  <img className="brand" src="/icons/datawheel-white.svg" alt="" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
       </div>
     );
   }
-
 }
+
+export default withNamespaces()(Home);
