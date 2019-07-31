@@ -32,10 +32,10 @@ function findColor(d) {
 
 const axisStyles = {
   barConfig: {
-    stroke: "#ccc"
+    stroke: "transparent"
   },
   gridConfig: {
-    stroke: "#ccc"
+    stroke: "#ffffff"
   },
   shapeConfig: {
     labelConfig: {
@@ -55,9 +55,16 @@ const axisStyles = {
   }
 };
 
+const labelPadding = 5;
+
 export default {
-  axisConfig: axisStyles,
+  xConfig: axisStyles,
+  yConfig: axisStyles,
+  backgroundConfig: {
+    fill: "#eaeaf2"
+  },
   barPadding: 0,
+
   legendConfig: {
     label: "",
     shapeConfig: {
@@ -103,7 +110,18 @@ export default {
       strokeOpacity: 0.25
     },
     Rect: {
+      labelBounds: (d, i, s) => {
+        const h = s.height;
+        const sh = Math.min(17, h * 0.5);
+        const arr = [
+          {width: s.width - labelPadding * 2, height: h - sh, x: -s.width / 2 + labelPadding, y: -h / 2 + labelPadding},
+          {width: s.width - labelPadding * 2, height: sh, x: -s.width / 2 + labelPadding, y: h / 2 - sh}
+        ];
+        return arr;
+      },
       labelConfig: {
+        // fontFamily: () => pathway,
+        fontSize: () => 13,
         fontResize: true,
         padding: 0
       }

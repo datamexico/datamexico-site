@@ -1,32 +1,3 @@
-# InfoCard
-# UI colors
-# accent colors
-# admin panel
-# any rem units will scale up with the viewport
-# base (p, li, etc.)
-# buttons
-# display (.display class)
-# fields
-# grayscale
-# handle MultiColumn section with css multicolumn
-# handle grouped SingleColumn sections with flex-basis
-# headings (h1, h2, etc.; .heading class)
-# hero AKA header AKA splash
-# label (.label class)
-# measurements
-# measurements
-# percentage bar visualization
-# profile
-# sections
-# stats
-# typography
-# visualizations
-########################################
-########################################
-########################################
-########################################
-dark: "#141b2e"
-
 accent-black: "#7F6516"
 accent-dark: "#C4960B"
 accent-light: "#FFD65B"
@@ -53,9 +24,10 @@ button-hover-color:    "var(--white)"
 button-padding:      "0.5em 1.25em"
 cms-nav-height: "3.125rem"
 container-width:      "80rem" # 1280px
-dark-1: "#8A97AE"
-dark-2: "#2A2F3B"
-dark-3: "#20242E"
+dark:     "#141b2e"
+dark-1:   "#8A97AE"
+dark-2:   "#2A2F3B"
+dark-3:   "#20242E"
 display-font-stack:    "var(--base-font-stack)"
 display-font-weight:    "600"
 display-letter-spacing:  "0.0125em" # generally, some kerning is helps legibility of all caps text only
@@ -142,6 +114,18 @@ sticky-section-height:   "var(--nav-height)"
 sticky-section-offset:   "50px" # px value required here unfortunately
 sticky-section-shadow:   "0 1px 0.375rem color(var(--black) a(0.125))"
 subnav-height:       "var(--nav-height)"
+table-cell-bg-color:        "var(--white)" # table cells
+table-cell-border-color:    "var(--light-2)"
+table-cell-text-color:      "var(--dark-3)"
+table-height:               "60vh" # height of table body
+table-hgroup-bg-color:      "var(--light-2)" # top heading in a group of nested headings
+table-hgroup-border-color:  "var(--light-3)"
+table-hgroup-text-color:    "var(--dark-3)"
+table-icon-color:           "var(--dark-2)" # dotted cell resize handle, pivot triangle
+table-nested-cell-bg-color: "var(--light-1)" # nested/pivoted cells
+table-thead-bg-color:       "var(--dark-1)" # primary table headings
+table-thead-border-color:   "color(var(--dark-2) a(0.25))"
+table-thead-text-color:     "var(--light-1)"
 toolbox-width: "22.5rem"
 type-boolean-dark: "#7F6516"
 type-boolean:   "#FFD65B"
@@ -154,3 +138,4 @@ type-string:   "#B9E28C"
 viz-aspect-ratio:     "50%" # set as padding-top on .cp-viz-container, then .cp-viz fills the height
 viz-min-height:      "40vh" # prevent visualizations from getting too squishy
 white: "#FFFFFF"
+green: "#3F908E"
