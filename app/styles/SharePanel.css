@@ -1,0 +1,67 @@
+.bp3-dialog.options-dialog {
+  border-radius: 0;
+  background-color: #F6F6F6;
+
+  & input {
+    background-color: #EAEAEA;
+    border: none;
+  }
+
+  & .bp3-table-column-headers .bp3-table-header {
+    box-shadow: none;
+    border-bottom: 1px solid #757575;
+  }
+
+  & .bp3-table-row-headers .bp3-table-header {
+    box-shadow: none;
+  }
+
+  & .bp3-table-menu {
+    box-shadow: none;
+  }
+
+  & .bp3-table-quadrant-main .bp3-table-cell-client {
+    background-color: transparent;
+  }
+
+  & .close-button {
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+    color: #757575;
+    cursor: pointer;
+    &:hover {
+      color: var(--green);
+    }
+  }
+
+  & .bp3-table-thead {
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  & .bp3-table-cell {
+    box-shadow: none;
+  }
+
+  & .cp-button {
+    background-color: var(--green);
+    border-radius: 0;
+    border: none;
+    color: var(--white);
+    font-size: 12px;
+  }
+
+  & .download {
+
+  }
+
+  & .bp3-tab {
+    color: var(--black);
+    text-transform: uppercase;
+  }
+
+  & .bp3-tab[aria-selected="true"] {
+    box-shadow: inset 0 -3px 0 var(--green) !important;
+  }
+}

@@ -1,51 +1,60 @@
 .nav {
+  color: var(--white);
+  display: flex;
+  flex-direction: row;
   height: 40px;
+  justify-content: space-between;
   left: 0;
   padding: 10px 15px;
   position: fixed;
   text-align: center;
+  text-transform: uppercase;
   top: 0;
   transform: translateX(0);
   transition: background-color .75s;
   width: 100%;
   z-index: 21;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  color: var(--white);
-  text-transform: uppercase;
+
   & div {
     flex: 1;
     display: flex;
+
     &.nav-center {
+      min-width: 300px;
       justify-content: center;
       & .nav-subtitle {
         color: #57a520;
         font-family: "Barlow Condensed", sans-serif;
-        font-size: 20px;
-        line-height: 1.35rem;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 20px;
         text-transform: none;
-        font-weight: 700;
+        vertical-align: middle;
+        white-space: nowrap;
       }
     }
+
     &.nav-right {
       justify-content: flex-end;
     }
   }
+
   & .menu {
     font-size: 12px;
     margin-left: 5px;
   }
+
   &.background {
-    background-color: rgba(20,27,46);
+    background-color: var(--dark);
   }
+
   & .profile-logo {
     margin-right: 5px;
-    width: 150px;
     & img {
-      width: 100%;
+      width: 150px;
     }
   }
+
 }
 
 .bp3-dialog-container {
@@ -69,5 +78,13 @@
   }
   &.slide-enter.slide-enter-active, &.slide-exit {
     opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .nav {
+    & .nav-subtitle {
+      display: none;
+    }
   }
 }

@@ -1,7 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Barlow|Chivo|Barlow+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Barlow:300,400,600|Chivo:300,400,600|Barlow+Condensed:300,400,600&display=swap');
 
 body {
   font-family: "Chivo", sans-serif !important;
+  font-variant-ligatures: none;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  outline: none;
+}
+
+:focus {
+  outline:none !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -46,4 +56,8 @@ h1, h2, h3, h4, h5, h6 {
 .container {
   max-width: 100%;
   padding: 30px;
+}
+
+.click {
+  cursor: pointer;
 }

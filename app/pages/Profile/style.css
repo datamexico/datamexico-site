@@ -12,7 +12,12 @@
     justify-content: center;
 
     &::before {
-      background-image: linear-gradient(rgba(20,27,46,.5),rgba(20,27,46,.3) 10%,rgba(20,27,46,.5) 50%,#141b2e);
+      background-image: linear-gradient(
+        rgba(20, 27, 46, 0.5),
+        rgba(20, 27, 46, 0.3) 10%,
+        rgba(20, 27, 46, 0.5) 50%,
+        #141b2e
+      );
       bottom: 0;
       content: "";
       left: 0;
@@ -50,7 +55,6 @@
   }
 }
 
-
 .lead {
   background-color: #141b2e;
   color: var(--white);
@@ -62,14 +66,100 @@
 }
 
 .Options {
-  & .bp3-button-group {
-    & .option {
+  & .cp-button {
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    color: var(--gray);
+    font-size: 11px;
+    &:hover {
       background-color: transparent;
-      background-image: none;
-      border: 0px solid;
-      box-shadow: none;
-      font-size: 12px;
-      text-transform: uppercase;
+      color: var(--green);
     }
+  }
+}
+
+.cp-hero {
+  background-image: url(https://www.valoraanalitik.com/wp-content/uploads/2018/11/metropolitan-cathedral-zocalo-mexico-city.jpg_610108952.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  z-index: 1;
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    background-image: linear-gradient(rgba(20,27,46,.5),rgba(20,27,46,.3) 10%,rgba(20,27,46,.5) 50%,#141b2e);
+    z-index: -1;
+  }
+
+  & .cp-hero-stat-group {
+    max-width: 700px;
+    margin: auto;
+  }
+
+  & .cp-hero-heading {
+    font-size: 60px;
+    line-height: 1.1;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-weight: 400;
+    text-shadow: 0 2px 6px #000;
+  }
+
+  & .cp-stat-label-text {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-shadow: 0 2px 6px #000;
+    text-transform: uppercase;
+  }
+
+  & .cp-stat-value-text {
+    font-size: 38px;
+    font-weight: 300;
+    text-shadow: 0 2px 12px #000;
+    color: white;
+    font-family: "Chivo", sans-serif;
+  }
+}
+
+.cp-main .cp-grouping:first-child {
+  background-color: #141b2e;
+  & h2 {
+    color: white;
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 47px;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  & p {
+    color: white;
+    -webkit-columns: 320px auto;
+    -moz-columns: 320px auto;
+    columns: 320px auto;
+    -webkit-column-gap: 20px;
+    -moz-column-gap: 20px;
+    column-gap: 20px;
+    -webkit-box-flex: 2;
+    -ms-flex: 2 1 auto;
+    flex: 2 1 auto;
+    font-family: "Chivo", sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.7;
+    margin: 3px auto 12px;
+    max-width: 1200px;
+    opacity: 0.9;
+    width: 100%;
+  }
+  & .Options {
+    display: none;
   }
 }
