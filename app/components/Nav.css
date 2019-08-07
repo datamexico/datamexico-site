@@ -1,11 +1,12 @@
 .nav {
+  align-items: center;
   color: var(--white);
   display: flex;
   flex-direction: row;
   height: 40px;
   justify-content: space-between;
   left: 0;
-  padding: 10px 15px;
+  padding: 0px 20px;
   position: fixed;
   text-align: center;
   text-transform: uppercase;
@@ -36,6 +37,43 @@
 
     &.nav-right {
       justify-content: flex-end;
+      & .search-button {
+        align-items: center;
+        height: 30px;
+        max-width: 30px;
+        width: 30px;
+        transition: all .5s ease-in-out;
+
+        &.active {
+          background-color: #484848;
+          max-width: 250px;
+          width: 250px;
+          transition: all .5s ease-in-out;
+        }
+
+        & .bp3-icon-search {
+          padding: 0px 5px 0px 10px;
+        }
+        & .bp3-input-group {
+          display: none;
+          &.active {
+            display: block;
+          }
+        }
+        & .bp3-input {
+          background-color: transparent;
+          height: inherit;
+          border-radius: 0;
+          box-shadow: none !important;
+          caret-color: var(--white);
+          color: var(--white);
+
+          &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+          }
+        }
+      }
     }
   }
 
@@ -55,6 +93,24 @@
     }
   }
 
+}
+
+.nav-search-portal {
+
+  & .nav-search-popover {
+    & .bp3-popover-content {
+      width: 250px;
+      margin: auto;
+    }
+  }
+
+  & .bp3-transition-container {
+    width: 250px;
+    z-index: 22;
+    margin-top: 10px;
+    /* margin-right: -20px; */
+    margin-left: -5px;
+  }
 }
 
 .bp3-dialog-container {

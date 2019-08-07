@@ -106,8 +106,8 @@ export default {
       strokeLinecap: "round"
     },
     Path: {
-      fillOpacity: 0.75,
-      strokeOpacity: 0.25
+      // fillOpacity: 0.75,
+      // strokeOpacity: 0.25
     },
     Rect: {
       labelBounds: (d, i, s) => {

@@ -1,4 +1,9 @@
 #Profile {
+
+  & .cp-grouping-section-heading {
+    text-transform: uppercase;
+  }
+
   & .hero {
     background-position: center;
     background-size: cover;
