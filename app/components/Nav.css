@@ -74,6 +74,54 @@
           }
         }
       }
+
+      & .results {
+        position: fixed;
+        right: 20px;
+        top: 40px;
+        margin: 0;
+        width: 250px;
+        margin-left: -40px;
+        list-style: none;
+        background-color: #484848;
+        max-height: 300px;
+        box-shadow: 0 1px 2px rgba(0,0,0,.5);
+        overflow-y: scroll;
+        display: none;
+
+
+        &.active {
+          display: flex;
+          flex-direction: column;
+        }
+
+        & .result-icon {
+          flex: 0;
+        }
+
+        & .result-text {
+          flex-direction: column;
+          color: var(--white);
+          & .title {
+            font-size: 14px;
+            line-height: 1.25;
+            margin-bottom: 2px;
+            text-transform: none;
+          }
+          & .level-title {
+            color: var(--gray);
+          }
+        }
+
+        & li {
+          margin-left: -40px;
+          text-align: left;
+          transition: background-color .25s;
+          &:hover {
+            background-color: #727682;
+          }
+        }
+      }
     }
   }
 
