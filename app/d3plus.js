@@ -126,5 +126,34 @@ export default {
         padding: 0
       }
     }
+  },
+  timelineConfig: {
+    brushing: false,
+    buttonBehavior: "buttons",
+    buttonHeight: 20,
+    buttonPadding: 5,
+    labelRotation: false,
+    padding: 0,
+    selectionConfig: {
+      "fill": "#888",
+      "fill-opacity": 0.25,
+      "transform": "translate(0, 2)"
+    },
+    shapeConfig: {
+      fill: "transparent",
+      labelConfig: {
+        fontColor(d) {
+          const n = parseInt(d.text, 10);
+          return "#888";
+        },
+        // fontFamily: () => "Source Sans Pro",
+        fontSize: () => 12,
+        fontWeight: () => 700,
+        lineHeight: () => 16,
+        padding: 0
+      },
+      stroke: "transparent",
+      strokeWidth: 0
+    }
   }
 };

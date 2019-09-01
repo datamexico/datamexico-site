@@ -25,7 +25,6 @@ module.exports = function(app) {
       query.push(`date>=${beforeYesterday}&date<=${yesterday}`);
     }
 
-    console.log(`${BASE_URL}?pageSize=5000&date>=${yesterday}&date<=${today}`);
     axios.get(`${BASE_URL}?pageSize=5000&date>=${yesterday}&date<=${today}`).then(resp => {
       const data = resp.data;
       res.json({data: data.results}).end();
