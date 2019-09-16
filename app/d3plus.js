@@ -129,7 +129,23 @@ export default {
   },
   timelineConfig: {
     brushing: false,
-    buttonBehavior: "buttons",
+    tickFormat: d => {
+      const tickString = d.toString();
+      const len = tickString.length;
+      let label = "";
+      if (len === 5) {
+        label = `${tickString.slice(0, 4)}/01`;
+      }
+      else if (len === 6) {
+        label = `${tickString.slice(0, 4)}/${tickString.slice(5, 6)}/01`;
+      }
+      else {
+        label = d;
+      }
+      console.log(label);
+      return label;
+    },
+    buttonBehavior: "ticks",
     buttonHeight: 20,
     buttonPadding: 5,
     labelRotation: false,
@@ -155,5 +171,8 @@ export default {
       stroke: "transparent",
       strokeWidth: 0
     }
+  },
+  totalConfig: {
+    fontSize: () => 14
   }
 };

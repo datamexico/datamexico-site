@@ -4,7 +4,7 @@
   color: var(--white);
   & .hero {
     position: relative;
-    background: url(/images/background.jpg);
+    background: url(/images/backgroundmx.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

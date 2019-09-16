@@ -2,9 +2,11 @@ const axios = require("axios");
 
 const loadJSON = require("../utils/loadJSON");
 const industrySimilar6Digit = loadJSON("/static/json/industry_similar_6digit.json");
+const universitySimilar = loadJSON("/static/json/university_similar.json");
 
 const datasets = {
-  "National Industry": industrySimilar6Digit
+  "National Industry": industrySimilar6Digit,
+  "Institution": universitySimilar
 };
 
 const API = "https://api.datamexico.org/tesseract/data";

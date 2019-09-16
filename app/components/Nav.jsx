@@ -43,8 +43,6 @@ class Nav extends React.Component {
     const {className, logo, title, t} = this.props;
     const {isOpen, isSearchOpen, resultsFilter} = this.state;
 
-    console.log(this.state);
-
     return <div className={`${className} nav click`}>
       <NavMenu
         isOpen={isOpen}

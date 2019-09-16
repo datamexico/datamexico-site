@@ -154,9 +154,21 @@ class Home extends Component {
               icon="occupations"
               title={t("Occupations")}
             />
-            <Tile />
-            <Tile />
-            <Tile />
+            <Tile
+              slug="occupation"
+              id="2332"
+              title="Primary School Teachers"
+            />
+            <Tile
+              slug="occupation"
+              id="2253"
+              title="Industrial Engineers"
+            />
+            <Tile
+              slug="occupation"
+              id="4211"
+              title="Sales Employees"
+            />
             <Tile />
             <Tile />
           </div>

@@ -10,6 +10,8 @@ module.exports = function(app) {
     // &date>=2018-04-19&date<=2018-04-20
     const {params, query} = req;
     const {id} = params;
+
+    const hierarchy = id * 1 <= 32 && id * 1 >= 1 ? "State" : "Municipality";
     const entId = (id - id % 1000) / 1000;
     const data = selfCity.filter(d => d.mun_id === id * 1);
 

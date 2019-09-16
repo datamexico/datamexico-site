@@ -136,7 +136,6 @@
 .cp-main .cp-grouping:first-child {
   background-color: #141b2e;
   & h2 {
-    color: white;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 47px;
     font-weight: 300;
@@ -167,4 +166,12 @@
   & .Options {
     display: none;
   }
+}
+
+.cp-section-heading {
+  color: #141b2e !important;
+}
+
+.cp-hero-heading {
+  color: var(--white) !important;
 }
