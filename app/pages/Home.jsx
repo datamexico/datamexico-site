@@ -98,7 +98,7 @@ class Home extends Component {
           </Popover>
         </div>
         <div className="sponsors">
-          <img className="brand" src="/icons/SE.svg" alt="" />
+          <img className="brand" src="/icons/SE.png" alt="" />
           <img className="brand" src="/icons/matt-white.svg" alt="" />
           <img className="brand" src="/icons/datawheel-white.svg" alt="" />
         </div>
@@ -143,11 +143,31 @@ class Home extends Component {
               icon="industry"
               title={t("Industries")}
             />
-            <Tile />
-            <Tile />
-            <Tile />
-            <Tile />
-            <Tile />
+            <Tile
+              slug="industry"
+              id="722511"
+              title="Full-Service Restaurants"
+            />
+            <Tile
+              slug="industry"
+              id="561432"
+              title="Computer Access Services"
+            />
+            <Tile
+              slug="industry"
+              id="325110"
+              title="Petrochemical Manufacturing"
+            />
+            <Tile
+              slug="industry"
+              id="515120"
+              title="Television Broadcasting"
+            />
+            <Tile
+              slug="industry"
+              id="541510"
+              title="Computer Systems Design and Related Services"
+            />
           </div>
           <div className="column">
             <TileTitle
@@ -169,18 +189,77 @@ class Home extends Component {
               id="4211"
               title="Sales Employees"
             />
-            <Tile />
-            <Tile />
+            <Tile
+              slug="occupation"
+              id="9111"
+              title="Support Workers in Agriculture"
+            />
+            <Tile
+              slug="occupation"
+              id="2412"
+              title="Specialist Doctors"
+            />
           </div>
           <div className="column">
             <TileTitle
               title={t("Products")}
             />
-            <Tile />
-            <Tile />
-            <Tile />
-            <Tile />
-            <Tile />
+            <Tile
+              slug="product"
+              id="17870323"
+              title="Cars"
+            />
+            <Tile
+              slug="product"
+              id="2080440"
+              title="Avocados"
+            />
+            <Tile
+              slug="product"
+              id="5260300"
+              title="Copper Ores and Concentrates"
+            />
+            <Tile
+              slug="product"
+              id="16850440"
+              title="Power Electronics"
+            />
+            <Tile
+              slug="product"
+              id="20940190"
+              title="Parts of Seats"
+            />
+          </div>
+          <div className="column">
+            <TileTitle
+              icon="university"
+              title={t("Universities")}
+            />
+            <Tile
+              slug="university"
+              id="1127"
+              title="Universidad Nacional Autónoma de México"
+            />
+            <Tile
+              slug="university"
+              id="2386"
+              title="Instituto Tecnológico y de Estudios Superiores de Monterrey"
+            />
+            <Tile
+              slug="university"
+              id="47"
+              title="Universidad Autónoma del Estado de Hidalgo"
+            />
+            <Tile
+              slug="university"
+              id="566"
+              title="Universidad de Guadalajara"
+            />
+            <Tile
+              slug="university"
+              id="118"
+              title="Instituto Politécnico Nacional"
+            />
           </div>
         </div>
       </div>
