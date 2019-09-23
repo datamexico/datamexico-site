@@ -37,6 +37,7 @@ const axisStyles = {
   gridConfig: {
     stroke: "#ffffff"
   },
+  locale: "es-MX",
   shapeConfig: {
     labelConfig: {
       fontColor: () => "#211f1a",
@@ -60,6 +61,7 @@ const labelPadding = 5;
 export default {
   xConfig: axisStyles,
   yConfig: axisStyles,
+  locale: "es-MX",
   backgroundConfig: {
     fill: "#eaeaf2"
   },
@@ -130,22 +132,27 @@ export default {
   timelineConfig: {
     brushing: false,
     tickFormat: d => {
-      const tickString = d.toString();
+      const latest = new Date(d);
+      const id = latest.getFullYear();
+      const tickString = id.toString();
       const len = tickString.length;
       let label = "";
+
       if (len === 5) {
-        label = `${tickString.slice(0, 4)}/01`;
+        // ${tickString.slice(0, 4)}-
+        const quarter = tickString.slice(4, 5);
+        label = quarter === "1" ? tickString.slice(0, 4) : `Q${quarter}`;
       }
       else if (len === 6) {
         label = `${tickString.slice(0, 4)}/${tickString.slice(5, 6)}/01`;
       }
       else {
-        label = d;
+        label = id;
       }
-      console.log(label);
+
       return label;
     },
-    buttonBehavior: "ticks",
+    buttonBehavior: "buttons",
     buttonHeight: 20,
     buttonPadding: 5,
     labelRotation: false,
@@ -171,6 +178,33 @@ export default {
       stroke: "transparent",
       strokeWidth: 0
     }
+  },
+  tooltipConfig: {
+    background: "#edefed",
+    border: "1px solid #787e83",
+    footerStyle: {
+      "color": "#666",
+      "fontFamily": () => "'Chivo', sans-serif",
+      "font-size": "12px",
+      "font-weight": "300",
+      "padding-top": "5px",
+      "text-align": "center"
+    },
+    padding: "10px",
+    titleStyle: {
+      "color": "#3F908E",
+      "padding": "5px 10px",
+      "fontFamily": () => "'Chivo', sans-serif",
+      "font-size": "16px",
+      "font-weight": "600",
+      "max-height": "100px",
+      "overflow": "hidden",
+      "text-overflow": "ellipsis",
+      "display": "-webkit-box",
+      "-webkit-box-orient": "vertical",
+      "-webkit-line-clamp": "3"
+    },
+    width: "200px"
   },
   totalConfig: {
     fontSize: () => 14
