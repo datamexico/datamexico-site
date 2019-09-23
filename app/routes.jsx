@@ -13,7 +13,7 @@ export default function RouteCreate() {
     <Route path="/" component={App} history={browserHistory}>
       <IndexRoute component={Home} />
       <Route path="/:lang" component={Home} />
-      <Route path="/admin" component={Builder} />
+      <Route path="/:lang/admin" component={Builder} />
       <Route path="/loading" component={Loading} />
       <Route exact path="/:lang/profile/:slug/:id" component={Profile} />
     </Route>
