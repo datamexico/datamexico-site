@@ -1,4 +1,5 @@
 import React from "react";
+import {withNamespaces} from "react-i18next";
 import {Dialog, Position, Icon} from "@blueprintjs/core";
 
 import "./NavMenu.css";
@@ -10,7 +11,7 @@ class NavMenu extends React.Component {
 
   render() {
     const {isOpen} = this.props;
-    const {dialogClassName} = this.props;
+    const {dialogClassName, t} = this.props;
 
     return <Dialog
       className={`${dialogClassName} nav-menu`}
@@ -26,13 +27,18 @@ class NavMenu extends React.Component {
         </span>
         <div>
           <ul>
-            <li>Home</li>
-            <li>Explore</li>
+            <li><a href="/">{t("Home")}</a></li>
+            <li><a href="#">{t("Explore")}</a></li>
             <ul>
-              <li>Locations</li>
-              <li>Industries</li>
+              <li><a href="/">{t("Locations")}</a></li>
+              <li><a href="/">{t("Products")}</a></li>
+              <li><a href="/">{t("Industries")}</a></li>
+              <li><a href="/">{t("Occupations")}</a></li>
+              <li><a href="/">{t("Universities")}</a></li>
             </ul>
-            <li>About</li>
+            <li><a href="#">{t("Vizbuilder")}</a></li>
+            <li><a href="#">{t("About")}</a></li>
+            <li><a href="#">{t("Data Sources")}</a></li>
           </ul>
         </div>
         <div className="nav-footer">
@@ -45,4 +51,4 @@ class NavMenu extends React.Component {
   }
 }
 
-export default NavMenu;
+export default withNamespaces()(NavMenu);

@@ -57,6 +57,10 @@ class Nav extends React.Component {
         <span className="nav-subtitle">{title}</span>
       </div>
       <div className="nav-right">
+        <ul className="langs">
+          <li><a data-refresh="true" href="/es">ES</a></li>
+          <li><a data-refresh="true" href="/en">EN</a></li>
+        </ul>
         <div className={classnames("search-button", {active: isSearchOpen})}>
           <Icon icon="search" className="click" onClick={() => this.setState({isSearchOpen: !isSearchOpen})} />
           <InputGroup

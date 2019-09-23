@@ -16,6 +16,26 @@
   width: 100%;
   z-index: 21;
 
+  & .langs {
+    list-style: none;
+    align-items: center;
+    display: flex;
+    float: left;
+    margin: 0;
+    margin-left: -40px;
+    & li {
+      margin: 0px 5px;
+      & a {
+        color: var(--white);
+        &:hover {
+          color: var(--green);
+          text-decoration: none;
+        }
+      }
+    }
+
+  }
+
   & div {
     flex: 1;
     display: flex;
