@@ -34,7 +34,7 @@ function findColor(d) {
 
 /** */
 function findIcon(d) {
-  const keys = ["Chapter", "Flow"];
+  const keys = ["Chapter", "Flow", "Continent", "Sector"];
   for (const key of keys) {
     if (`${key} ID` in d || key in d) return `/icons/visualizations/${key}/png/white/${d[`${key} ID`]}.png`;
   }
@@ -71,9 +71,10 @@ const labelPadding = 5;
 
 export default {
   aggs: {
-    "Chapter ID": mean,
-    "Flow ID": mean,
     "Category ID": mean,
+    "Chapter ID": mean,
+    // "Continent ID": mean,
+    "Flow ID": mean,
     "Sector ID": mean,
     "Sex ID": mean,
     "Year": mean
@@ -85,6 +86,7 @@ export default {
     fill: "#eaeaf2"
   },
   barPadding: 0,
+  groupPadding: 10,
 
   legendConfig: {
     label: "",
