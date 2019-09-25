@@ -145,28 +145,28 @@ class Home extends Component {
             />
             <Tile
               slug="industry"
-              id="722511"
-              title="Full-Service Restaurants"
+              id="6221"
+              title="General Hospital"
             />
             <Tile
               slug="industry"
-              id="561432"
-              title="Computer Access Services"
+              id="5611"
+              title="Business Administration Services"
             />
             <Tile
               slug="industry"
-              id="325110"
-              title="Petrochemical Manufacturing"
+              id="6111"
+              title="Elementary and Secondary Schools"
             />
             <Tile
               slug="industry"
-              id="515120"
-              title="Television Broadcasting"
+              id="2122"
+              title="Metal Ore Mining"
             />
             <Tile
               slug="industry"
-              id="541510"
-              title="Computer Systems Design and Related Services"
+              id="8111"
+              title="Automotive Repair and Maintenance"
             />
           </div>
           <div className="column">
