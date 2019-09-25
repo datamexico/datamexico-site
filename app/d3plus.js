@@ -1,3 +1,5 @@
+import {mean} from "d3-array";
+import {formatAbbreviate} from "d3plus-format";
 import colors from "../static/data/colors.json";
 
 const bad = "#cf5555";
@@ -22,12 +24,21 @@ function findColor(d) {
   }
   if (detectedColors.length !== 1) {
     for (const key in colors) {
-      if (`${key} ID` in d) {
+      if (`${key} ID` in d || key in d) {
         return colors[key][d[`${key} ID`]] || colors[key][d[key]] || colors.colorGrey;
       }
     }
   }
   return Object.keys(d).some(v => badMeasures.includes(v)) ? bad : good;
+}
+
+/** */
+function findIcon(d) {
+  const keys = ["Chapter", "Flow"];
+  for (const key of keys) {
+    if (`${key} ID` in d || key in d) return `/icons/visualizations/${key}/png/white/${d[`${key} ID`]}.png`;
+  }
+  return undefined;
 }
 
 const axisStyles = {
@@ -59,6 +70,14 @@ const axisStyles = {
 const labelPadding = 5;
 
 export default {
+  aggs: {
+    "Chapter ID": mean,
+    "Flow ID": mean,
+    "Category ID": mean,
+    "Sector ID": mean,
+    "Sex ID": mean,
+    "Year": mean
+  },
   xConfig: axisStyles,
   yConfig: axisStyles,
   locale: "es-MX",
@@ -70,12 +89,43 @@ export default {
   legendConfig: {
     label: "",
     shapeConfig: {
+      fill: d => findColor(d),
+      backgroundImage: d => findIcon(d),
       height: () => 20,
       width: () => 20
     }
   },
 
   colorScaleConfig: {
+    axisConfig: {
+      labelOffset: true,
+      labelRotation: false,
+      locale: "es-MX",
+      shapeConfig: {
+        labelConfig: {
+          fontColor: () => "#211f1a",
+          fontSize: () => 12,
+          fontWeight: () => 400
+        }
+      },
+      titleConfig: {
+        fontColor: () => "#211f1a",
+        fontSize: () => 12,
+        fontWeight: () => 400
+      },
+      tickFormat: d => formatAbbreviate(d)
+    },
+    color: ["#A7D079", "#82B769", "#609E59", "#49854F", "#3A6B49"],
+    legendConfig: {
+      shapeConfig: {
+        labelConfig: {
+          fontSize: () => 12
+        },
+        height: () => 15,
+        stroke: "transparent",
+        width: () => 15
+      }
+    },
     scale: "jenks"
   },
   ocean: "transparent",
@@ -132,10 +182,12 @@ export default {
   timelineConfig: {
     brushing: false,
     tickFormat: d => {
+      d = d.toString().includes("Q") ? d.toString().replace("Q", "0") : d;
       const latest = new Date(d);
       const id = latest.getFullYear();
       const tickString = id.toString();
       const len = tickString.length;
+
       let label = "";
 
       if (len === 5) {
@@ -144,12 +196,11 @@ export default {
         label = quarter === "1" ? tickString.slice(0, 4) : `Q${quarter}`;
       }
       else if (len === 6) {
-        label = `${tickString.slice(0, 4)}/${tickString.slice(5, 6)}/01`;
+        label = `${tickString.slice(0, 4)}/${tickString.slice(4, 6)}/01`;
       }
       else {
-        label = id;
+        label = latest;
       }
-
       return label;
     },
     buttonBehavior: "buttons",

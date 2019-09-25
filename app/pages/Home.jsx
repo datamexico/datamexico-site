@@ -98,9 +98,9 @@ class Home extends Component {
           </Popover>
         </div>
         <div className="sponsors">
-          <img className="brand" src="/icons/SE.png" alt="" />
-          <img className="brand" src="/icons/matt-white.svg" alt="" />
-          <img className="brand" src="/icons/datawheel-white.svg" alt="" />
+          <img className="brand se-logo" src="/icons/SE.png" alt="" />
+          <img className="brand matt-logo" src="/icons/matt-white.svg" alt="" />
+          <img className="brand datawheel-logo" src="/icons/datawheel-white.svg" alt="" />
         </div>
       </div>
 
