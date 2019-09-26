@@ -1,10 +1,42 @@
+########################################
+# instructions
+########################################
+
+# When styling a canon profile, the first thing you should do is heavily customize these variables.
+# Each of the following variables is used throughout both the admin panel and generated profile css.
+# If you replace the default grayscale colors, you should try and use similar shades.
+
+# It is recommended that you also use these variables in your css files. i.e., `color: var(--accent);`
+# They can also be imported and used by react components: `import styles from style.yml`, then `<span style={{color: styles["alert-dark"]}} />`
+# And of course, you can add as many new variables here as you like, and use them in the same way.
+
+# The pigments plugin is highly recommended for visualizing hex values as colors in your text editor:
+# Atom:   https://atom.io/packages/pigments
+# VSCode: https://marketplace.visualstudio.com/items?itemName=jaspernorth.vscode-pigments
+
+# GOTCHAS:
+# 1. When aliasing variables in this file (i.e., `section-text-color: "var(--dark-2)"`), these variables will be replaced in css files, but NOT in js files.
+# 2. Currently, after making changes to this file, you will need to clear the cache `rm -rf node_modules/.cache` and then rerun the build. There's an issue for this.
+# 3. Make sure there are no more than 1 empty line at the end of the file, or style.yml will not be recognized and your build will fail. ¯\_(ツ)_/¯
+
+# Finally, if you encounter any bugs, are confused by anything, or wish things were better/different, let @perpetualgrimace know!
+
+
+########################################
+# shared vars (admin panel & profile)
+########################################
+
+# accent colors
 accent-black: "#7F6516"
 accent-dark: "#C4960B"
 accent-light: "#FFD65B"
 accent:    "#FFCD33"
+
+# UI colors
 alert-dark:  "#75224D"
 alert-light: "#DB64A6"
 alert:    "#992C64"
+
 base-font-stack:      "'Lato', 'Trebuchet MS', sans-serif" # Remember to import custom fonts & only the necessary weights via Helmet.js
 base-font-weight:     "400"
 base-letter-spacing:    "0"
@@ -65,6 +97,7 @@ hero-bg-color:       "var(--dark-3)"
 hero-container-width:   "var(--container-width)"
 hero-heading-color:    "var(--white)"
 hero-heading-size:     "var(--font-xxl)"
+hero-img-overlay-opacity: "0.6"
 hero-paragraph-size:    "var(--font-xs)"
 hero-stat-column-count:  "4"
 hero-stat-column-width:  "10rem"
@@ -90,10 +123,15 @@ multicolumn-column-count: "3"
 multicolumn-column-gap:  "var(--gutter-xl)"
 multicolumn-column-width: "20rem"
 nav-height:        "50px"
+
+# percentage bar visualization
 percentage-bar-bg-color:  "var(--light-2)"
 percentage-bar-color:   "var(--accent-dark)"
 percentage-bar-height:   "var(--gutter-xs)"
 percentage-bar-radius:   "0.5em"
+percentage-bar-stroke-color: "var(--light-1)"
+percentage-bar-stroke-width: "2px"
+
 section-bg-even:      "var(--light-1)"
 section-bg-odd:      "var(--white)"
 section-heading-color:   "var(--dark-3)"
