@@ -98,7 +98,7 @@ def main():
     ).reset_index().set_index("{} ID".format(dd1)).dropna(axis=1, how="all").fillna(0)
     df = df.astype(float)
 
-    iterations = params["iterations"] if "iterations" in params else 20
+    iterations = int(params["iterations"]) if "iterations" in params else 20
     eci, pci = complexity(rca(df), iterations)
 
     results = pd.DataFrame(eci).rename(columns={0: "{} ECI".format(measure)}).reset_index()
