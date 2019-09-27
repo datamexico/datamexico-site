@@ -23,3 +23,6 @@ dockerfiles/nginx/conf.d/default.conf
 
 # pm2 ecosystem config
 *.config.js
+
+# img bucket access
+datamexico-gcp-bucket-token.json
