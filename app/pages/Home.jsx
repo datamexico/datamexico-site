@@ -62,8 +62,10 @@ class Home extends Component {
     return <div id="Home">
       <Nav
         className={scrolled ? "background" : ""}
-        title={""}
         logo={false}
+        routeParams={this.props.router.params}
+        routePath={"/:lang"}
+        title={""}
       />
       <div className="hero">
         <div className="hero-logo">

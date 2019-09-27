@@ -10,6 +10,14 @@ import "./Nav.css";
 import SearchResult from "./SearchResult";
 
 
+const pathParser = (params, path) => {
+  Object.entries(params).forEach(d => {
+    path = path.replace(d[0], d[1]);
+  });
+  return path;
+};
+
+
 class Nav extends React.Component {
   state = {
     isOpen: false,
@@ -40,8 +48,16 @@ class Nav extends React.Component {
   }
 
   render() {
-    const {className, logo, title, t} = this.props;
+    const {className, logo, routePath, routeParams, title, t} = this.props;
     const {isOpen, isSearchOpen, resultsFilter} = this.state;
+
+    const params = Object.entries(routeParams).reduce((obj, d) => {
+      const key = `:${d[0]}`;
+      const value = d[1];
+      obj[key] = value;
+      return obj;
+    }, {});
+
 
     return <div className={`${className} nav click`}>
       <NavMenu
@@ -58,8 +74,8 @@ class Nav extends React.Component {
       </div>
       <div className="nav-right">
         <ul className="langs">
-          <li><a data-refresh="true" href="/es">ES</a></li>
-          <li><a data-refresh="true" href="/en">EN</a></li>
+          <li><a data-refresh="true" href={pathParser({...params, ":lang": "es"}, routePath)}>ES</a></li>
+          <li><a data-refresh="true" href={pathParser({...params, ":lang": "en"}, routePath)}>EN</a></li>
         </ul>
         <div className={classnames("search-button", {active: isSearchOpen})}>
           <Icon icon="search" className="click" onClick={() => this.setState({isSearchOpen: !isSearchOpen})} />

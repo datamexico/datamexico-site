@@ -60,12 +60,15 @@ class Profile extends React.Component {
 
   render() {
     const {profile, t} = this.props;
-    const {subtitle, sections, variables} = profile;
+
+    const {variables} = profile;
     const {scrolled} = this.state;
     return <div id="Profile" onScroll={this.handleScroll}>
       <Nav
         className={scrolled ? "background" : ""}
         title={scrolled ? variables.name : ""}
+        routePath={this.props.route.path}
+        routeParams={this.props.router.params}
       />
       <CMSProfile {...this.props} />
       <Footer />
