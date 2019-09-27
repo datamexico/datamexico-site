@@ -86,6 +86,9 @@
   background-position: center;
   position: relative;
   z-index: 1;
+  & .cp-hero-inner {
+    z-index: 12;
+  }
   &::before {
     position: absolute;
     top: 0;
@@ -93,8 +96,8 @@
     bottom: 0;
     left: 0;
     content: "";
-    background-image: linear-gradient(rgba(20,27,46,.5),rgba(20,27,46,.3) 10%,rgba(20,27,46,.5) 50%,#141b2e);
-    z-index: -1;
+    background-image: linear-gradient(rgba(20,27,46,.3),rgba(20,27,46,.1) 10%,rgba(20,27,46,.2) 50%,#141b2e);
+    z-index: 11;
   }
 
   & .cp-hero-stat-group {
@@ -171,11 +174,15 @@
   & .cp-section-heading {
     color: #141b2e !important;
     font-family: "Barlow Condensed", sans-serif;
-    font-size: 30px;
+    font-size: 36px;
     font-weight: 400;
     letter-spacing: 0.02em;
     line-height: 1.1;
     margin-bottom: 10px;
+    text-transform: uppercase;
+    &#about {
+      color: var(--white) !important;
+    }
   }
 
   & .cp-stat-group > .cp-stat {
