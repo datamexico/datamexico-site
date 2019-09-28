@@ -11,7 +11,12 @@ body {
 }
 
 :focus {
-  outline:none !important;
+  outline: none !important;
+}
+
+.cp ::selection {
+  color: #000000;
+  background-color: #4caf50c7;
 }
 
 h1, h2, h3, h4, h5, h6 {

@@ -1,0 +1,60 @@
+.cp-hero {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    background-image: linear-gradient(
+      rgba(20, 27, 46, 0.3),
+      rgba(20, 27, 46, 0.1) 10%,
+      rgba(20, 27, 46, 0.2) 50%,
+      var(--dark)
+    );
+    z-index: 11;
+  }
+
+  & .cp-hero-heading {
+    color: var(--white) !important;
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 5px;
+    margin-left: 0px;
+    padding-left: 0px;
+    text-shadow: 0 2px 6px var(--dark);
+    text-transform: uppercase;
+  }
+
+  & .cp-hero-inner {
+    z-index: 12;
+  }
+
+  & .cp-stat-label-text {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-shadow: 0 2px 6px #000;
+    text-transform: uppercase;
+  }
+
+  & .cp-hero-stat-group {
+    margin: auto;
+    max-width: 700px;
+  }
+
+  & .cp-stat-value-text {
+    font-size: 38px;
+    font-weight: 300;
+    text-shadow: 0 2px 12px #000;
+    color: white;
+    font-family: "Chivo", sans-serif;
+  }
+}

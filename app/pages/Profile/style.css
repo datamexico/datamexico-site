@@ -1,59 +1,4 @@
-#Profile {
-  & .hero {
-    background-position: center;
-    background-size: cover;
-    height: 100vh;
-    padding: 30px 50px;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    &::before {
-      background-image: linear-gradient(
-        rgba(20, 27, 46, 0.5),
-        rgba(20, 27, 46, 0.3) 10%,
-        rgba(20, 27, 46, 0.5) 50%,
-        #141b2e
-      );
-      bottom: 0;
-      content: "";
-      left: 0;
-      position: absolute;
-      right: 0;
-      top: 0;
-      z-index: -1;
-    }
-
-    & .profile-title {
-      color: var(--white);
-      text-align: center;
-      text-transform: uppercase;
-      text-shadow: 0 2px 6px #000;
-      font-size: 48px;
-    }
-
-    & .stats {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 600px;
-      justify-content: center;
-      margin: 50px 0px;
-    }
-
-    & .section-icons {
-      display: flex;
-    }
-  }
-}
-
-.topic {
-  & .topic-content:first-child {
-    max-width: 250px;
-  }
-}
+@import url(frags/hero.css);
 
 .lead {
   background-color: #141b2e;
@@ -79,57 +24,6 @@
   }
 }
 
-.cp-hero {
-  background-image: url(https://www.valoraanalitik.com/wp-content/uploads/2018/11/metropolitan-cathedral-zocalo-mexico-city.jpg_610108952.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  position: relative;
-  z-index: 1;
-  & .cp-hero-inner {
-    z-index: 12;
-  }
-  &::before {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    content: "";
-    background-image: linear-gradient(rgba(20,27,46,.3),rgba(20,27,46,.1) 10%,rgba(20,27,46,.2) 50%,#141b2e);
-    z-index: 11;
-  }
-
-  & .cp-hero-stat-group {
-    max-width: 700px;
-    margin: auto;
-  }
-
-  & .cp-hero-heading {
-    font-size: 60px;
-    line-height: 1.1;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-    font-weight: 400;
-    text-shadow: 0 2px 6px #000;
-  }
-
-  & .cp-stat-label-text {
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1.5;
-    text-shadow: 0 2px 6px #000;
-    text-transform: uppercase;
-  }
-
-  & .cp-stat-value-text {
-    font-size: 38px;
-    font-weight: 300;
-    text-shadow: 0 2px 12px #000;
-    color: white;
-    font-family: "Chivo", sans-serif;
-  }
-}
 
 .cp-main {
   & .cp-grouping-section {
@@ -210,12 +104,6 @@
   }
 }
 
-
-
-.cp-hero-heading {
-  color: var(--white) !important;
-}
-
 .Options {
   & .cp-button {
     background: transparent;
@@ -224,10 +112,6 @@
 
 .d3plus-tooltip {
   padding: 0px !important;
-
-
-
-
 
   & td {
     text-align: right;
@@ -240,4 +124,10 @@
       text-transform: uppercase;
     }
   }
+}
+
+.cp-section-paragraph {
+  font-weight: 400;
+  line-height: 1.7;
+  font-size: 16px;
 }
