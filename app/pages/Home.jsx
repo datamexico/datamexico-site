@@ -72,8 +72,9 @@ class Home extends Component {
           <img src="/icons/logo.svg" width="300px" />
         </div>
         <h2 className="tagline">
-          {t("EXPLORA, VISUALIZA, COMPARA, Y DESCARGA DATOS MEXICANOS")}
+          {t("EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA")}
         </h2>
+
         <div>
           <Popover
             className="search-popover"

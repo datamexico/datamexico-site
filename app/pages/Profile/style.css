@@ -131,3 +131,7 @@
   line-height: 1.7;
   font-size: 16px;
 }
+
+.cp-section-inner {
+  min-height: 500px;
+}

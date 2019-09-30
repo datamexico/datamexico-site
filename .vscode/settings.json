@@ -4,5 +4,6 @@
   "eslint.autoFixOnSave": true,
   "editor.trimAutoWhitespace": true,
   "files.trimTrailingWhitespace": true,
-  "files.insertFinalNewline": true
+  "files.insertFinalNewline": true,
+  "python.pythonPath": "venv/bin/python3.7"
 }

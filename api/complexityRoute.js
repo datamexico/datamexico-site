@@ -5,7 +5,10 @@ module.exports = function(app) {
 
   app.get("/api/eci", (req, res) => {
     const pyFilePath = path.join(__dirname, "..", "calc/rcas.py");
-    const py = spawn("python3", ["-W", "ignore", pyFilePath, JSON.stringify(req.query)]);
+    const py = spawn(
+      "python3",
+      ["-W", "ignore", pyFilePath, JSON.stringify(req.query), "https://api.oec.world/tesseract/data"]
+    );
     let respString = "";
 
     // build response string based on results of python script

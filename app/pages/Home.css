@@ -48,7 +48,8 @@
   & .home-input {
     border-radius: 0px;
     height: 45px;
-    width: 500px;
+    max-width: 650px;
+    min-width: 600px;
     box-shadow: 0 0 12px rgba(0,0,0,.5);
 
     & .bp3-icon-search {
@@ -57,24 +58,28 @@
     }
 
     & .bp3-input {
-      padding-right: 65px;
+      font-size: 18px;
+      font-weight: 400;
       height: 100%;
       border-radius: 0px;
       box-shadow: none;
       box-shadow: 0 0 12px rgba(0,0,0,.5);
     }
+
+    & .home-search {
+      background: var(--green);
+      color: var(--white);
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      margin: 0;
+      height: 45px;
+      font-size: 18px;
+      padding: 5px 20px;
+    }
   }
 
-  & .home-search {
-    background: var(--green);
-    color: var(--white);
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
-    margin: 0;
-    height: 45px;
-    padding: 5px 10px;
-  }
+
 
   & .tiles {
     & .column {
