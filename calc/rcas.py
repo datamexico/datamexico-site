@@ -4,60 +4,7 @@ import json
 import pandas as pd
 import requests
 
-def complexity(rcas, iterations=20, drop=True):
-
-    rcas = rcas.copy()
-    rcas[rcas >= 1] = 1
-    rcas[rcas < 1] = 0
-
-    rcas_clone = rcas.copy()
-
-    # drop columns / rows only if completely nan
-    rcas_clone = rcas_clone.dropna(how="all")
-    rcas_clone = rcas_clone.dropna(how="all", axis=1)
-
-    if rcas_clone.shape != rcas.shape:
-        print("[Warning] RCAs contain columns or rows that are entirely comprised of NaN values.")
-    if drop:
-        rcas = rcas_clone
-
-    kp = rcas.sum(axis=0)
-    kc = rcas.sum(axis=1)
-    kp0 = kp.copy()
-    kc0 = kc.copy()
-
-    for i in range(1, iterations):
-        kc_temp = kc.copy()
-        kp_temp = kp.copy()
-        kp = rcas.T.dot(kc_temp) / kp0
-        if i < (iterations - 1):
-            kc = rcas.dot(kp_temp) / kc0
-
-    geo_complexity = (kc - kc.mean()) / kc.std()
-    prod_complexity = (kp - kp.mean()) / kp.std()
-
-    return geo_complexity, prod_complexity
-
-def rca(tbl):
-
-    # fill missing values with zeros
-    tbl = tbl.fillna(0)
-
-    col_sums = tbl.sum(axis=1)
-    col_sums = col_sums.values.reshape((len(col_sums), 1))
-
-    rca_numerator = np.divide(tbl, col_sums)
-    row_sums = tbl.sum(axis=0)
-
-    total_sum = tbl.sum().sum()
-    rca_denominator = row_sums / total_sum
-    rcas = rca_numerator / rca_denominator
-
-    rcas[rcas >= 1] = 1
-    rcas[rcas < 1] = 0
-
-    return rcas
-
+from complexity.complexity import complexity
 
 def main():
     params = json.loads(sys.argv[1])
@@ -101,7 +48,7 @@ def main():
     df = df.astype(float)
 
     iterations = int(params["iterations"]) if "iterations" in params else 20
-    eci, pci = complexity(rca(df), iterations)
+    eci, pci = complexity(df, iterations)
 
     results = pd.DataFrame(eci).rename(columns={0: "{} ECI".format(measure)}).reset_index()
     results = df_labels.merge(results, on=dd1_id)
