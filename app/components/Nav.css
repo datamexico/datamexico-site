@@ -3,7 +3,7 @@
   color: var(--white);
   display: flex;
   flex-direction: row;
-  height: 40px;
+  height: var(--nav-height);
   justify-content: space-between;
   left: 0;
   padding: 0px 20px;
@@ -17,12 +17,12 @@
   z-index: 21;
 
   & .langs {
-    list-style: none;
     align-items: center;
     display: flex;
     float: left;
-    margin: 0;
+    list-style: none;
     margin-left: -40px;
+    margin: 0;
     & li {
       margin: 0px 5px;
       & a {
@@ -49,6 +49,9 @@
         font-size: 22px;
         font-weight: 600;
         line-height: 20px;
+        max-width: 500px;
+        overflow: hidden;
+        text-overflow: ellipsis;
         text-transform: none;
         vertical-align: middle;
         white-space: nowrap;
@@ -61,14 +64,14 @@
         align-items: center;
         height: 30px;
         max-width: 30px;
-        width: 30px;
         transition: all .5s ease-in-out;
+        width: 30px;
 
         &.active {
           background-color: #484848;
           max-width: 250px;
-          width: 250px;
           transition: all .5s ease-in-out;
+          width: 250px;
         }
 
         & .bp3-icon-search {
@@ -98,7 +101,7 @@
       & .results {
         position: fixed;
         right: 20px;
-        top: 40px;
+        top: var(--nav-height);
         margin: 0;
         width: 250px;
         margin-left: -40px;

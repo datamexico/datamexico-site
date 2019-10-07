@@ -9,6 +9,8 @@ import axios from "axios";
 import "./Nav.css";
 import SearchResult from "./SearchResult";
 
+const CancelToken = axios.CancelToken;
+let cancel;
 
 const pathParser = (params, path) => {
   Object.entries(params).forEach(d => {
@@ -34,12 +36,30 @@ class Nav extends React.Component {
     const {results} = this.state;
     const query = e.target.value;
 
-    if (query.length > 0) {
-      axios.get(`/api/search?q=${query}`).then(resp => {
-        const data = resp.data.results;
-        const results = data.map(d => ({id: d.id, name: d.name, slug: d.profile, level: d.hierarchy}));
-        this.setState({results, resultsFilter: results});
-      });
+    if (cancel !== undefined) {
+      cancel();
+    }
+
+    if (query.length > 1) {
+      return axios.get("/api/search", {
+        cancelToken: new CancelToken(c => {
+          // An executor function receives a cancel function as a parameter
+          cancel = c;
+        }),
+        params: {
+          q: query,
+          locale: this.props.lng
+        }
+      })
+        .then(resp => {
+          const data = resp.data.results;
+          const results = data.map(d => ({id: d.id, name: d.name, slug: d.profile, level: d.hierarchy}));
+          this.setState({results, resultsFilter: results});
+        })
+        .catch(error => {
+          const result = error.response;
+          return Promise.reject(result);
+        });
     }
 
     const resultsFilter = query.length > 0
@@ -48,6 +68,8 @@ class Nav extends React.Component {
 
     const isOpen = query.length > 2;
     this.setState({resultsFilter, isOpenSearchResults: isOpen});
+
+    return true;
   }
 
   render() {

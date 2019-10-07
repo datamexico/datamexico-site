@@ -1,0 +1,39 @@
+.ep-profile {
+  min-width: 200px;
+  flex: 1;
+  min-height: calc(100vh - var(--nav-height) - 60px);
+  border-right: 1px solid #eaeaea;
+  & .ep-profile-title {
+    background: var(--green);
+    text-align: left;
+    padding: 1.1rem;
+    text-transform: uppercase;
+    font-family: "Chivo", sans-serif;
+  }
+
+  & .ep-profile-result {
+    color: #000000;
+    display: flex;
+    padding: 15px 10px;
+    flex-direction: column;
+    &:hover {
+      background-color: #c0efe0;
+      text-decoration: none;
+    }
+
+    & .ep-profile-result-title {
+      width: 100%;
+      font-size: 16px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
+    & .ep-profile-result-level {
+      width: 100%;
+      font-size: 14px;
+    }
+  }
+
+}

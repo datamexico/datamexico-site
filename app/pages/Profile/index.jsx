@@ -1,4 +1,5 @@
 import React from "react";
+import {Helmet} from "react-helmet";
 import PropTypes from "prop-types";
 import {withNamespaces} from "react-i18next";
 import {fetchData} from "@datawheel/canon-core";
@@ -64,6 +65,10 @@ class Profile extends React.Component {
     const {variables} = profile;
     const {scrolled} = this.state;
     return <div id="Profile" onScroll={this.handleScroll}>
+      <Helmet title={variables.name}>
+        <meta property="og:title" content={variables.name} />
+      </Helmet>
+
       <Nav
         className={scrolled ? "background" : ""}
         title={scrolled ? variables.name : ""}

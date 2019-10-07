@@ -20,10 +20,13 @@
     width: 26px;
   }
   & .result-text {
+    flex: 1;
+    text-align: left;
     & .title {
       font-size: 16px;
       line-height: 20px;
       margin-bottom: 2px;
+
     }
     & .level-title {
       color: var(--dark-2);

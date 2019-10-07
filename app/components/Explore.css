@@ -1,0 +1,29 @@
+.ep-container {
+  margin-top: var(--nav-height);
+
+  & .bp3-input {
+    border-radius: 0px;
+    border: none;
+    background-color: #eaeaea;
+    box-shadow: none;
+    height: 60px;
+    font-size: 1.6rem;
+  }
+
+  & .bp3-icon-search {
+    & svg {
+      height: 45px;
+      width: 40px;
+      padding-left: 10px;
+    }
+  }
+
+  & .bp3-input-group .bp3-input:not(:first-child) {
+    padding-left: 60px;
+  }
+
+  & .ep-profiles {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {withNamespaces} from "react-i18next";
 import axios from "axios";
+import {Helmet} from "react-helmet";
 
 import "./Home.css";
 import {Button, Icon, InputGroup, Popover} from "@blueprintjs/core";
@@ -11,6 +12,9 @@ import Nav from "../components/Nav";
 import SearchResult from "../components/SearchResult";
 
 import "../styles/SharePanel.css";
+
+const CancelToken = axios.CancelToken;
+let cancel;
 
 class Home extends Component {
 
@@ -42,16 +46,33 @@ class Home extends Component {
     const {results} = this.state;
     const query = e.target.value;
 
-    axios.get(`/api/search?q=${query}`).then(resp => {
-      const data = resp.data.results;
-      const results = data.map(d => ({id: d.id, name: d.name, slug: d.profile, level: d.hierarchy}));
-      this.setState({results, resultsFilter: results});
-    });
+    if (cancel !== undefined) {
+      cancel();
+    }
 
-    const resultsFilter = results.filter(d => d.name.toLowerCase().indexOf(query.toLowerCase()) >= 0);
+    if (query.length > 1) {
+      return axios.get("/api/search", {
+        cancelToken: new CancelToken(c => {
+          // An executor function receives a cancel function as a parameter
+          cancel = c;
+        }),
+        params: {
+          q: query,
+          locale: this.props.lng
+        }
+      })
+        .then(resp => {
+          const data = resp.data.results;
+          const results = data.map(d => ({id: d.id, name: d.name, slug: d.profile, level: d.hierarchy}));
+          this.setState({results, resultsFilter: results, isOpenSearchResults: true});
+        })
+        .catch(error => {
+          const result = error.response;
+          return Promise.reject(result);
+        });
+    }
 
-    const isOpen = query.length > 2;
-    this.setState({resultsFilter, isOpenSearchResults: isOpen});
+    return true;
   }
 
 
@@ -60,6 +81,9 @@ class Home extends Component {
     const {t} = this.props;
 
     return <div id="Home">
+      <Helmet title="">
+        <meta property="og:title" content={""} />
+      </Helmet>
       <Nav
         className={scrolled ? "background" : ""}
         logo={false}
@@ -76,29 +100,22 @@ class Home extends Component {
         </h2>
 
         <div>
-          <Popover
-            className="search-popover"
-            content={<ul className="search-results">
-              {resultsFilter.map((d, i) => <SearchResult
-                key={`search_result_${d.id}_${i}`}
-                id={d.id}
-                slug={d.slug}
-                title={d.name}
-                level={d.level}
-              />)}
-            </ul>}
-            position="bottom"
-            minimal={true}
-            isOpen={isOpenSearchResults}
-          >
-            <InputGroup
-              leftIcon="search"
-              className="home-input"
-              placeholder={"Ej. Ciudad de México, Monterrey"}
-              onChange={this.handleSearch}
-              rightElement={<Button className="home-search">Search</Button>}
-            />
-          </Popover>
+          <InputGroup
+            leftIcon="search"
+            className="home-input"
+            placeholder={"Ej. Ciudad de México, Monterrey"}
+            onChange={this.handleSearch}
+            rightElement={<Button className="home-search">Search</Button>}
+          />
+          {isOpenSearchResults && <ul className="search-results">
+            {resultsFilter.map((d, i) => <SearchResult
+              key={`search_result_${d.id}_${i}`}
+              id={d.id}
+              slug={d.slug}
+              title={d.name}
+              level={d.level}
+            />)}
+          </ul>}
         </div>
         <div className="sponsors">
           <img className="brand se-logo" src="/icons/SE.png" alt="" />

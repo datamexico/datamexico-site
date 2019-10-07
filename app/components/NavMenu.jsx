@@ -1,6 +1,7 @@
 import React from "react";
+import {Link} from "react-router";
 import {withNamespaces} from "react-i18next";
-import {Dialog, Position, Icon} from "@blueprintjs/core";
+import {Dialog, Icon} from "@blueprintjs/core";
 
 import "./NavMenu.css";
 
@@ -10,7 +11,7 @@ class NavMenu extends React.Component {
   }
 
   render() {
-    const {isOpen} = this.props;
+    const {lng, isOpen} = this.props;
     const {dialogClassName, t} = this.props;
 
     return <Dialog
@@ -28,13 +29,13 @@ class NavMenu extends React.Component {
         <div>
           <ul>
             <li><a href="/">{t("Home")}</a></li>
-            <li><a href="#">{t("Explore")}</a></li>
+            <li><Link to={`${lng}/explore`}>{t("Explore")}</Link></li>
             <ul>
-              <li><a href="/">{t("Locations")}</a></li>
-              <li><a href="/">{t("Products")}</a></li>
-              <li><a href="/">{t("Industries")}</a></li>
-              <li><a href="/">{t("Occupations")}</a></li>
-              <li><a href="/">{t("Universities")}</a></li>
+              <li><Link to={`${lng}/explore`}>{t("Locations")}</Link></li>
+              <li><Link to={`${lng}/explore`}>{t("Products")}</Link></li>
+              <li><Link to={`${lng}/explore`}>{t("Industries")}</Link></li>
+              <li><Link to={`${lng}/explore`}>{t("Occupations")}</Link></li>
+              <li><Link to={`${lng}/explore`}>{t("Universities")}</Link></li>
             </ul>
             <li><a href="#">{t("Vizbuilder")}</a></li>
             <li><a href="#">{t("About")}</a></li>

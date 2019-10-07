@@ -21,6 +21,14 @@
     z-index: 11;
   }
 
+  & .cp-section-inner {
+
+  }
+
+  & .cp-hero-caption {
+    text-align: center;
+  }
+
   & .cp-hero-heading {
     color: var(--white) !important;
     font-size: 60px;
@@ -57,4 +65,14 @@
     color: white;
     font-family: "Chivo", sans-serif;
   }
+}
+
+.cp-viz-container > .cp-viz-figure {
+  max-height: 30vh !important;
+}
+
+
+.cp-viz-container > .cp-viz-header + .cp-viz-figure {
+  height: 300px !important;
+  /* height: calc(100% - 30rem);*/
 }

@@ -92,20 +92,29 @@
 
 .search-results {
   list-style: none;
-  margin-left: -40px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 498px;
+  background-color: #eaeaea;
   margin-top: 0px;
+  z-index: 22;
+  max-height: 30vh;
+  overflow-y: scroll;
+
+  & .search-result {
+    margin-left: -40px;
+  }
 }
 
 .bp3-transition-container {
-  margin-left: -32px;
+
 }
 
 .bp3-popover {
-  transform-origin: left top !important;
   width: 404px;
   & .bp3-popover-content {
     border-radius: 0px !important;
-    margin-left: -32px;
   }
 }
 

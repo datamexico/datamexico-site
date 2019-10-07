@@ -46,7 +46,7 @@ const axisStyles = {
     stroke: "transparent"
   },
   gridConfig: {
-    stroke: "#ffffff"
+    stroke: "#ccc"
   },
   locale: "es-MX",
   shapeConfig: {
@@ -82,9 +82,9 @@ export default {
   xConfig: axisStyles,
   yConfig: axisStyles,
   locale: "es-MX",
-  backgroundConfig: {
-    fill: "#eaeaf2"
-  },
+  // backgroundConfig: {
+  //   fill: "#eaeaf2"
+  // },
   barPadding: 0,
   groupPadding: 10,
 
@@ -144,6 +144,8 @@ export default {
       labelConfig: {
         fontSize: () => 13
       },
+      textAlign: "left",
+      stroke: "transparent",
       strokeWidth: d => {
         const c = findColor(d);
         return [good, bad].includes(c) ? 1 : 0;
@@ -205,7 +207,7 @@ export default {
       }
       return label;
     },
-    buttonBehavior: "buttons",
+    buttonBehavior: "ticks",
     buttonHeight: 20,
     buttonPadding: 5,
     labelRotation: false,
