@@ -80,23 +80,21 @@
   }
 
   & .cp-stat-group > .cp-stat {
-    flex-basis: 100%;
-    min-width: 100%;
+    flex: 1;
+    min-width: 50%;
   }
 
   & .cp-stat {
-    flex-direction: column-reverse;
     display: flex;
-
+    flex-direction: column-reverse;
 
     & .cp-stat-label-text {
       font-size: 12px !important;
     }
 
-
     & .cp-stat-value-text {
       font-size: 38px;
-      font-weight: 300;
+      font-weight: 200;
       letter-spacing: 0.02em;
       color: var(--green);
     }
