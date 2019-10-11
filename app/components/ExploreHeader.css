@@ -1,0 +1,27 @@
+.ep-header {
+  min-width: 100px;
+  flex: 1;
+  text-align: center;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  & img {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+  }
+  & .ep-header-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: "Chivo", sans-serif;
+    color: #dbdbdb;
+    & .selected {
+      color: var(--white);
+      border-bottom: 1px solid var(--white);
+      padding: 5px 0px;
+    }
+  }
+
+}
+

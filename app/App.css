@@ -14,6 +14,10 @@ body {
   outline: none !important;
 }
 
+.bp3-input:focus, .bp3-input.bp3-active {
+  box-shadow: none !important;
+}
+
 .cp ::selection {
   color: #000000;
   background-color: #4caf50c7;

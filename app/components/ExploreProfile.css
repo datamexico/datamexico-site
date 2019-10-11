@@ -2,23 +2,54 @@
   min-width: 200px;
   flex: 1;
   min-height: calc(100vh - var(--nav-height) - 60px);
-  border-right: 1px solid #eaeaea;
+
   & .ep-profile-title {
-    background: var(--green);
-    text-align: left;
+    color: #61709a;
+    text-align: center;
     padding: 1.1rem;
     text-transform: uppercase;
     font-family: "Chivo", sans-serif;
   }
 
   & .ep-profile-result {
-    color: #000000;
+    color: var(--white);
     display: flex;
     padding: 15px 10px;
-    flex-direction: column;
+    flex-direction: row;
+    background-size: cover;
+    background-position: center;
+    margin: 15px;
+    z-index: 1;
+    position: relative;
+    border: 1px solid #38464e;
+    height: 90px;
+
+    &::before {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      content: "";
+      background-image: linear-gradient(rgba(20,27,46,.5),rgba(20,27,46,.3) 10%,rgba(20,27,46,.5) 50%,#141b2e);
+      z-index: -1;
+    }
+
     &:hover {
       background-color: #c0efe0;
       text-decoration: none;
+    }
+
+    & .ep-profile-result-icon {
+      width: 25px;
+      height: 25px;
+      background: red;
+      min-width: 25px;
+      margin-right: 10px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      display: flex;
     }
 
     & .ep-profile-result-title {
@@ -26,13 +57,14 @@
       font-size: 16px;
       overflow: hidden;
       display: -webkit-box;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
     }
 
     & .ep-profile-result-level {
       width: 100%;
-      font-size: 14px;
+      font-size: 12px;
+      text-transform: uppercase;
     }
   }
 

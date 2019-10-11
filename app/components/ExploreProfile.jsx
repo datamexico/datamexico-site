@@ -9,15 +9,21 @@ class ExploreProfile extends React.Component {
     const {background, lng, results, title} = this.props;
 
     return <div className="ep-profile">
-      <h3 className="ep-profile-title" style={{backgroundColor: background}}>{title}</h3>
+      <h3 className="ep-profile-title">{title}</h3>
       <div className="ep-profile-results">
         {results.map((d, i) => <Link
           key={`${d.slug}_${i}`}
           className="ep-profile-result"
           to={`/${lng}/profile/${d.slug}/${d.id}`}
+          style={{backgroundImage: `url(/api/image?slug=${d.slug}&id=${d.id})`}}
         >
-          <span className="ep-profile-result-title" title={d.name}>{d.name}</span>
-          <span className="ep-profile-result-level">{d.level}</span>
+          <div className="ep-profile-result-icon" style={{backgroundColor: background}}>
+            <img src={`/icons/explore/white/${d.slug}.png`} alt=""/>
+          </div>
+          <div className="ep-profile-result-content">
+            <span className="ep-profile-result-title" title={d.name}>{d.name}</span>
+            <span className="ep-profile-result-level">{d.level}</span>
+          </div>
         </Link>)}
       </div>
     </div>;

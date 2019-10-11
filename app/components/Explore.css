@@ -1,13 +1,26 @@
 .ep-container {
   margin-top: var(--nav-height);
+  min-height: calc(100vh - var(--nav-height));
+  background-color: var(--dark);
+  padding: 30px 60px;
 
   & .bp3-input {
     border-radius: 0px;
     border: none;
-    background-color: #eaeaea;
+    background-color: transparent;
+    color: var(--white);
     box-shadow: none;
     height: 60px;
     font-size: 1.6rem;
+    border-bottom: 1px solid #61709a;
+
+    &::focus {
+      box-shadow: none;
+    }
+
+    &.bp3-active {
+      box-shadow: none;
+    }
   }
 
   & .bp3-icon-search {
@@ -22,8 +35,21 @@
     padding-left: 60px;
   }
 
+  & .ep-headers {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 800px;
+    align-items: center;
+    justify-content: center;
+    margin: 30px auto;
+  }
+
   & .ep-profiles {
     display: flex;
     flex-wrap: wrap;
+    background-color: #16232B;
+    max-height: 70vh;
+    overflow-y: scroll;
   }
+
 }
