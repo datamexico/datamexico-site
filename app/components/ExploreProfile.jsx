@@ -6,14 +6,14 @@ import "./ExploreProfile.css";
 
 class ExploreProfile extends React.Component {
   render() {
-    const {background, lng, results, title} = this.props;
+    const {background, filterPanel, lng, results, title} = this.props;
 
     return <div className="ep-profile">
-      <h3 className="ep-profile-title">{title}</h3>
+      {filterPanel && <h3 className="ep-profile-title">{title}</h3>}
       <div className="ep-profile-results">
         {results.map((d, i) => <Link
           key={`${d.slug}_${i}`}
-          className="ep-profile-result"
+          className={`ep-profile-result ${filterPanel ? "filter-panel" : "full-panel"}`}
           to={`/${lng}/profile/${d.slug}/${d.id}`}
           style={{backgroundImage: `url(/api/image?slug=${d.slug}&id=${d.id})`}}
         >

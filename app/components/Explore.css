@@ -44,6 +44,20 @@
     margin: 30px auto;
   }
 
+  & .ep-profile-tabs {
+    display: inline-flex;
+    background: #2a323f;
+    color: #5e709e;
+    & .ep-profile-tab {
+      padding: 10px;
+      cursor: pointer;
+      &.selected {
+        background: #16232B;
+        color: var(--white);
+      }
+    }
+  }
+
   & .ep-profiles {
     display: flex;
     flex-wrap: wrap;

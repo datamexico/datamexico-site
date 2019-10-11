@@ -14,7 +14,7 @@
   & .ep-header-title {
     font-size: 14px;
     text-transform: uppercase;
-    font-family: "Chivo", sans-serif;
+    font-family: "Barlow", sans-serif;
     color: #dbdbdb;
     & .selected {
       color: var(--white);

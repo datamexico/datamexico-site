@@ -15,11 +15,29 @@ import ExploreHeader from "./ExploreHeader";
 const CancelToken = axios.CancelToken;
 let cancel;
 
+const levels = {
+  geo: ["Nation", "State", "Municipality", "Location"],
+  product: ["Chapter", "HS2", "HS4", "HS6"],
+  industry: ["Sector", "Industry Group", "Industry NAICS", "National Industry"],
+  university: ["Institution"],
+  occupation: ["Group", "Subgroup", "Occupation"]
+};
+
+const headers = [
+  {title: "No filter", slug: "filter"},
+  {title: "Locations", slug: "geo", background: "#8b9f65"},
+  {title: "Products", slug: "product", background: "#ea8db2"},
+  {title: "Industries", slug: "industry", background: "#f5c094"},
+  {title: "Universities", slug: "university", background: "#e7d98c"},
+  {title: "Occupations", slug: "occupation", background: "#68adcd"}
+];
+
 class Explore extends React.Component {
 
   state = {
     query: "",
     selected: "filter",
+    tab: "No Filter",
     results: []
   };
 
@@ -46,7 +64,7 @@ class Explore extends React.Component {
     if (query && query.length > 0) {
       return axios.get("/api/search", {
         cancelToken: new CancelToken(c => {
-        // An executor function receives a cancel function as a parameter
+          // An executor function receives a cancel function as a parameter
           cancel = c;
         }),
         params: {
@@ -89,7 +107,7 @@ class Explore extends React.Component {
   }
 
   render() {
-    const {query, selected} = this.state;
+    const {query, tab, selected} = this.state;
 
     return <div id="explore">
       <Helmet title="Explore">
@@ -112,69 +130,46 @@ class Explore extends React.Component {
           />
         </div>
         <div className="ep-headers">
-          <ExploreHeader
-            title="No filter"
+          {headers.map((d, i) => <ExploreHeader
+            key={`explore_header_${i}`}
+            title={d.title}
             selected={selected}
-            slug="filter"
-            handleTabSelected={selected => this.setState({selected})}
-          />
-          <ExploreHeader
-            title="Locations"
-            selected={selected}
-            slug="geo"
-            handleTabSelected={selected => this.setState({selected})}
-          />
-          <ExploreHeader
-            title="Products"
-            selected={selected}
-            slug="product"
-            handleTabSelected={selected => this.setState({selected})}
-          />
-          <ExploreHeader
-            title="Industries"
-            selected={selected}
-            slug="industry"
-            handleTabSelected={selected => this.setState({selected})}
-          />
-          <ExploreHeader
-            title="Universities"
-            selected={selected}
-            slug="university"
-            handleTabSelected={selected => this.setState({selected})}
-          />
-          <ExploreHeader
-            title="Occupations"
-            selected={selected}
-            slug="occupation"
-            handleTabSelected={selected => this.setState({selected})}
-          />
+            slug={d.slug}
+            handleTabSelected={selected => this.setState({selected, tab: selected === "university" ? levels[selected][0] : "No Filter"})}
+          />)}
+
+
         </div>
+        {selected !== "filter" &&
+          <div className="ep-profile-tabs">
+            {levels[selected].length > 1 && <div
+              className={`ep-profile-tab ${tab === "No Filter" ? "selected" : ""}`}
+              onClick={() => this.setState({tab: "No Filter"})}>
+                No Filter
+            </div>}
+            {levels[selected].map((d, i) => {
+              const results = this.state.results.filter(h => h.slug === selected && h.level === d);
+              const len = results.length;
+              return <div className={`ep-profile-tab ${tab === d ? "selected" : ""}`} key={i} onClick={() => this.setState({tab: d})}>
+                {`${d} (${len})`}
+              </div>;
+            })}
+          </div>}
         <div className="ep-profiles">
-          <ExploreProfile
-            title="Locations"
-            background="#8b9f65"
-            results={this.state.results.filter(d => d.slug === "geo")}
-          />
-          <ExploreProfile
-            title="Products"
-            background="#ea8db2"
-            results={this.state.results.filter(d => d.slug === "product")}
-          />
-          <ExploreProfile
-            title="Industries"
-            background="#f5c094"
-            results={this.state.results.filter(d => d.slug === "industry")}
-          />
-          <ExploreProfile
-            title="Universities"
-            background="#e7d98c"
-            results={this.state.results.filter(d => d.slug === "university")}
-          />
-          <ExploreProfile
-            title="Occupations"
-            background="#68adcd"
-            results={this.state.results.filter(d => d.slug === "occupation")}
-          />
+          {headers.filter(d => d.slug !== "filter").map(d => {
+            if (["filter", d.slug].includes(selected)) {
+              let results = this.state.results.filter(h => h.slug === d.slug);
+              if (tab !== "No Filter") results = results.filter(h => h.level === tab);
+              return <ExploreProfile
+                title={d.title}
+                background={d.background}
+                filterPanel={selected === "filter"}
+                results={results}
+              />;
+            }
+            return undefined;
+          })}
+
         </div>
       </div>
       <Footer />
