@@ -37,7 +37,7 @@ class Explore extends React.Component {
   state = {
     query: "",
     selected: this.props.location.query.profile || "filter",
-    tab: "No Filter",
+    tab: this.props.location.query.profile && this.props.location.query.profile === "institution" ? "Institution" : "No Filter",
     results: []
   };
 
@@ -169,19 +169,31 @@ class Explore extends React.Component {
             })}
           </div>}
         <div className="ep-profiles">
-          {headers.filter(d => d.slug !== "filter").map(d => {
-            if (["filter", d.slug].includes(selected)) {
-              let results = this.state.results.filter(h => h.slug === d.slug);
-              if (tab !== "No Filter") results = results.filter(h => h.level === tab);
-              return <ExploreProfile
-                title={d.title}
-                background={d.background}
-                filterPanel={selected === "filter"}
-                results={results}
-              />;
-            }
-            return undefined;
-          })}
+          {this.state.results.length === 0 && selected === "filter"
+            ? <ExploreProfile
+              title={""}
+              background={""}
+              filterPanel={false}
+              results={[]}
+            />
+
+            : headers.filter(d => d.slug !== "filter").map(d => {
+              if (["filter", d.slug].includes(selected)) {
+                let results = this.state.results.filter(h => h.slug === d.slug);
+                if (tab !== "No Filter") results = results.filter(h => h.level === tab);
+
+
+                return <ExploreProfile
+                  title={d.title}
+                  background={d.background}
+                  filterPanel={selected === "filter"}
+                  results={results}
+                />;
+
+              }
+              return undefined;
+            })}
+
 
         </div>
       </div>
