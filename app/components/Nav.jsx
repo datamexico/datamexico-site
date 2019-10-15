@@ -1,6 +1,6 @@
 import React from "react";
 import {withNamespaces} from "react-i18next";
-import {Icon, InputGroup, Popover} from "@blueprintjs/core";
+import {Icon, InputGroup} from "@blueprintjs/core";
 import NavMenu from "./NavMenu";
 import classnames from "classnames";
 import axios from "axios";
@@ -29,8 +29,13 @@ class Nav extends React.Component {
     isOpenSearchResults: false
   }
 
-  shouldComponentUpdate = (nextProps, nextState) =>
-    nextProps.className !== this.props.className || nextState.isOpen !== this.state.isOpen || nextState.isOpenSearch !== this.state.isOpenSearch;
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const {className} = this.props;
+    const {isOpen, isSearchOpen, isOpenSearchResults} = this.state;
+
+    return nextProps.className !== className || nextState.isOpen !== isOpen || nextState.isSearchOpen !== isSearchOpen || nextState.isOpenSearchResults !== isOpenSearchResults;
+  }
+
 
   handleSearch = e => {
     const {results} = this.state;
@@ -54,7 +59,7 @@ class Nav extends React.Component {
         .then(resp => {
           const data = resp.data.results;
           const results = data.map(d => ({id: d.id, name: d.name, slug: d.profile, level: d.hierarchy}));
-          this.setState({results, resultsFilter: results});
+          this.setState({results, resultsFilter: results, isOpenSearchResults: true});
         })
         .catch(error => {
           const result = error.response;
@@ -108,7 +113,7 @@ class Nav extends React.Component {
           <InputGroup
             placeholder={t("Search profiles")}
             className={classnames({active: isSearchOpen})}
-            autoFocus="true"
+            autoFocus={true}
             onChange={this.handleSearch}
           />
           <ul className={classnames("results", {active: isSearchOpen})}>
