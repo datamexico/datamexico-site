@@ -31,11 +31,11 @@ class NavMenu extends React.Component {
             <li><a href="/">{t("Home")}</a></li>
             <li><Link to={`${lng}/explore`}>{t("Explore")}</Link></li>
             <ul>
-              <li><Link to={`${lng}/explore`}>{t("Locations")}</Link></li>
-              <li><Link to={`${lng}/explore`}>{t("Products")}</Link></li>
-              <li><Link to={`${lng}/explore`}>{t("Industries")}</Link></li>
-              <li><Link to={`${lng}/explore`}>{t("Occupations")}</Link></li>
-              <li><Link to={`${lng}/explore`}>{t("Universities")}</Link></li>
+              <li><Link to={`${lng}/explore?profile=geo`}>{t("Locations")}</Link></li>
+              <li><Link to={`${lng}/explore?profile=product`}>{t("Products")}</Link></li>
+              <li><Link to={`${lng}/explore?profile=industry`}>{t("Industries")}</Link></li>
+              <li><Link to={`${lng}/explore?profile=occupation`}>{t("Occupations")}</Link></li>
+              <li><Link to={`${lng}/explore?profile=institution`}>{t("Institutions")}</Link></li>
             </ul>
             <li><a href="#">{t("Vizbuilder")}</a></li>
             <li><a href="#">{t("About")}</a></li>

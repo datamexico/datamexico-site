@@ -1,16 +1,16 @@
 import React from "react";
-import {Helmet} from "react-helmet";
 import PropTypes from "prop-types";
-import {withNamespaces} from "react-i18next";
 import axios from "axios";
-
-import Footer from "./Footer";
-import Nav from "./Nav";
+import {Helmet} from "react-helmet";
+import {withNamespaces} from "react-i18next";
 import {InputGroup} from "@blueprintjs/core";
 
-import "./Explore.css";
-import ExploreProfile from "./ExploreProfile";
-import ExploreHeader from "./ExploreHeader";
+import ExploreHeader from "../../components/ExploreHeader";
+import ExploreProfile from "../../components/ExploreProfile";
+import Footer from "../../components/Footer";
+import Nav from "../../components/Nav";
+
+import "./style.css";
 
 const CancelToken = axios.CancelToken;
 let cancel;
@@ -19,7 +19,7 @@ const levels = {
   geo: ["Nation", "State", "Municipality", "Location"],
   product: ["Chapter", "HS2", "HS4", "HS6"],
   industry: ["Sector", "Industry Group", "Industry NAICS", "National Industry"],
-  university: ["Institution"],
+  institution: ["Institution"],
   occupation: ["Group", "Subgroup", "Occupation"]
 };
 
@@ -28,7 +28,7 @@ const headers = [
   {title: "Locations", slug: "geo", background: "#8b9f65"},
   {title: "Products", slug: "product", background: "#ea8db2"},
   {title: "Industries", slug: "industry", background: "#f5c094"},
-  {title: "Universities", slug: "university", background: "#e7d98c"},
+  {title: "Institutions", slug: "institution", background: "#e7d98c"},
   {title: "Occupations", slug: "occupation", background: "#68adcd"}
 ];
 
@@ -36,27 +36,40 @@ class Explore extends React.Component {
 
   state = {
     query: "",
-    selected: "filter",
+    selected: this.props.location.query.profile || "filter",
     tab: "No Filter",
     results: []
   };
+
 
   componentDidMount = () => {
     this.requestApi(this.props.location.query.q);
   }
 
   handleSearch = async e => {
-
+    const {selected} = this.state;
     const query = e.target.value;
     const searchParams = new URLSearchParams();
     searchParams.set("q", query);
+    if (selected && selected !== "filter") searchParams.set("profile", selected);
     this.context.router.replace(`${this.props.location.pathname}?${searchParams.toString()}`);
 
     this.requestApi(query);
 
   }
 
+  handleTab = selected => {
+    const {query} = this.state;
+    const searchParams = new URLSearchParams();
+    if (query && query.length > 0) searchParams.set("q", query);
+    if (selected && selected !== "filter") searchParams.set("profile", selected);
+    this.context.router.replace(`${this.props.location.pathname}?${searchParams.toString()}`);
+
+    this.setState({selected, tab: selected === "institution" ? levels[selected][0] : "No Filter"});
+  }
+
   requestApi = query => {
+
     this.setState({query});
     if (cancel !== undefined) {
       cancel();
@@ -135,7 +148,7 @@ class Explore extends React.Component {
             title={d.title}
             selected={selected}
             slug={d.slug}
-            handleTabSelected={selected => this.setState({selected, tab: selected === "university" ? levels[selected][0] : "No Filter"})}
+            handleTabSelected={selected => this.handleTab(selected)}
           />)}
 
 
