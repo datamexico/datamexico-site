@@ -1,7 +1,27 @@
 .ep-profile {
   min-width: 200px;
   flex: 1;
-  min-height: calc(100vh - var(--nav-height) - 60px);
+  min-height: 70vh;
+
+  & .ep-profile-no-results {
+    color: #61709a;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    & .icon {
+      height: 120px;
+    }
+
+    & .message {
+      max-width: 600px;
+      padding: 20px;
+      font-size: 16px;
+      text-align: center;
+    }
+  }
 
   & .ep-profile-title {
     color: #61709a;

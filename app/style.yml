@@ -184,7 +184,7 @@ type-string-dark: "#62873B"
 type-string:   "#B9E28C"
 
 # Viz style
-viz-aspect-ratio:     "45%" # set as padding-top on .cp-viz-container, then .cp-viz fills the height
+viz-aspect-ratio:     "40%" # set as padding-top on .cp-viz-container, then .cp-viz fills the height
 viz-min-height:      "30vh" # prevent visualizations from getting too squishy
 
 # Custom variables

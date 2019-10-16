@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import {withNamespaces} from "react-i18next";
 import axios from "axios";
 import {Helmet} from "react-helmet";
@@ -21,6 +22,7 @@ class Home extends Component {
   state = {
     isOpenSearchResults: false,
     results: [],
+    query: "",
     resultsFilter: [],
     scrolled: false
   };
@@ -64,7 +66,7 @@ class Home extends Component {
         .then(resp => {
           const data = resp.data.results;
           const results = data.map(d => ({id: d.id, name: d.name, slug: d.profile, level: d.hierarchy}));
-          this.setState({results, resultsFilter: results, isOpenSearchResults: true});
+          this.setState({results, resultsFilter: results, isOpenSearchResults: true, query});
         })
         .catch(error => {
           const result = error.response;
@@ -105,7 +107,11 @@ class Home extends Component {
             className="home-input"
             placeholder={"Ej. Ciudad de México, Monterrey"}
             onChange={this.handleSearch}
-            rightElement={<Button className="home-search">Search</Button>}
+            rightElement={<Button className="home-search" onClick={() => {
+              const searchParams = new URLSearchParams();
+              searchParams.set("q", this.state.query);
+              this.context.router.replace(`${this.props.location.pathname}/es/${this.props.lng}/explore?${searchParams.toString()}`);
+            }}>Search</Button>}
           />
           {isOpenSearchResults && <ul className="search-results">
             {resultsFilter.map((d, i) => <SearchResult
@@ -291,5 +297,9 @@ class Home extends Component {
     ;
   }
 }
+
+Home.contextTypes = {
+  router: PropTypes.object
+};
 
 export default withNamespaces()(Home);

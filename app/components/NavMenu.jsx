@@ -43,7 +43,7 @@ class NavMenu extends React.Component {
           </ul>
         </div>
         <div className="nav-footer">
-          <img src="/icons/SE.svg" alt=""/>
+          <img src="/icons/SE.png" alt=""/>
           <img src="/icons/matt-white.svg" alt=""/>
           <img src="/icons/datawheel-white.svg" alt=""/>
         </div>

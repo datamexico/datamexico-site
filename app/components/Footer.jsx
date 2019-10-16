@@ -53,7 +53,7 @@ class Footer extends React.Component {
               rightElement={<span>{t("Sign In")}<Icon icon="arrow-right" /></span>}
             />
             <div className="sponsors">
-              <img className="brand" src="/icons/SE.svg" alt="" />
+              <img className="brand" src="/icons/SE.png" alt="" />
               <img className="brand" src="/icons/matt-white.svg" alt="" />
               <img className="brand" src="/icons/datawheel-white.svg" alt="" />
             </div>

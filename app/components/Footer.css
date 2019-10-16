@@ -26,6 +26,7 @@
   & .footer-contact {
     max-width: 400px;
     & h4 {
+      text-align: left;
       margin-bottom: 10px;
     }
     & .footer-email {
@@ -62,7 +63,7 @@
     justify-content: space-between;
     width: 400px;
     & .brand {
-      width: 100px;
+      height: 32px;
     }
   }
 }

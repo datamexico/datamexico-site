@@ -24,10 +24,25 @@
   }
 }
 
+.cp-main > *:nth-child(even) {
+  background-color: var(--white);
+}
+.cp-main > *:nth-child(odd) {
+  background-color: #fafafa;
+}
+
+.cp-multi-column-section-caption > * {
+  /* page-break-inside: avoid; */
+  /* -webkit-column-break-inside: avoid; */
+  break-inside: auto;
+  /* break-inside: avoid; */
+}
+
 
 .cp-main {
+
   & .cp-grouping-section {
-    background-color: var(--white);
+    background-color: transparent;
     color: #181A21;
   }
   & .cp-grouping:first-child {
