@@ -22,6 +22,7 @@ function findColor(d) {
   if (this && this._filteredData) {
     detectedColors = Array.from(new Set(this._filteredData.map(findColor)));
   }
+
   if (detectedColors.length !== 1) {
     for (const key in colors) {
       if (`${key} ID` in d || key in d) {
@@ -34,9 +35,8 @@ function findColor(d) {
 
 /** */
 function findIcon(d) {
-  const keys = ["Area", "Chapter", "Flow", "Continent", "Sector"];
+  const keys = ["Area", "Chapter", "Flow", "Continent", "Sector", "Sex"];
   for (const key of keys) {
-    console.log(key);
     if (`${key} ID` in d || key in d) return `/icons/visualizations/${key}/png/white/${d[`${key} ID`]}.png`;
   }
   return undefined;
