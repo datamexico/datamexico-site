@@ -80,6 +80,10 @@
     }
   }
 
+  & .cp-grouping-section-heading {
+    text-transform: uppercase;
+  }
+
   & .cp-section-heading {
     color: #141b2e !important;
     font-family: "Barlow Condensed", sans-serif;
@@ -88,7 +92,6 @@
     letter-spacing: 0.02em;
     line-height: 1.1;
     margin-bottom: 10px;
-    text-transform: uppercase;
     &#about {
       color: var(--white) !important;
     }

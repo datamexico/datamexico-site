@@ -44,7 +44,9 @@ def main():
     for dd in [dd1, dd2]:
         filter_var = "filter_{}".format(dd)
         if filter_var in params:
-            densities = densities[densities["{} ID".format(dd)] == int(params[filter_var])]
+            filter_param = params[filter_var]
+            densities["{} ID".format(dd)] = densities["{} ID".format(dd)].astype(str)
+            densities = densities[densities["{} ID".format(dd)] == filter_param]
 
     print(json.dumps({
       "data": json.loads(densities.to_json(orient="records"))

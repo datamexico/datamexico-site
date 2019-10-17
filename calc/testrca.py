@@ -20,7 +20,7 @@ def main():
     for dd in [dd1, dd2]:
         filter_var = "filter_{}".format(dd)
         if filter_var in params:
-            df = df[df["{} ID".format(dd)] == params[filter_var]]
+            df = df[df["{} ID".format(dd)] == int(params[filter_var])]
 
     print(json.dumps({
       "data": json.loads(df.to_json(orient="records"))

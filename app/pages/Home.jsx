@@ -262,28 +262,28 @@ class Home extends Component {
               title={t("Universities")}
             />
             <Tile
-              slug="university"
-              id="1127"
+              slug="institution"
+              id="317"
               title="Universidad Nacional Autónoma de México"
             />
             <Tile
-              slug="university"
-              id="2386"
+              slug="institution"
+              id="248"
               title="Instituto Tecnológico y de Estudios Superiores de Monterrey"
             />
             <Tile
-              slug="university"
-              id="47"
+              slug="institution"
+              id="683"
               title="Universidad Autónoma del Estado de Hidalgo"
             />
             <Tile
-              slug="university"
-              id="566"
+              slug="institution"
+              id="725"
               title="Universidad de Guadalajara"
             />
             <Tile
-              slug="university"
-              id="118"
+              slug="institution"
+              id="82"
               title="Instituto Politécnico Nacional"
             />
           </div>

@@ -117,7 +117,7 @@ export default {
       },
       tickFormat: d => formatAbbreviate(d)
     },
-    color: ["#A7D079", "#82B769", "#609E59", "#49854F", "#3A6B49"],
+    color: ["#BEE97B", "#8BD687", "#62C091", "#47A994", "#3F908E"],
     legendConfig: {
       shapeConfig: {
         labelConfig: {
