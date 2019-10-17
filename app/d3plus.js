@@ -34,8 +34,9 @@ function findColor(d) {
 
 /** */
 function findIcon(d) {
-  const keys = ["Chapter", "Flow", "Continent", "Sector"];
+  const keys = ["Area", "Chapter", "Flow", "Continent", "Sector"];
   for (const key of keys) {
+    console.log(key);
     if (`${key} ID` in d || key in d) return `/icons/visualizations/${key}/png/white/${d[`${key} ID`]}.png`;
   }
   return undefined;
@@ -71,6 +72,7 @@ const labelPadding = 5;
 
 export default {
   aggs: {
+    "Area ID": mean,
     "Category ID": mean,
     "Chapter ID": mean,
     // "Continent ID": mean,
