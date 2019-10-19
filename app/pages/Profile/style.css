@@ -84,6 +84,11 @@
     text-transform: uppercase;
   }
 
+  & .cp-section-subhead {
+    color: #d25d39;
+    font-size: 12px;
+  }
+
   & .cp-section-heading {
     color: #141b2e !important;
     font-family: "Barlow Condensed", sans-serif;
@@ -126,8 +131,19 @@
   }
 }
 
+.cp-section-paragraph {
+  font-weight: 400;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
 .d3plus-tooltip {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 3px;
   padding: 0px !important;
+
+  & .d3plus-tooltip-table {
+    border-collapse: collapse;
+  }
 
   & td {
     text-align: right;
@@ -140,10 +156,8 @@
       text-transform: uppercase;
     }
   }
-}
 
-.cp-section-paragraph {
-  font-weight: 400;
-  line-height: 1.7;
-  font-size: 16px;
+  & .d3plus-tooltip-footer {
+    text-align: center;
+  }
 }

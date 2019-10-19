@@ -35,7 +35,7 @@ function findColor(d) {
 
 /** */
 function findIcon(d) {
-  const keys = ["Area", "Chapter", "Flow", "Continent", "Sector", "Sex"];
+  const keys = ["Area", "Category", "Chapter", "Flow", "Generic Investment", "Continent", "Sector", "Sex"];
   for (const key of keys) {
     if (`${key} ID` in d || key in d) return `/icons/visualizations/${key}/png/white/${d[`${key} ID`]}.png`;
   }
@@ -75,7 +75,7 @@ export default {
     "Area ID": mean,
     "Category ID": mean,
     "Chapter ID": mean,
-    // "Continent ID": mean,
+    "Generic Investment ID": mean,
     "Flow ID": mean,
     "Sector ID": mean,
     "Sex ID": mean,
@@ -199,7 +199,7 @@ export default {
       if (len === 5) {
         // ${tickString.slice(0, 4)}-
         const quarter = tickString.slice(4, 5);
-        label = quarter === "1" ? tickString.slice(0, 4) : `Q${quarter}`;
+        label = `Q${quarter}${tickString.slice(0, 4)}`;
       }
       else if (len === 6) {
         label = `${tickString.slice(0, 4)}/${tickString.slice(4, 6)}/01`;
@@ -209,8 +209,9 @@ export default {
       }
       return label;
     },
-    buttonBehavior: "ticks",
+    buttonBehavior: "buttons",
     buttonHeight: 20,
+    buttonWidth: 200,
     buttonPadding: 5,
     labelRotation: false,
     padding: 0,
@@ -237,7 +238,7 @@ export default {
     }
   },
   tooltipConfig: {
-    background: "#edefed",
+    background: "#FFFFFF",
     border: "1px solid #787e83",
     footerStyle: {
       "color": "#666",
@@ -249,7 +250,7 @@ export default {
     },
     padding: "10px",
     titleStyle: {
-      "color": "#3F908E",
+      "color": "#777777",
       "padding": "5px 10px",
       "fontFamily": () => "'Chivo', sans-serif",
       "font-size": "16px",
@@ -264,6 +265,7 @@ export default {
     width: "200px"
   },
   totalConfig: {
+    locale: "es-MX",
     fontSize: () => 14
   }
 };
