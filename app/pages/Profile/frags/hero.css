@@ -36,13 +36,18 @@
   }
 
   & .cp-hero-heading {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
     color: var(--white) !important;
+    display: -webkit-box;
     font-size: 60px;
     font-weight: 400;
     line-height: 1.1;
     margin-bottom: 5px;
     margin-left: 0px;
+    overflow: hidden;
     padding-left: 0px;
+    text-overflow: ellipsis;
     text-shadow: 0 2px 6px var(--dark);
     text-transform: uppercase;
   }

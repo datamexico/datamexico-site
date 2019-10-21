@@ -188,18 +188,27 @@ export default {
   timelineConfig: {
     brushing: false,
     tickFormat: d => {
+      console.log(d);
       d = d.toString().includes("Q") ? d.toString().replace("Q", "0") : d;
       const latest = new Date(d);
       const id = latest.getFullYear();
+      const month = latest.getUTCMonth() + 1;
+      const day = latest.getDate();
+
       const tickString = id.toString();
       const len = tickString.length;
 
       let label = "";
 
-      if (len === 5) {
+      if (month === 1 && id < 20000) {
+        label = id;
+      }
+
+      else if (len === 5) {
         // ${tickString.slice(0, 4)}-
         const quarter = tickString.slice(4, 5);
-        label = `Q${quarter}${tickString.slice(0, 4)}`;
+        label = quarter === "1" ? `${tickString.slice(0, 4)}` : `Q${quarter}`;
+        // ${quarter}${tickString.slice(0, 4)}
       }
       else if (len === 6) {
         label = `${tickString.slice(0, 4)}/${tickString.slice(4, 6)}/01`;

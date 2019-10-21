@@ -158,7 +158,9 @@
   }
 
   & .profile-logo {
-    margin-right: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    min-width: 150px;
     & img {
       width: 150px;
     }
