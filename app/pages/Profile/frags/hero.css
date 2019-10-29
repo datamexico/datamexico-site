@@ -35,7 +35,6 @@
   & .cp-hero-heading {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
-    color: var(--white) !important;
     display: -webkit-box;
     font-size: 60px;
     font-weight: 400;
@@ -70,20 +69,10 @@
     font-size: 38px;
     font-weight: 300;
     text-shadow: 0 2px 12px var(--black);
-    color: white;
+    color: var(--white);
   }
 
   & .cp-hero-credits {
     z-index: 12; /* in front of overlay */
   }
-}
-
-.cp-viz-container > .cp-viz-figure {
-  max-height: 30vh !important;
-}
-
-
-.cp-viz-container > .cp-viz-header + .cp-viz-figure {
-  height: 300px !important;
-  /* height: calc(100% - 30rem);*/
 }

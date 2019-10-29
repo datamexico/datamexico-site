@@ -230,7 +230,7 @@ table-nested-cell-bg-color: "var(--light-1)" # nested/pivoted cells
 table-icon-color:           "var(--dark-2)" # dotted cell resize handle, pivot triangle
 
 # stats
-stat-label-font-size:       "var(--font-sm)"
+stat-label-font-size:       "var(--font-xs)"
 stat-label-color:           "inherit"
 stat-value-font-size:       "var(--font-xl)"
 stat-value-color:           "var(--accent-dark)"

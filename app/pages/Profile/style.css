@@ -88,10 +88,6 @@
     display: flex;
     flex-direction: column-reverse;
 
-    & .cp-stat-label-text {
-      font-size: 12px !important;
-    }
-
     & .cp-stat-value-text {
       font-size: 38px;
       font-weight: 200;
@@ -111,7 +107,7 @@
 .cp-single-column-section-caption .cp-viz-container { margin-top: auto; }
 
 .d3plus-tooltip {
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 3px;
+  box-shadow: color(var(--black) a(0.25)) 0px 1px 3px;
   padding: 0px !important;
 
   & .d3plus-tooltip-table {

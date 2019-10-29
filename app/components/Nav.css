@@ -87,13 +87,10 @@
           background-color: transparent;
           height: inherit;
           border-radius: 0;
-          box-shadow: none !important;
-          caret-color: var(--white);
           color: var(--white);
 
           &:focus {
-            outline: none !important;
-            box-shadow: none !important;
+            outline: none;
           }
         }
       }
