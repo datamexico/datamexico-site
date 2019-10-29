@@ -44,7 +44,7 @@
       min-width: 300px;
       justify-content: center;
       & .nav-subtitle {
-        color: #57a520;
+        color: var(--accent-dark);
         font-family: "Barlow Condensed", sans-serif;
         font-size: 22px;
         font-weight: 600;
@@ -68,7 +68,7 @@
         width: 30px;
 
         &.active {
-          background-color: #484848;
+          background-color: var(--dark-2);
           max-width: 250px;
           transition: all .5s ease-in-out;
           width: 250px;
@@ -106,9 +106,9 @@
         width: 250px;
         margin-left: -40px;
         list-style: none;
-        background-color: #484848;
+        background-color: var(--dark-2);
         max-height: 300px;
-        box-shadow: 0 1px 2px rgba(0,0,0,.5);
+        box-shadow: 0 1px 2px color(var(--black) a(0.5));
         overflow-y: scroll;
         display: none;
 
@@ -141,7 +141,7 @@
           text-align: left;
           transition: background-color .25s;
           &:hover {
-            background-color: #727682;
+            background-color: var(--gray);
           }
         }
       }

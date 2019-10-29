@@ -29,7 +29,6 @@
     background-color: transparent;
     font-size: 20px;
     color: #757575;
-    cursor: pointer;
     &:hover {
       color: var(--accent-dark);
     }

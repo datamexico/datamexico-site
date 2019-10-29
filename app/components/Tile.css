@@ -4,7 +4,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  border: 1px solid #979aa2;
+  border: 1px solid var(--dark-1);
   color: var(--white);
   cursor: pointer;
   display: flex;
@@ -28,7 +28,7 @@
     bottom: 0;
     left: 0;
     content: "";
-    background: rgba(0, 0, 0, 0.5);
+    background: color(var(--black) a(0.5));
     z-index: -1;
   }
 
@@ -41,6 +41,6 @@
     border: 1px solid var(--white);
   }
   &:hover::before {
-    background: rgba(0, 0, 0, 0.6);
+    background: color(var(--black) a(0.6));
   }
 }

@@ -1,6 +1,5 @@
 .ep-header {
-  min-width: 100px;
-  flex: 1;
+  flex: 1 1 auto;
   text-align: center;
   flex-direction: row;
   display: flex;
@@ -14,14 +13,11 @@
   & .ep-header-title {
     font-size: 14px;
     text-transform: uppercase;
-    font-family: "Barlow", sans-serif;
-    color: #dbdbdb;
+    color: var(--light-2);
     & .selected {
       color: var(--white);
       border-bottom: 1px solid var(--white);
       padding: 5px 0px;
     }
   }
-
 }
-

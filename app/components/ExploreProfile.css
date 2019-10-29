@@ -1,10 +1,12 @@
+@import "../helpers/mixins.css";
+
 .ep-profile {
   min-width: 200px;
   flex: 1;
   min-height: 70vh;
 
   & .ep-profile-no-results {
-    color: #61709a;
+    color: var(--dark-1);
     height: 100%;
     display: flex;
     align-items: center;
@@ -24,11 +26,10 @@
   }
 
   & .ep-profile-title {
-    color: #61709a;
+    color: var(--dark-1);
     text-align: center;
     padding: 1.1rem;
     text-transform: uppercase;
-    font-family: "Barlow", sans-serif;
   }
 
   & .ep-profile-results {
@@ -46,7 +47,7 @@
     margin: 15px;
     z-index: 1;
     position: relative;
-    border: 1px solid #38464e;
+    border: 1px solid var(--dark-2);
     height: 90px;
     flex: 1;
     min-width: 150px;
@@ -55,25 +56,24 @@
     }
 
     &::before {
+      @mixin overlay-gradient;
       position: absolute;
       left: 0;
       right: 0;
       top: 0;
       bottom: 0;
       content: "";
-      background-image: linear-gradient(rgba(20,27,46,.5),rgba(20,27,46,.3) 10%,rgba(20,27,46,.5) 50%,#141b2e);
       z-index: -1;
     }
 
     &:hover {
-      background-color: #c0efe0;
+      background-color: var(--accent-light);
       text-decoration: none;
     }
 
     & .ep-profile-result-icon {
       width: 25px;
       height: 25px;
-      background: red;
       min-width: 25px;
       margin-right: 10px;
       align-items: center;
@@ -97,5 +97,4 @@
       text-transform: uppercase;
     }
   }
-
 }

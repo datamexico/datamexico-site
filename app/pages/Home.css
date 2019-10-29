@@ -1,4 +1,6 @@
-#Home {
+@import "../helpers/mixins.css";
+
+[id="Home"] {
   text-align: center;
   background-color: var(--dark-4);
   color: var(--white);
@@ -16,20 +18,19 @@
     justify-content: center;
     color: var(--white);
     &::before {
+      @mixin overlay-gradient;
       position: absolute;
       left: 0;
       right: 0;
       top: 0;
       bottom: 0;
       content: "";
-      background-image: linear-gradient(rgba(20,27,46,.5),rgba(20,27,46,.3) 10%,rgba(20,27,46,.5) 50%,#141b2e);
       z-index: -1;
     }
 
     & .tagline {
-      font-family: "Barlow", sans-serif;
       margin: 30px;
-      text-shadow: 2px 2px 7px #222;
+      text-shadow: 2px 2px 7px var(--dark-4);
     }
 
     & .sponsors {
@@ -50,7 +51,7 @@
     height: 45px;
     max-width: 650px;
     min-width: 600px;
-    box-shadow: 0 0 12px rgba(0,0,0,.5);
+    box-shadow: 0 0 12px color(var(--black) a(0.5));
 
     & .bp3-icon-search {
       margin-top: 14px;
@@ -63,7 +64,6 @@
       height: 100%;
       border-radius: 0px;
       box-shadow: none;
-      box-shadow: 0 0 12px rgba(0,0,0,.5);
     }
 
     & .home-search {
@@ -96,7 +96,7 @@
   flex-direction: column;
   position: absolute;
   width: 498px;
-  background-color: #eaeaea;
+  background-color: var(--light-2);
   margin-top: 0px;
   z-index: 22;
   max-height: 30vh;
@@ -122,4 +122,3 @@
   font-size: 36px;
   text-align: center;
 }
-

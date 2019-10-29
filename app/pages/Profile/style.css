@@ -1,7 +1,7 @@
 @import url(frags/hero.css);
 
 .lead {
-  background-color: #141b2e;
+  background-color: var(--dark-4);
   color: var(--white);
   & .lead-descriptions {
     columns: 320px auto;
@@ -14,23 +14,9 @@
   & .cp-button {
     border: none;
     border-radius: 0;
-    cursor: pointer;
-    color: var(--gray);
     font-size: 11px;
-    &:hover {
-      background-color: transparent;
-      color: var(--accent-dark);
-    }
   }
 }
-
-.cp-main > *:nth-child(even) {
-  background-color: var(--white);
-}
-.cp-main > *:nth-child(odd) {
-  background-color: #fafafa;
-}
-
 .cp-multi-column-section-caption > * {
   /* page-break-inside: avoid; */
   /* -webkit-column-break-inside: avoid; */
@@ -40,13 +26,9 @@
 
 
 .cp-main {
-
-  & .cp-grouping-section {
-    background-color: transparent;
-    color: #181A21;
-  }
+  /* about section */
   & .cp-grouping:first-child {
-    background-color: #141b2e;
+    background-color: var(--dark-4);
     & h2 {
       font-family: "Barlow Condensed", sans-serif;
       font-size: 30px;
@@ -56,15 +38,9 @@
       margin-bottom: 10px;
     }
     & p {
-      color: white;
-      -webkit-columns: 320px auto;
-      -moz-columns: 320px auto;
+      color: var(--white);
       columns: 320px auto;
-      -webkit-column-gap: 20px;
-      -moz-column-gap: 20px;
       column-gap: 20px;
-      -webkit-box-flex: 2;
-      -ms-flex: 2 1 auto;
       flex: 2 1 auto;
       font-size: 17px;
       font-weight: 400;
@@ -84,24 +60,26 @@
   }
 
   & .cp-section-subhead {
-    color: #d25d39;
+    color: var(--accent-dark);
     font-size: 12px;
   }
 
   & .cp-section-heading {
-    color: #141b2e !important;
     font-family: "Barlow Condensed", sans-serif;
     font-size: 36px;
     font-weight: 400;
     letter-spacing: 0.02em;
     line-height: 1.1;
     margin-bottom: 10px;
-    &#about {
-      color: var(--white) !important;
+    &[id="about"] {
+      color: var(--white);
     }
   }
 
-  & .cp-stat-group > .cp-stat {
+  /* TODO: remove once added to canon */
+  & .cp-stat-group { align-items: flex-start; }
+
+  & .cp-stat-group > & > .cp-stat {
     flex: 1;
     min-width: 50%;
   }
@@ -121,12 +99,6 @@
       color: var(--accent-dark);
     }
 
-  }
-}
-
-.Options {
-  & .cp-button {
-    background: transparent;
   }
 }
 

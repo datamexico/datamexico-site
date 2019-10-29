@@ -18,11 +18,16 @@
 }
 
 .bp3-overlay {
-  z-index: 22!important;
+  z-index: 22 !important;
 }
 
 .bp3-overlay-backdrop {
-  background-color: rgba(220, 220, 220, 0.7)!important;
+  background-color: color(var(--black) a(0.75));
+}
+
+/* remove focus ring from dialog container, since it's only visible right before it's about to remove itself from the dom */
+.bp3-dialog-container[tabindex]:focus {
+  outline: none;
 }
 
 .nav-menu-content {

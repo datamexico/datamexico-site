@@ -37,8 +37,8 @@ dark-4:       "#161C2C"
 black:        "#181A21"
 
 # accent colors
-accent:       "#A8FFFE"
-accent-light: "#84F0EE"
+accent:       "#84F0EE"
+accent-light: "#A8FFFE"
 accent-dark:  "#3F908E"
 accent-black: "#174442"
 
@@ -140,8 +140,8 @@ hero-stat-column-width:     "10rem"
 hero-viz-width:             "20rem"
 
 # sections
-section-bg-odd:             "var(--white)"
-section-bg-even:            "var(--light-1)"
+section-bg-odd:             "var(--light-1)"
+section-bg-even:            "var(--white)"
 section-text-color:         "var(--dark-2)"
 section-heading-color:      "var(--dark-4)"
 # sticky sections
@@ -168,25 +168,25 @@ infocard-stat-bg-color:     "var(--accent-light)"
 infocard-header-text-color: "var(--white)"
 infocard-main-bg-color:     "var(--white)"
 # Grouping (intro) section
-grouping-bg-color:          "var(--accent-light)"
-grouping-text-color:        "var(--black)"
+grouping-bg-color:          "transparent"
+grouping-text-color:        "var(--dark-4)"
 grouping-paragraph-size:    "var(--font-md)"
 grouping-subhead-color:     "var(--accent-black)"
 grouping-subhead-font-size: "var(--font-xl)"
-grouping-heading-color:     "var(--white)"
+grouping-heading-color:     "var(--dark-4)"
 grouping-heading-font-size: "var(--font-xxl)"
 grouping-stat-value-color:  "var(--white)"
 
 # buttons
 button-border-radius:       "2px"
 button-border-width:        "1px"
-button-bg-color:            "color(var(--white) a(0.5))"
+button-bg-color:            "transparent"
 button-border-color:        "var(--light-3)"
-button-color:               "var(--accent-black)"
+button-color:               "var(--gray)"
 button-padding:             "0.5em 1.25em"
-button-hover-bg-color:      "var(--accent-black)"
+button-hover-bg-color:      "transparent"
 button-hover-border-color:  "var(--accent-black)"
-button-hover-color:         "var(--white)"
+button-hover-color:         "var(--accent-dark)"
 
 # fields
 field-border-radius:        "1px"

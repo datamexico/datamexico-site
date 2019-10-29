@@ -15,7 +15,7 @@
     font-size: 32px;
     font-weight: 300;
     line-height: 1.5;
-    text-shadow: 0 2px 6px #000;
+    text-shadow: 0 2px 6px var(--black);
     text-transform: uppercase;
   }
 
@@ -23,7 +23,7 @@
     font-size: 12px;
     font-weight: 600;
     line-height: 1.5;
-    text-shadow: 0 2px 6px #000;
+    text-shadow: 0 2px 6px var(--black);
     text-transform: uppercase;
   }
 }

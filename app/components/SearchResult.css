@@ -8,7 +8,7 @@
     &:hover {
       text-decoration: none;
       color: var(--dark-4);
-      background-color: var(--accent);
+      background-color: var(--accent-light);
     }
   }
   & .icon {

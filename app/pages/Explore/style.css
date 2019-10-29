@@ -1,7 +1,9 @@
+@import "../../helpers/mixins.css";
+
 .ep-container {
   margin-top: var(--nav-height);
   min-height: calc(100vh - var(--nav-height));
-  background-color: var(--dark-4);
+  background-color: var(--dark-3);
   padding: 30px 60px;
 
   & .bp3-input {
@@ -12,7 +14,8 @@
     box-shadow: none;
     height: 60px;
     font-size: 1.6rem;
-    border-bottom: 1px solid #61709a;
+    border-bottom: 1px solid var(--dark-1);
+    padding-left: 1.5em !important; /* override blueprint */
 
     &::focus {
       box-shadow: none;
@@ -23,11 +26,14 @@
     }
   }
 
-  & .bp3-icon-search {
+  & .bp3-icon-search[class] {
+    @mixin absolute-vertical-center; /* center it regardless of the size */
+    margin: 0; /* override blueprint */
+    color: var(--white);
+
     & svg {
-      height: 45px;
-      width: 40px;
-      padding-left: 10px;
+      width: 2em;
+      height: auto;
     }
   }
 
@@ -46,13 +52,13 @@
 
   & .ep-profile-tabs {
     display: inline-flex;
-    background: #2a323f;
-    color: #5e709e;
+    background: var(--dark-3);
+    color: var(--dark-1);
     & .ep-profile-tab {
       padding: 10px;
       cursor: pointer;
       &.selected {
-        background: #16232B;
+        background: var(--dark-4);
         color: var(--white);
       }
     }
@@ -61,9 +67,8 @@
   & .ep-profiles {
     display: flex;
     flex-wrap: wrap;
-    background-color: #16232B;
+    background-color: var(--dark-4);
     max-height: 70vh;
     overflow-y: scroll;
   }
-
 }

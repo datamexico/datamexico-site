@@ -1,7 +1,6 @@
 .tile-title {
   align-items: center;
   display: flex;
-  font-family: "Barlow", sans-serif;
   font-size: 24px;
   justify-content: center;
   & .icon {
