@@ -28,7 +28,7 @@
       & a {
         color: var(--white);
         &:hover {
-          color: var(--green);
+          color: var(--accent-dark);
           text-decoration: none;
         }
       }
@@ -154,7 +154,7 @@
   }
 
   &.background {
-    background-color: var(--dark);
+    background-color: var(--dark-4);
   }
 
   & .profile-logo {

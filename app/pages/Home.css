@@ -1,6 +1,6 @@
 #Home {
   text-align: center;
-  background-color: var(--dark);
+  background-color: var(--dark-4);
   color: var(--white);
   & .hero {
     position: relative;
@@ -54,7 +54,7 @@
 
     & .bp3-icon-search {
       margin-top: 14px;
-      color: var(--green);
+      color: var(--accent-dark);
     }
 
     & .bp3-input {
@@ -67,7 +67,7 @@
     }
 
     & .home-search {
-      background: var(--green);
+      background: var(--accent-dark);
       color: var(--white);
       border-radius: 0;
       border: none;

@@ -22,7 +22,7 @@
       rgba(20, 27, 46, 0.3),
       rgba(20, 27, 46, 0.1) 10%,
       rgba(20, 27, 46, 0.2) 50%,
-      var(--dark)
+      var(--dark-4)
     );
     z-index: 11;
   }
@@ -48,7 +48,7 @@
     overflow: hidden;
     padding-left: 0px;
     text-overflow: ellipsis;
-    text-shadow: 0 2px 6px var(--dark);
+    text-shadow: 0 2px 6px var(--dark-4);
     text-transform: uppercase;
   }
 

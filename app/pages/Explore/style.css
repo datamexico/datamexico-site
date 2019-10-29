@@ -1,7 +1,7 @@
 .ep-container {
   margin-top: var(--nav-height);
   min-height: calc(100vh - var(--nav-height));
-  background-color: var(--dark);
+  background-color: var(--dark-4);
   padding: 30px 60px;
 
   & .bp3-input {

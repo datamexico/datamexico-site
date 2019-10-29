@@ -1,17 +1,14 @@
 .search-result {
-  &:hover {
-    background-color: #40908e91;
-  }
   & a {
     display: flex;
     align-items: center;
     padding: 10px 10px 10px 6px;
-    color: var(--black);
+    color: var(--dark-4);
 
     &:hover {
       text-decoration: none;
-      color: var(--black);
-      background-color: var(--hover);
+      color: var(--dark-4);
+      background-color: var(--accent);
     }
   }
   & .icon {

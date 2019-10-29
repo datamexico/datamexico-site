@@ -49,7 +49,7 @@
     & a {
       color: var(--white);
       &:hover {
-        color: var(--green);
+        color: var(--accent-dark);
         text-decoration: none;
       }
     }

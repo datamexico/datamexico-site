@@ -1,5 +1,5 @@
 .footer {
-  background-color: var(--dark);
+  background-color: var(--dark-4);
   color: var(--white);
 
   & .explore-columns {
