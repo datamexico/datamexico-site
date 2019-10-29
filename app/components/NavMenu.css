@@ -59,7 +59,6 @@
       line-height: 1.5;
       margin-bottom: 10px;
       text-transform: uppercase;
-      font-family: "Chivo", sans-serif;
     }
     & ul {
       margin-bottom: 20px;
@@ -78,4 +77,3 @@
     }
   }
 }
-

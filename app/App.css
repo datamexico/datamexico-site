@@ -1,15 +1,11 @@
 body {
-  font-family: "Chivo", sans-serif !important;
-  font-variant-ligatures: none;
   text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale;
-  font-smoothing: antialiased;
-  -webkit-font-smoothing: antialiased;
-  outline: none;
-}
 
-:focus {
-  outline: none !important;
+  /* don't remove the default focus styles, unless you plan on bringing your own */
+  & *:focus {
+    outline: 2px solid var(--accent-dark);
+    outline-offset: 1px;
+  }
 }
 
 .bp3-input:focus, .bp3-input.bp3-active {
@@ -19,11 +15,6 @@ body {
 .cp ::selection {
   color: #000000;
   background-color: #4caf50c7;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-  font-family: "Barlow Condensed", sans-serif;
 }
 
 .columns {
