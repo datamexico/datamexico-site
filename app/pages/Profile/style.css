@@ -76,8 +76,12 @@
     }
   }
 
-  /* TODO: remove once added to canon */
-  & .cp-stat-group { align-items: flex-start; }
+  /*
+  flex-direction has been reversed so labels appear above values;
+  this is needed to re-align them vertically */
+  & .cp-stat-group {
+    align-items: flex-start;
+  }
 
   & .cp-stat-group > & > .cp-stat {
     flex: 1;
