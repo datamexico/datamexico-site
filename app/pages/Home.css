@@ -16,7 +16,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: var(--white);
     &::before {
       @mixin overlay-gradient;
       position: absolute;
@@ -47,7 +46,7 @@
   }
 
   & .home-input {
-    border-radius: 0px;
+    border-radius: 0;
     height: 45px;
     max-width: 650px;
     min-width: 600px;
@@ -59,10 +58,8 @@
     }
 
     & .bp3-input {
-      font-size: 18px;
-      font-weight: 400;
       height: 100%;
-      border-radius: 0px;
+      border-radius: 0;
       box-shadow: none;
     }
 
@@ -74,7 +71,6 @@
       box-shadow: none;
       margin: 0;
       height: 45px;
-      font-size: 18px;
       padding: 5px 20px;
     }
   }
@@ -97,7 +93,7 @@
   position: absolute;
   width: 498px;
   background-color: var(--light-2);
-  margin-top: 0px;
+  margin-top: 0;
   z-index: 22;
   max-height: 30vh;
   overflow-y: scroll;
@@ -114,11 +110,10 @@
 .bp3-popover {
   width: 404px;
   & .bp3-popover-content {
-    border-radius: 0px !important;
+    border-radius: 0 !important;
   }
 }
 
 .cp-grouping-section-heading {
-  font-size: 36px;
   text-align: center;
 }

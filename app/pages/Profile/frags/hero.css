@@ -1,51 +1,29 @@
-@import "../../../helpers/mixins.css";
+@import "helpers/mixins.css";
 
 .cp-hero {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   position: relative;
+  padding-bottom: 0; /* bring closer to about section */
   z-index: 1;
 
   & .cp-hero-stat-group > .cp-stat {
     margin: 15px 20px;
-    padding: 0px;
+    padding: 0;
     min-width: 50px;
   }
 
-  &::before {
-    @mixin overlay-gradient;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    content: "";
-    z-index: 11;
-  }
-
-  & .cp-section-inner {
-
-  }
-
-  & .cp-hero-caption {
-    text-align: center;
-  }
-
   & .cp-hero-heading {
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    display: -webkit-box;
-    font-size: 60px;
-    font-weight: 400;
-    line-height: 1.1;
-    margin-bottom: 5px;
-    margin-left: 0px;
-    overflow: hidden;
-    padding-left: 0px;
-    text-overflow: ellipsis;
+    /* typography */
+    @mixin display;
+    @mixin font-xxl;
+    /* handle long titles */
+    @mixin overflow-ellipsis;
+    line-height: 1.25;
+    height: 1.25em;
+    /* theming */
     text-shadow: 0 2px 6px var(--dark-4);
-    text-transform: uppercase;
   }
 
   & .cp-hero-inner {
@@ -53,26 +31,25 @@
   }
 
   & .cp-stat-label-text {
-    font-size: 12px;
-    font-weight: 600;
     line-height: 1.5;
     text-shadow: 0 2px 6px var(--black);
-    text-transform: uppercase;
   }
 
   & .cp-hero-stat-group {
     margin: auto;
-    max-width: 700px;
+    width: 40rem;
   }
 
   & .cp-stat-value-text {
-    font-size: 38px;
-    font-weight: 300;
     text-shadow: 0 2px 12px var(--black);
-    color: var(--white);
   }
 
   & .cp-hero-credits {
     z-index: 12; /* in front of overlay */
+  }
+
+  & .cp-hero-img-overlay {
+    @mixin overlay-gradient;
+    z-index: 11;
   }
 }

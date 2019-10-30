@@ -98,50 +98,51 @@ font-xs:                    "0.75rem"  # 12px
 font-sm:                    "0.875rem" # 14px
 font-md:                    "1rem"     # 16px
 font-lg:                    "1.25rem"  # 20px
-font-xl:                    "1.5rem"   # 24px
-font-xxl:                   "2rem"     # 32px - use sparingly
+font-xl:                    "1.75rem"  # 30px
+font-xxl:                   "2.75rem"  # 48px - use sparingly
 
 # base (p, li, etc.)
 base-font-stack:            "'Barlow', 'Trebuchet MS', sans-serif" # Remember to import custom fonts & only the necessary weights via Helmet.js
 base-font-weight:           "400"
 base-letter-spacing:        "0"
-bold-weight:                "800"
+bold-weight:                "600"
+light-weight:               "200"
 
 # headings (h1, h2, etc.; .heading class)
 heading-font-stack:         "var(--base-font-stack)"
-heading-font-weight:        "600"
+heading-font-weight:        "var(--base-font-weight)"
 heading-text-transform:     "none"
 heading-letter-spacing:     "0"
 
-# display (.display class)
-display-font-stack:         "var(--base-font-stack)"
-display-font-weight:        "600"
+# display (.display class; heading, but uppercase)
+display-font-stack:         "var(--heading-font-stack)"
+display-font-weight:        "var(--heading-font-weight)"
 display-text-transform:     "uppercase"
 display-letter-spacing:     "0.0125em" # generally, some kerning is helps legibility of all caps text only
 
 # label (.label class)
 label-font-stack:           "var(--base-font-stack)"
 label-font-weight:          "400"
-label-text-transform:       "uppercase"
-label-letter-spacing:       "0.0125em" # generally, some kerning is helps legibility of all caps text only
+label-text-transform:       "none"
+label-letter-spacing:       "normal"
 
 # hero AKA header AKA splash
-hero-bg-color:              "var(--dark-4)"
-hero-img-overlay-opacity:   "0.875"
+hero-bg-color:              "color(var(--dark-4) a(0.5))"
+hero-img-overlay-opacity:   "1"
 hero-text-color:            "var(--light-2)"
 hero-paragraph-size:        "var(--font-xs)"
 hero-heading-color:         "var(--white)"
 hero-heading-size:          "var(--font-xxl)"
 hero-subhead-color:         "var(--white)"
 hero-subhead-size:          "var(--font-md)"
-hero-stat-value-color:      "var(--accent)"
+hero-stat-value-color:      "var(--white)"
 hero-stat-column-count:     "4"
 hero-stat-column-width:     "10rem"
 hero-viz-width:             "20rem"
 
 # sections
-section-bg-odd:             "var(--light-1)"
-section-bg-even:            "var(--white)"
+section-bg-odd:             "var(--white)"
+section-bg-even:            "var(--light-1)"
 section-text-color:         "var(--dark-2)"
 section-heading-color:      "var(--dark-4)"
 # sticky sections
@@ -174,7 +175,7 @@ grouping-paragraph-size:    "var(--font-md)"
 grouping-subhead-color:     "var(--accent-black)"
 grouping-subhead-font-size: "var(--font-xl)"
 grouping-heading-color:     "var(--dark-4)"
-grouping-heading-font-size: "var(--font-xxl)"
+grouping-heading-font-size: "var(--font-xl)"
 grouping-stat-value-color:  "var(--white)"
 
 # buttons
@@ -182,7 +183,7 @@ button-border-radius:       "2px"
 button-border-width:        "1px"
 button-bg-color:            "transparent"
 button-border-color:        "var(--light-3)"
-button-color:               "var(--gray)"
+button-color:               "var(--dark-1)"
 button-padding:             "0.5em 1.25em"
 button-hover-bg-color:      "transparent"
 button-hover-border-color:  "var(--accent-black)"
@@ -234,5 +235,6 @@ stat-label-font-size:       "var(--font-xs)"
 stat-label-color:           "inherit"
 stat-value-font-size:       "var(--font-xl)"
 stat-value-color:           "var(--accent-dark)"
+stat-value-weight:          "var(--light-weight)"
 stat-subtitle-font-size:    "var(--font-xs)"
 stat-subtitle-color:        "var(--dark-1)"

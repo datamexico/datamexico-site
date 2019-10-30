@@ -4,9 +4,10 @@
   min-width: 200px;
   flex: 1;
   min-height: 70vh;
+  color: var(--dark-1);
+  text-align: center;
 
   & .ep-profile-no-results {
-    color: var(--dark-1);
     height: 100%;
     display: flex;
     align-items: center;
@@ -20,16 +21,11 @@
     & .message {
       max-width: 600px;
       padding: 20px;
-      font-size: 16px;
-      text-align: center;
     }
   }
 
   & .ep-profile-title {
-    color: var(--dark-1);
-    text-align: center;
     padding: 1.1rem;
-    text-transform: uppercase;
   }
 
   & .ep-profile-results {
@@ -78,13 +74,11 @@
       margin-right: 10px;
       align-items: center;
       justify-content: center;
-      text-align: center;
       display: flex;
     }
 
     & .ep-profile-result-title {
       width: 100%;
-      font-size: 16px;
       overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -93,8 +87,6 @@
 
     & .ep-profile-result-level {
       width: 100%;
-      font-size: 12px;
-      text-transform: uppercase;
     }
   }
 }

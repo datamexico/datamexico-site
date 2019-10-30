@@ -8,15 +8,12 @@
   color: var(--white);
   cursor: pointer;
   display: flex;
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 20px;
   height: 150px;
   justify-content: center;
   margin: 15px 0;
   overflow: hidden;
   padding: 20px;
   position: relative;
-  text-transform: uppercase;
   transition: all 1s;
   transition: border-color .25s;
   z-index: 1;
@@ -37,7 +34,6 @@
     color: var(--white);
     background-size: 115% 115%;
     transition: all 1s;
-    font-size: 22px;
     border: 1px solid var(--white);
   }
   &:hover::before {

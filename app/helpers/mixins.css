@@ -24,3 +24,24 @@
           var(--dark-4)
   );
 }
+
+/* TODO: remove once these mixins have been added to canon */
+@define-mixin heading {
+  font-family: var(--heading-font-stack);
+  font-weight: var(--heading-font-weight);
+  text-transform: var(--heading-text-transform);
+  letter-spacing: var(--heading-letter-spacing);
+  line-height: 1.125;
+}
+@define-mixin display {
+  font-family: var(--display-font-stack);
+  font-weight: var(--display-font-weight);
+  text-transform: var(--display-text-transform);
+  letter-spacing: var(--display-letter-spacing);
+}
+@define-mixin label {
+  font-family: var(--label-font-stack);
+  font-weight: var(--label-font-weight);
+  text-transform: var(--label-text-transform);
+  letter-spacing: var(--label-letter-spacing);
+}

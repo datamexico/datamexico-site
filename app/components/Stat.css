@@ -1,6 +1,5 @@
 .stat {
   align-items: center;
-  color: var(--white);
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -11,19 +10,13 @@
   min-width: 200px;
   max-width: 200px;
 
-  & .value {
-    font-size: 32px;
-    font-weight: 300;
-    line-height: 1.5;
+  & .value,
+  & .title,
+  & .subtitle {
     text-shadow: 0 2px 6px var(--black);
-    text-transform: uppercase;
   }
 
   & .title, & .subtitle {
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1.5;
     text-shadow: 0 2px 6px var(--black);
-    text-transform: uppercase;
   }
 }

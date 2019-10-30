@@ -7,7 +7,7 @@
   padding: 30px 60px;
 
   & .bp3-input {
-    border-radius: 0px;
+    border-radius: 0;
     border: none;
     background-color: transparent;
     color: var(--white);

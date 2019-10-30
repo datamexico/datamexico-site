@@ -6,10 +6,9 @@
   height: var(--nav-height);
   justify-content: space-between;
   left: 0;
-  padding: 0px 20px;
+  padding: 0 20px;
   position: fixed;
   text-align: center;
-  text-transform: uppercase;
   top: 0;
   transform: translateX(0);
   transition: background-color .75s;
@@ -24,7 +23,7 @@
     margin-left: -40px;
     margin: 0;
     & li {
-      margin: 0px 5px;
+      margin: 0 5px;
       & a {
         color: var(--white);
         &:hover {
@@ -46,13 +45,10 @@
       & .nav-subtitle {
         color: var(--accent-dark);
         font-family: "Barlow Condensed", sans-serif;
-        font-size: 22px;
-        font-weight: 600;
         line-height: 20px;
         max-width: 500px;
         overflow: hidden;
         text-overflow: ellipsis;
-        text-transform: none;
         vertical-align: middle;
         white-space: nowrap;
       }
@@ -75,7 +71,7 @@
         }
 
         & .bp3-icon-search {
-          padding: 0px 5px 0px 10px;
+          padding: 0 5px 0 10px;
         }
         & .bp3-input-group {
           display: none;
@@ -88,6 +84,7 @@
           height: inherit;
           border-radius: 0;
           color: var(--white);
+          box-shadow: none;
 
           &:focus {
             outline: none;
@@ -123,10 +120,8 @@
           flex-direction: column;
           color: var(--white);
           & .title {
-            font-size: 14px;
             line-height: 1.25;
             margin-bottom: 2px;
-            text-transform: none;
           }
           & .level-title {
             color: var(--gray);
@@ -146,7 +141,6 @@
   }
 
   & .menu {
-    font-size: 12px;
     margin-left: 5px;
   }
 

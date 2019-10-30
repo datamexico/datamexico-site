@@ -11,13 +11,11 @@
     margin-right: 5px;
   }
   & .ep-header-title {
-    font-size: 14px;
-    text-transform: uppercase;
     color: var(--light-2);
     & .selected {
       color: var(--white);
       border-bottom: 1px solid var(--white);
-      padding: 5px 0px;
+      padding: 5px 0;
     }
   }
 }
