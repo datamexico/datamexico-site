@@ -80,7 +80,6 @@ class Nav extends React.Component {
   render() {
     const {className, logo, routePath, routeParams, title, t} = this.props;
     const {isOpen, isSearchOpen, resultsFilter} = this.state;
-    console.log("ASDF");
 
     const params = Object.entries(routeParams).reduce((obj, d) => {
       const key = `:${d[0]}`;
