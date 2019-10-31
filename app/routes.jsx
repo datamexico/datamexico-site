@@ -6,7 +6,7 @@ import {Login, SignUp} from "@datawheel/canon-core";
 
 import App from "./App";
 import Home from "./pages/Home";
-import Profile from "./pages/Profile";
+import Profile from "./pages/Profile/Profile";
 import Loading from "./components/Loading";
 import Explore from "./pages/Explore";
 
