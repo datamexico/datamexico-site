@@ -153,6 +153,14 @@ export default {
         return [good, bad].includes(c) ? 1 : 0;
       }
     },
+    Circle: {
+      fill: d => {
+        if (d["Trade Value Density"]) {
+          return "#ff0000";
+        }
+        return d["Trade Value RCA"] && d["Trade Value RCA"] > 1 ? findColor(d) : "#b1bac6";
+      }
+    },
     fill: findColor,
     labelConfig: {
       fontSize: () => 13
