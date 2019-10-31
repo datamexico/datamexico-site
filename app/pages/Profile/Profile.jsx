@@ -4,18 +4,13 @@ import PropTypes from "prop-types";
 import {withNamespaces} from "react-i18next";
 import {fetchData} from "@datawheel/canon-core";
 import {connect} from "react-redux";
-import {Profile as CMSProfile, Section} from "@datawheel/canon-cms";
+import {Profile as CMSProfile} from "@datawheel/canon-cms";
 import libs from "@datawheel/canon-cms/src/utils/libs";
 
-import Stat from "../../components/Stat";
-
-import {Geomap} from "d3plus-react";
-import SectionIcon from "../../components/SectionIcon";
-import {Icon} from "@blueprintjs/core";
 import Nav from "../../components/Nav";
-
-import "./style.css";
 import Footer from "../../components/Footer";
+
+import "./Profile.css";
 
 class Profile extends React.Component {
   state = {
@@ -102,4 +97,3 @@ export default withNamespaces()(
     profile: state.data.profile
   }))(Profile)
 );
-
