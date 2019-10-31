@@ -9,8 +9,8 @@ import requests
 
 
 def main():
-    params = json.loads(sys.argv[1])
-    API = str(sys.argv[2])
+    params = json.loads(sys.argv[1]) if len(sys.argv) > 1 else {'cube': 'economy_foreign_trade_ent', 'rca': 'State,HS4 4 Digit,Trade Value', 'Date Year': '2018', 'filter_State': '14'}
+    API = str(sys.argv[2]) if len(sys.argv) > 2 else "https://api.datamexico.org/tesseract/data"
     dd1, dd2, measure = params["rca"].split(",")
 
     dd1_id = "{} ID".format(dd1)
@@ -31,9 +31,21 @@ def main():
     ).reset_index().set_index(dd1_id).dropna(axis=1, how="all").fillna(0)
     df = df.astype(float)
 
-    densities = density(df, proximity(df))
-    densities = pd.melt(densities.reset_index(), id_vars=[dd1_id], value_name="{} Relatedness".format(measure))
+    '''
+        Calculate densities using ps_calcs density script
+        note: need to fillna w/ 0 in case there are NaNs returned
+    '''
+    densities = density(df, proximity(df).fillna(0))
 
+    densities = pd.melt(densities.reset_index(), id_vars=[dd1_id], value_name="{} Relatedness".format(measure))
+    '''
+        Some drilldowns (dd) may be ints (such as in the case of HS products)
+        for this reason we need to use the .infer_objects() function to cast
+        them base to their proper dtype. Otherwise pandas will throw a mismatched
+        types error, like so--
+        ValueError: You are trying to merge on object and int64 columns.
+    '''
+    densities = densities.infer_objects()
     densities["pivot"] = densities[dd1_id].astype(str) + "_" + densities[dd2_id].astype(str)
 
     densities = densities.merge(dd1_df, on=dd1_id)

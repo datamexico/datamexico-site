@@ -26,3 +26,6 @@ dockerfiles/nginx/conf.d/default.conf
 
 # img bucket access
 datamexico-gcp-bucket-token.json
+
+# cached python
+__pycache__/
