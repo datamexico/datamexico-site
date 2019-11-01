@@ -1,29 +1,66 @@
+@import "helpers/mixins.css";
+
 .footer {
   background-color: var(--dark-4);
   color: var(--white);
+  text-align: left;
 
-  & .explore-columns {
-    display: flex;
-    flex-wrap: wrap;
-    text-align: left;
+  & .footer-columns {
+    /* column layout only on non-tiny screens */
+    @mixin min-xs {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    & .footer-heading {
+      margin-bottom: var(--gutter-sm);
+    }
 
     & ul {
-      list-style: none;
-      margin-left: -40px;
-      margin-right: 30px;
-      & li {
-        padding: 2px 10px 2px 0;
-        margin-bottom: 5px;
+      @mixin list-reset;
+    }
+
+    /* show border in between adjacent nav links on mobile */
+    & li:not(:last-child) {
+      @mixin max-xs {
+        border-bottom: 1px solid var(--dark-3);
       }
+    }
+
+    /* link style overrides */
+    & a {
+      font-weight: var(--light-weight);
+      color: var(--white);
+      display: block;
+      line-height: 2;
+
+      /* easier touch target for mobile */
+      @mixin max-xs {
+        line-height: 2;
+      }
+      /* inline lists for bigger screens */
+      @mixin min-xs {
+        @mixin font-xs;
+      }
+    }
+  }
+
+  /* space out columns */
+  & .footer-column {
+    margin-bottom: var(--gutter-md);
+
+    @mixin min-xs {
+      margin-right: calc(var(--gutter-lg) + 4vw);
     }
   }
 
   & .footer-contact {
     max-width: 400px;
-    & h4 {
-      margin-bottom: 10px;
-    }
+
     & .footer-email {
+      margin-top: var(--gutter-sm);
+      margin-bottom: var(--gutter-md);
+
       & .bp3-icon {
         color: var(--white);
       }
@@ -31,9 +68,10 @@
         background: transparent;
         border-bottom: 1px solid white;
         border-radius: 0;
-        margin-bottom: 15px;
       }
       & .bp3-input-action {
+        @mixin absolute-vertical-center;
+
         & span {
           display: flex;
           align-items: center;
@@ -44,10 +82,6 @@
         }
       }
     }
-  }
-
-  & .footer-links {
-    max-width: 400px;
   }
 
   & .sponsors {
@@ -65,7 +99,7 @@
     padding: 50px 25px;
     & .footer-links {
       margin: auto;
-      & .explore-column {
+      & .footer-column {
         flex: 1;
         min-width: 1px;
       }
