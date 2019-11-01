@@ -23,8 +23,8 @@ class NavMenu extends React.Component {
       onClose={() => this.props.run(false)}
     >
       <div className="nav-menu-content">
-        <button className="nav-button close-button">
-          <Icon icon="cross" onClick={() => this.props.run(false)} />
+        <button className="nav-button close-button" onClick={() => this.props.run(false)}>
+          <Icon icon="cross" />
         </button>
         <div>
           <ul>
