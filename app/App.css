@@ -27,6 +27,15 @@ p:last-of-type {
   box-shadow: none !important;
 }
 
+/* default link styles */
+.link, p > a, li > a {
+  color: var(--accent-dark);
+
+  &:hover, &:focus {
+    color: var(--accent);
+  }
+}
+
 .click {
   cursor: pointer;
 }
