@@ -89,14 +89,17 @@ class Nav extends React.Component {
     }, {});
 
 
-    return <div className={`${className} nav click`}>
+    return <div className={`${className} nav container`}>
       <NavMenu
         isOpen={isOpen}
         dialogClassName={isOpen ? "slide-enter" : "slide-exit"}
         run={isOpen => this.setState({isOpen})}
       />
       <div className="nav-left">
-        <span onClick={() => this.setState({isOpen: !isOpen})}><Icon icon="menu" /> <span className="menu">{t("Menu")}</span></span>
+        <button className="nav-button" onClick={() => this.setState({isOpen: !isOpen})}>
+          <Icon icon="menu" />
+          <span className="menu">{t("Menu")}</span>
+        </button>
       </div>
       <div className="nav-center">
         {(logo || className === "background") && <a className="profile-logo" href="/" data-refresh="true"><img src="/icons/logo-horizontal.svg" alt=""/></a>}

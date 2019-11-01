@@ -122,7 +122,7 @@ class Explore extends React.Component {
   render() {
     const {query, tab, selected} = this.state;
 
-    return <div id="explore">
+    return <div className="explore">
       <Helmet title="Explore">
         <meta property="og:title" content={"Explore"} />
       </Helmet>
@@ -133,7 +133,7 @@ class Explore extends React.Component {
         routePath={"/:lang"}
         title={""}
       />
-      <div className="ep-container">
+      <div className="ep-container container">
         <div className="ep-search">
           <InputGroup
             leftIcon="search"

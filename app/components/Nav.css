@@ -1,3 +1,5 @@
+@import "helpers/mixins.css";
+
 .nav {
   align-items: center;
   color: var(--white);
@@ -6,7 +8,8 @@
   height: var(--nav-height);
   justify-content: space-between;
   left: 0;
-  padding: 0 20px;
+  padding-top: 0;
+  padding-bottom: 0;
   position: fixed;
   text-align: center;
   top: 0;
@@ -206,5 +209,22 @@
     & .nav-subtitle {
       display: none;
     }
+  }
+}
+
+.nav-button {
+  @mixin button-reset;
+  color: inherit;
+
+  & [class*="icon"] {
+    transition:
+      color 0.125s ease-out,
+      transform 0.125s ease-out;
+  }
+
+  &:hover [class*="icon"],
+  &:focus [class*="icon"] {
+    color: var(--accent);
+    transform: scale(1.075);
   }
 }

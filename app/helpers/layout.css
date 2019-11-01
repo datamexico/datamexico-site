@@ -3,14 +3,18 @@
 .container {
   max-width: 100%;
   padding: var(--gutter-md);
+
+  @mixin min-sm {
+    padding: var(--gutter-lg);
+  }
 }
 
 .columns {
   display: flex;
   flex-wrap: wrap;
   /* offset column gutter */
-  margin-left:  calc(0px - ( var(--gutter-sm) / 2 ));
-  margin-right: calc(0px - ( var(--gutter-sm) / 2 ));
+  margin-left:  calc(0px - var(--gutter-sm));
+  margin-right: calc(0px - var(--gutter-sm));
 }
 
 .column {

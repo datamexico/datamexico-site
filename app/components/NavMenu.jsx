@@ -23,9 +23,9 @@ class NavMenu extends React.Component {
       onClose={() => this.props.run(false)}
     >
       <div className="nav-menu-content">
-        <span className="close-button click">
+        <button className="nav-button close-button">
           <Icon icon="cross" onClick={() => this.props.run(false)} />
-        </span>
+        </button>
         <div>
           <ul>
             <li><a href="/">{t("Home")}</a></li>
