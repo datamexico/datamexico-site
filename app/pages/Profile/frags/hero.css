@@ -8,6 +8,11 @@
   padding-bottom: 0; /* bring closer to about section */
   z-index: 1;
 
+  /* set text shadow for all children based on font size */
+  & .cp-hero-caption {
+    @mixin text-shadow;
+  }
+
   & .cp-hero-stat-group > .cp-stat {
     margin: 15px 20px;
     padding: 0;
@@ -22,8 +27,6 @@
     @mixin overflow-ellipsis;
     line-height: 1.25;
     height: 1.25em;
-    /* theming */
-    text-shadow: 0 2px 6px var(--dark-4);
   }
 
   & .cp-hero-inner {
@@ -32,7 +35,6 @@
 
   & .cp-stat-label-text {
     line-height: 1.5;
-    text-shadow: 0 2px 6px var(--black);
   }
 
   & .cp-hero-stat-group {
@@ -40,12 +42,12 @@
     width: 40rem;
   }
 
-  & .cp-stat-value-text {
-    text-shadow: 0 2px 12px var(--black);
-  }
-
   & .cp-hero-credits {
     z-index: 12; /* in front of overlay */
+
+    &.is-open {
+      margin-bottom: 0;
+    }
   }
 
   & .cp-hero-img-overlay {

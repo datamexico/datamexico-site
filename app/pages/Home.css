@@ -7,9 +7,8 @@
   & .hero {
     position: relative;
     background: url(/images/backgroundmx.jpg);
-    background-position: center;
+    background-position: bottom center;
     background-size: cover;
-    background-repeat: no-repeat;
     height: 70vh;
     z-index: 1;
     display: flex;
@@ -28,8 +27,8 @@
     }
 
     & .tagline {
+      @mixin text-shadow;
       margin: 30px;
-      text-shadow: 2px 2px 7px var(--dark-4);
     }
 
     & .sponsors {

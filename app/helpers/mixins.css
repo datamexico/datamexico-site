@@ -25,6 +25,10 @@
   );
 }
 
+@define-mixin text-shadow {
+  text-shadow: 0 1px 0.5em color(var(--black) a(0.75));
+}
+
 /* TODO: remove once these mixins have been added to canon */
 @define-mixin heading {
   font-family: var(--heading-font-stack);

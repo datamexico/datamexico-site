@@ -1,5 +1,5 @@
 @import "helpers/mixins.css";
-@import url(frags/hero.css);
+@import "./frags/hero.css";
 
 .lead {
   background-color: var(--dark-4);
@@ -59,6 +59,7 @@ this is needed to re-align them vertically */
 .cp-main {
   /* about section overrides */
   & .cp-grouping:first-child {
+    @mixin text-shadow;
     background-color: var(--dark-4);
 
     /* bring about section closer to hero */
