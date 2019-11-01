@@ -52,7 +52,7 @@ class Footer extends React.Component {
             leftIcon="envelope"
             className="footer-email"
             placeholder="Your email address"
-            rightElement={<span>{t("Sign Up")}<Icon icon="arrow-right" /></span>}
+            rightElement={<button className="submit-button" onClick={() => console.log("hook me up carlos!")}>{t("Sign Up")}<Icon icon="arrow-right" /></button>}
           />
           <div className="sponsors">
             <img className="brand" src="/icons/SE.png" alt="" />

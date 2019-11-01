@@ -55,29 +55,55 @@
   }
 
   & .footer-contact {
-    max-width: 400px;
+    max-width: 22rem;
 
     & .footer-email {
       margin-top: var(--gutter-sm);
       margin-bottom: var(--gutter-md);
 
-      & .bp3-icon {
+      & [icon="envelope"] {
+        @mixin absolute-vertical-center;
+        margin: 0 0 0 1px;
         color: var(--white);
       }
       & input {
+        @mixin font-sm;
+        color: var(--white);
         background: transparent;
-        border-bottom: 1px solid white;
+        border-bottom: 1px solid currentColor;
+        padding: var(--field-padding);
+        padding-left: 1.5em;
+        /* blueprint overrides */
+        height: auto;
         border-radius: 0;
+        line-height: auto;
+        box-shadow: none;
+
+        &:hover {
+          color: var(--accent);
+        }
       }
       & .bp3-input-action {
         @mixin absolute-vertical-center;
 
-        & span {
+        & .submit-button {
+          @mixin button-reset;
+          color: inherit;
           display: flex;
           align-items: center;
           justify-content: center;
+
+          &:hover [class*="icon"],
+          &:focus [class*="icon"] {
+            color: var(--accent);
+            transform: translateX(4px);
+          }
+
           & .bp3-icon {
             margin-left: 5px;
+            transition:
+              color 0.15s ease-out,
+              transform 0.15s ease-out;
           }
         }
       }
@@ -87,29 +113,10 @@
   & .sponsors {
     display: flex;
     justify-content: space-between;
-    width: 400px;
-    & .brand {
-      height: 32px;
-    }
-  }
-}
+    width: 100%;
 
-@media only screen and (max-width: 768px) {
-  .footer {
-    padding: 50px 25px;
-    & .footer-links {
-      margin: auto;
-      & .footer-column {
-        flex: 1;
-        min-width: 1px;
-      }
-    }
-    & .footer-contact {
-      margin: auto;
-    }
-    & .columns {
-      display: flex;
-      flex-direction: column;
+    & .brand {
+      height: 1.75rem;
     }
   }
 }
