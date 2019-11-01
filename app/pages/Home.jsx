@@ -82,7 +82,7 @@ class Home extends Component {
     const {resultsFilter, scrolled, isOpenSearchResults} = this.state;
     const {t} = this.props;
 
-    return <div id="Home">
+    return <div className="home">
       <Helmet title="">
         <meta property="og:title" content={""} />
       </Helmet>
@@ -93,36 +93,34 @@ class Home extends Component {
         routePath={"/:lang"}
         title={""}
       />
-      <div className="hero">
-        <div className="hero-logo">
-          <img src="/icons/logo.svg" width="300px" />
-        </div>
-        <h2 className="tagline">
+      <div className="hero container">
+        <h1 className="hero-logo">
+          <img src="/icons/logo.svg" alt="DataMexico" />
+        </h1>
+        <p className="tagline u-font-md">
           {t("EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA")}
-        </h2>
+        </p>
 
-        <div>
-          <InputGroup
-            leftIcon="search"
-            className="home-input"
-            placeholder={"Ej. Ciudad de México, Monterrey"}
-            onChange={this.handleSearch}
-            rightElement={<Button className="home-search" onClick={() => {
-              const searchParams = new URLSearchParams();
-              searchParams.set("q", this.state.query);
-              this.context.router.replace(`${this.props.location.pathname}/es/${this.props.lng}/explore?${searchParams.toString()}`);
-            }}>Search</Button>}
-          />
-          {isOpenSearchResults && <ul className="search-results">
-            {resultsFilter.map((d, i) => <SearchResult
-              key={`search_result_${d.id}_${i}`}
-              id={d.id}
-              slug={d.slug}
-              title={d.name}
-              level={d.level}
-            />)}
-          </ul>}
-        </div>
+        <InputGroup
+          leftIcon="search"
+          className="home-input"
+          placeholder={"Ej. Ciudad de México, Monterrey"}
+          onChange={this.handleSearch}
+          rightElement={<Button className="home-search" onClick={() => {
+            const searchParams = new URLSearchParams();
+            searchParams.set("q", this.state.query);
+            this.context.router.replace(`${this.props.location.pathname}/es/${this.props.lng}/explore?${searchParams.toString()}`);
+          }}>Search</Button>}
+        />
+        {isOpenSearchResults && <ul className="search-results">
+          {resultsFilter.map((d, i) => <SearchResult
+            key={`search_result_${d.id}_${i}`}
+            id={d.id}
+            slug={d.slug}
+            title={d.name}
+            level={d.level}
+          />)}
+        </ul>}
         <div className="sponsors">
           <img className="brand se-logo" src="/icons/SE.png" alt="" />
           <img className="brand matt-logo" src="/icons/matt-white.svg" alt="" />

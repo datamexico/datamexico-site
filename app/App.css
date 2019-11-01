@@ -1,3 +1,5 @@
+@import "helpers/layout.css";
+
 body {
   /* don't remove the default focus styles, unless you plan on bringing your own */
   & *:focus {
@@ -23,35 +25,6 @@ p:last-of-type {
 
 .bp3-input:focus, .bp3-input.bp3-active {
   box-shadow: none !important;
-}
-
-.columns {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.column {
-  min-width: 10px;
-  flex: 1;
-
-  @for $i from 2 to 5 {
-    &.is-1-$i {
-      width: calc(100% / $i);
-    }
-  }
-
-  &.is-2-3 {
-    max-width: 66.6666%;
-  }
-
-  &.is-3-4 {
-    max-width: 75%;
-  }
-}
-
-.container {
-  max-width: 100%;
-  padding: 30px;
 }
 
 .click {
