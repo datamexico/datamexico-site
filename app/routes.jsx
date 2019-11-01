@@ -8,7 +8,7 @@ import App from "./App";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile/Profile";
 import Loading from "./components/Loading";
-import Explore from "./pages/Explore";
+import Explore from "./pages/Explore/Explore";
 
 /** */
 export default function RouteCreate() {

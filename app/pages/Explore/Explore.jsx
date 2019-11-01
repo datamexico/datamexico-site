@@ -10,7 +10,7 @@ import ExploreProfile from "../../components/ExploreProfile";
 import Footer from "../../components/Footer";
 import Nav from "../../components/Nav";
 
-import "./style.css";
+import "./Explore.css";
 
 const CancelToken = axios.CancelToken;
 let cancel;
