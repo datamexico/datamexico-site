@@ -5,11 +5,24 @@
   color: var(--white);
   text-align: left;
 
-  & .footer-columns {
+  & .columns {
     /* column layout only on non-tiny screens */
-    @mixin min-xs {
-      display: flex;
-      flex-wrap: wrap;
+    @mixin max-sm {
+      display: block;
+
+      & .column {
+        width: 100%;
+      }
+    }
+
+    & .footer-columns {
+      @mixin min-xs {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      @mixin max-sm {
+        justify-content: space-between;
+      }
     }
 
     & .footer-heading {
@@ -55,7 +68,11 @@
   }
 
   & .footer-contact {
-    max-width: 22rem;
+    max-width: calc(100% - var(--gutter-md));
+
+    @mixin min-sm {
+      max-width: 22rem;
+    }
 
     & .footer-email {
       margin-top: var(--gutter-sm);
@@ -111,12 +128,24 @@
   }
 
   & .sponsors {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+    @mixin min-xs {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    /* justified on medium screens */
+    @mixin min-sm {
+      justify-content: space-between;
+    }
 
     & .brand {
       height: 1.75rem;
+      margin-bottom: var(--gutter-sm);
+
+      &:not(:last-child) {
+        margin-right: var(--gutter-md);
+      }
     }
   }
 }
