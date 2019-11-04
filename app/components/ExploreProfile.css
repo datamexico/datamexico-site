@@ -46,9 +46,9 @@
     border: 1px solid var(--dark-2);
     height: 90px;
     flex: 1;
-    min-width: 150px;
     &.full-panel {
-      min-width: 300px;
+      width: 300px;
+      max-width: 100%;
     }
 
     &::before {

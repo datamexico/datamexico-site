@@ -41,18 +41,31 @@
   }
 
   & .ep-headers {
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 800px;
-    align-items: center;
-    justify-content: center;
     margin: 30px auto;
+
+    /* break buttons into columns on small screens */
+    @mixin min-xxs {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    & .ep-header {
+      @mixin max-sm {
+        flex: 1 0 calc(33.333% - var(--gutter-xs)); /* 3 columns */
+      }
+      @mixin max-xs {
+        flex-basis: calc(50% - var(--gutter-xs)); /* 2 columns */
+      }
+    }
   }
 
   & .ep-profile-tabs {
     display: inline-flex;
     background: var(--dark-3);
     color: var(--dark-1);
+
     & .ep-profile-tab {
       padding: 10px;
       cursor: pointer;

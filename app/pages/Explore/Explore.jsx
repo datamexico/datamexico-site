@@ -163,7 +163,7 @@ class Explore extends React.Component {
             {levels[selected].map((d, i) => {
               const results = this.state.results.filter(h => h.slug === selected && h.level === d);
               const len = results.length;
-              return <div className={`ep-profile-tab ${tab === d ? "selected" : ""}`} key={i} onClick={() => this.setState({tab: d})}>
+              return <div className={`ep-profile-tab${tab === d ? " selected" : ""}${len === 0 ? " u-hide-below-sm" : "" }`} key={i} onClick={() => this.setState({tab: d})}>
                 {`${d} (${len})`}
               </div>;
             })}

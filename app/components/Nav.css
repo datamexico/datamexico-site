@@ -43,7 +43,6 @@
     display: flex;
 
     &.nav-center {
-      min-width: 300px;
       justify-content: center;
       & .nav-subtitle {
         color: var(--accent-dark);
