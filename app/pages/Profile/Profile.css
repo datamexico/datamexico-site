@@ -16,16 +16,6 @@
   }
 }
 
-/* value on top */
-.cp-main .cp-stat-group-wrapper > .cp-stat {
-  display: flex;
-  flex-direction: column;
-
-  & .cp-stat-value {
-    order: -1;
-  }
-}
-
 /* override heading styles for stat values */
 /* TODO: remove after removing heading class from canon stats */
 .cp-stat-value-text.heading {
@@ -49,6 +39,7 @@
   margin-right: 0; /* override canon */
 
   & .cp-stat-label-text {
+    @mixin font-smoothing;
     font-size: inherit;
   }
 }
@@ -87,6 +78,16 @@
     margin-bottom: 10px;
     &[id="about"] {
       color: var(--white);
+    }
+  }
+
+  /* value on top */
+  & .cp-stat-group-wrapper > .cp-stat {
+    display: flex;
+    flex-direction: column;
+
+    & .cp-stat-value {
+      order: -1;
     }
   }
 
