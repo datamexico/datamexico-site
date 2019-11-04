@@ -12,13 +12,9 @@
   }
 
   & .cp-hero-heading {
-    /* typography */
     @mixin display;
     @mixin font-xxl;
-    /* handle long titles */
-    @mixin overflow-ellipsis;
     line-height: 1.25;
-    height: 1.25em;
   }
 
   & .cp-hero-inner {
