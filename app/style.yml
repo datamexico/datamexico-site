@@ -136,8 +136,6 @@ hero-heading-size:          "var(--font-xxl)"
 hero-subhead-color:         "var(--white)"
 hero-subhead-size:          "var(--font-md)"
 hero-stat-value-color:      "var(--white)"
-hero-stat-column-count:     "4"
-hero-stat-column-width:     "10rem"
 hero-viz-width:             "20rem"
 
 # sections
@@ -238,3 +236,4 @@ stat-value-color:           "var(--accent-dark)"
 stat-value-weight:          "var(--light-weight)"
 stat-subtitle-font-size:    "var(--font-xs)"
 stat-subtitle-color:        "var(--dark-2)"
+stat-group-stat-width:      "9rem"

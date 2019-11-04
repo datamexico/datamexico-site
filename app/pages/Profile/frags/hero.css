@@ -11,12 +11,6 @@
     @mixin text-shadow;
   }
 
-  & .cp-hero-stat-group > .cp-stat {
-    margin: 15px 20px;
-    padding: 0;
-    min-width: 50px;
-  }
-
   & .cp-hero-heading {
     /* typography */
     @mixin display;
@@ -35,9 +29,14 @@
     line-height: 1.5;
   }
 
-  & .cp-hero-stat-group {
-    margin: auto;
-    width: 40rem;
+  & .cp-hero-stat-group-wrapper {
+    width: calc((var(--stat-group-stat-width) + var(--gutter-sm)) * 3);
+    max-width: 100%;
+
+    @mixin min-sm {
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 
   & .cp-hero-credits {

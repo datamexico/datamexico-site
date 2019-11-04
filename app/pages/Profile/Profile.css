@@ -16,42 +16,40 @@
   }
 }
 
-/*
-flex-direction has been reversed so labels appear above values;
-this is needed to re-align them vertically */
-.cp-stat-group {
-  align-items: flex-start;
+/* value on top */
+.cp-main .cp-stat-group-wrapper > .cp-stat {
+  display: flex;
+  flex-direction: column;
 
-  & .cp-stat {
-    display: flex;
-    flex-direction: column-reverse;
+  & .cp-stat-value {
+    order: -1;
   }
+}
 
-  /* override heading styles for stat values */
-  /* TODO: remove after removing heading class from canon stats */
-  & .cp-stat-value-text.heading {
-    font-weight: var(--stat-value-weight);
-    margin-left: -0.05em; /* fudge that very thin font into place */
-    margin-right: 0;
-  }
+/* override heading styles for stat values */
+/* TODO: remove after removing heading class from canon stats */
+.cp-stat-value-text.heading {
+  font-weight: var(--stat-value-weight);
+  margin-left: -0.05em; /* fudge that very thin font into place */
+  margin-right: 0;
+}
 
-  & .cp-stat-subtitle {
-    @mixin display;
-    font-weight: var(--bold-weight);
-    margin-top: 0.5em;
-  }
+.cp-stat-subtitle {
+  @mixin display;
+  font-weight: var(--bold-weight);
+  margin-top: 0.125em;
+}
 
-  & .cp-stat-label {
-    /* typography overrides */
-    @mixin font-xxs;
-    line-height: 1.125;
-    /* positioning */
-    margin-top: 0.25em;
-    margin-right: 0; /* override canon */
+.cp-stat-label {
+  /* typography overrides */
+  @mixin font-xxs;
+  line-height: 1.125;
+  /* positioning */
+  margin-top: 0.25em;
+  margin-right: 0; /* override canon */
 
-    & .cp-stat-label-text {
-      font-size: inherit;
-    }
+  & .cp-stat-label-text {
+    font-size: inherit;
   }
 }
 
