@@ -1,9 +1,7 @@
 @import "../helpers/mixins.css";
 
 .ep-profile {
-  min-width: 200px;
-  flex: 1;
-  min-height: 70vh;
+  flex: 1 1 12.5rem;
   color: var(--dark-1);
   text-align: center;
 
@@ -29,6 +27,7 @@
   }
 
   & .ep-profile-results {
+    @mixin list-reset;
     display: flex;
     flex-wrap: wrap;
   }
@@ -36,16 +35,17 @@
   & .ep-profile-result {
     color: var(--white);
     display: flex;
-    padding: 15px 10px;
+    margin: var(--gutter-xs);
+    padding: var(--gutter-xs);
     flex-direction: row;
     background-size: cover;
     background-position: center;
-    margin: 15px;
     z-index: 1;
     position: relative;
     border: 1px solid var(--dark-2);
-    height: 90px;
-    flex: 1;
+    height: 8rem;
+    flex: 1 1 12.5rem;
+
     &.full-panel {
       width: 300px;
       max-width: 100%;
@@ -62,31 +62,52 @@
       z-index: -1;
     }
 
-    &:hover {
-      background-color: var(--accent-light);
-      text-decoration: none;
+    & .ep-profile-result-content {
+      @mixin absolute-expand;
+      display: flex;
+      padding: var(--gutter-sm);
+
+      &:hover, &:focus {
+        text-decoration: none;
+
+        & .ep-profile-result-title {
+          transform: scale(1.0325);
+        }
+      }
+    }
+
+    & .ep-profile-result-title {
+      @mixin text-shadow;
+      margin-top: auto;
+      margin-bottom: auto;
+      text-align: left;
+      color: var(--white);
+      transition: transform 0.15s ease-out;
+
+      /* make room for tag in long titles */
+      &.u-font-xs {
+        padding-bottom: var(--gutter-md);
+      }
     }
 
     & .ep-profile-result-icon {
-      width: 25px;
-      height: 25px;
-      min-width: 25px;
-      margin-right: 10px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
       align-items: center;
       justify-content: center;
       display: flex;
     }
 
-    & .ep-profile-result-title {
-      width: 100%;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
+    & .ep-profile-result-icon-img {
+      width: 1.5em;
+      height: 1.5em;
+      flex: 1 0 auto;
     }
 
-    & .ep-profile-result-level {
-      width: 100%;
+    & .ep-profile-result-icon-level {
+      padding-right: 0.5em;
+      color: var(--white);
     }
   }
 }

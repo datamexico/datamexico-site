@@ -105,9 +105,8 @@
         background-color: var(--dark-2);
         max-height: 300px;
         box-shadow: 0 1px 2px color(var(--black) a(0.5));
-        overflow-y: scroll;
+        @mixin vertical-overflow-container;
         display: none;
-
 
         &.active {
           display: flex;

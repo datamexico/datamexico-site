@@ -23,20 +23,27 @@ class ExploreProfile extends React.Component {
     return <div className="ep-profile">
       {filterPanel && <h3 className="ep-profile-title">{title}</h3>}
       <div className="ep-profile-results">
-        {results.map((d, i) => <Link
-          key={`${d.slug}_${i}`}
-          className={`ep-profile-result ${filterPanel ? "filter-panel" : "full-panel"}`}
-          to={`/${lng}/profile/${d.slug}/${d.id}`}
-          style={{backgroundImage: `url(/api/image?slug=${d.slug}&id=${d.id})`}}
-        >
-          <div className="ep-profile-result-icon" style={{backgroundColor: background}}>
-            <img src={`/icons/explore/white/${d.slug}.png`} alt=""/>
-          </div>
-          <div className="ep-profile-result-content">
-            <span className="ep-profile-result-title" title={d.name}>{d.name}</span>
-            <span className="ep-profile-result-level">{d.level}</span>
-          </div>
-        </Link>)}
+        {results.map((d, i) =>
+          <li
+            className={`ep-profile-result ${filterPanel ? "filter-panel" : "full-panel"}`}
+            style={{backgroundImage: `url(/api/image?slug=${d.slug}&id=${d.id})`}}
+            key={`${d.slug}_${i}`}
+          >
+            <Link className="ep-profile-result-content" to={`/${lng}/profile/${d.slug}/${d.id}`}>
+              <span className={`ep-profile-result-title display ${
+                d.name.length > 25 || d.name.match(/\w+/).toString().length > 20
+                  ? "u-font-xs"
+                  : "u-font-sm"
+              }`} title={d.name}>
+                {d.name}
+              </span>
+              <div className="ep-profile-result-icon" style={{backgroundColor: background}}>
+                <img className="ep-profile-result-icon-img" src={`/icons/explore/white/${d.slug}.png`} alt=""/>
+                <span className="ep-profile-result-icon-level display u-font-xxs">{d.level}</span>
+              </div>
+            </Link>
+          </li>
+        )}
       </div>
     </div>;
   }
