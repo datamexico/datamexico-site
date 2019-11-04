@@ -30,7 +30,7 @@ class ExploreProfile extends React.Component {
             key={`${d.slug}_${i}`}
           >
             <Link className="ep-profile-result-content" to={`/${lng}/profile/${d.slug}/${d.id}`}>
-              <span className={`ep-profile-result-title display ${
+              <span className={`ep-profile-result-title heading ${
                 d.name.length > 25 || d.name.match(/\w+/).toString().length > 20
                   ? "u-font-xs"
                   : "u-font-sm"
