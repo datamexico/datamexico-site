@@ -1,9 +1,7 @@
 @import "helpers/mixins.css";
 
 .cp-hero {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  background-color: var(--dark-3);
   position: relative;
   padding-bottom: 0; /* bring closer to about section */
   z-index: 1;
