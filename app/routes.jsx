@@ -3,12 +3,12 @@ import {Route, IndexRoute, browserHistory} from "react-router";
 import {Builder} from "@datawheel/canon-cms";
 import {Login, SignUp} from "@datawheel/canon-core";
 
-
 import App from "./App";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile/Profile";
 import Loading from "./components/Loading";
 import Explore from "./pages/Explore/Explore";
+import Error from "./pages/Error/Error";
 
 /** */
 export default function RouteCreate() {
@@ -22,6 +22,7 @@ export default function RouteCreate() {
       <Route exact path="/:lang/login" component={Login} />
       <Route exact path="/:lang/signup" component={SignUp} />
       <Route exact path="/:lang/profile/:slug/:id" component={Profile} />
+      <Route path="/:lang/*" component={Error} />
     </Route>
   );
 }
