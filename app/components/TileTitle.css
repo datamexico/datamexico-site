@@ -2,8 +2,15 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  & .icon {
-    height: 26px;
-    margin-right: 5px;
+
+  & .tile-title-icon {
+    height: 1.75em;
+    width: 1.75em;
+    margin-right: 0.25em;
+    margin-left: -1em; /* optical alignment */
+  }
+
+  & .tile-title-link {
+    color: var(--white);
   }
 }

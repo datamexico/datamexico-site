@@ -195,7 +195,7 @@ class Home extends Component {
           </div>
           <div className="column">
             <TileTitle
-              icon="occupations"
+              icon="occupation"
               title={t("Occupations")}
             />
             <Tile
@@ -227,6 +227,7 @@ class Home extends Component {
           <div className="column">
             <TileTitle
               title={t("Products")}
+              icon="product"
             />
             <Tile
               slug="product"
@@ -256,7 +257,7 @@ class Home extends Component {
           </div>
           <div className="column">
             <TileTitle
-              icon="university"
+              icon="institution"
               title={t("Universities")}
             />
             <Tile

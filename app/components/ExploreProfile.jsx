@@ -38,7 +38,7 @@ class ExploreProfile extends React.Component {
                 {d.name}
               </span>
               <div className="ep-profile-result-icon" style={{backgroundColor: background}}>
-                <img className="ep-profile-result-icon-img" src={`/icons/explore/white/${d.slug}.png`} alt=""/>
+                <img className="ep-profile-result-icon-img" src={`/icons/explore/${d.slug}-white.png`} alt=""/>
                 <span className="ep-profile-result-icon-level display u-font-xxs">{d.level}</span>
               </div>
             </Link>
