@@ -1,9 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
 import {Helmet} from "react-helmet";
 import {withNamespaces} from "react-i18next";
-import {InputGroup} from "@blueprintjs/core";
 
 import Footer from "../../components/Footer";
 import Nav from "../../components/Nav";
@@ -12,26 +10,31 @@ import "./Error.css";
 
 class Error extends Component {
   render() {
-    const {locale} = this.props;
+    const {errorType, locale} = this.props;
+
+    let text = "Our apologies, but this page doesn’t exist.";
+    if (errorType === "stub") {
+      text = "This page is currently under construction.";
+    }
 
     return (
       <div className="error">
         <Helmet title="Error">
-          <meta property="og:title" content={"Error"} />
+          <meta property="og:title" content="Error" />
         </Helmet>
         <Nav
           className="background"
           logo={false}
-          routeParams={this.props.router.params}
+          routeParams={this.props.router && this.props.router.params ? this.props.router.params : null}
           routePath="/:lang"
           title=""
         />
         <div className="error-header container">
-          <h1 className="u-font-xxl">404</h1>
+          <h1 className="error-header-title u-font-xxl">{errorType}</h1>
           <div className="error-header-img" />
         </div>
         <div className="error-container container">
-          <p className="u-font-lg">Our apologies, but this page doesn’t exist.</p>
+          <p className="u-font-lg">{text}</p>
           <p className="u-font-lg"><a href={`/${locale}/explore`}>Explore profiles</a> or go back to the <a href="/">home page</a>?</p>
         </div>
         <Footer />
@@ -45,7 +48,8 @@ Error.contextTypes = {
 };
 
 Error.defaultProps = {
-  locale: "es"
-}
+  locale: "es",
+  errorType: "404"
+};
 
 export default withNamespaces()(Error);

@@ -127,7 +127,8 @@
     }
   }
 
-  & .sponsors {
+  /* logos */
+  & .footer-logo-list {
     @mixin min-xs {
       display: flex;
       flex-wrap: wrap;
@@ -139,12 +140,23 @@
       justify-content: space-between;
     }
 
-    & .brand {
-      height: 1.75rem;
+    & .footer-logo-link {
+      display: inline-block;
+      vertical-align: middle;
       margin-bottom: var(--gutter-sm);
 
       &:not(:last-child) {
         margin-right: var(--gutter-md);
+      }
+
+      & .footer-logo-img {
+        height: 1.75rem;
+        transition: 0.1s ease-out;
+      }
+
+      &:hover .footer-logo-img,
+      &:focus .footer-logo-img {
+        transform: scale(1.05);
       }
     }
   }

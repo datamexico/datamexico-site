@@ -3,15 +3,16 @@ import PropTypes from "prop-types";
 import {withNamespaces} from "react-i18next";
 import axios from "axios";
 import {Helmet} from "react-helmet";
-
-import "./Home.css";
 import {Button, Icon, InputGroup, Popover} from "@blueprintjs/core";
+
+import {LOGOS} from "helpers/consts.js";
 import Tile from "../components/Tile";
 import TileTitle from "../components/TileTitle";
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import SearchResult from "../components/SearchResult";
 
+import "./Home.css";
 import "../styles/SharePanel.css";
 
 const CancelToken = axios.CancelToken;
@@ -121,10 +122,14 @@ class Home extends Component {
             level={d.level}
           />)}
         </ul>}
-        <div className="sponsors">
-          <img className="brand se-logo" src="/icons/SE.png" alt="" />
-          <img className="brand matt-logo" src="/icons/matt-white.svg" alt="" />
-          <img className="brand datawheel-logo" src="/icons/datawheel-white.svg" alt="" />
+
+        {/* _gotta_ have them logos, again */}
+        <div className="home-logo-list">
+          {LOGOS.map(logo =>
+            <a className="home-logo-link" href={logo.url} key={logo.title} aria-hidden tabIndex="-1">
+              <img className="home-logo-img" src={`/icons/${logo.src}`} alt={logo.title} />
+            </a>
+          )}
         </div>
       </div>
 

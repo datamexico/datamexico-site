@@ -39,13 +39,22 @@
       @mixin text-shadow;
     }
 
-    & .brand {
+    /* logos */
+    & .home-logo-link {
       display: inline-block;
       vertical-align: middle;
-      height: 2rem;
 
       &:not(:last-child) {
         margin-right: var(--gutter-md);
+      }
+
+      & .home-logo-img {
+        height: 2rem;
+        transition: 0.15s ease-out;
+      }
+
+      &:hover .home-logo-img {
+        transform: scale(1.075);
       }
     }
   }

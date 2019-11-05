@@ -81,13 +81,15 @@ class Nav extends React.Component {
     const {className, logo, routePath, routeParams, title, t} = this.props;
     const {isOpen, isSearchOpen, resultsFilter} = this.state;
 
-    const params = Object.entries(routeParams).reduce((obj, d) => {
-      const key = `:${d[0]}`;
-      const value = d[1];
-      obj[key] = value;
-      return obj;
-    }, {});
-
+    let params;
+    if (routeParams && typeof routeParams === "object") {
+      params = Object.entries(routeParams).reduce((obj, d) => {
+        const key = `:${d[0]}`;
+        const value = d[1];
+        obj[key] = value;
+        return obj;
+      }, {});
+    }
 
     return <div className={`${className} nav container`}>
       <NavMenu

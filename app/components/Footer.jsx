@@ -1,7 +1,8 @@
 import React from "react";
 import {withNamespaces} from "react-i18next";
-import {Button, Icon, InputGroup, Popover} from "@blueprintjs/core";
+import {Icon, InputGroup} from "@blueprintjs/core";
 
+import {FOOTER_NAV, LOGOS} from "helpers/consts.js";
 import "./Footer.css";
 
 class Footer extends React.Component {
@@ -13,36 +14,21 @@ class Footer extends React.Component {
         <div className="column">
 
           <div className="footer-links">
-            <div className="footer-columns">
-              <div className="footer-column">
-                <h2 className="u-visually-hidden">Site navigation</h2>
-                <h3 className="footer-heading display u-font-sm">{t("Explore")}</h3>
-                <ul>
-                  <li><a href="/explore">{t("Profiles")}</a></li>
-                  <li><a href="#">{t("Viz Builder")}</a></li>
-                  <li><a href="#">{t("Data Cart")}</a></li>
-                </ul>
-              </div>
-              <div className="footer-column">
-                <h3 className="footer-heading display u-font-sm">{t("Sources")}</h3>
-                <ul>
-                  <li><a href="#">{t("Data Sources")}</a></li>
-                  <li><a href="#">{t("API")}</a></li>
-                  <li><a href="#">{t("Classifications")}</a></li>
-                  <li><a href="#">{t("Contact us")}</a></li>
-                </ul>
-              </div>
-              <div className="footer-column">
-                <h3 className="footer-heading display u-font-sm">{t("About")}</h3>
-                <ul>
-                  <li><a href="#">{t("Background")}</a></li>
-                  <li><a href="#">{t("In the press")}</a></li>
-                  <li><a href="#">{t("Team")}</a></li>
-                  <li><a href="#">{t("Glossary")}</a></li>
-                  <li><a href="#">{t("Terms of use")}</a></li>
-                </ul>
-              </div>
-            </div>
+            <nav className="footer-columns">
+              <h2 className="u-visually-hidden">Site navigation</h2>
+              {FOOTER_NAV.map(col =>
+                <div className="footer-column" key={col.title}>
+                  <h3 className="footer-heading display u-font-sm">{col.title}</h3>
+                  <ul>
+                    {col.items.map(link =>
+                      <li key={link.title}>
+                        <a href={link.url}>{link.title}</a>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )}
+            </nav>
           </div>
 
         </div>
@@ -54,10 +40,14 @@ class Footer extends React.Component {
             placeholder="Your email address"
             rightElement={<button className="submit-button" onClick={() => console.log("hook me up carlos!")}>{t("Sign Up")}<Icon icon="arrow-right" /></button>}
           />
-          <div className="sponsors">
-            <img className="brand" src="/icons/SE.png" alt="" />
-            <img className="brand" src="/icons/matt-white.svg" alt="" />
-            <img className="brand" src="/icons/datawheel-white.svg" alt="" />
+
+          {/* _gotta_ have them logos */}
+          <div className="footer-logo-list" role="contentinfo">
+            {LOGOS.map(logo =>
+              <a className="footer-logo-link" href={logo.url} key={logo.title}>
+                <img className="footer-logo-img" src={`/icons/${logo.src}`} alt={logo.title} />
+              </a>
+            )}
           </div>
         </div>
       </div>

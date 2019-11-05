@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile/Profile";
 import Loading from "./components/Loading";
 import Explore from "./pages/Explore/Explore";
+import About from "./pages/About/About";
+import Data from "./pages/Data/Data";
 import Error from "./pages/Error/Error";
 
 /** */
@@ -22,6 +24,10 @@ export default function RouteCreate() {
       <Route exact path="/:lang/login" component={Login} />
       <Route exact path="/:lang/signup" component={SignUp} />
       <Route exact path="/:lang/profile/:slug/:id" component={Profile} />
+      {/* stubs */}
+      <Route path="/:lang/about" component={About} />
+      <Route path="/:lang/data" component={Data} />
+      {/* 404 */}
       <Route path="/:lang/*" component={Error} />
     </Route>
   );
