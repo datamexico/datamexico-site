@@ -74,6 +74,7 @@
     left: -3px;
   }
 
+  /* top level list */
   & .nav-menu-list {
     @mixin list-reset;
     margin-top: var(--gutter-sm);
@@ -83,6 +84,7 @@
     margin-bottom: var(--gutter-xs);
   }
 
+  /* link base styles */
   & .nav-menu-link {
     display: block;
     line-height: 2;
@@ -92,6 +94,11 @@
       color: var(--accent);
       border-color: currentColor;
     }
+  }
+
+  /* nested list */
+  & .nav-menu-nested-list {
+    @mixin list-reset;
   }
 
   & .nav-menu-nested-link {
