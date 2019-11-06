@@ -32,7 +32,6 @@ loading in
 .d3plus-Mask {
   background: none !important;
   border: 1px dashed var(--light-2) !important;
-  border-radius: var(--radius-sm);
 }
 .d3plus-Message {
   /* @mixin absolute-vertical-center; */
