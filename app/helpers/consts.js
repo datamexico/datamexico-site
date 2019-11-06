@@ -40,11 +40,11 @@ module.exports = {
       url: "https://www.gob.mx/se/",
       src: "SE.png"
     },
-    {
-      title: "Mexicans and Americans Thinking Together",
-      url: "https://www.facebook.com/MexicansAndAmericansThinkingTogether",
-      src: "matt-white.svg"
-    },
+    // {
+    //   title: "Mexicans and Americans Thinking Together",
+    //   url: "https://www.facebook.com/MexicansAndAmericansThinkingTogether",
+    //   src: "matt-white.svg"
+    // },
     {
       title: "Datawheel",
       url: "https://www.datawheel.us/",
