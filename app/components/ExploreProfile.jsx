@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router";
 import {withNamespaces} from "react-i18next";
 
+import Tile from "./Tile";
 import "./ExploreProfile.css";
 
 class ExploreProfile extends React.Component {
@@ -21,28 +22,20 @@ class ExploreProfile extends React.Component {
     }
 
     return <div className="ep-profile">
-      {filterPanel && <h3 className="ep-profile-title">{title}</h3>}
+      {filterPanel &&
+        <h3 className="ep-profile-title">{title}</h3>
+      }
       <div className="ep-profile-results">
-        {results.map((d, i) =>
-          <li
-            className={`ep-profile-result ${filterPanel ? "filter-panel" : "full-panel"}`}
-            style={{backgroundImage: `url(/api/image?slug=${d.slug}&id=${d.id})`}}
-            key={`${d.slug}_${i}`}
-          >
-            <Link className="ep-profile-result-content" to={`/${lng}/profile/${d.slug}/${d.id}`}>
-              <span className={`ep-profile-result-title heading ${
-                d.name.length > 25 || d.name.match(/\w+/).toString().length > 20
-                  ? "u-font-xs"
-                  : "u-font-sm"
-              }`} title={d.name}>
-                {d.name}
-              </span>
-              <div className="ep-profile-result-icon" style={{backgroundColor: background}}>
-                <img className="ep-profile-result-icon-img" src={`/icons/explore/${d.slug}-white.png`} alt=""/>
-                <span className="ep-profile-result-icon-level display u-font-xxs">{d.level}</span>
-              </div>
-            </Link>
-          </li>
+        {results.map(d =>
+          <Tile
+            title={d.name}
+            slug={d.slug}
+            id={d.id}
+            level={d.level}
+            background={background}
+            lng={lng}
+            key={`${d.slug}-tile`}
+          />
         )}
       </div>
     </div>;

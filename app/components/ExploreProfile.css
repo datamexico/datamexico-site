@@ -23,91 +23,12 @@
   }
 
   & .ep-profile-title {
-    padding: 1.1rem;
+    padding: var(--gutter-xs);
   }
 
   & .ep-profile-results {
     @mixin list-reset;
     display: flex;
     flex-wrap: wrap;
-  }
-
-  & .ep-profile-result {
-    color: var(--white);
-    display: flex;
-    margin: var(--gutter-xs);
-    padding: var(--gutter-xs);
-    flex-direction: row;
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
-    position: relative;
-    border: 1px solid var(--dark-2);
-    height: 8rem;
-    flex: 1 1 12.5rem;
-
-    &.full-panel {
-      width: 300px;
-      max-width: 100%;
-    }
-
-    &::before {
-      @mixin overlay-gradient;
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      content: "";
-      z-index: -1;
-    }
-
-    & .ep-profile-result-content {
-      @mixin absolute-expand;
-      display: flex;
-      padding: var(--gutter-sm);
-
-      &:hover, &:focus {
-        text-decoration: none;
-
-        & .ep-profile-result-title {
-          transform: scale(1.0325);
-        }
-      }
-    }
-
-    & .ep-profile-result-title {
-      @mixin text-shadow;
-      margin-top: auto;
-      margin-bottom: auto;
-      text-align: left;
-      color: var(--white);
-      transition: transform 0.15s ease-out;
-
-      /* make room for tag in long titles */
-      &.u-font-xs {
-        padding-bottom: var(--gutter-md);
-      }
-    }
-
-    & .ep-profile-result-icon {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      align-items: center;
-      justify-content: center;
-      display: flex;
-    }
-
-    & .ep-profile-result-icon-img {
-      width: 1.5em;
-      height: 1.5em;
-      flex: 1 0 auto;
-    }
-
-    & .ep-profile-result-icon-level {
-      padding-right: 0.5em;
-      color: var(--white);
-    }
   }
 }

@@ -102,6 +102,10 @@
       min-width: 14rem;
       margin-bottom: var(--gutter-md);
     }
+
+    & .tile-list {
+      @mixin list-reset;
+    }
   }
 }
 

@@ -140,156 +140,169 @@ class Home extends Component {
               icon="geo"
               title={t("Cities & Places")}
             />
-
-            <Tile
-              slug="geo"
-              id="1"
-              title="Aguascalientes"
-            />
-            <Tile
-              slug="geo"
-              id="9"
-              title="Ciudad de México"
-            />
-            <Tile
-              slug="geo"
-              id="13"
-              title="Hidalgo"
-            />
-            <Tile
-              slug="geo"
-              id="15"
-              title="México"
-            />
-            <Tile
-              slug="geo"
-              id="17"
-              title="Morelos"
-            />
+            <ul className="tile-list">
+              <Tile
+                slug="geo"
+                id="1"
+                title="Aguascalientes"
+              />
+              <Tile
+                slug="geo"
+                id="9"
+                title="Ciudad de México"
+              />
+              <Tile
+                slug="geo"
+                id="13"
+                title="Hidalgo"
+              />
+              <Tile
+                slug="geo"
+                id="15"
+                title="México"
+              />
+              <Tile
+                slug="geo"
+                id="17"
+                title="Morelos"
+              />
+            </ul>
           </div>
+
           <div className="column">
             <TileTitle
               icon="industry"
               title={t("Industries")}
             />
-            <Tile
-              slug="industry"
-              id="6221"
-              title="General Hospital"
-            />
-            <Tile
-              slug="industry"
-              id="5611"
-              title="Business Administration Services"
-            />
-            <Tile
-              slug="industry"
-              id="6111"
-              title="Elementary and Secondary Schools"
-            />
-            <Tile
-              slug="industry"
-              id="2122"
-              title="Metal Ore Mining"
-            />
-            <Tile
-              slug="industry"
-              id="8111"
-              title="Automotive Repair and Maintenance"
-            />
+            <ul className="tile-list">
+              <Tile
+                slug="industry"
+                id="6221"
+                title="General Hospital"
+              />
+              <Tile
+                slug="industry"
+                id="5611"
+                title="Business Administration Services"
+              />
+              <Tile
+                slug="industry"
+                id="6111"
+                title="Elementary and Secondary Schools"
+              />
+              <Tile
+                slug="industry"
+                id="2122"
+                title="Metal Ore Mining"
+              />
+              <Tile
+                slug="industry"
+                id="8111"
+                title="Automotive Repair and Maintenance"
+              />
+            </ul>
           </div>
+
           <div className="column">
             <TileTitle
               icon="occupation"
               title={t("Occupations")}
             />
-            <Tile
-              slug="occupation"
-              id="2332"
-              title="Primary School Teachers"
-            />
-            <Tile
-              slug="occupation"
-              id="2253"
-              title="Industrial Engineers"
-            />
-            <Tile
-              slug="occupation"
-              id="4211"
-              title="Sales Employees"
-            />
-            <Tile
-              slug="occupation"
-              id="9111"
-              title="Support Workers in Agriculture"
-            />
-            <Tile
-              slug="occupation"
-              id="2412"
-              title="Specialist Doctors"
-            />
+            <ul className="tile-list">
+              <Tile
+                slug="occupation"
+                id="2332"
+                title="Primary School Teachers"
+              />
+              <Tile
+                slug="occupation"
+                id="2253"
+                title="Industrial Engineers"
+              />
+              <Tile
+                slug="occupation"
+                id="4211"
+                title="Sales Employees"
+              />
+              <Tile
+                slug="occupation"
+                id="9111"
+                title="Support Workers in Agriculture"
+              />
+              <Tile
+                slug="occupation"
+                id="2412"
+                title="Specialist Doctors"
+              />
+            </ul>
           </div>
+
           <div className="column">
             <TileTitle
               title={t("Products")}
               icon="product"
             />
-            <Tile
-              slug="product"
-              id="17870323"
-              title="Cars"
-            />
-            <Tile
-              slug="product"
-              id="2080440"
-              title="Avocados"
-            />
-            <Tile
-              slug="product"
-              id="5260300"
-              title="Copper Ores and Concentrates"
-            />
-            <Tile
-              slug="product"
-              id="16850440"
-              title="Power Electronics"
-            />
-            <Tile
-              slug="product"
-              id="20940190"
-              title="Parts of Seats"
-            />
+            <ul className="tile-list">
+              <Tile
+                slug="product"
+                id="17870323"
+                title="Cars"
+              />
+              <Tile
+                slug="product"
+                id="2080440"
+                title="Avocados"
+              />
+              <Tile
+                slug="product"
+                id="5260300"
+                title="Copper Ores and Concentrates"
+              />
+              <Tile
+                slug="product"
+                id="16850440"
+                title="Power Electronics"
+              />
+              <Tile
+                slug="product"
+                id="20940190"
+                title="Parts of Seats"
+              />
+            </ul>
           </div>
+
           <div className="column">
             <TileTitle
               icon="institution"
               title={t("Universities")}
             />
-            <Tile
-              slug="institution"
-              id="317"
-              title="Universidad Nacional Autónoma de México"
-            />
-            <Tile
-              slug="institution"
-              id="248"
-              title="Instituto Tecnológico y de Estudios Superiores de Monterrey"
-            />
-            <Tile
-              slug="institution"
-              id="683"
-              title="Universidad Autónoma del Estado de Hidalgo"
-            />
-            <Tile
-              slug="institution"
-              id="725"
-              title="Universidad de Guadalajara"
-            />
-            <Tile
-              slug="institution"
-              id="82"
-              title="Instituto Politécnico Nacional"
-            />
+            <ul className="tile-list">
+              <Tile
+                slug="institution"
+                id="317"
+                title="Universidad Nacional Autónoma de México"
+              />
+              <Tile
+                slug="institution"
+                id="248"
+                title="Instituto Tecnológico y de Estudios Superiores de Monterrey"
+              />
+              <Tile
+                slug="institution"
+                id="683"
+                title="Universidad Autónoma del Estado de Hidalgo"
+              />
+              <Tile
+                slug="institution"
+                id="725"
+                title="Universidad de Guadalajara"
+              />
+              <Tile
+                slug="institution"
+                id="82"
+                title="Instituto Politécnico Nacional"
+              />
+            </ul>
           </div>
         </div>
       </div>
