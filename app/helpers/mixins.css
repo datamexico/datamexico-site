@@ -1,0 +1,51 @@
+@import "@datawheel/canon-cms/src/css/mixins.css";
+/*
+  From canon cms, some nice mixins to help you write less css, including:
+    - media queries (both mobile & max-width first)
+    - typography (font sizes using style.yml, also available as utility classes)
+    - accessibly hiding text; useful to add context for screen readers
+    - layout (set a parent `position` to `relative`, then give the child a mixin like `absolute-expand` or `absolute-center`
+    - resets (list-reset, button-reset)
+
+  Direct link to canon mixins file:
+  https://github.com/Datawheel/canon/blob/master/packages/cms/src/css/mixins.css
+
+  Note: many of these are also available as utility classes:
+  https://github.com/Datawheel/canon/blob/master/packages/cms/src/css/utilities.css
+*/
+
+/* ain't nobody got time for that */
+@define-mixin overlay-gradient {
+  background-image: linear-gradient(
+    to bottom,
+    color(var(--dark-4) a(0.5)),
+    color(var(--dark-4) a(0.3)) 10%,
+    color(var(--dark-4) a(0.5)) 50%,
+          var(--dark-4)
+  );
+}
+
+@define-mixin text-shadow {
+  text-shadow: 0 1px 0.5em color(var(--black) a(0.75));
+}
+
+/* TODO: remove once these mixins have been added to canon */
+@define-mixin heading {
+  font-family: var(--heading-font-stack);
+  font-weight: var(--heading-font-weight);
+  text-transform: var(--heading-text-transform);
+  letter-spacing: var(--heading-letter-spacing);
+  line-height: 1.125;
+}
+@define-mixin display {
+  font-family: var(--display-font-stack);
+  font-weight: var(--display-font-weight);
+  text-transform: var(--display-text-transform);
+  letter-spacing: var(--display-letter-spacing);
+}
+@define-mixin label {
+  font-family: var(--label-font-stack);
+  font-weight: var(--label-font-weight);
+  text-transform: var(--label-text-transform);
+  letter-spacing: var(--label-letter-spacing);
+}

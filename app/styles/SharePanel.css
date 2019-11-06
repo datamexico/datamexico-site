@@ -1,0 +1,91 @@
+@import "helpers/mixins.css";
+
+.bp3-dialog.options-dialog {
+  border-radius: 0;
+
+  & [class*="-tab-list"] {
+    background-color: var(--accent-dark);
+    justify-content: center;
+    padding: var(--gutter-sm);
+
+    @mixin max-xxs {
+      justify-content: flex-start;
+    }
+  }
+
+  /* override blueprint */
+  & [class*="-tab-indicator"] {
+    display: none;
+  }
+
+  & [class$="-tab"] {
+    font-family: "Barlow Condensed", sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: var(--white);
+    padding: 0.25em;
+    margin-right: 0.5em;
+    cursor: default; /* it's not a link */
+
+    /* override blueprint */
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    /* bump up font size & margin when there's room */
+    @mixin min-xxs {
+      @mixin font-md;
+      margin-right: 1em;
+    }
+
+    /* active state */
+    &[aria-selected="true"] {
+      color: var(--accent-black);
+      font-weight: 600;
+
+      &:after {
+        content: "";
+        display: block;
+        @mixin absolute-horizontal-center;
+        height: 1px;
+        width: 2.5em;
+        bottom: 1px;
+        background: var(--accent-black);
+      }
+    }
+
+    /* tab/button interactions */
+    &:hover, &:focus,
+    & + .close-button:hover, & + .close-button:focus {
+      color: var(--accent-light);
+    }
+    /* tab/button focus ring */
+    &:focus, & + .close-button:focus {
+      outline-color: color(var(--accent-light) a(0.333));
+    }
+  }
+
+  & .close-button {
+    /* sizing */
+    @mixin font-lg;
+    /* positioning */
+    @mixin absolute-vertical-center;
+    margin-top: -2px; /* fudge into place */
+
+    &:hover {
+      color: var(--accent-dark);
+    }
+  }
+
+  & .cp-button {
+    background-color: var(--accent-dark);
+    border-radius: 0;
+    border: none;
+    color: var(--white);
+    transition-property: background-color, color, opacity;
+
+    &:hover, &:focus {
+      opacity: 0.9;
+    }
+  }
+}

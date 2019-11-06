@@ -1,0 +1,155 @@
+@import "helpers/mixins.css";
+@import "./frags/hero.css";
+
+.lead {
+  background-color: var(--dark-4);
+  color: var(--white);
+  & .lead-descriptions {
+    columns: 320px auto;
+  }
+}
+
+.Options {
+  & .cp-button {
+    border: none;
+    border-radius: 0;
+  }
+}
+
+/* override heading styles for stat values */
+/* TODO: remove after removing heading class from canon stats */
+.cp-stat-value-text.heading {
+  font-weight: var(--stat-value-weight);
+  margin-left: -0.05em; /* fudge that very thin font into place */
+  margin-right: 0;
+}
+
+.cp-stat-subtitle {
+  @mixin display;
+  font-weight: var(--bold-weight);
+  margin-top: 0.125em;
+}
+
+.cp-stat-label {
+  /* typography overrides */
+  @mixin font-xxs;
+  line-height: 1.125;
+  /* positioning */
+  margin-top: 0.25em;
+  margin-right: 0; /* override canon */
+
+  & .cp-stat-label-text {
+    @mixin font-smoothing;
+    font-size: inherit;
+  }
+}
+
+
+.cp-main {
+  /* about section overrides */
+  & .cp-grouping:first-child {
+    @mixin text-shadow;
+    background-color: var(--dark-4);
+
+    /* bring about section closer to hero */
+    & .cp-section {
+      padding-top: var(--gutter-xs);
+    }
+
+    & .cp-section-paragraph {
+      @mixin font-xs;
+      @mixin font-smoothing;
+      font-weight: var(--base-font-weight);
+      line-height: 1.5;
+      color: var(--light-2);
+
+      /* space out adjacent paragraphs */
+      &:not(:last-of-type) {
+        margin-bottom: 1.5em;
+      }
+    }
+    & .Options {
+      display: none;
+    }
+  }
+
+  & .cp-section-heading {
+    line-height: 1.1;
+    margin-bottom: 10px;
+    &[id="about"] {
+      color: var(--white);
+    }
+  }
+
+  /* value on top */
+  & .cp-stat-group-wrapper > .cp-stat {
+    display: flex;
+    flex-direction: column;
+
+    & .cp-stat-value {
+      order: -1;
+    }
+  }
+
+  & .cp-section-stat {
+    flex: 1 0 50%;
+  }
+}
+
+.cp-section-paragraph {
+  line-height: 1.5;
+  color: var(--dark-2);
+
+  /* strip out rich text styles */
+  & > span[style] {
+    background: inherit !important;
+    color: inherit !important;
+    font-weight: inherit !important;
+  }
+}
+
+/* grouping headings */
+.cp-grouping-section-heading {
+  @mixin display;
+  margin-bottom: 1em;
+}
+
+/* default section overrides */
+.cp-default-section-paragraph,
+.cp-tabs-section-paragraph,
+.cp-single-column-section-paragraph,
+.cp-multi-column-section-paragraph {
+  @mixin font-xs;
+  font-weight: var(--light-weight);
+  margin-top: 0.5em;
+
+  &:not(:last-of-type) {
+    margin-bottom: 1.125em;
+  }
+}
+
+.cp-single-column-section-caption .cp-viz-container { margin-top: auto; }
+
+.d3plus-tooltip {
+  box-shadow: color(var(--black) a(0.25)) 0 1px 3px;
+  padding: 0 !important;
+
+  & .d3plus-tooltip-table {
+    border-collapse: collapse;
+  }
+
+  & td {
+    text-align: right;
+    padding: 5px 10px;
+    &:first-child {
+      text-align: left;
+    }
+    &:last-child {
+      text-transform: uppercase;
+    }
+  }
+
+  & .d3plus-tooltip-footer {
+    text-align: center;
+  }
+}

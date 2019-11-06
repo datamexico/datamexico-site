@@ -1,0 +1,163 @@
+@import "helpers/mixins.css";
+
+.footer {
+  background-color: var(--dark-4);
+  color: var(--white);
+  text-align: left;
+
+  & .columns {
+    /* column layout only on non-tiny screens */
+    @mixin max-sm {
+      display: block;
+
+      & .column {
+        width: 100%;
+      }
+    }
+
+    & .footer-columns {
+      @mixin min-xs {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      @mixin max-sm {
+        justify-content: space-between;
+      }
+    }
+
+    & .footer-heading {
+      margin-bottom: var(--gutter-sm);
+    }
+
+    & ul {
+      @mixin list-reset;
+    }
+
+    /* show border in between adjacent nav links on mobile */
+    & li:not(:last-child) {
+      @mixin max-xs {
+        border-bottom: 1px solid var(--dark-3);
+      }
+    }
+
+    /* link style overrides */
+    & a {
+      font-weight: var(--light-weight);
+      color: var(--white);
+      display: block;
+      line-height: 2;
+
+      /* easier touch target for mobile */
+      @mixin max-xs {
+        line-height: 2;
+      }
+      /* inline lists for bigger screens */
+      @mixin min-xs {
+        @mixin font-xs;
+      }
+    }
+  }
+
+  /* space out columns */
+  & .footer-column {
+    margin-bottom: var(--gutter-md);
+
+    @mixin min-xs {
+      margin-right: calc(var(--gutter-lg) + 4vw);
+    }
+  }
+
+  & .footer-contact {
+    max-width: calc(100% - var(--gutter-md));
+
+    @mixin min-sm {
+      max-width: 22rem;
+    }
+
+    & .footer-email {
+      margin-top: var(--gutter-sm);
+      margin-bottom: var(--gutter-md);
+
+      & [icon="envelope"] {
+        @mixin absolute-vertical-center;
+        margin: 0 0 0 1px;
+        color: var(--white);
+      }
+      & input {
+        @mixin font-sm;
+        color: var(--white);
+        background: transparent;
+        border-bottom: 1px solid currentColor;
+        padding: var(--field-padding);
+        padding-left: 1.5em;
+        /* blueprint overrides */
+        height: auto;
+        border-radius: 0;
+        line-height: auto;
+        box-shadow: none;
+
+        &:hover {
+          color: var(--accent);
+        }
+      }
+      & .bp3-input-action {
+        @mixin absolute-vertical-center;
+
+        & .submit-button {
+          @mixin button-reset;
+          color: inherit;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &:hover [class*="icon"],
+          &:focus [class*="icon"] {
+            color: var(--accent);
+            transform: translateX(4px);
+          }
+
+          & .bp3-icon {
+            margin-left: 5px;
+            transition:
+              color 0.15s ease-out,
+              transform 0.15s ease-out;
+          }
+        }
+      }
+    }
+  }
+
+  /* logos */
+  & .footer-logo-list {
+    @mixin min-xs {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    /* justified on medium screens */
+    @mixin min-sm {
+      justify-content: space-between;
+    }
+
+    & .footer-logo-link {
+      display: inline-block;
+      vertical-align: middle;
+      margin-bottom: var(--gutter-sm);
+
+      &:not(:last-child) {
+        margin-right: var(--gutter-md);
+      }
+
+      & .footer-logo-img {
+        height: 1.75rem;
+        transition: 0.1s ease-out;
+      }
+
+      &:hover .footer-logo-img,
+      &:focus .footer-logo-img {
+        transform: scale(1.05);
+      }
+    }
+  }
+}

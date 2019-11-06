@@ -1,0 +1,121 @@
+@import "helpers/mixins.css";
+
+.bp3-dialog {
+  &.nav-menu {
+    /* sizing */
+    width: 15rem;
+    height: 100%;
+    /* positioning */
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 10000000;
+    /* handle overflow on small screens */
+    @mixin vertical-overflow-container;
+    /* theming */
+    background-color: var(--dark-4);
+    /* override blueprint */
+    border-radius: 0;
+    margin: 0;
+    padding-bottom: 0;
+    /* transitions */
+    transform: none;
+    transition: transform 0.25s;
+    will-change: transform;
+  }
+}
+
+.bp3-overlay {
+  z-index: 22 !important;
+}
+
+.bp3-overlay-backdrop {
+  background-color: color(var(--black) a(0.75));
+}
+
+/* remove focus ring from dialog container, since it's only visible right before it's about to remove itself from the dom */
+.bp3-dialog-container[tabindex]:focus {
+  outline: none;
+}
+
+.nav-menu-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  padding: var(--gutter-xs) var(--gutter-sm);
+  color: var(--white);
+
+  & .close-button {
+    position: absolute;
+    right: var(--gutter-sm);
+    top: var(--gutter-sm);
+
+    & svg {
+      width: 1.25em;
+      height: 1.25em;
+      margin-left: 0.125em;
+    }
+  }
+
+  & .nav-menu-nav {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 100%;
+  }
+
+  & .nav-menu-logo {
+    display: block;
+    width: 7rem;
+    /* account for padding in logo */
+    position: relative;
+    top: -6px;
+    left: -3px;
+  }
+
+  /* top level list */
+  & .nav-menu-list {
+    @mixin list-reset;
+    margin-top: var(--gutter-sm);
+  }
+
+  & .nav-menu-item:not(.nav-menu-nested-item) {
+    margin-bottom: var(--gutter-xs);
+  }
+
+  /* link base styles */
+  & .nav-menu-link {
+    display: block;
+    line-height: 2;
+    color: var(--white);
+
+    &:hover, &:focus {
+      color: var(--accent);
+      border-color: currentColor;
+    }
+  }
+
+  /* nested list */
+  & .nav-menu-nested-list {
+    @mixin list-reset;
+  }
+
+  & .nav-menu-nested-link {
+    padding-left: var(--gutter-sm);
+    border-left: 2px solid var(--dark-2);
+  }
+
+  /* logos */
+  & .nav-menu-footer {
+    padding-top: var(--gutter-sm);
+  }
+  & .nav-menu-footer-link {
+    display: block;
+    margin-bottom: var(--gutter-xs);
+    text-align: center;
+  }
+  & .nav-menu-footer-img {
+    height: 2.25rem;
+  }
+}

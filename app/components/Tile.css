@@ -1,0 +1,101 @@
+@import "helpers/mixins.css";
+
+.tile {
+  /* sizing */
+  height: 9rem;
+  /* positioning */
+  position: relative;
+  overflow: hidden;
+  padding: var(--gutter-xs);
+  z-index: 1;
+  /* theming */
+  @mixin text-shadow;
+  background-color: var(--black);
+  color: var(--white);
+
+  &:not(.explore-tile) {
+    margin-top: var(--gutter-sm);
+    margin-bottom: var(--gutter-sm);
+  }
+
+  & .tile-link {
+    /* sizing */
+    @mixin absolute-expand;
+    padding: var(--gutter-sm);
+    /* layout */
+    display: flex;
+    /* theming */
+    @mixin overlay-gradient;
+    background-color: color(var(--black) a(0.125));
+    border: 1px solid var(--dark-1);
+    color: inherit;
+    transition:
+      background-color 0.3s ease-out,
+      border-color 0.3s ease-out;
+
+    /* center title */
+    & .tile-title {
+      margin: auto;
+    }
+
+    /* div with bg image */
+    & .tile-cover-img {
+      @mixin absolute-expand;
+      z-index: -1; /* behind content */
+      background-size: cover;
+      transition: transform 0.3s ease-out;
+    }
+
+    /* interactions */
+    &:hover { border-color: var(--white); }
+    &:focus { border-color: var(--accent); }
+    &:hover, &:focus {
+      text-decoration: none;
+      color: var(--white);
+      background-color: color(var(--black) a(0.25));
+
+      & .tile-cover-img {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  /* explore tile overrides */
+  &.explore-tile {
+    height: 8rem;
+    flex: 1 1 12.5rem;
+    margin: var(--gutter-xs);
+
+    /* left aligned explore titles */
+    & .tile-title {
+      margin-left: 0;
+      text-align: left;
+
+      /* make room for tag in long titles */
+      &.u-font-xs {
+        padding-bottom: var(--gutter-md);
+      }
+    }
+
+    /* level tag */
+    & .tile-tag {
+      /* position bottom right */
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      /* layout */
+      display: flex;
+      align-items: center;
+    }
+    /* level img sizing */
+    & .tile-tag-img {
+      width: 1.5em;
+      height: 1.5em;
+      flex: 1 0 1.5em; /* prevent from squishing */
+    }
+
+    & .tile-tag-text {
+      padding-right: 0.5em;
+    }
+  }
+}

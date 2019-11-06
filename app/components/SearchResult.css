@@ -1,0 +1,31 @@
+.search-result {
+  & a {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 6px;
+    color: var(--dark-4);
+
+    &:hover {
+      text-decoration: none;
+      color: var(--dark-4);
+      background-color: var(--accent-light);
+    }
+  }
+  & .icon {
+    margin-right: 6px;
+    vertical-align: top;
+    width: 26px;
+  }
+  & .result-text {
+    flex: 1;
+    text-align: left;
+    & .title {
+      line-height: 20px;
+      margin-bottom: 2px;
+
+    }
+    & .level-title {
+      color: var(--dark-2);
+    }
+  }
+}

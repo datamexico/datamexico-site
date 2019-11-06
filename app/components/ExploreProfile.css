@@ -1,0 +1,34 @@
+@import "../helpers/mixins.css";
+
+.ep-profile {
+  flex: 1 1 12.5rem;
+  color: var(--dark-1);
+  text-align: center;
+
+  & .ep-profile-no-results {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    & .icon {
+      height: 120px;
+    }
+
+    & .message {
+      max-width: 600px;
+      padding: 20px;
+    }
+  }
+
+  & .ep-profile-title {
+    padding: var(--gutter-xs);
+  }
+
+  & .ep-profile-results {
+    @mixin list-reset;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

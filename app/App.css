@@ -1,4 +1,41 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import "helpers/layout.css";
+
 body {
-  font-family: "Roboto", sans-serif;
+  /* don't remove the default focus styles, unless you plan on bringing your own */
+  & *:focus {
+    outline: 2px solid var(--accent-dark);
+    outline-offset: 1px;
+  }
+
+  /* override default selection styles */
+  & ::selection {
+    color: var(--black);
+    background-color: var(--accent-light);
+    text-shadow: none;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+p:last-of-type {
+  margin-bottom: 0;
+}
+
+.bp3-input:focus, .bp3-input.bp3-active {
+  box-shadow: none !important;
+}
+
+/* default link styles */
+.link, p > a, li > a {
+  color: var(--accent-dark);
+
+  &:hover, &:focus {
+    color: var(--accent);
+  }
+}
+
+.click {
+  cursor: pointer;
 }

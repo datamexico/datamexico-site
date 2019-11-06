@@ -1,0 +1,53 @@
+@import "helpers/mixins.css";
+
+.error {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--dark-4);
+  color: var(--white);
+
+  & .error-header {
+    display: flex;
+    padding-top: var(--gutter-xl);
+    padding-bottom: var(--gutter-xl);
+    min-height: 40vh;
+    position: relative;
+    margin-top: var(--nav-height);
+    overflow: hidden;
+    z-index: 1;
+
+    & .error-header-img {
+      @mixin absolute-expand;
+      background: url(/images/backgroundmx.jpg);
+      background-size: cover;
+      background-position: bottom;
+      transform: rotate(10deg) scale(1.1);
+
+      &:before {
+        @mixin absolute-expand;
+        @mixin overlay-gradient;
+        content: "";
+        display: block;
+        transform: rotate(-10deg) translateY(-2%);
+      }
+    }
+
+    & .error-header-title {
+      @mixin text-shadow;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  & .error-container {
+    @mixin min-sm {
+      text-align: center;
+    }
+  }
+
+  & .footer {
+    margin-top: auto;
+  }
+}

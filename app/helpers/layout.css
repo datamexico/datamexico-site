@@ -1,0 +1,38 @@
+@import "./mixins.css";
+
+.container {
+  max-width: 100%;
+  padding: var(--gutter-md);
+
+  @mixin min-sm {
+    padding: var(--gutter-lg);
+  }
+}
+
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  /* offset column gutter */
+  margin-left:  calc(0px - var(--gutter-sm));
+  margin-right: calc(0px - var(--gutter-sm));
+}
+
+.column {
+  flex: 1 1 0;
+  margin-left: var(--gutter-sm);
+  margin-right: var(--gutter-sm);
+
+  @for $i from 2 to 5 {
+    &.is-1-$i {
+      width: calc(100% / $i);
+    }
+  }
+
+  &.is-2-3 {
+    max-width: 66.6666%;
+  }
+
+  &.is-3-4 {
+    max-width: 75%;
+  }
+}

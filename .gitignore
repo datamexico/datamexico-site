@@ -3,6 +3,7 @@ npm-debug.log*
 
 # node modules should never be synced with git
 node_modules/
+venv/
 
 # these static files will be generated on build
 /static/assets
@@ -22,3 +23,9 @@ dockerfiles/nginx/conf.d/default.conf
 
 # pm2 ecosystem config
 *.config.js
+
+# img bucket access
+datamexico-gcp-bucket-token.json
+
+# cached python
+__pycache__/

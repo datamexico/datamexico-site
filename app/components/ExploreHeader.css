@@ -1,0 +1,57 @@
+@import "helpers/mixins.css";
+
+.ep-header {
+  @mixin button-reset;
+  padding: 0;
+  flex: 0 1 auto;
+  text-align: center;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+
+  /* scale up spacing on bigger screens */
+  &:not(:last-child) {
+    @mixin min-sm { margin-right: calc(0.25em + 1vw); }
+    @mixin min-md { margin-right: var(--gutter-lg); padding-right: 0.5em; }
+  }
+
+  & .ep-header-img {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    transition: opacity 0.15s ease-out;
+  }
+
+  & .ep-header-title {
+    color: var(--light-2);
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    border-bottom: 1px solid transparent;
+    transition: border 0.15s ease-out;
+  }
+
+  /* inactive state */
+  &.is-inactive .ep-header-img {
+    opacity: 0.5;
+  }
+
+  /* active state */
+  &.is-active .ep-header-title {
+    color: var(--white);
+    border-color: var(--white);
+  }
+
+  /* interactions */
+  &:hover .ep-header-img,
+  &:focus .ep-header-img {
+    opacity: 1;
+  }
+  /* focus style override */
+  &:focus {
+    outline: none;
+
+    & .ep-header-title {
+      border-color: var(--accent);
+    }
+  }
+}

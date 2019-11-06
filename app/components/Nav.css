@@ -1,0 +1,228 @@
+@import "helpers/mixins.css";
+
+.nav {
+  align-items: center;
+  color: var(--white);
+  display: flex;
+  flex-direction: row;
+  height: var(--nav-height);
+  justify-content: space-between;
+  left: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  transform: translateX(0);
+  transition: background-color .75s;
+  width: 100%;
+  z-index: 21;
+
+  & .langs {
+    align-items: center;
+    display: flex;
+    float: left;
+    list-style: none;
+    margin-left: -40px;
+    margin: 0;
+    & li {
+      margin: 0 5px;
+      & a {
+        color: var(--white);
+        &:hover {
+          color: var(--accent-dark);
+          text-decoration: none;
+        }
+      }
+    }
+
+  }
+
+  & div {
+    flex: 1;
+    display: flex;
+
+    &.nav-center {
+      justify-content: center;
+      & .nav-subtitle {
+        color: var(--accent-dark);
+        font-family: "Barlow Condensed", sans-serif;
+        line-height: 20px;
+        max-width: 500px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+        white-space: nowrap;
+      }
+    }
+
+    &.nav-right {
+      justify-content: flex-end;
+      & .search-button {
+        align-items: center;
+        height: 30px;
+        max-width: 30px;
+        transition: all .5s ease-in-out;
+        width: 30px;
+
+        &.active {
+          background-color: var(--dark-2);
+          max-width: 250px;
+          transition: all .5s ease-in-out;
+          width: 250px;
+        }
+
+        & .bp3-icon-search {
+          padding: 0 5px 0 10px;
+        }
+        & .bp3-input-group {
+          display: none;
+          &.active {
+            display: block;
+          }
+        }
+        & .bp3-input {
+          background-color: transparent;
+          height: inherit;
+          border-radius: 0;
+          color: var(--white);
+          box-shadow: none;
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+
+      & .results {
+        position: fixed;
+        right: 20px;
+        top: var(--nav-height);
+        margin: 0;
+        width: 250px;
+        margin-left: -40px;
+        list-style: none;
+        background-color: var(--dark-2);
+        max-height: 300px;
+        box-shadow: 0 1px 2px color(var(--black) a(0.5));
+        @mixin vertical-overflow-container;
+        display: none;
+
+        &.active {
+          display: flex;
+          flex-direction: column;
+        }
+
+        & .result-icon {
+          flex: 0;
+        }
+
+        & .result-text {
+          flex-direction: column;
+          color: var(--white);
+          & .title {
+            line-height: 1.25;
+            margin-bottom: 2px;
+          }
+          & .level-title {
+            color: var(--gray);
+          }
+        }
+
+        & li {
+          margin-left: -40px;
+          text-align: left;
+          transition: background-color .25s;
+          &:hover {
+            background-color: var(--gray);
+          }
+        }
+      }
+    }
+  }
+
+  & .menu {
+    margin-left: 5px;
+  }
+
+  &.background {
+    background-color: var(--dark-4);
+  }
+
+  & .profile-logo {
+    margin-left: 10px;
+    margin-right: 10px;
+    min-width: 150px;
+    & img {
+      width: 150px;
+    }
+  }
+
+}
+
+.nav-search-portal {
+
+  & .nav-search-popover {
+    & .bp3-popover-content {
+      width: 250px;
+      margin: auto;
+    }
+  }
+
+  & .bp3-transition-container {
+    width: 250px;
+    z-index: 22;
+    margin-top: 10px;
+    /* margin-right: -20px; */
+    margin-left: -5px;
+  }
+}
+
+.bp3-dialog-container {
+  outline: 0;
+  transform: translateX(0);
+  transition: transform 0.25s ease-in-out;
+  will-change: transform;
+  &.slide-enter, &.slide-exit.slide-exit-active {
+    transform: translateX(-300px);
+  }
+  &.slide-enter.slide-enter-active, &.slide-exit {
+    transform: translateX(0);
+  }
+}
+
+.bp3-overlay-backdrop {
+  opacity: 1;
+  transition: opacity 0.25s ease-in-out;
+  &.slide-enter, &.slide-exit.slide-exit-active {
+    opacity: 0;
+  }
+  &.slide-enter.slide-enter-active, &.slide-exit {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .nav {
+    & .nav-subtitle {
+      display: none;
+    }
+  }
+}
+
+.nav-button {
+  @mixin button-reset;
+  color: inherit;
+
+  & [class*="icon"] {
+    transition:
+      color 0.125s ease-out,
+      transform 0.125s ease-out;
+  }
+
+  &:hover [class*="icon"],
+  &:focus [class*="icon"] {
+    color: var(--accent);
+    transform: scale(1.075);
+  }
+}

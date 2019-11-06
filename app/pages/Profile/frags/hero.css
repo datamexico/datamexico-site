@@ -1,0 +1,50 @@
+@import "helpers/mixins.css";
+
+.cp-hero {
+  background-color: var(--dark-3);
+  position: relative;
+  padding-bottom: 0; /* bring closer to about section */
+  z-index: 1;
+
+  /* set text shadow for all children based on font size */
+  & .cp-hero-caption {
+    @mixin text-shadow;
+  }
+
+  & .cp-hero-heading {
+    @mixin display;
+    @mixin font-xxl;
+    line-height: 1.25;
+  }
+
+  & .cp-hero-inner {
+    z-index: 12;
+  }
+
+  & .cp-stat-label-text {
+    line-height: 1.5;
+  }
+
+  & .cp-hero-stat-group-wrapper {
+    width: calc((var(--stat-group-stat-width) + var(--gutter-sm)) * 3);
+    max-width: 100%;
+
+    @mixin min-sm {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  & .cp-hero-credits {
+    z-index: 12; /* in front of overlay */
+
+    &.is-open {
+      margin-bottom: 0;
+    }
+  }
+
+  & .cp-hero-img-overlay {
+    @mixin overlay-gradient;
+    z-index: 11;
+  }
+}

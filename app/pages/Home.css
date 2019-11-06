@@ -1,3 +1,138 @@
-#Home {
+@import "../helpers/mixins.css";
+
+.home {
+  text-align: center;
+  background-color: var(--dark-4);
+  color: var(--white);
+
+  & .hero {
+    position: relative;
+    background: url(/images/backgroundmx.jpg);
+    background-position: bottom center;
+    background-size: cover;
+    min-height: 70vh;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* overlay */
+    &::before {
+      @mixin overlay-gradient;
+      @mixin absolute-expand;
+      display: block;
+      content: "";
+      z-index: -1;
+    }
+
+    /* space out adjacent elements */
+    & > *:not(:last-child) {
+      margin-bottom: calc(var(--gutter-sm) + 2.5vh);
+    }
+
+    & .hero-logo svg {
+      width: 13rem;
+    }
+
+    & .tagline {
+      @mixin text-shadow;
+    }
+
+    /* logos */
+    & .home-logo-link {
+      display: inline-block;
+      vertical-align: middle;
+
+      &:not(:last-child) {
+        margin-right: var(--gutter-md);
+      }
+
+      & .home-logo-img {
+        height: 2rem;
+        transition: 0.15s ease-out;
+      }
+
+      &:hover .home-logo-img {
+        transform: scale(1.075);
+      }
+    }
+  }
+
+  & .home-input {
+    border-radius: 0;
+    height: 45px;
+    max-width: 650px;
+    min-width: 600px;
+    box-shadow: 0 0 12px color(var(--black) a(0.5));
+
+    & .bp3-icon-search {
+      margin-top: 14px;
+      color: var(--accent-dark);
+    }
+
+    & .bp3-input {
+      height: 100%;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    & .home-search {
+      background: var(--accent-dark); /* background needed to override blueprint's background-image */
+      color: var(--white);
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      margin: 0;
+      height: 45px;
+      padding: 5px 20px;
+      transition: background 0.2s ease-out;
+
+      &:hover, &:focus {
+        background: var(--accent-black); /* background needed to override blueprint's background-image */
+      }
+    }
+  }
+
+  & .tiles {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    & .column {
+      min-width: 14rem;
+      margin-bottom: var(--gutter-md);
+    }
+
+    & .tile-list {
+      @mixin list-reset;
+    }
+  }
+}
+
+.search-results {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 498px;
+  background-color: var(--light-2);
+  margin-top: 0;
+  z-index: 22;
+  max-height: 30vh;
+  @mixin vertical-overflow-container;
+
+  & .search-result {
+    margin-left: -40px;
+  }
+}
+
+.bp3-popover {
+  width: 404px;
+  & .bp3-popover-content {
+    border-radius: 0 !important;
+  }
+}
+
+.cp-grouping-section-heading {
   text-align: center;
 }

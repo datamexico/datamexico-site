@@ -1,0 +1,93 @@
+@import "helpers/mixins.css";
+
+.ep-container {
+  margin-top: var(--nav-height);
+  background-color: var(--dark-3);
+
+  & .bp3-input {
+    border-radius: 0;
+    border: none;
+    background-color: transparent;
+    color: var(--white);
+    box-shadow: none;
+    height: 60px;
+    font-size: 1.6rem;
+    border-bottom: 1px solid var(--dark-1);
+    padding-left: 1.5em !important; /* override blueprint */
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &.bp3-active {
+      box-shadow: none;
+    }
+  }
+
+  & .bp3-icon-search[class] {
+    @mixin absolute-vertical-center; /* center it regardless of the size */
+    margin: 0; /* override blueprint */
+    color: var(--white);
+
+    & svg {
+      width: 2em;
+      height: auto;
+    }
+  }
+
+  & .bp3-input-group .bp3-input:not(:first-child) {
+    padding-left: 60px;
+  }
+
+  & .ep-headers {
+    margin: 30px auto;
+
+    /* break buttons into columns on small screens */
+    @mixin min-xxs {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    & .ep-header {
+      @mixin max-sm {
+        flex: 1 0 calc(33.333% - var(--gutter-xs)); /* 3 columns */
+      }
+      @mixin max-xs {
+        flex-basis: calc(50% - var(--gutter-xs)); /* 2 columns */
+      }
+      @mixin min-sm {
+        justify-content: center;
+      }
+    }
+  }
+
+  & .ep-profile-tabs {
+    display: inline-flex;
+    background: var(--dark-3);
+    color: var(--dark-1);
+
+    & .ep-profile-tab {
+      padding: 10px;
+      cursor: pointer;
+      &.selected {
+        background: var(--dark-4);
+        color: var(--white);
+      }
+    }
+  }
+
+  & .ep-profiles {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--dark-4);
+    padding: var(--gutter-xs);
+
+    /* handle overflow on big screens */
+    @mixin min-xs {
+      @mixin vertical-overflow-container;
+      height: calc(100vh - var(--nav-height) - 260px);
+    }
+  }
+}
