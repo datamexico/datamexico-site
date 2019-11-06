@@ -1,0 +1,143 @@
+@import './mixins';
+
+/* -----------------------------------
+general hacks
+----------------------------------- */
+
+/* replace default dark color returned by colorContrast.js */
+.d3plus-textBox text[fill="#444444"] {
+  fill: var(--dark-3);
+}
+
+/* make room for the 1px axis bar */
+.d3plus-Bar-group {
+  transform: translateX(0.5px);
+}
+
+/* offset added stroke width */
+.d3plus-Line-shape {
+  transform: translate(1px, -1px) scale(0.995);
+}
+
+/* rounded legends */
+.d3plus-Legend rect {
+  rx: 50%;
+  ry: 50%;
+}
+
+/* -----------------------------------
+loading in
+----------------------------------- */
+
+.d3plus-Mask {
+  background: none !important;
+  border: 1px dashed var(--light-2) !important;
+  border-radius: var(--radius-sm);
+}
+.d3plus-Message {
+  /* @mixin absolute-vertical-center; */
+  top: 50% !important;
+  transform: translate(0, -50%) !important;
+
+  & strong {
+    color: var(--dark-3);
+  }
+  & a {
+    color: var(--dark-1);
+  }
+}
+.d3plus-no-data {
+  color: var(--gray);
+}
+
+/* -----------------------------------
+color scale
+----------------------------------- */
+
+.d3plus-ColorScale-Rect {
+  transform: translateY(2px); /* fudge into place */
+
+  /* rounded corners */
+  & .d3plus-Shape {
+    rx: 5;
+    ry: 5;
+  }
+}
+
+
+/* -----------------------------------
+map controls
+----------------------------------- */
+
+/* style map zoom controls */
+.d3plus-zoom-control {
+	/* override default inline styles */
+  position: absolute;
+  top: 0.375rem !important;
+
+	& .zoom-control {
+		/* theming */
+		color: var(--dark-1) !important;
+		border: none !important;
+		border-radius: 2px;
+		background: var(--light-1) !important;
+		opacity: 1 !important;
+		/* sizing */
+		width: 1rem !important;
+		height: 1rem !important;
+		font-size: 0.75rem !important;
+		line-height: 1rem !important;
+		/* positioning */
+    position: relative;
+		display: inline-block !important;
+		margin: 0.125rem 0.5em 0 0 !important;
+		/* it's a button, not a link */
+		cursor: default !important;
+		/* transitions */
+		transition:
+			background-color 0.2s,
+			color 0.2s;
+
+		/* tooltips */
+		&.zoom-in:after 	 { content: 'Zoom in'; }
+		&.zoom-out:after 	 { content: 'Zoom out'; }
+		&.zoom-reset:after { content: 'Reset zoom'; }
+		&.zoom-brush:after { content: 'Toggle zoom brush'; min-width: 11em; }
+		&:after {
+			/* sizing */
+			display: block;
+			padding: 0.5em 1em;
+			width: auto;
+			/* typography */
+			font-size: 0.75em;
+			/* positioning */
+			@add-mixin absolute-horizontal-center;
+			bottom: 1.25rem;
+			/* theming */
+			background: var(--light-1);
+      color: var(--dark-3);
+			border-radius: 2px;
+			/* transitions */
+			z-index: -1;
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		/* interactions */
+		&:hover {
+			color: var(--accent-dark) !important;
+		}
+    &.active {
+			background: var(--accent-dark) !important;
+			color: var(--white) !important;
+    }
+		&:hover:after {
+      opacity: 1;
+      z-index: 1;
+      /* transition in only */
+      transition:
+        background-color 0.1s,
+        opacity 0.2s ease-out 0.2s;
+		}
+	}
+}
