@@ -17,7 +17,7 @@ class Loading extends Component {
       <div className="loading-wrapper">
         <div className="brand">
           <Link to="/">
-            <img src={"/icons/logo.svg"} alt="" />
+            <img src={"/icons/datamx-logo.gif"} alt="" />
           </Link>
         </div>
         <div className="progress-bar">

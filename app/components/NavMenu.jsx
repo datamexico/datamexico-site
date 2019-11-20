@@ -33,7 +33,7 @@ class NavMenu extends React.Component {
         <nav className="nav-menu-nav">
           {/* logo / home page link */}
           <a className="nav-menu-logo" href="/">
-            <img className="nav-menu-logo-img" src="/icons/logo.svg" alt={t("Home")} />
+            <img className="nav-menu-logo-img" src="/icons/datamx-logo.gif" alt={t("Home")} />
           </a>
 
           {/* main list */}
