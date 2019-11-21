@@ -1,14 +1,18 @@
 import {mean} from "d3-array";
 import {formatAbbreviate} from "d3plus-format";
 import colors from "../static/data/colors.json";
+import styles from "style.yml";
 
-const bad = "#cf5555";
-const good = "#3182bd";
+const typeface = "'Barlow', sans-serif";
+const defaultFontColor = styles["dark-1"];
+const headingFontColor = styles["dark-3"];
+const fontSizeSm = 12;
+const fontSizeMd = 14;
+const fontSizeLg = 16;
+const labelPadding = 5;
 
-/**
-  The object exported by this file will be used as a base config for any
-  d3plus-react visualization rendered on the page.
-*/
+const bad = styles["viz-negative"];
+const good = styles["viz-positive"];
 
 const badMeasures = [];
 export {badMeasures};
@@ -42,35 +46,45 @@ function findIcon(d) {
   return undefined;
 }
 
-const axisStyles = {
+/** default x/y axis styles */
+const axisConfig = {
+  // main bar lines
   barConfig: {
-    stroke: "transparent"
+    "stroke": defaultFontColor,
+    "stroke-width": 1
   },
+  // secondary grid lines
   gridConfig: {
-    stroke: "#ccc"
+    "stroke": styles["light-1"],
+    "stroke-width": 1,
+    "opacity": 0.5
   },
   locale: "es-MX",
+  // axis title labels
+  titleConfig: {
+    fontFamily: () => typeface,
+    fontColor: headingFontColor
+  },
+  // value labels
   shapeConfig: {
     labelConfig: {
-      fontColor: () => "#211f1a",
-      // fontFamily: () => "Source Sans Pro",
-      fontSize: () => 12,
-      fontWeight: () => 400
-    },
-    stroke: "#ccc"
+      labelRotation: false,
+      fontColor: headingFontColor,
+      fontFamily: () => typeface,
+      fontSize: () => fontSizeMd
+    }
   },
-  tickSize: 5,
-  titleConfig: {
-    fontColor: () => "#211f1a",
-    // fontFamily: () => "Palanquin",
-    fontSize: () => 12,
-    fontWeight: () => 400
-  }
+  // death to ticks
+  tickSize: 0
 };
 
-const labelPadding = 5;
 
+/**
+  The object exported by this file will be used as a base config for any
+  d3plus-react visualization rendered on the page.
+*/
 export default {
+  // global defaults
   aggs: {
     "Area ID": mean,
     "Category ID": mean,
@@ -81,62 +95,94 @@ export default {
     "Sex ID": mean,
     "Year": mean
   },
-  xConfig: axisStyles,
-  yConfig: axisStyles,
   locale: "es-MX",
-  // backgroundConfig: {
-  //   fill: "#eaeaf2"
-  // },
+  xConfig: axisConfig,
+  yConfig: axisConfig,
   barPadding: 0,
   groupPadding: 10,
 
+  // legends
   legendConfig: {
-    label: "",
     shapeConfig: {
       fill: d => findColor(d),
       backgroundImage: d => findIcon(d),
-      height: () => 20,
-      width: () => 20
-    }
+      width: fontSizeSm,
+      height: fontSizeSm
+    },
+    labelConfig: {
+      fontColor: defaultFontColor,
+      fontFamily: () => typeface
+    },
+    stroke: "transparent"
   },
 
+  // color scale
   colorScaleConfig: {
     axisConfig: {
       labelOffset: true,
       labelRotation: false,
       locale: "es-MX",
       shapeConfig: {
+        height: 30,
         labelConfig: {
-          fontColor: () => "#211f1a",
-          fontSize: () => 12,
-          fontWeight: () => 400
+          fontColor: defaultFontColor,
+          fontFamily: () => typeface
         }
       },
       titleConfig: {
-        fontColor: () => "#211f1a",
-        fontSize: () => 12,
-        fontWeight: () => 400
+        fontFamily: () => typeface,
+        fontColor: headingFontColor
       },
-      tickFormat: d => formatAbbreviate(d)
-    },
-    color: ["#BEE97B", "#8BD687", "#62C091", "#47A994", "#3F908E"],
-    legendConfig: {
-      shapeConfig: {
-        labelConfig: {
-          fontSize: () => 12
-        },
-        height: () => 15,
-        stroke: "transparent",
-        width: () => 15
+      // death to ticks
+      tickSize: 0,
+      tickFormat: d => formatAbbreviate(d),
+      barConfig: {
+        stroke: "transparent"
       }
     },
-    scale: "jenks"
+    color: [
+      styles["accent-light"],
+      styles.accent,
+      "#6DD0CE",
+      "#56B0AE",
+      styles["viz-positive"]
+    ],
+    legendConfig: {
+      shapeConfig: {
+        height: fontSizeLg,
+        width: fontSizeLg,
+        stroke: "transparent"
+      }
+    },
+    rectConfig: {
+      stroke: "transparent"
+    }
   },
+
+  // geomaps
   ocean: "transparent",
   tiles: false,
+  pointSizeMin: 1,
+  pointSizeMax: 7,
+  zoomScroll: false,
 
+  // various visualizations
   shapeConfig: {
+    // labels
+    fontFamily: () => typeface,
+    labelConfig: {
+      volot: defaultFontColor,
+      fontFamily: () => typeface,
+      fontMax: fontSizeMd,
+      padding: 10
+    },
+    // stacked area
     Area: {
+      labelConfig: {
+        fontColor: styles.white,
+        fontFamily: () => typeface,
+        fontMax: fontSizeLg
+      },
       strokeWidth: d => {
         const c = findColor(d);
         return [good, bad].includes(c) ? 1 : 0;
@@ -153,6 +199,14 @@ export default {
         return [good, bad].includes(c) ? 1 : 0;
       }
     },
+    // line charts
+    Line: {
+      curve: "monotoneX",
+      stroke: findColor,
+      strokeWidth: 3,
+      strokeLinecap: "round"
+    },
+    // scatter plots
     Circle: {
       fill: d => {
         if (d["Trade Value RCA"]) {
@@ -163,19 +217,7 @@ export default {
       stroke: "#b1bac6"
     },
     fill: findColor,
-    labelConfig: {
-      fontSize: () => 13
-    },
-    Line: {
-      curve: "monotoneX",
-      stroke: findColor,
-      strokeWidth: 3,
-      strokeLinecap: "round"
-    },
-    Path: {
-      // fillOpacity: 0.75,
-      // strokeOpacity: 0.25
-    },
+    // tree maps
     Rect: {
       labelBounds: (d, i, s) => {
         const h = s.height;
@@ -187,15 +229,21 @@ export default {
         return arr;
       },
       labelConfig: {
-        // fontFamily: () => pathway,
-        fontSize: () => 13,
-        fontResize: true,
+        fontFamily: () => typeface,
+        fontMax: fontSizeLg,
+        fontMin: fontSizeSm,
         padding: 0
       }
     }
   },
+
+  // timelines
   timelineConfig: {
-    brushing: false,
+    // handle
+    handleConfig: {
+      width: 9,
+      fill: styles["accent-dark"]
+    },
     tickFormat: d => {
       console.log(d);
       d = d.toString().includes("Q") ? d.toString().replace("Q", "0") : d;
@@ -227,52 +275,61 @@ export default {
       }
       return label;
     },
+    // button stuff
+    brushing: false,
     buttonBehavior: "buttons",
     buttonHeight: 20,
     buttonWidth: 200,
     buttonPadding: 5,
-    labelRotation: false,
-    padding: 0,
+    // selected range
     selectionConfig: {
-      "fill": "#888",
+      "height": 8,
+      "fill": styles["accent-dark"],
       "fill-opacity": 0.25,
       "transform": "translate(0, 2)"
     },
+    // main horizontal bar line
+    barConfig: {
+      stroke: styles["light-3"],
+      opacity: 0.5
+    },
     shapeConfig: {
-      fill: "transparent",
+      // ticks and/or button bg
+      fill: styles["light-3"],
+      stroke: "none",
+      // label and/or button text
       labelConfig: {
         fontColor(d) {
           const n = parseInt(d.text, 10);
-          return "#888";
+          return defaultFontColor;
         },
-        // fontFamily: () => "Source Sans Pro",
-        fontSize: () => 12,
-        fontWeight: () => 700,
-        lineHeight: () => 16,
+        fontFamily: () => typeface,
+        fontSize: () => fontSizeSm,
+        lineHeight: () => fontSizeLg,
         padding: 0
-      },
-      stroke: "transparent",
-      strokeWidth: 0
-    }
+      }
+    },
+    labelRotation: false,
+    padding: 0
   },
+
+  // tooltips
   tooltipConfig: {
-    background: "#FFFFFF",
-    border: "1px solid #787e83",
+    background: styles.white,
+    border: `1px solid ${defaultFontColor}`,
     footerStyle: {
-      "color": "#666",
-      "fontFamily": () => "'Chivo', sans-serif",
-      "font-size": "12px",
-      "font-weight": "300",
+      "color": headingFontColor,
+      "fontFamily": () => typeface,
+      "font-size": fontSizeSm,
       "padding-top": "5px",
       "text-align": "center"
     },
     padding: "10px",
     titleStyle: {
-      "color": "#777777",
+      "color": headingFontColor,
       "padding": "5px 10px",
-      "fontFamily": () => "'Chivo', sans-serif",
-      "font-size": "16px",
-      "font-weight": "600",
+      "fontFamily": () => typeface,
+      "font-size": fontSizeLg,
       "max-height": "100px",
       "overflow": "hidden",
       "text-overflow": "ellipsis",
@@ -280,10 +337,10 @@ export default {
       "-webkit-box-orient": "vertical",
       "-webkit-line-clamp": "3"
     },
-    width: "200px"
+    minWidth: "200px"
   },
   totalConfig: {
     locale: "es-MX",
-    fontSize: () => 14
+    fontSize: () => fontSizeMd
   }
 };

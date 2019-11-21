@@ -42,6 +42,9 @@ accent-light: "#A8FFFE"
 accent-dark:  "#3F908E"
 accent-black: "#174442"
 
+viz-positive: "#3F908E"
+viz-negative: "#D12E4E"
+
 
 ########################################
 # admin panel

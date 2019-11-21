@@ -96,7 +96,7 @@ class Home extends Component {
       />
       <div className="hero container">
         <h1 className="hero-logo">
-          <img src="/icons/logo.svg" alt="DataMexico" />
+          <img src="/icons/datamx-logo.gif" alt="DataMexico" />
         </h1>
         <p className="tagline u-font-md">
           {t("EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA")}

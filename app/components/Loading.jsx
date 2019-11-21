@@ -17,7 +17,7 @@ class Loading extends Component {
       <div className="loading-wrapper">
         <div className="brand">
           <Link to="/">
-            <img src={"/icons/logo.svg"} alt="" />
+            <img src={"/icons/datamx-logo.gif"} alt="" />
           </Link>
         </div>
         <div className="progress-bar">
@@ -32,9 +32,6 @@ class Loading extends Component {
           <div className="content">
             <a href="https://www.gob.mx/se/" target="_blank" rel="noopener noreferrer">
               <img className="mini-icon se" src="/icons/SE.png" alt="" />
-            </a>
-            <a href="https://www.matt.org/" target="_blank" rel="noopener noreferrer">
-              <img className="mini-icon" src="/icons/matt-white.svg" alt="" />
             </a>
             <a href="https://datawheel.us" target="_blank" rel="noopener noreferrer">
               <img className="mini-icon" src="/icons/datawheel-white.svg" alt="" />

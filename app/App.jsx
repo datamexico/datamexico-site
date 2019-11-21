@@ -1,14 +1,9 @@
 import React, {Component} from "react";
 import "./App.css";
+import "helpers/d3plus.css";
 
 export default class App extends Component {
-
   render() {
-    return (
-      <div>
-        { this.props.children }
-      </div>
-    );
+    return this.props.children;
   }
-
 }

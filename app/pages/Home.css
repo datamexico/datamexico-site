@@ -31,7 +31,7 @@
       margin-bottom: calc(var(--gutter-sm) + 2.5vh);
     }
 
-    & .hero-logo svg {
+    & .hero-logo img {
       width: 13rem;
     }
 
