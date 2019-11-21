@@ -33,9 +33,6 @@ class Loading extends Component {
             <a href="https://www.gob.mx/se/" target="_blank" rel="noopener noreferrer">
               <img className="mini-icon se" src="/icons/SE.png" alt="" />
             </a>
-            <a href="https://www.matt.org/" target="_blank" rel="noopener noreferrer">
-              <img className="mini-icon" src="/icons/matt-white.svg" alt="" />
-            </a>
             <a href="https://datawheel.us" target="_blank" rel="noopener noreferrer">
               <img className="mini-icon" src="/icons/datawheel-white.svg" alt="" />
             </a>
