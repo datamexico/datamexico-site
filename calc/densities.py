@@ -9,7 +9,10 @@ import requests
 
 
 def main():
-    params = json.loads(sys.argv[1]) if len(sys.argv) > 1 else {'cube': 'economy_foreign_trade_ent', 'rca': 'State,HS4 4 Digit,Trade Value', 'Date Year': '2018', 'filter_State': '14'}
+    if len(sys.argv) > 1 and bool(json.loads(sys.argv[1])):
+        params = json.loads(sys.argv[1])
+    else:
+        params = {'cube': 'economy_foreign_trade_ent', 'rca': 'State,HS4 4 Digit,Trade Value', 'Date Year': '2018', 'filter_State': '14'}
     API = str(sys.argv[2]) if len(sys.argv) > 2 else "https://api.datamexico.org/tesseract/data"
     dd1, dd2, measure = params["rca"].split(",")
 
@@ -62,7 +65,7 @@ def main():
 
     print(json.dumps({
       "data": json.loads(densities.to_json(orient="records"))
-      }))
+    }))
 
 if __name__ == "__main__":
     main()
