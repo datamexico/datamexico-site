@@ -177,7 +177,7 @@ grouping-subhead-color:     "var(--accent-black)"
 grouping-subhead-font-size: "var(--font-xl)"
 grouping-heading-color:     "var(--dark-4)"
 grouping-heading-font-size: "var(--font-xl)"
-grouping-stat-value-color:  "var(--white)"
+grouping-stat-value-color:  "var(--accent-dark)"
 
 # buttons
 button-border-radius:       "2px"
