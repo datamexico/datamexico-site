@@ -175,3 +175,7 @@
   text-decoration: none;
   font-style: italic;
 }
+
+.cp-subnav.is-fixed {
+  background-color: var(--dark-3);
+}
