@@ -1,31 +1,61 @@
+@import "helpers/mixins.css";
+
 .search-result {
-  & a {
-    display: flex;
-    align-items: center;
-    padding: 10px 10px 10px 6px;
+  position: relative; /* needed for icon positioning */
+
+  /* make spans act like divs */
+  & * { display: block; }
+
+  /* the link */
+  & .search-result-link {
+    padding: 0.5em 1em 0.5em 2.375rem; /* space out items & make room for icon */
     color: var(--dark-4);
 
-    &:hover {
-      text-decoration: none;
-      color: var(--dark-4);
-      background-color: var(--accent-light);
+    &:focus {
+      outline-offset: -2px;
     }
   }
-  & .icon {
-    margin-right: 6px;
-    vertical-align: top;
-    width: 26px;
-  }
-  & .result-text {
-    flex: 1;
-    text-align: left;
-    & .title {
-      line-height: 20px;
-      margin-bottom: 2px;
 
-    }
-    & .level-title {
-      color: var(--dark-2);
+  /* the icon */
+  & .search-result-icon {
+    /* sizing */
+    width: 2em;
+    height: 2em;
+    /* positioning */
+    @mixin absolute-vertical-center;
+    left: 0.375em;
+    vertical-align: top;
+    transform-origin: top center;
+    transition: transform 0.15s ease-out;
+  }
+
+  & .search-result-title {
+    color: var(--dark-2);
+  }
+
+  /* interactions */
+  &.is-highlighted a.search-result-link,
+  & a.search-result-link:hover,
+  & a.search-result-link:focus {
+    color: var(--dark-4);
+    background-color: color(var(--accent-light) a(0.5));
+    text-decoration: none;
+
+    & .search-result-icon {
+      transform: scale(1.25) translateY(-50%);
     }
   }
+
+  /* error */
+  & p.search-result-link {
+    animation: fadeInSlowly 1s ease-out;
+    margin-top: 0.5em;
+    margin-bottom: 0.75em;
+  }
+}
+
+@keyframes fadeInSlowly {
+  0%   { opacity: 0; }
+  90%  { opacity: 0; }
+  100% { opacity: 1; }
 }

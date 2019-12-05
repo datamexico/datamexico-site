@@ -11,7 +11,7 @@
     background-position: bottom center;
     background-size: cover;
     min-height: 70vh;
-    z-index: 1;
+    z-index: 2; /* keep search results above tiles */
     display: flex;
     flex-direction: column;
     align-items: center;
