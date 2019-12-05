@@ -101,10 +101,8 @@
   color: var(--dark-2);
 
   /* strip out rich text styles */
-  & > span[style] {
+  & [style] {
     background: inherit !important;
-    color: inherit !important;
-    font-weight: inherit !important;
   }
 }
 
@@ -152,4 +150,22 @@
   & .d3plus-tooltip-footer {
     text-align: center;
   }
+}
+
+/* inverted section link styles */
+.cp-about-section-inner p > a {
+  font-weight: var(--bold-weight);
+  color: var(--accent);
+  text-decoration-color: var(--dark-1);
+
+  &:hover, &:focus {
+    color: var(--white);
+    text-decoration-color: currentColor;
+  }
+}
+
+/* style underlined text like italic */
+.cp-section-paragraph u {
+  text-decoration: none;
+  font-style: italic;
 }

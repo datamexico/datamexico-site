@@ -29,8 +29,8 @@
       margin: 0 5px;
       & a {
         color: var(--white);
-        &:hover {
-          color: var(--accent-dark);
+        &:hover, &:focus {
+          color: var(--accent-light);
           text-decoration: none;
         }
       }

@@ -28,14 +28,17 @@ p:last-of-type {
 }
 
 /* default link styles */
-.link, p > a, li > a {
+.link,
+.cp-stat a,
+.cp-section p > a,
+.cp-section li > a {
+  font-weight: var(--base-font-weight);
   color: var(--accent-dark);
+  text-decoration: underline;
+  text-decoration-color: var(--light-3);
 
   &:hover, &:focus {
-    color: var(--accent);
+    color: var(--accent-black);
+    text-decoration-color: var(--accent-dark);
   }
-}
-
-.click {
-  cursor: pointer;
 }
