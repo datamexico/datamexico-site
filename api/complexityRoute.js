@@ -4,7 +4,7 @@ const spawn = require("child_process").spawn;
 module.exports = function(app) {
 
   app.get("/api/eci", (req, res) => {
-    const pyFilePath = path.join(__dirname, "..", "calc/rcas.py");
+    const pyFilePath = path.join(__dirname, "..", "calc/complexities.py");
     const py = spawn(
       "python3",
       ["-W", "ignore", pyFilePath, JSON.stringify(req.query), "https://api.datamexico.org/tesseract/data"]
@@ -57,7 +57,7 @@ module.exports = function(app) {
   });
 
   app.get("/api/relatedness", (req, res) => {
-    const pyFilePath = path.join(__dirname, "..", "calc/test.py");
+    const pyFilePath = path.join(__dirname, "..", "calc/densities.py");
     const py = spawn(
       "python3",
       ["-W", "ignore", pyFilePath, JSON.stringify(req.query), "https://api.datamexico.org/tesseract/data"]

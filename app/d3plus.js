@@ -171,9 +171,8 @@ export default {
     // labels
     fontFamily: () => typeface,
     labelConfig: {
-      volot: defaultFontColor,
       fontFamily: () => typeface,
-      fontMax: fontSizeMd,
+      fontMax: fontSizeLg,
       padding: 10
     },
     // stacked area
@@ -181,7 +180,8 @@ export default {
       labelConfig: {
         fontColor: styles.white,
         fontFamily: () => typeface,
-        fontMax: fontSizeLg
+        fontMax: fontSizeLg,
+        fontMin: fontSizeSm
       },
       strokeWidth: d => {
         const c = findColor(d);
@@ -216,25 +216,7 @@ export default {
       },
       stroke: "#b1bac6"
     },
-    fill: findColor,
-    // tree maps
-    Rect: {
-      labelBounds: (d, i, s) => {
-        const h = s.height;
-        const sh = Math.min(17, h * 0.5);
-        const arr = [
-          {width: s.width - labelPadding * 2, height: h - sh, x: -s.width / 2 + labelPadding, y: -h / 2 + labelPadding},
-          {width: s.width - labelPadding * 2, height: sh, x: -s.width / 2 + labelPadding, y: h / 2 - sh}
-        ];
-        return arr;
-      },
-      labelConfig: {
-        fontFamily: () => typeface,
-        fontMax: fontSizeLg,
-        fontMin: fontSizeSm,
-        padding: 0
-      }
-    }
+    fill: findColor
   },
 
   // timelines
