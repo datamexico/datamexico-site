@@ -93,6 +93,7 @@ export default {
     "Flow ID": mean,
     "Sector ID": mean,
     "Sex ID": mean,
+    "State ID": mean,
     "Year": mean
   },
   locale: "es-MX",
