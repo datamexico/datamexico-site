@@ -25,6 +25,7 @@
   "dependencies": {
     "@datawheel/canon-cms": "^0.11.2",
     "@datawheel/canon-core": "^0.18.0",
+    "@datawheel/canon-stats": "git+https://github.com/Datawheel/canon-stats.git",
     "mondrian-rest-client": "^1.1.3"
   }
 }
