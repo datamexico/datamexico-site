@@ -1,7 +1,7 @@
 import React, {Component} from "react";
+import {withNamespaces} from "react-i18next";
 import {hot} from "react-hot-loader/root";
 import PropTypes from "prop-types";
-import {withNamespaces} from "react-i18next";
 import axios from "axios";
 import {Helmet} from "react-helmet";
 import {Button, Icon, InputGroup, Popover} from "@blueprintjs/core";
@@ -45,8 +45,6 @@ class Home extends Component {
   render() {
     const {scrolled} = this.state;
     const {t, lng, router} = this.props;
-
-    // console.log("router", router);
 
     return (
       <div className="home">
@@ -125,27 +123,27 @@ class Home extends Component {
                 <Tile
                   slug="industry"
                   id="6221"
-                  title="General Hospital"
+                  title={t("General Hospital")}
                 />
                 <Tile
                   slug="industry"
                   id="5611"
-                  title="Business Administration Services"
+                  title={t("Business Administration Services")}
                 />
                 <Tile
                   slug="industry"
                   id="6111"
-                  title="Elementary and Secondary Schools"
+                  title={t("Elementary and Secondary Schools")}
                 />
                 <Tile
                   slug="industry"
                   id="2122"
-                  title="Metal Ore Mining"
+                  title={t("Metal Ore Mining")}
                 />
                 <Tile
                   slug="industry"
                   id="8111"
-                  title="Automotive Repair and Maintenance"
+                  title={t("Automotive Repair and Maintenance")}
                 />
               </ul>
             </div>
@@ -159,27 +157,27 @@ class Home extends Component {
                 <Tile
                   slug="occupation"
                   id="2332"
-                  title="Primary School Teachers"
+                  title={t("Primary School Teachers")}
                 />
                 <Tile
                   slug="occupation"
                   id="2253"
-                  title="Industrial Engineers"
+                  title={t("Industrial Engineers")}
                 />
                 <Tile
                   slug="occupation"
                   id="4211"
-                  title="Sales Employees"
+                  title={t("Sales Employees")}
                 />
                 <Tile
                   slug="occupation"
                   id="9111"
-                  title="Support Workers in Agriculture"
+                  title={t("Support Workers in Agriculture")}
                 />
                 <Tile
                   slug="occupation"
                   id="2412"
-                  title="Specialist Doctors"
+                  title={t("Specialist Doctors")}
                 />
               </ul>
             </div>
@@ -193,27 +191,27 @@ class Home extends Component {
                 <Tile
                   slug="product"
                   id="17870323"
-                  title="Cars"
+                  title={t("Cars")}
                 />
                 <Tile
                   slug="product"
                   id="2080440"
-                  title="Avocados"
+                  title={t("Avocados")}
                 />
                 <Tile
                   slug="product"
                   id="5260300"
-                  title="Copper Ores and Concentrates"
+                  title={t("Copper Ores and Concentrates")}
                 />
                 <Tile
                   slug="product"
                   id="16850440"
-                  title="Power Electronics"
+                  title={t("Power Electronics")}
                 />
                 <Tile
                   slug="product"
                   id="20940190"
-                  title="Parts of Seats"
+                  title={t("Parts of Seats")}
                 />
               </ul>
             </div>

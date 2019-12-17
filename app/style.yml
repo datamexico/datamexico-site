@@ -153,10 +153,10 @@ sticky-section-bg-color:    "var(--white)"
 sticky-section-shadow:      "0 1px 0.375rem color(var(--black) a(0.125))"
 # handle grouped SingleColumn sections with flex-basis
 singlecolumn-column-count:  "3"
-singlecolumn-min-width:     "20rem"
+singlecolumn-min-width:     "15rem"
 # handle MultiColumn section with css multicolumn
 multicolumn-column-count:   "3"
-multicolumn-column-width:   "20rem"
+multicolumn-column-width:   "15rem"
 multicolumn-column-gap:     "var(--gutter-xl)"
 # InfoCard
 infocard-viz-min-width:     "10rem"
