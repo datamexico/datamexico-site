@@ -53,7 +53,17 @@ function findIcon(d) {
   ];
 
   for (const key of keys) {
-    if (`${key} ID` in d || key in d) return `/icons/visualizations/${key}/png/white/${d[`${key} ID`]}.png`;
+    if (`${key} ID` in d || key in d) {
+      const icon = key.replace(" 4 Digit", "");
+      console.log(
+        key,
+        icon,
+        d[`${icon} ID`],
+        `/icons/visualizations/${icon}/png/white/${d[`${icon} ID`]}.png`
+      );
+      return `/icons/visualizations/${icon}/png/white/${d[`${key} ID`]}.png`;
+    }
+
   }
   return undefined;
 }
@@ -101,6 +111,8 @@ export default {
     "Area ID": mean,
     "Category ID": mean,
     "Chapter ID": mean,
+    "Chapter 2 Digit ID": mean,
+    "Chapter 4 Digit ID": mean,
     "Generic Investment ID": mean,
     "Flow ID": mean,
     "Sector ID": mean,
