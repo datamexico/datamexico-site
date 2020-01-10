@@ -39,7 +39,19 @@ function findColor(d) {
 
 /** */
 function findIcon(d) {
-  const keys = ["Area", "Category", "Chapter", "Flow", "Generic Investment", "Continent", "Sector", "Sex"];
+  const keys = [
+    "Area",
+    "Category",
+    "Chapter",
+    "Chapter 2 Digit",
+    "Chapter 4 Digit",
+    "Flow",
+    "Generic Investment",
+    "Continent",
+    "Sector",
+    "Sex"
+  ];
+
   for (const key of keys) {
     if (`${key} ID` in d || key in d) return `/icons/visualizations/${key}/png/white/${d[`${key} ID`]}.png`;
   }
