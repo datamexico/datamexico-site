@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 300 300" style="enable-background:new 0 0 300 300;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#8ACB91;}
+	.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#FBD77F;}
+	.st2{fill-rule:evenodd;clip-rule:evenodd;fill:#0D2633;}
+	.st3{fill:#DDDDDD;}
+	.st4{fill:#5AB4BE;}
+	.st5{fill:#929083;}
+	.st6{fill:#FFFFFF;}
+	.st7{fill:#8ACB91;}
+</style>
+<polyline id="Fill-435_1_" class="st0" points="81.2,263.5 67.3,263.5 67.3,222.2 84.6,222.2 81.2,263.5 "/>
+<polyline id="Fill-436_1_" class="st0" points="95,263.5 108.8,263.5 108.8,222.2 91.5,222.2 95,263.5 "/>
+<path id="Fill-433_1_" class="st1" d="M108.8,194.5c10.2,0,18.4-8.3,18.4-18.4h0v-4.5c0-1.3-1-2.3-2.3-2.3s-2.3,1-2.3,2.3v4.5h-9.2
+	c0,2.5-2.1,4.6-4.6,4.6v0"/>
+<polyline id="Fill-434_1_" class="st1" points="113.7,231.2 62.6,231.2 67.3,180.7 108.8,180.7 113.7,231.2 "/>
+<path id="Fill-437_1_" class="st1" d="M46.8,201.3c0-11.4,9.2-20.6,20.7-20.6v13.7c-3.8,0-6.9,3.1-7,6.9v22.6H46.8V201.3"/>
+<path id="Fill-438_2_" class="st2" d="M92.5,166.8c0,2.5-2.1,4.6-4.6,4.6c-2.5,0-4.6-2.1-4.6-4.6c0-2.5,2.1-4.6,4.6-4.6
+	C90.5,162.2,92.5,164.3,92.5,166.8"/>
+<path id="Fill-439_1_" class="st2" d="M98.3,176.2H96v-9.4c0-4.4-3.6-8-8.1-8c-4.4,0-8.1,3.6-8.1,8v9.2h-2.3v-9.2
+	c0-5.7,4.6-10.4,10.4-10.4c5.7,0,10.4,4.6,10.4,10.4V176.2"/>
+<path id="Fill-440_1_" class="st1" d="M46.8,223.9v2.5c0,1.3,1,2.3,2.3,2.3c1.3,0,2.3-1,2.3-2.3v-2.5H46.8"/>
+<g>
+	<path class="st3" d="M135.2,130.5h120.4v73.3H135.2V130.5z"/>
+	<path class="st3" d="M195.4,130.5h60.2v73.3h-60.2V130.5z"/>
+	<path class="st4" d="M127.5,120.3h135.8v10.2H127.5V120.3z"/>
+	<path class="st4" d="M127.5,204.2h135.8v10.2H127.5V204.2z"/>
+	<path class="st5" d="M172.6,256h-10l22.8-41.9h10L172.6,256z"/>
+	<path class="st5" d="M218.1,256h10l-22.8-41.9h-10L218.1,256z"/>
+	<path class="st5" d="M222,196.2h33.6v7.7H222V196.2z"/>
+	<g>
+		<path class="st4" d="M195.4,120.3h67.9v10.2h-67.9V120.3z"/>
+		<path class="st4" d="M195.4,204.2h67.9v10.2h-67.9V204.2z"/>
+	</g>
+</g>
+<rect x="111.8" y="162.4" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -77.2761 142.0001)" class="st5" width="41.9" height="3.8"/>
+<rect x="176.2" y="158.4" class="st6" width="67.1" height="5.3"/>
+<rect x="176.2" y="171.4" class="st6" width="67.1" height="5.3"/>
+<path class="st7" d="M166.3,179.7h-5.9v-22c-2.1,2-4.7,3.5-7.4,4.4v-5.3c1.8-0.7,3.5-1.6,4.9-2.8c1.7-1.2,2.9-2.9,3.7-4.9h4.7
+	L166.3,179.7z"/>
+</svg>
