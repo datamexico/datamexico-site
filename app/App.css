@@ -42,3 +42,130 @@ p:last-of-type {
     text-decoration-color: var(--accent-dark);
   }
 }
+
+.cp-main > *:nth-child(even) {
+  background-color: #F8F8F8;
+}
+
+.cp-main > *:nth-child(odd):not(.cp-grouping-section) {
+  background-color: #FFFFFF;
+}
+
+.cp-viz-container > .cp-viz-header + .cp-viz-figure {
+  height: 500px !important;
+}
+
+.cp-default-section-paragraph {
+  font-weight: 400 !important;
+}
+
+.nav div.nav-center .nav-subtitle {
+  font-size: 20px;
+  color: var(--accent) !important;
+}
+
+.cp-section-heading {
+  font-size: var(--gutter-md);
+}
+
+.SourceGroup {
+  margin-top: var(--gutter-sm);
+  & a {
+    color: var(--primary-1);
+    text-decoration: underline;
+  }
+}
+
+.Options {
+  & .options-button-group {
+    & .options-button {
+      font-size: calc(var(--gutter-sm) * 0.9);
+    }
+  }
+}
+
+.cp-stat-value-text {
+  font-size: var(--gutter-lg);
+}
+
+.cp-stat-group-wrapper {
+  overflow-y: hidden !important;
+}
+
+.cp-selector-button-group {
+  & .cp-selector-button {
+    border: 1px solid var(--primary-1);
+    &.is-active {
+      background-color: var(--primary-1);
+      color: var(--white);
+    }
+  }
+}
+
+.d3plus-tooltip {
+  width: 220px !important;
+  padding: 10px !important;
+  & table {
+    min-width: 95% !important;
+    width: 95% !important;
+    align-items: center !important;
+    display: flex !important;
+    margin: 10px auto !important;
+  }
+  & tbody {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  & tr {
+    border-top: 1px solid var(--dark-1) !important;
+    width: 100% !important;
+    &:first-child {
+      border-top: 0px solid var(--dark-1) !important;
+    }
+  }
+  & td {
+    text-align: right;
+    padding: 5px 5px;
+    flex: 1 !important;
+    width: 100% !important;
+    &:first-child {
+      text-align: left;
+      font-weight: var(--display-font-weight);
+    }
+  }
+  z-index: 101 !important;
+  border: 1px solid var(--gray) !important;
+}
+
+.d3plus-tooltip-title-wrapper {
+  display: flex;
+  align-items: flex-start;
+  padding: 5px 10px !important;
+  & .icon {
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 40px;
+    & img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  & .title {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    font-family: var(--base-font-stack);
+    font-size: var(--font-sm);
+    & span {
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical
+    }
+  }
+}
+

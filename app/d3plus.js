@@ -10,6 +10,26 @@ const fontSizeSm = 12;
 const fontSizeMd = 14;
 const fontSizeLg = 16;
 const labelPadding = 5;
+const shapeLegend = 25;
+
+/** */
+export const findColorV2 = (key, d) => {
+  if (key === "Country" || key === "ISO 3") {
+    if (!Array.isArray(d["Country ID"])) return "transparent";
+    else return colors.Continent[d["Continent ID"]];
+  }
+  const id = key === "SITC Section" ? d["Section ID"] : d[`${key} ID`];
+  const palette = colors[key];
+  return palette ? colors[key][id] || colors[key][d[key]] || colors.colorGrey : colors.colorGrey;
+};
+
+export const tooltipTitle = (bgColor, imgUrl, title) => {
+  let tooltip = "<div class='d3plus-tooltip-title-wrapper'>";
+  tooltip += `<div class="icon" style="background-color: ${bgColor}"><img src="${imgUrl}" /></div>`;
+  tooltip += `<div class="title"><span>${title}</span></div>`;
+  tooltip += "</div>";
+  return tooltip;
+};
 
 const bad = styles["viz-negative"];
 const good = styles["viz-positive"];
@@ -37,6 +57,15 @@ function findColor(d) {
   return Object.keys(d).some(v => badMeasures.includes(v)) ? bad : good;
 }
 
+export const findIconV2 = (key, d) => {
+  // const options = {2: "export", 1: "import"};
+  if (key === "Country" || key === "ISO 3") {
+    return `/icons/visualizations/Country/country_${d[`${key} ID`]}.png`;
+  }
+  const icon = key.replace(" 4 Digit", "");
+  return `/icons/visualizations/${icon}/png/white/${d[`${key} ID`]}.png`;
+};
+
 /** */
 function findIcon(d) {
   const keys = [
@@ -55,12 +84,6 @@ function findIcon(d) {
   for (const key of keys) {
     if (`${key} ID` in d || key in d) {
       const icon = key.replace(" 4 Digit", "");
-      console.log(
-        key,
-        icon,
-        d[`${icon} ID`],
-        `/icons/visualizations/${icon}/png/white/${d[`${icon} ID`]}.png`
-      );
       return `/icons/visualizations/${icon}/png/white/${d[`${key} ID`]}.png`;
     }
 
@@ -72,14 +95,13 @@ function findIcon(d) {
 const axisConfig = {
   // main bar lines
   barConfig: {
-    "stroke": defaultFontColor,
-    "stroke-width": 1
+    stroke: "transparent"
   },
   // secondary grid lines
   gridConfig: {
-    "stroke": styles["light-1"],
-    "stroke-width": 1,
-    "opacity": 0.5
+    stroke: "#cccccc",
+    strokeWidth: 1
+    // opacity: 0.5
   },
   locale: "es-MX",
   // axis title labels
@@ -122,17 +144,19 @@ export default {
   },
   locale: "es-MX",
   xConfig: axisConfig,
-  yConfig: axisConfig,
+  yConfig: {...axisConfig, scale: "auto"},
+  y2Config: {...axisConfig, scale: "auto"},
   barPadding: 0,
   groupPadding: 10,
 
   // legends
   legendConfig: {
+    label: "",
     shapeConfig: {
       fill: d => findColor(d),
       backgroundImage: d => findIcon(d),
-      width: fontSizeSm,
-      height: fontSizeSm
+      width: shapeLegend,
+      height: shapeLegend
     },
     labelConfig: {
       fontColor: defaultFontColor,
@@ -143,6 +167,7 @@ export default {
 
   // color scale
   colorScaleConfig: {
+    scale: "quantile",
     axisConfig: {
       labelOffset: true,
       labelRotation: false,
@@ -166,16 +191,16 @@ export default {
       }
     },
     color: [
-      styles["accent-light"],
-      styles.accent,
-      "#6DD0CE",
-      "#56B0AE",
-      styles["viz-positive"]
+      "#84F0EE",
+      "#4FBEBC",
+      "#008E8D",
+      "#006160",
+      "#005253"
     ],
     legendConfig: {
       shapeConfig: {
-        height: fontSizeLg,
-        width: fontSizeLg,
+        height: shapeLegend,
+        width: shapeLegend,
         stroke: "transparent"
       }
     },
@@ -197,16 +222,16 @@ export default {
     fontFamily: () => typeface,
     labelConfig: {
       fontFamily: () => typeface,
-      fontMax: fontSizeLg,
+      fontMax: 32,
       padding: 10
     },
     // stacked area
     Area: {
       labelConfig: {
         fontColor: styles.white,
-        fontFamily: () => typeface,
-        fontMax: fontSizeLg,
-        fontMin: fontSizeSm
+        fontFamily: () => typeface
+        // fontMax: fontSizeLg,
+        // fontMin: fontSizeSm
       },
       strokeWidth: d => {
         const c = findColor(d);
@@ -239,7 +264,8 @@ export default {
         }
         return "#b1bac6";
       },
-      stroke: "#b1bac6"
+      stroke: "#aaaaaa",
+      strokeWidth: 1
     },
     fill: findColor
   },
@@ -323,7 +349,6 @@ export default {
   // tooltips
   tooltipConfig: {
     background: styles.white,
-    border: `1px solid ${defaultFontColor}`,
     footerStyle: {
       "color": headingFontColor,
       "fontFamily": () => typeface,
@@ -331,20 +356,37 @@ export default {
       "padding-top": "5px",
       "text-align": "center"
     },
-    padding: "10px",
-    titleStyle: {
-      "color": headingFontColor,
-      "padding": "5px 10px",
-      "fontFamily": () => typeface,
-      "font-size": fontSizeLg,
-      "max-height": "100px",
-      "overflow": "hidden",
-      "text-overflow": "ellipsis",
-      "display": "-webkit-box",
-      "-webkit-box-orient": "vertical",
-      "-webkit-line-clamp": "3"
-    },
-    minWidth: "200px"
+    title(d) {
+      const len = this._groupBy.length;
+      const parentName = this._groupBy[0](d);
+      let parent = Object.entries(d).find(h => h[1] === parentName) || [undefined];
+      let parentId = parent[0];
+      if (parentId.includes(" ID")) {
+        parentId = parentId.slice(0, -3);
+        parent = Object.entries(d).find(h => h[0] === parentId) || [undefined];
+      }
+      const itemName = this._groupBy[len - 1](d);
+      let item = Object.entries(d).find(h => h[1] === itemName) || [undefined];
+      let itemId = item[0];
+      if (itemId.includes(" ID")) {
+        itemId = itemId.slice(0, -3);
+        item = Object.entries(d).find(h => h[0] === itemId) || [undefined];
+      }
+      if (itemId === "ISO 3") {
+        itemId = "Country";
+        item = Object.entries(d).find(h => h[0] === itemId) || [undefined];
+      }
+      if (itemId === "id") {
+        itemId = "HS4";
+        item = Object.entries(d).find(h => h[0] === itemId) || [undefined];
+      }
+
+      const title = Array.isArray(item[1]) ? `Other ${parent[1] || "Values"}` : item[1];
+      const itemBgImg = ["Country", "Organization"].includes(itemId) ? itemId : parentId;
+      const bgColor = findColorV2(itemBgImg, d);
+      const imgUrl = findIconV2(itemBgImg, d);
+      return tooltipTitle(bgColor, imgUrl, title);
+    }
   },
   totalConfig: {
     locale: "es-MX",

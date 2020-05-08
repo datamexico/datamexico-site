@@ -39,7 +39,7 @@ black:        "#181A21"
 # accent colors
 accent:       "#84F0EE"
 accent-light: "#A8FFFE"
-accent-dark:  "#3F908E"
+accent-dark:  "var(--primary-1)"
 accent-black: "#174442"
 
 viz-positive: "#3F908E"
@@ -240,3 +240,8 @@ stat-value-weight:          "var(--light-weight)"
 stat-subtitle-font-size:    "var(--font-xs)"
 stat-subtitle-color:        "var(--dark-2)"
 stat-group-stat-width:      "9rem"
+
+# mexico colors
+primary-1: "#00AAA9"
+primary-2: "#2EBEA5"
+primary-3: "#3F908E"
