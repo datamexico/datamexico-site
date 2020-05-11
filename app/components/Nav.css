@@ -46,7 +46,7 @@
       justify-content: center;
       & .nav-subtitle {
         color: var(--accent-dark);
-        font-family: "Barlow Condensed", sans-serif;
+        font-family: "Fira Sans Extra Condensed", sans-serif;
         line-height: 20px;
         max-width: 500px;
         overflow: hidden;

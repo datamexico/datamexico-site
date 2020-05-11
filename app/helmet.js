@@ -2,7 +2,8 @@ export default {
   link: [
     {rel: "icon", href: "/favicon.ico"},
     {rel: "preconnect", href: "https://fonts.gstatic.com/", crossorigin: ""},
-    {rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Barlow:200,200i,400,400i,600,600i|Barlow+Condensed:400,600&display=swap"}
+    {rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fira+Sans:wght@200;300;400;700&family=Fira+Sans+Extra+Condensed:wght@200;300;400;500;700&display=swap"}
+    // {rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Barlow:200,200i,400,400i,600,600i|Barlow+Condensed:400,600&display=swap"}
   ],
   meta: [
     {charset: "utf-8"},

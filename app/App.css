@@ -15,7 +15,12 @@ body {
   }
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
 }
 
@@ -23,7 +28,8 @@ p:last-of-type {
   margin-bottom: 0;
 }
 
-.bp3-input:focus, .bp3-input.bp3-active {
+.bp3-input:focus,
+.bp3-input.bp3-active {
   box-shadow: none !important;
 }
 
@@ -37,18 +43,19 @@ p:last-of-type {
   text-decoration: underline;
   text-decoration-color: var(--light-3);
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     color: var(--accent-black);
     text-decoration-color: var(--accent-dark);
   }
 }
 
 .cp-main > *:nth-child(even) {
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
 }
 
 .cp-main > *:nth-child(odd):not(.cp-grouping-section) {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 .cp-viz-container > .cp-viz-header + .cp-viz-figure {
@@ -102,9 +109,53 @@ p:last-of-type {
   }
 }
 
+.bp3-dialog.options-dialog {
+  /* border: 1px solid var(--accent);*/
+  & .rt-thead.-header .rt-th {
+    background-color: var(--gray) !important;
+  }
+}
+
+.bp3-dialog.options-dialog [class*="-tab-list"] {
+  background-color: var(--gray) !important;
+}
+
+/* Tooltip */
 .d3plus-tooltip {
   width: 220px !important;
   padding: 10px !important;
+  & .d3plus-tooltip-title-wrapper {
+    display: flex;
+    align-items: flex-start;
+    padding: 5px 10px !important;
+    & .icon {
+      margin-right: 10px;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 40px;
+      & img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    & .title {
+      align-items: center;
+      display: flex;
+      font-family: var(--base-font-stack);
+      font-size: var(--font-sm);
+      line-height: var(--font-md);
+      min-height: 40px;
+      & span {
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+
   & table {
     min-width: 95% !important;
     width: 95% !important;
@@ -137,35 +188,3 @@ p:last-of-type {
   z-index: 101 !important;
   border: 1px solid var(--gray) !important;
 }
-
-.d3plus-tooltip-title-wrapper {
-  display: flex;
-  align-items: flex-start;
-  padding: 5px 10px !important;
-  & .icon {
-    margin-right: 10px;
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-    border-radius: 40px;
-    & img {
-      width: 40px;
-      height: 40px;
-    }
-  }
-  & .title {
-    min-height: 40px;
-    display: flex;
-    align-items: center;
-    font-family: var(--base-font-stack);
-    font-size: var(--font-sm);
-    & span {
-      display: -webkit-box;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical
-    }
-  }
-}
-

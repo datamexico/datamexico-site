@@ -3,7 +3,7 @@ import {formatAbbreviate} from "d3plus-format";
 import colors from "../static/data/colors.json";
 import styles from "style.yml";
 
-const typeface = "'Barlow', sans-serif";
+const typeface = "'Fira Sans Extra Condensed', sans-serif";
 const defaultFontColor = styles["dark-1"];
 const headingFontColor = styles["dark-3"];
 const fontSizeSm = 12;
@@ -59,6 +59,7 @@ function findColor(d) {
 
 export const findIconV2 = (key, d) => {
   // const options = {2: "export", 1: "import"};
+  console.log(key, d);
   if (key === "Country" || key === "ISO 3") {
     return `/icons/visualizations/Country/country_${d[`${key} ID`]}.png`;
   }
@@ -137,7 +138,7 @@ export default {
     "Chapter 4 Digit ID": mean,
     "Generic Investment ID": mean,
     "Flow ID": mean,
-    "Sector ID": mean,
+    // "Sector ID": mean,
     "Sex ID": mean,
     "State ID": mean,
     "Year": mean
@@ -240,7 +241,8 @@ export default {
     },
     Bar: {
       labelConfig: {
-        fontSize: () => 13
+        fontSize: () => 16,
+        fontFamily: () => typeface
       },
       textAlign: "left",
       stroke: "transparent",
@@ -278,7 +280,6 @@ export default {
       fill: styles["accent-dark"]
     },
     tickFormat: d => {
-      console.log(d);
       d = d.toString().includes("Q") ? d.toString().replace("Q", "0") : d;
       const latest = new Date(d);
       const id = latest.getFullYear();
