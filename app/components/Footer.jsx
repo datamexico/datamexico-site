@@ -18,11 +18,11 @@ class Footer extends React.Component {
               <h2 className="u-visually-hidden">Site navigation</h2>
               {FOOTER_NAV.map(col =>
                 <div className="footer-column" key={col.title}>
-                  <h3 className="footer-heading display u-font-sm">{col.title}</h3>
+                  <h3 className="footer-heading display u-font-sm">{t(col.title)}</h3>
                   <ul>
                     {col.items.map(link =>
                       <li key={link.title}>
-                        <a href={link.url}>{link.title}</a>
+                        <a href={link.url}>{t(link.title)}</a>
                       </li>
                     )}
                   </ul>
@@ -37,8 +37,8 @@ class Footer extends React.Component {
           <InputGroup
             leftIcon="envelope"
             className="footer-email"
-            placeholder="Your email address"
-            rightElement={<button className="submit-button" onClick={() => console.log("hook me up carlos!")}>{t("Sign Up")}<Icon icon="arrow-right" /></button>}
+            placeholder={t("Your email address")}
+            rightElement={<button className="submit-button" onClick={() => console.log("hook me up carlos!")}>{t("Subscribe me")}<Icon icon="arrow-right" /></button>}
           />
 
           {/* _gotta_ have them logos */}

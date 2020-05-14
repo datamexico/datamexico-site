@@ -9,16 +9,16 @@ module.exports = {
       {title: "Occupations",      url: `/${locale}/explore?profile=occupation`},
       {title: "Institutions",     url: `/${locale}/explore?profile=institution`}
     ]},
-    {title: "Viz Builder",        url: `/${locale}/vizbuilder`},
-    {title: "Data Cart",          url: `/${locale}/cart`},
-    {title: "About DataMexico",   url: `/${locale}/about`},
+    // {title: "Viz Builder",        url: `/${locale}/vizbuilder`},
+    // {title: "Data Cart",          url: `/${locale}/cart`},
+    // {title: "About DataMexico",   url: `/${locale}/about`},
     {title: "Data Sources",       url: `/${locale}/data`}
   ],
   FOOTER_NAV: [
     {title: "Explore", items: [
-      {title: "Profiles",         url: `/${locale}/explore`},
-      {title: "Viz Builder",      url: `/${locale}/vizbuilder`},
-      {title: "Data Cart",        url: `/${locale}/cart`}
+      {title: "Profiles",         url: `/${locale}/explore`}
+      // {title: "Viz Builder",      url: `/${locale}/vizbuilder`},
+      // {title: "Data Cart",        url: `/${locale}/cart`}
     ]},
     {title: "Data", items: [
       {title: "Data sources",     url: `/${locale}/data`},
@@ -26,7 +26,7 @@ module.exports = {
       {title: "Classifications",  url: `/${locale}/data#classifications`}
     ]},
     {title: "About", items: [
-      {title: "Background",       url: `/${locale}/about`},
+      // {title: "Background",       url: `/${locale}/about`},
       {title: "In the press",     url: `/${locale}/about#press`},
       {title: "Team",             url: `/${locale}/about#team`},
       {title: "Glossary",         url: `/${locale}/about#glossary`},
