@@ -12,6 +12,10 @@ const fontSizeLg = 16;
 const labelPadding = 5;
 const shapeLegend = 25;
 
+const growthPct = d => `${formatAbbreviate(d * 100)}%`;
+const pesoMX = d => `$ ${formatAbbreviate(d * 100)} MX`;
+const locale = window.__INITIAL_STATE__.i18n.locale;
+
 /** */
 export const findColorV2 = (key, d) => {
   if (key === "Country" || key === "ISO 3") {
@@ -59,7 +63,6 @@ function findColor(d) {
 
 export const findIconV2 = (key, d) => {
   // const options = {2: "export", 1: "import"};
-  console.log(key, d);
   if (key === "Country" || key === "ISO 3") {
     return `/icons/visualizations/Country/country_${d[`${key} ID`]}.png`;
   }
@@ -174,9 +177,10 @@ export default {
       labelRotation: false,
       locale: "es-MX",
       shapeConfig: {
-        height: 30,
+        height: 50,
         labelConfig: {
-          fontColor: defaultFontColor,
+          fontSize: () => fontSizeLg,
+          fontColor: headingFontColor,
           fontFamily: () => typeface
         }
       },
@@ -188,6 +192,9 @@ export default {
       tickSize: 0,
       tickFormat: d => formatAbbreviate(d),
       barConfig: {
+        stroke: "transparent"
+      },
+      rectConfig: {
         stroke: "transparent"
       }
     },
@@ -206,6 +213,9 @@ export default {
       }
     },
     rectConfig: {
+      rx: 0,
+      ry: 0,
+      borderRadius: 0,
       stroke: "transparent"
     }
   },
@@ -269,7 +279,27 @@ export default {
       stroke: "#aaaaaa",
       strokeWidth: 1
     },
-    fill: findColor
+    fill(d) {
+      if (this && this._groupBy) {
+        const parentName = this._groupBy[0](d);
+        console.log(this._groupBy[0]);
+        if (parentName) {
+          let parent = Object.entries(d).find(h => h[1] === parentName) || [undefined];
+          let parentId = parent[0];
+          if (parentId.includes(" ID")) {
+            parentId = parentId.slice(0, -3);
+            parent = Object.entries(d).find(h => h[0] === parentId) || [undefined];
+          }
+          console.log(parentId);
+
+          const bgColor = findColorV2(parentId, d);
+          return bgColor;
+        }
+        else return "green";
+      }
+      else return "green";
+
+    }
   },
 
   // timelines
@@ -387,6 +417,25 @@ export default {
       const bgColor = findColorV2(itemBgImg, d);
       const imgUrl = findIconV2(itemBgImg, d);
       return tooltipTitle(bgColor, imgUrl, title);
+    },
+    tbody(d) {
+      const output = [];
+      if (d.Quarter) {
+        output.push(["Quarter", d.Quarter]);
+      }
+      if (d.Workforce) {
+        output.push(["Workforce", formatAbbreviate(d.Workforce)]);
+      }
+      if (d["Workforce Growth"]) {
+        output.push(["Workforce Growth", growthPct(d["Workforce Growth"])]);
+      }
+      if (d["Workforce Growth Value"]) {
+        output.push(["Workforce Growth Value", formatAbbreviate(d["Workforce Growth Value"])]);
+      }
+      if (d.Wage) output.push(["Wage", pesoMX(d.Wage * 1)]);
+      if (d["Wage Growth"]) output.push(["Wage Growth", growthPct(d["Wage Growth"])]);
+      if (d["Wage Growth Value"]) output.push(["Wage Growth Value", pesoMX(d["Wage Growth Value"] * 1)]);
+      return output;
     }
   },
   totalConfig: {

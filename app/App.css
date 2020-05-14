@@ -92,11 +92,16 @@ p:last-of-type {
 }
 
 .cp-stat-value-text {
-  font-size: var(--gutter-lg);
+  font-size: var(--font-xl);
+}
+
+.cp-graphic {
+  text-align: center;
 }
 
 .cp-stat-group-wrapper {
   overflow-y: hidden !important;
+  width: 100%;
 }
 
 .cp-selector-button-group {
@@ -116,14 +121,59 @@ p:last-of-type {
   }
 }
 
+.bp3-dialog.options-dialog {
+  & .bp3-tab-panel {
+    & .clipboard-button {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+    & .bp3-dialog-body {
+      align-items: flex-end;
+      display: flex;
+      flex-direction: column;
+      & .share-direct-link-wrapper, & .save-image-button-group-wrapper {
+        width: 100%;
+      }
+      & label {
+        width: 100%;
+      }
+    }
+    & .cp-button {
+      width: auto;
+      & .cp-button-text {
+        font-size: var(--font-sm);
+      }
+    }
+  }
+}
+
+.bp3-dialog.options-dialog [class$="-tab"] {
+  padding: 5px 20px !important;
+}
+
+.bp3-dialog.options-dialog [class$="-tab"][aria-selected="true"] {
+  background-color: #235B4E !important;
+  color: var(--white) !important;
+  font-weight: 400 !important;
+  &:after {
+    background: transparent !important;
+  }
+}
+
 .bp3-dialog.options-dialog [class*="-tab-list"] {
-  background-color: var(--gray) !important;
+  background-color: #009688 !important;
+  padding: 0px !important;
+  justify-content: flex-start !important;
+  & .bp3-dialog-close-button {
+    background-color: transparent;
+  }
 }
 
 /* Tooltip */
 .d3plus-tooltip {
   width: 220px !important;
-  padding: 10px !important;
+  padding: 0px !important;
   & .d3plus-tooltip-title-wrapper {
     display: flex;
     align-items: flex-start;
@@ -163,6 +213,9 @@ p:last-of-type {
     display: flex !important;
     margin: 10px auto !important;
   }
+  & .d3plus-tooltip-footer {
+    text-align: center;
+  }
   & tbody {
     width: 100% !important;
     display: flex !important;
@@ -183,6 +236,9 @@ p:last-of-type {
     &:first-child {
       text-align: left;
       font-weight: var(--display-font-weight);
+    }
+    &:last-child {
+      min-width: 100px;
     }
   }
   z-index: 101 !important;

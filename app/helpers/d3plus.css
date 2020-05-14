@@ -58,8 +58,8 @@ color scale
 
   /* rounded corners */
   & .d3plus-Shape {
-    rx: 5;
-    ry: 5;
+    rx: 0;
+    ry: 0;
   }
 }
 
