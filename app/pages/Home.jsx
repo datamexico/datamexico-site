@@ -7,6 +7,7 @@ import {Helmet} from "react-helmet";
 import {Button, Icon, InputGroup, Popover} from "@blueprintjs/core";
 
 import {LOGOS} from "helpers/consts.js";
+import homeTiles from "helpers/homeTiles";
 import Tile from "../components/Tile";
 import TileTitle from "../components/TileTitle";
 import HeroSearch from "../components/HeroSearch";
@@ -16,6 +17,8 @@ import SearchResult from "../components/SearchResult";
 
 import "./Home.css";
 import "../styles/SharePanel.css";
+import tilesES from "../../static/tiles/es.json";
+import tilesEN from "../../static/tiles/es.json";
 
 const CancelToken = axios.CancelToken;
 let cancel;
@@ -45,6 +48,8 @@ class Home extends Component {
   render() {
     const {scrolled} = this.state;
     const {t, lng, router} = this.props;
+    console.log(lng);
+    const tiles = lng === "es" ? tilesES : tilesEN;
 
     return (
       <div className="home">
@@ -80,175 +85,31 @@ class Home extends Component {
 
         <div className="container tiles">
           <div className="columns">
-            <div className="column">
-              <TileTitle
-                icon="geo"
-                title={t("Cities & Places")}
-              />
-              <ul className="tile-list">
-                <Tile
-                  slug="geo"
-                  id="1"
-                  title="Aguascalientes"
-                />
-                <Tile
-                  slug="geo"
-                  id="9"
-                  title="Ciudad de México"
-                />
-                <Tile
-                  slug="geo"
-                  id="13"
-                  title="Hidalgo"
-                />
-                <Tile
-                  slug="geo"
-                  id="15"
-                  title="México"
-                />
-                <Tile
-                  slug="geo"
-                  id="17"
-                  title="Morelos"
-                />
-              </ul>
-            </div>
 
-            <div className="column">
-              <TileTitle
-                icon="industry"
-                title={t("Industries")}
-              />
-              <ul className="tile-list">
-                <Tile
-                  slug="industry"
-                  id="6221"
-                  title={t("General Hospital")}
+            {Object.keys(tiles).map((d, i) => {
+              const items = tiles[d];
+              const info = homeTiles[d];
+              return <div
+                className="column"
+                key={`home-tile-title_${i}_${lng}`}
+              >
+                <TileTitle
+                  icon={d}
+                  title={t(info.name)}
                 />
-                <Tile
-                  slug="industry"
-                  id="5611"
-                  title={t("Business Administration Services")}
-                />
-                <Tile
-                  slug="industry"
-                  id="6111"
-                  title={t("Elementary and Secondary Schools")}
-                />
-                <Tile
-                  slug="industry"
-                  id="2122"
-                  title={t("Metal Ore Mining")}
-                />
-                <Tile
-                  slug="industry"
-                  id="8111"
-                  title={t("Automotive Repair and Maintenance")}
-                />
-              </ul>
-            </div>
-
-            <div className="column">
-              <TileTitle
-                icon="occupation"
-                title={t("Occupations")}
-              />
-              <ul className="tile-list">
-                <Tile
-                  slug="occupation"
-                  id="2332"
-                  title={t("Primary School Teachers")}
-                />
-                <Tile
-                  slug="occupation"
-                  id="2253"
-                  title={t("Industrial Engineers")}
-                />
-                <Tile
-                  slug="occupation"
-                  id="4211"
-                  title={t("Sales Employees")}
-                />
-                <Tile
-                  slug="occupation"
-                  id="9111"
-                  title={t("Support Workers in Agriculture")}
-                />
-                <Tile
-                  slug="occupation"
-                  id="2412"
-                  title={t("Specialist Doctors")}
-                />
-              </ul>
-            </div>
-
-            <div className="column">
-              <TileTitle
-                title={t("Products")}
-                icon="product"
-              />
-              <ul className="tile-list">
-                <Tile
-                  slug="product"
-                  id="17870323"
-                  title={t("Cars")}
-                />
-                <Tile
-                  slug="product"
-                  id="2080440"
-                  title={t("Avocados")}
-                />
-                <Tile
-                  slug="product"
-                  id="5260300"
-                  title={t("Copper Ores and Concentrates")}
-                />
-                <Tile
-                  slug="product"
-                  id="16850440"
-                  title={t("Power Electronics")}
-                />
-                <Tile
-                  slug="product"
-                  id="20940190"
-                  title={t("Parts of Seats")}
-                />
-              </ul>
-            </div>
-
-            <div className="column">
-              <TileTitle
-                icon="institution"
-                title={t("Universities")}
-              />
-              <ul className="tile-list">
-                <Tile
-                  slug="institution"
-                  id="317"
-                  title="Universidad Nacional Autónoma de México"
-                />
-                <Tile
-                  slug="institution"
-                  id="248"
-                  title="Instituto Tecnológico y de Estudios Superiores de Monterrey"
-                />
-                <Tile
-                  slug="institution"
-                  id="683"
-                  title="Universidad Autónoma del Estado de Hidalgo"
-                />
-                <Tile
-                  slug="institution"
-                  id="725"
-                  title="Universidad de Guadalajara"
-                />
-                <Tile
-                  slug="institution"
-                  id="82"
-                  title="Instituto Politécnico Nacional"
-                />
-              </ul>
-            </div>
+                <ul className="tile-list">
+                  {items.map(h => <Tile
+                    background={info.background}
+                    id={h.id}
+                    key={`${d}-home-tile-${lng}`}
+                    level={t(h.hierarchy)}
+                    lng={lng}
+                    slug={d}
+                    title={h.name}
+                  />)}
+                </ul>
+              </div>;
+            })}
           </div>
         </div>
 

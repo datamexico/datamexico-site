@@ -99,7 +99,7 @@
     padding-bottom: 0;
 
     & .column {
-      min-width: 14rem;
+      min-width: 10rem;
       margin-bottom: var(--gutter-md);
     }
 

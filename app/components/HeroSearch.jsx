@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {withNamespaces} from "react-i18next";
 import {hot} from "react-hot-loader/root";
 import axios from "axios";
 import {event, select} from "d3-selection";
@@ -135,7 +136,7 @@ class HeroSearch extends Component {
   }
 
   render() {
-    const {locale, minQueryLength} = this.props;
+    const {locale, minQueryLength, t} = this.props;
     const {results, searchActive, userQuery} = this.state;
 
     return (
@@ -146,11 +147,11 @@ class HeroSearch extends Component {
 
         <label className="hero-search-label">
           <span className="u-visually-hidden">
-            Search locations, industries, occupations, products, and organizations
+            {t("Search locations, industries, occupations, products, and organizations")}
           </span>
           <input
             className="hero-search-input u-font-md"
-            placeholder="Ej. Ciudad de México, Monterrey"
+            placeholder={t("Eg. Ciudad de Mexico, Monterrey")}
             value={userQuery}
             onChange={this.onChange.bind(this)}
             onFocus={this.openSearch.bind(this)}
@@ -164,7 +165,7 @@ class HeroSearch extends Component {
             className="hero-search-link u-font-sm"
             href={`/${locale}/explore${userQuery ? `?q=${ encodeChars(userQuery.toString()) }` : ""}`}
           >
-            Search
+            {t("Search")}
           </a>
         </label>
 
@@ -177,12 +178,12 @@ class HeroSearch extends Component {
                 id={result.id}
                 slug={result.profile}
                 title={result.name}
-                level={result.hierarchy}
+                level={t(result.hierarchy)}
               />
             )}
             {results.length === 0 &&
               <li className="search-result">
-                <p className="search-result-link">No results found</p>
+                <p className="search-result-link">{t("No results found")}</p>
               </li>
             }
           </ul>
@@ -198,4 +199,4 @@ HeroSearch.defaultProps = {
   locale: "es"
 };
 
-export default hot(HeroSearch);
+export default withNamespaces()(hot(HeroSearch));
