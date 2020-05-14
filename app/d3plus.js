@@ -14,7 +14,7 @@ const shapeLegend = 25;
 
 const growthPct = d => `${formatAbbreviate(d * 100)}%`;
 const pesoMX = d => `$ ${formatAbbreviate(d * 100)} MX`;
-const locale = window.__INITIAL_STATE__.i18n.locale;
+// const locale = window.__INITIAL_STATE__.i18n.locale;
 
 /** */
 export const findColorV2 = (key, d) => {
