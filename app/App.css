@@ -170,6 +170,14 @@ p:last-of-type {
   }
 }
 
+.cp-grouping-section-heading-wrapper {
+  justify-content: center !important;
+}
+
+.cp-selector-button-group {
+  margin-bottom: 1em;
+}
+
 /* Tooltip */
 .d3plus-tooltip {
   width: 220px !important;
