@@ -5,7 +5,7 @@ import "./ExploreHeader.css";
 
 class ExploreHeader extends React.Component {
   render() {
-    const {selected, slug, title} = this.props;
+    const {selected, slug, title, t} = this.props;
     const s = selected === slug;
 
     return (
@@ -14,7 +14,7 @@ class ExploreHeader extends React.Component {
         onClick={() => this.props.handleTabSelected(slug)}
       >
         <img className="ep-header-img" src={`/icons/explore/${slug}.png`} alt="" />
-        <span className="ep-header-title heading u-font-md">{title}</span>
+        <span className="ep-header-title heading u-font-md">{t(title)}</span>
       </button>
     );
   }

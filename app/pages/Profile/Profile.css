@@ -50,6 +50,14 @@
   }
 }
 
+.cp-hero .cp-hero-heading {
+  font-family: var(--base-font-stack-condensed);
+}
+
+.cp-section-heading {
+  font-family: var(--base-font-stack-condensed);
+}
+
 
 .cp-main {
   /* about section overrides */
@@ -68,6 +76,7 @@
       font-weight: var(--base-font-weight);
       line-height: 1.5;
       color: var(--light-2);
+      display: inline-block;
 
       /* space out adjacent paragraphs */
       &:not(:last-of-type) {
@@ -116,6 +125,22 @@
 .cp-grouping-section-heading {
   @mixin display;
   margin-bottom: 1em;
+  font-family: var(--base-font-stack-condensed);
+}
+
+.cp-viz-title {
+  font-family: var(--base-font-stack-condensed);
+  font-weight: 600;
+}
+
+.options-button-group {
+  & .cp-button-text {
+    display: none;
+  }
+}
+
+.cp-stat-subtitle {
+  /* color: var(--gray) !important; */
 }
 
 /* default section overrides */

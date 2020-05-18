@@ -106,6 +106,7 @@ font-xxl:                   "2.75rem"  # 48px - use sparingly
 
 # base (p, li, etc.)
 base-font-stack:            "'Fira Sans', 'Trebuchet MS', sans-serif" # Remember to import custom fonts & only the necessary weights via Helmet.js
+base-font-stack-condensed:  "'Fira Sans Extra Condensed', 'Trebuchet MS', sans-serif"
 base-font-weight:           "400"
 base-letter-spacing:        "0"
 bold-weight:                "600"

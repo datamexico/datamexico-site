@@ -100,7 +100,7 @@ class Home extends Component {
                   {items.map(h => <Tile
                     background={info.background}
                     id={h.id}
-                    key={`${d}-home-tile-${lng}`}
+                    key={`${h.id}-home-tile-${lng}`}
                     level={t(h.hierarchy)}
                     lng={lng}
                     slug={d}

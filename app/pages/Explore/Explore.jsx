@@ -25,10 +25,10 @@ const levels = {
 
 const headers = [
   {title: "No filter", slug: "filter"},
-  {title: "Locations", slug: "geo", background: "#8b9f65"},
+  {title: "Cities & Places", slug: "geo", background: "#8b9f65"},
   {title: "Products", slug: "product", background: "#ea8db2"},
   {title: "Industries", slug: "industry", background: "#f5c094"},
-  {title: "Institutions", slug: "institution", background: "#e7d98c"},
+  {title: "Universities", slug: "institution", background: "#e7d98c"},
   {title: "Occupations", slug: "occupation", background: "#68adcd"}
 ];
 
@@ -46,7 +46,7 @@ class Explore extends React.Component {
     this.requestApi(this.props.location.query.q);
   }
 
-  handleSearch = async e => {
+  handleSearch = e => {
     const {selected} = this.state;
     const query = e.target.value;
     const searchParams = new URLSearchParams();
@@ -120,6 +120,7 @@ class Explore extends React.Component {
 
   render() {
     const {query, tab, selected} = this.state;
+    const {t} = this.props;
 
     return <div className="explore">
       <Helmet title="Explore">
@@ -144,7 +145,7 @@ class Explore extends React.Component {
         <div className="ep-headers">
           {headers.map((d, i) => <ExploreHeader
             key={`explore_header_${i}`}
-            title={d.title}
+            title={t(d.title)}
             selected={selected}
             slug={d.slug}
             handleTabSelected={selected => this.handleTab(selected)}
@@ -162,8 +163,9 @@ class Explore extends React.Component {
             {levels[selected].map((d, i) => {
               const results = this.state.results.filter(h => h.slug === selected && h.level === d);
               const len = results.length;
-              return <div className={`ep-profile-tab${tab === d ? " selected" : ""}${len === 0 ? " u-hide-below-sm" : "" }`} key={i} onClick={() => this.setState({tab: d})}>
-                {`${d} (${len})`}
+              return <div
+                className={`ep-profile-tab${tab === d ? " selected" : ""}${len === 0 ? " u-hide-below-sm" : "" }`} key={i} onClick={() => this.setState({tab: d})}>
+                {`${t(d)} (${len})`}
               </div>;
             })}
           </div>}
@@ -183,7 +185,7 @@ class Explore extends React.Component {
 
 
                 return <ExploreProfile
-                  title={d.title}
+                  title={t(d.title)}
                   background={d.background}
                   filterPanel={selected === "filter"}
                   results={results}

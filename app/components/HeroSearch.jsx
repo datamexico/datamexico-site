@@ -151,7 +151,7 @@ class HeroSearch extends Component {
           </span>
           <input
             className="hero-search-input u-font-md"
-            placeholder={t("Eg. Ciudad de Mexico, Monterrey")}
+            placeholder={t("Homepage.Search Placeholder")}
             value={userQuery}
             onChange={this.onChange.bind(this)}
             onFocus={this.openSearch.bind(this)}

@@ -76,7 +76,9 @@
   "Contributor": "Contributor",
   "Copper Ores and Concentrates": "Minerales de Cobre y Concentrados",
   "EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA": "EXPLORA, VISUALIZA, COMPARA, Y DESCARGA DATOS MEXICANOS",
-  "Eg. Ciudad de Mexico, Monterrey": "Ej. Ciudad de México, Monterrey",
+  "Homepage": {
+    "Search Placeholder": "Ej. Ciudad de México, Monterrey"
+  },
   "Your email address": "Tu correo electrónico",
   "Subscribe me": "Suscribirme",
   "Home": "Home",
@@ -106,7 +108,7 @@
   "Primary School Teachers": "Profesores Educación Primaria",
   "Product": "Producto",
   "Products": "Productos",
-  "Receive updates on news, datasets, and features?": "Recibir noticias sobre nuevos conjuntos de datos y mejoras en DataMéxico",
+  "Receive updates on news, datasets, and features?": "Recibe noticias sobre nuevos conjuntos de datos y mejoras en DataMéxico",
   "Reset": {
     "Confirm Password": "Confirm New Password",
     "E-mail": "E-mail",

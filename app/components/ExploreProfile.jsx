@@ -7,7 +7,7 @@ import "./ExploreProfile.css";
 
 class ExploreProfile extends React.Component {
   render() {
-    const {background, filterPanel, lng, results, title} = this.props;
+    const {background, filterPanel, lng, results, title, t} = this.props;
 
     if (results && results.length === 0 && !filterPanel) {
       return <div className="ep-profile">
@@ -23,7 +23,7 @@ class ExploreProfile extends React.Component {
 
     return <div className="ep-profile">
       {filterPanel &&
-        <h3 className="ep-profile-title">{title}</h3>
+        <h3 className="ep-profile-title">{t(title)}</h3>
       }
       <div className="ep-profile-results">
         {results.map(d =>
@@ -31,7 +31,7 @@ class ExploreProfile extends React.Component {
             title={d.name}
             slug={d.slug}
             id={d.id}
-            level={d.level}
+            level={t(d.level)}
             background={background}
             lng={lng}
             key={`${d.slug}-tile`}

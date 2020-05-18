@@ -18,6 +18,10 @@
     flex-direction: column;
   }
 
+  & .loading-spinner {
+    margin-top: 0.75rem;
+  }
+
   & .progress-bar {
     width: 240px;
     margin: 10px 0;

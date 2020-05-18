@@ -156,6 +156,7 @@ export default {
   groupPadding: 10,
 
   // legends
+  legend: true,
   legendConfig: {
     label: "",
     shapeConfig: {
