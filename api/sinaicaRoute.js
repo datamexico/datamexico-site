@@ -13,7 +13,6 @@ module.exports = function(app) {
     const yesterday = date.toISOString().split("T")[0];
     date.setDate(date.getDate() - 1);
     const beforeYesterday = date.toISOString().split("T")[0];
-    console.log(today, yesterday);
     const {id} = req.params;
     const time = undefined;
 

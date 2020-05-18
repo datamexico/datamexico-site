@@ -111,7 +111,6 @@ class Explore extends React.Component {
             .concat(occupResp.data.results)
             .concat(sectorResp.data.results)
             .concat(prodResp.data.results);
-          console.log(data);
           const results = data.map(d => ({id: d.id, name: d.name, slug: d.profile, level: d.hierarchy}));
           this.setState({results});
         }));

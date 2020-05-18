@@ -14,7 +14,6 @@ module.exports = function(app) {
       const tileItem = tiles[tile];
       const locale = query.locale || "en";
       const {dimension} = tileItem;
-      console.log(dimension);
       for (const item of tileItem.items) {
         const id = item;
         const data = await axios.get(`${origin}/api/search?id=${id}&dimension=${dimension}&locale=${locale}`)

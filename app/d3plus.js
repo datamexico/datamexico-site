@@ -24,12 +24,14 @@ export const findColorV2 = (key, d) => {
   }
   const id = key === "SITC Section" ? d["Section ID"] : d[`${key} ID`];
   const palette = colors[key];
-  return palette ? colors[key][id] || colors[key][d[key]] || colors.colorGrey : colors.colorGrey;
+  return palette ? colors[key][id] || colors[key][d[key]] || styles["gmx-green-1"] : styles["gmx-green-1"];
 };
 
 export const tooltipTitle = (bgColor, imgUrl, title) => {
   let tooltip = "<div class='d3plus-tooltip-title-wrapper'>";
-  tooltip += `<div class="icon" style="background-color: ${bgColor}"><img src="${imgUrl}" /></div>`;
+  if (imgUrl) {
+    tooltip += `<div class="icon" style="background-color: ${bgColor}"><img src="${imgUrl}" /></div>`;
+  }
   tooltip += `<div class="title"><span>${title}</span></div>`;
   tooltip += "</div>";
   return tooltip;
@@ -282,7 +284,6 @@ export default {
     fill(d) {
       if (this && this._groupBy) {
         const parentName = this._groupBy[0](d);
-        console.log(this._groupBy[0]);
         if (parentName) {
           let parent = Object.entries(d).find(h => h[1] === parentName) || [undefined];
           let parentId = parent[0];
@@ -290,7 +291,6 @@ export default {
             parentId = parentId.slice(0, -3);
             parent = Object.entries(d).find(h => h[0] === parentId) || [undefined];
           }
-          console.log(parentId);
 
           const bgColor = findColorV2(parentId, d);
           return bgColor;
@@ -435,6 +435,8 @@ export default {
       if (d.Wage) output.push(["Wage", pesoMX(d.Wage * 1)]);
       if (d["Wage Growth"]) output.push(["Wage Growth", growthPct(d["Wage Growth"])]);
       if (d["Wage Growth Value"]) output.push(["Wage Growth Value", pesoMX(d["Wage Growth Value"] * 1)]);
+
+      if (d.Students) output.push(["Students", d.Students]);
       return output;
     }
   },

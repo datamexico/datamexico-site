@@ -48,7 +48,6 @@ class Home extends Component {
   render() {
     const {scrolled} = this.state;
     const {t, lng, router} = this.props;
-    console.log(lng);
     const tiles = lng === "es" ? tilesES : tilesEN;
 
     return (
