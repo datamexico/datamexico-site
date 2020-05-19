@@ -3,16 +3,16 @@ const locale = "en";
 module.exports = {
   SIDEBAR_NAV: [
     {title: "Explore", url: `/${locale}/explore`, items: [
-      {title: "Locations",        url: `/${locale}/explore?profile=geo`},
+      {title: "Cities & Places",  url: `/${locale}/explore?profile=geo`},
       {title: "Products",         url: `/${locale}/explore?profile=product`},
       {title: "Industries",       url: `/${locale}/explore?profile=industry`},
       {title: "Occupations",      url: `/${locale}/explore?profile=occupation`},
-      {title: "Institutions",     url: `/${locale}/explore?profile=institution`}
+      {title: "Universities",     url: `/${locale}/explore?profile=institution`}
     ]},
     // {title: "Viz Builder",        url: `/${locale}/vizbuilder`},
     // {title: "Data Cart",          url: `/${locale}/cart`},
-    // {title: "About DataMexico",   url: `/${locale}/about`},
-    {title: "Data Sources",       url: `/${locale}/data`}
+    {title: "About DataMexico",   url: `/${locale}/about`},
+    {title: "Data sources",       url: `/${locale}/data`}
   ],
   FOOTER_NAV: [
     {title: "Explore", items: [

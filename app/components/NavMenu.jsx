@@ -41,7 +41,7 @@ class NavMenu extends React.Component {
             {SIDEBAR_NAV.map(link =>
               <li className="nav-menu-item" key={link.title}>
                 <a className="nav-menu-link" href={link.url}>
-                  {link.title}
+                  {t(link.title)}
                 </a>
                 {/* nested list */}
                 {link.items && Array.isArray(link.items) && link.items.length &&
@@ -49,7 +49,7 @@ class NavMenu extends React.Component {
                     {link.items.map(nested =>
                       <li className="nav-menu-item nav-menu-nested-item" key={nested.title}>
                         <a className="nav-menu-link nav-menu-nested-link" href={nested.url}>
-                          {nested.title}
+                          {t(nested.title)}
                         </a>
                       </li>
                     )}
