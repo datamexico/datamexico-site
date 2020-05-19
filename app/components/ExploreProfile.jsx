@@ -14,7 +14,7 @@ class ExploreProfile extends React.Component {
         <div className="ep-profile-no-results">
           <img className="icon" src="/icons/no-results.png" alt=""/>
           <p className="message">
-            {"Sorry, there are no results for this search. Try with another search param."}
+            {t("Explore Profile.No data available")}
           </p>
         </div>
       </div>
@@ -34,7 +34,7 @@ class ExploreProfile extends React.Component {
             level={t(d.level)}
             background={background}
             lng={lng}
-            key={`${d.slug}-tile`}
+            key={`${d.slug}-tile-${d.slug}`}
           />
         )}
       </div>

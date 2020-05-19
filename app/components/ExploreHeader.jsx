@@ -20,8 +20,6 @@ class ExploreHeader extends React.Component {
   }
 }
 
-ExploreHeader.defaultProps = {
-  results: []
-};
+ExploreHeader.defaultProps = {};
 
 export default withNamespaces()(ExploreHeader);

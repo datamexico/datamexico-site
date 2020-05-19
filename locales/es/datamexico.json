@@ -74,10 +74,16 @@
   "Contact us": "Contáctanos",
   "Cities & Places": "Ciudades & Lugares",
   "Contributor": "Contributor",
+  "No Filter": "Sin Filtro",
+  "No filter": "Sin filtro",
   "Copper Ores and Concentrates": "Minerales de Cobre y Concentrados",
   "EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA": "EXPLORA, VISUALIZA, COMPARA, Y DESCARGA DATOS MEXICANOS",
   "Homepage": {
     "Search Placeholder": "Ej. Ciudad de México, Monterrey"
+  },
+  "Explore Profile": {
+    "No data available": "Lo sentimos, no hay resultados para esta búsqueda. Intente con otros parámetros de búsqueda.",
+    "Search Placeholder": "Buscar perfiles..."
   },
   "Your email address": "Tu correo electrónico",
   "Subscribe me": "Suscribirme",

@@ -62,6 +62,10 @@
   "Homepage": {
     "Search Placeholder": "Eg. Ciudad de Mexico, Monterrey"
   },
+  "Explore Profile": {
+    "No data available": "Sorry, there are no results for this search. Try with another search param.",
+    "Search Placeholder": "Search profiles..."
+  },
   "Elementary and Secondary Schools": "Elementary and Secondary Schools",
   "General Hospital": "General Hospital",
   "Home": "Home",

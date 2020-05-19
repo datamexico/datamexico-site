@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import classnames from "classnames";
 import {Helmet} from "react-helmet";
 import {withNamespaces} from "react-i18next";
 import {InputGroup} from "@blueprintjs/core";
@@ -16,15 +17,15 @@ const CancelToken = axios.CancelToken;
 let cancel;
 
 const levels = {
-  geo: ["Nation", "State", "Municipality", "Location"],
+  geo: ["Nation", "State", "Metro Area", "Municipality"],
   product: ["Chapter", "HS2", "HS4", "HS6"],
-  industry: ["Sector", "Industry Group", "Industry NAICS", "National Industry"],
+  industry: ["Sector", "Subsector", "Industry Group", "NAICS Industry", "National Industry"],
   institution: ["Institution"],
   occupation: ["Group", "Subgroup", "Occupation"]
 };
 
 const headers = [
-  {title: "No filter", slug: "filter"},
+  {title: "Explore", slug: "filter"},
   {title: "Cities & Places", slug: "geo", background: "#8b9f65"},
   {title: "Products", slug: "product", background: "#ea8db2"},
   {title: "Industries", slug: "industry", background: "#f5c094"},
@@ -37,7 +38,7 @@ class Explore extends React.Component {
   state = {
     query: "",
     selected: this.props.location.query.profile || "filter",
-    tab: this.props.location.query.profile && this.props.location.query.profile === "institution" ? "Institution" : "No Filter",
+    tab: this.props.location.query.profile && this.props.location.query.profile === "institution" ? "Institution" : "Explore",
     results: []
   };
 
@@ -65,7 +66,7 @@ class Explore extends React.Component {
     if (selected && selected !== "filter") searchParams.set("profile", selected);
     this.context.router.replace(`${this.props.location.pathname}?${searchParams.toString()}`);
 
-    this.setState({selected, tab: selected === "institution" ? levels[selected][0] : "No Filter"});
+    this.setState({selected, tab: selected === "institution" ? levels[selected][0] : "Explore"});
   }
 
   requestApi = query => {
@@ -137,7 +138,7 @@ class Explore extends React.Component {
         <div className="ep-search">
           <InputGroup
             leftIcon="search"
-            placeholder={"Search profiles..."}
+            placeholder={t("Explore Profile.Search Placeholder")}
             onChange={this.handleSearch}
             value={query}
           />
@@ -156,15 +157,25 @@ class Explore extends React.Component {
         {selected !== "filter" &&
           <div className="ep-profile-tabs">
             {levels[selected].length > 1 && <div
-              className={`ep-profile-tab ${tab === "No Filter" ? "selected" : ""}`}
-              onClick={() => this.setState({tab: "No Filter"})}>
-                No Filter
+              className={`ep-profile-tab ${tab === "Explore" ? "selected" : ""}`}
+              onClick={() => this.setState({tab: "Explore"})}>
+              {t("Explore")}
             </div>}
             {levels[selected].map((d, i) => {
+              // selected = Slug
+              // tab = Tab selected (Translated)
               const results = this.state.results.filter(h => h.slug === selected && h.level === d);
               const len = results.length;
+
               return <div
-                className={`ep-profile-tab${tab === d ? " selected" : ""}${len === 0 ? " u-hide-below-sm" : "" }`} key={i} onClick={() => this.setState({tab: d})}>
+                className={classnames(
+                  "ep-profile-tab",
+                  {selected: tab === t(d)},
+                  {"u-hide-below-sm": len === 0}
+                )}
+                key={i}
+                onClick={() => this.setState({tab: t(d)})}
+              >
                 {`${t(d)} (${len})`}
               </div>;
             })}
@@ -181,7 +192,7 @@ class Explore extends React.Component {
             : headers.filter(d => d.slug !== "filter").map(d => {
               if (["filter", d.slug].includes(selected)) {
                 let results = this.state.results.filter(h => h.slug === d.slug);
-                if (tab !== "No Filter") results = results.filter(h => h.level === tab);
+                if (tab !== "Explore") results = results.filter(h => h.level === tab);
 
 
                 return <ExploreProfile
