@@ -143,7 +143,6 @@ export default {
     "Chapter 4 Digit ID": mean,
     "Generic Investment ID": mean,
     "Flow ID": mean,
-    // "Sector ID": mean,
     "Sex ID": mean,
     "State ID": mean,
     "Year": mean
@@ -156,7 +155,6 @@ export default {
   groupPadding: 10,
 
   // legends
-  legend: true,
   legendConfig: {
     label: "",
     shapeConfig: {
@@ -298,7 +296,9 @@ export default {
         }
         else return "green";
       }
-      else return "green";
+      else {
+        return findColor(d) || "green";
+      }
 
     }
   },
