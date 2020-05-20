@@ -105,8 +105,18 @@ p:last-of-type {
 }
 
 .cp-selector-button-group {
+  align-items: inherit;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  & .cp-label {
+    align-items: center;
+    display: flex;
+  }
   & .cp-selector-button {
     border: 1px solid var(--primary-1);
+    flex: 1 !important;
+    min-width: 1px;
     &.is-active {
       background-color: var(--primary-1);
       color: var(--white);

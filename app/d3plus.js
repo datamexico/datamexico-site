@@ -12,6 +12,33 @@ const fontSizeLg = 16;
 const labelPadding = 5;
 const shapeLegend = 25;
 
+const getTooltipTitle = (d3plusConfig, d) => {
+  const len = d3plusConfig._groupBy.length;
+  const parentName = d3plusConfig._groupBy[0](d);
+  let parent = Object.entries(d).find(h => h[1] === parentName) || [undefined];
+  let parentId = parent[0];
+  if (parentId.includes(" ID")) {
+    parentId = parentId.slice(0, -3);
+    parent = Object.entries(d).find(h => h[0] === parentId) || [undefined];
+  }
+  const itemName = d3plusConfig._groupBy[len - 1](d);
+  let item = Object.entries(d).find(h => h[1] === itemName) || [undefined];
+  let itemId = item[0];
+  if (itemId.includes(" ID")) {
+    itemId = itemId.slice(0, -3);
+    item = Object.entries(d).find(h => h[0] === itemId) || [undefined];
+  }
+  if (itemId === "ISO 3") {
+    itemId = "Country";
+    item = Object.entries(d).find(h => h[0] === itemId) || [undefined];
+  }
+  if (itemId === "id") {
+    itemId = "HS4";
+    item = Object.entries(d).find(h => h[0] === itemId) || [undefined];
+  }
+  return {item, itemId, parent, parentId};
+};
+
 const growthPct = d => `${formatAbbreviate(d * 100)}%`;
 const pesoMX = d => `$ ${formatAbbreviate(d * 100)} MX`;
 // const locale = window.__INITIAL_STATE__.i18n.locale;
@@ -159,7 +186,9 @@ export default {
     label: "",
     shapeConfig: {
       fill: d => findColor(d),
-      backgroundImage: d => findIcon(d),
+      backgroundImage(d) {
+        return findIcon(d);
+      },
       width: shapeLegend,
       height: shapeLegend
     },
@@ -218,6 +247,16 @@ export default {
       ry: 0,
       borderRadius: 0,
       stroke: "transparent"
+    }
+  },
+  legendTooltip: {
+    title(d) {
+      const {item, parent, parentId} = getTooltipTitle(this, d);
+      const title = Array.isArray(item[1]) ? `${parent[1] || "Values"}` : item[1];
+      const itemBgImg = parentId;
+      const bgColor = findColorV2(itemBgImg, d);
+      const imgUrl = findIconV2(itemBgImg, d);
+      return tooltipTitle(bgColor, imgUrl, title);
     }
   },
 
@@ -389,30 +428,7 @@ export default {
       "text-align": "center"
     },
     title(d) {
-      const len = this._groupBy.length;
-      const parentName = this._groupBy[0](d);
-      let parent = Object.entries(d).find(h => h[1] === parentName) || [undefined];
-      let parentId = parent[0];
-      if (parentId.includes(" ID")) {
-        parentId = parentId.slice(0, -3);
-        parent = Object.entries(d).find(h => h[0] === parentId) || [undefined];
-      }
-      const itemName = this._groupBy[len - 1](d);
-      let item = Object.entries(d).find(h => h[1] === itemName) || [undefined];
-      let itemId = item[0];
-      if (itemId.includes(" ID")) {
-        itemId = itemId.slice(0, -3);
-        item = Object.entries(d).find(h => h[0] === itemId) || [undefined];
-      }
-      if (itemId === "ISO 3") {
-        itemId = "Country";
-        item = Object.entries(d).find(h => h[0] === itemId) || [undefined];
-      }
-      if (itemId === "id") {
-        itemId = "HS4";
-        item = Object.entries(d).find(h => h[0] === itemId) || [undefined];
-      }
-
+      const {item, itemId, parent, parentId} = getTooltipTitle(this, d);
       const title = Array.isArray(item[1]) ? `Other ${parent[1] || "Values"}` : item[1];
       const itemBgImg = ["Country", "Organization"].includes(itemId) ? itemId : parentId;
       const bgColor = findColorV2(itemBgImg, d);
