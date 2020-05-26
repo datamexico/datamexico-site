@@ -1,0 +1,19 @@
+.eci-container {
+  margin-top: var(--nav-height);
+  & h1.title {
+    margin-bottom: var(--gutter-sm);
+  }
+  & .loading {
+    position: relative;
+    background-color: inherit;
+    z-index: 20;
+    height: 100%;
+    & .loading-wrapper {
+      margin-top: 0px;
+    }
+  }
+  & .eci-explore {
+    margin-bottom: var(--gutter-sm);
+    line-height: var(--font-lg);
+  }
+}

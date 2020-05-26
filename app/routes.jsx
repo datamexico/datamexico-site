@@ -11,6 +11,7 @@ import Explore from "./pages/Explore/Explore";
 import About from "./pages/About/About";
 import Data from "./pages/Data/Data";
 import Error from "./pages/Error/Error";
+import ECIExplorer from "./pages/ECIExplorer/ECIExplorer";
 
 /** */
 export default function RouteCreate() {
@@ -23,6 +24,7 @@ export default function RouteCreate() {
       <Route path="/loading" component={Loading} />
       <Route exact path="/:lang/login" component={Login} />
       <Route exact path="/:lang/signup" component={SignUp} />
+      <Route exact path="/:lang/eci/ranking" component={ECIExplorer} />
       <Route exact path="/:lang/profile/:slug/:id" component={Profile} />
       {/* stubs */}
       <Route path="/:lang/about" component={About} />

@@ -104,6 +104,27 @@ p:last-of-type {
   width: 100%;
 }
 
+.cp-button {
+  border-radius: 0px;
+}
+
+.bp3-slider .bp3-slider-progress.bp3-intent-primary {
+  background-color: var(--gmx-green-1);
+}
+
+.dmx-slider {
+  margin-bottom: var(--gutter-sm);
+}
+
+.dmx-button {
+  width: 100%;
+  background-color: var(--gmx-green-1);
+  box-shadow: none;
+  color: var(--white);
+  border: none;
+  padding: var(--gutter-xs);
+}
+
 .cp-selector-button-group {
   align-items: inherit;
   display: flex;

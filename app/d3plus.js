@@ -12,6 +12,8 @@ const fontSizeLg = 16;
 const labelPadding = 5;
 const shapeLegend = 25;
 
+const icons = ["State", "Area", "Category", "Chapter", "Continent", "Country", "Flow", "Generic Investment", "Sector", "Sex"];
+
 const getTooltipTitle = (d3plusConfig, d) => {
   const len = d3plusConfig._groupBy.length;
   const parentName = d3plusConfig._groupBy[0](d);
@@ -96,7 +98,9 @@ export const findIconV2 = (key, d) => {
     return `/icons/visualizations/Country/country_${d[`${key} ID`]}.png`;
   }
   const icon = key.replace(" 4 Digit", "");
-  return `/icons/visualizations/${icon}/png/white/${d[`${key} ID`]}.png`;
+  return icons.includes(icon)
+    ? `/icons/visualizations/${icon}/png/white/${d[`${key} ID`]}.png`
+    : undefined;
 };
 
 /** */
