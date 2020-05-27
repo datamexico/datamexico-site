@@ -58,9 +58,20 @@ p:last-of-type {
   background-color: #ffffff;
 }
 
-.cp-viz-container > .cp-viz-header + .cp-viz-figure {
-  height: 500px !important;
+.cp-viz-container {
+  height: 100% !important;
 }
+.cp-viz-container > .cp-viz-header + .cp-viz-figure {
+  height: 100% !important;
+}
+
+.cp-single-column-section {
+  & .cp-viz-container > .cp-viz-header + .cp-viz-figure {
+    height: 20rem !important;
+  }
+}
+
+
 
 .cp-default-section-paragraph {
   font-weight: 400 !important;

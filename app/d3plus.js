@@ -314,13 +314,13 @@ export default {
     },
     // scatter plots
     Circle: {
-      fill: d => {
-        if (d["Trade Value RCA"]) {
-          return d["Trade Value RCA"] > 1 ? findColor(d) : "#b1bac6";
-        }
-        return "#b1bac6";
-      },
-      stroke: "#aaaaaa",
+      // fill: d => {
+      //   if (d["Trade Value RCA"]) {
+      //     return d["Trade Value RCA"] > 1 ? findColor(d) : "#b1bac6";
+      //   }
+      //   return "#b1bac6";
+      // },
+      // stroke: "#aaaaaa",
       strokeWidth: 1
     },
     fill(d) {
