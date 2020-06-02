@@ -7,7 +7,7 @@ export default class DMXButtonGroup extends React.Component {
   render() {
     const {items, selected, title} = this.props;
     return <div className="dmx-button-group cp-button-group">
-      {title && <h6 className="dmx-button-group-title">{title}</h6>}
+      {title && <h6 className="dmx-button-group-title title">{title}</h6>}
       <div className="dmx-button-group-items">{items.map((d, i) => <Button
         key={`dmx-button-${i}`}
         className={selected.id === d.id ? "cp-button is-active" : "cp-button"}

@@ -58,19 +58,28 @@
   "Cities & Places": "Cities & Places",
   "Contributor": "Contributor",
   "Copper Ores and Concentrates": "Copper Ores and Concentrates",
-  "EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA": "EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA",
-  "Homepage": {
-    "Search Placeholder": "Eg. Ciudad de Mexico, Monterrey"
+  "ECI Explorer": {
+    "Build ECI / PCI": "Build ECI / PCI",
+    "Description": "Explore different Economic Complexity indicators for Mexico.",
+    "Download ECI dataset": "Download ECI dataset",
+    "Download PCI dataset": "Download PCI dataset",
+    "Title": "Economic Complexity Explorer"
   },
+  "EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA": "EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA",
+  "Elementary and Secondary Schools": "Elementary and Secondary Schools",
+  "Explore": "Explore",
   "Explore Profile": {
     "No data available": "Sorry, there are no results for this search. Try with another search param.",
     "Search Placeholder": "Search profiles..."
   },
-  "Elementary and Secondary Schools": "Elementary and Secondary Schools",
   "General Hospital": "General Hospital",
   "Home": "Home",
+  "Homepage": {
+    "Search Placeholder": "Eg. Ciudad de Mexico, Monterrey"
+  },
   "Industrial Engineers": "Industrial Engineers",
   "Industries": "Industries",
+  "Industry Level": "Industry Level",
   "Loading": {
     "description": "Loading {{progress}} of {{total}} datasets"
   },
@@ -87,8 +96,10 @@
     "error": "Wrong Username or Password",
     "success": "Successfully Logged In"
   },
+  "Measure": "Measure",
   "Menu": "Menu",
   "Metal Ore Mining": "Metal Ore Mining",
+  "No results found": "No results found",
   "Occupations": "Occupations",
   "Parts of Seats": "Parts of Seats",
   "Power Electronics": "Power Electronics",
@@ -136,8 +147,11 @@
     "success": "Successfully Signed Up"
   },
   "Specialist Doctors": "Specialist Doctors",
+  "Subscribe me": "Subscribe me",
   "Support Workers in Agriculture": "Support Workers in Agriculture",
+  "Time": "Time",
   "Universities": "Universities",
   "User": "User",
-  "Username": "Username"
+  "Username": "Username",
+  "Your email address": "Your email address"
 }

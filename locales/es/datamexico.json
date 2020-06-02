@@ -167,5 +167,12 @@
   "Institution": "Institución",
   "Nation": "País",
   "Industry Group": "Rama",
-  "National Industry": "Industria Nacional"
+  "National Industry": "Industria Nacional",
+  "ECI Explorer": {
+    "Build ECI / PCI": "Calcular ECI / PCI",
+    "Description": "Explora diferentes indicadores de Complejidad Económica para México.",
+    "Download ECI dataset": "Descargar ECI",
+    "Download PCI dataset": "Descargar PCI",
+    "Title": "Explorador de Complejidad Económica"
+  }
 }

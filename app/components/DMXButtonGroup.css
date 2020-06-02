@@ -1,9 +1,11 @@
 .dmx-button-group {
+  flex-direction: column;
   margin-bottom: var(--gutter-sm);
 }
 .dmx-button-group-items {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
   & .cp-button {
     font-size: var(--font-xs);
     flex: 1;

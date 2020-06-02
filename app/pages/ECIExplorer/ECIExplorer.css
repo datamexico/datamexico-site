@@ -3,6 +3,12 @@
   & h1.title {
     margin-bottom: var(--gutter-sm);
   }
+  & .columns {
+    margin-bottom: var(--gutter-md);
+  }
+  & .eci-geo-viz {
+    height: 100%;
+  }
   & .loading {
     position: relative;
     background-color: inherit;

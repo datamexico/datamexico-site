@@ -45,7 +45,6 @@
   margin-right: 0; /* override canon */
 
   & .cp-stat-label-text {
-    @mixin font-smoothing;
     font-size: inherit;
   }
 }
@@ -131,6 +130,7 @@
 .cp-viz-title {
   font-family: var(--base-font-stack-condensed);
   font-weight: 600;
+  font-size: var(--font-md);
 }
 
 .options-button-group {
@@ -138,20 +138,6 @@
     display: none;
   }
 }
-
-.cp-stat-subtitle {
-  /* color: var(--gray) !important; */
-}
-
-/* .cp-stat-value-text {
-  color: var(--gmx-yellow-2);
-}
-.cp-stat a {
-  color: var(--gmx-yellow-2);
-}
-.cp-section p > a {
-  color: var(--gmx-yellow-2);
-} */
 
 .dmx-disclaimer {
   color: var(--gmx-yellow-2);
@@ -167,13 +153,6 @@
   }
   & .cp-stat-label .cp-stat-label-text {
     text-transform: uppercase;
-  }
-}
-
-.cp-stat-label {
-  & .cp-stat-label-text {
-    font-weight: 700;
-    font-size: var(--font-xs);
   }
 }
 
