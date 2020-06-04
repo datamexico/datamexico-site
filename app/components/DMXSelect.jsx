@@ -1,16 +1,18 @@
 import React from "react";
+import {withNamespaces} from "react-i18next";
 import {Select} from "@blueprintjs/select";
 import {Button, MenuItem} from "@blueprintjs/core";
 import classnames from "classnames";
 
 import "./DMXSelect.css";
 
-export default class DMXSelect extends React.Component {
+class DMXSelect extends React.Component {
   state = {
     isOpen: false
   }
 
   renderItem = (item, {modifiers, handleClick}) => {
+    const {t} = this.props;
     if (!modifiers.matchesPredicate) {
       return null;
     }
@@ -21,12 +23,12 @@ export default class DMXSelect extends React.Component {
       label={item.label || ""}
       onClick={handleClick}
       shouldDismissPopover={false}
-      text={<div className="menu-item-text">{item.title || item.name}</div>}
+      text={<div className="menu-item-text">{t(item.title) || t(item.name)}</div>}
     />;
 
   };
   render() {
-    const {disabled, items, popoverPosition, selectedItem, title} = this.props;
+    const {disabled, items, popoverPosition, selectedItem, title, t} = this.props;
     const {isOpen} = this.state;
     return <div className="dmx-selector">
       <h6 className="title is-6">{title}</h6>
@@ -50,7 +52,7 @@ export default class DMXSelect extends React.Component {
         <Button
           className="dmx-selector-button"
           minimal={true}
-          text={selectedItem.title || selectedItem.name}
+          text={t(selectedItem.title) || t(selectedItem.name)}
           rightIcon="chevron-down"
         />
       </Select>
@@ -64,3 +66,5 @@ DMXSelect.defaultProps = {
   selectedItem: {},
   popoverPosition: "bottom-left"
 };
+
+export default withNamespaces()(DMXSelect);

@@ -69,7 +69,7 @@ p:last-of-type {
   & .cp-stat {
     flex: 1 !important;
     margin-right: 0 !important;
-    min-width: auto !important;
+    min-width: 150px !important;
     padding: 0;
     & .cp-stat-label-text {
       display: flex;
@@ -122,7 +122,7 @@ p:last-of-type {
   }
 }
 
-.dmx-selector, .dmx-button-group {
+.dmx-selector, .dmx-slider, .dmx-button-group {
   & .title {
     font-size: var(--font-sm);
     text-transform: uppercase;
@@ -166,7 +166,7 @@ p:last-of-type {
 }
 
 .bp3-slider .bp3-slider-progress.bp3-intent-primary {
-  background-color: var(--gmx-green-1);
+  background-color: var(--gmx-yellow-2);
 }
 
 .dmx-slider {
@@ -340,3 +340,16 @@ p:last-of-type {
   z-index: 101 !important;
   border: 1px solid var(--gray) !important;
 }
+
+.bp3-select-popover {
+  & .bp3-menu {
+    padding: 0px !important;
+    & .bp3-menu-item {
+      &.bp3-active {
+        border-radius: 0;
+        background-color: var(--gmx-yellow-2);
+      }
+    }
+  }
+}
+

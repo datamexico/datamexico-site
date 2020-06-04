@@ -9,13 +9,21 @@ import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
 import DMXSelect from "../../components/DMXSelect";
 import DMXButtonGroup from "../../components/DMXButtonGroup";
-import {Slider} from "@blueprintjs/core";
+import {Slider, InputGroup, Button, Label} from "@blueprintjs/core";
 
 import {saveAs} from "file-saver";
 import {strip} from "d3plus-text";
 
+/** */
+export function parseURL(query) {
+  return Object.entries(query)
+    .map(([key, val]) => `${key}=${val}`)
+    .join("&");
+}
+
 import "react-table/react-table.css";
 import "./ECIExplorer.css";
+import LoadingChart from "../../components/LoadingChart";
 
 const filename = str => strip(str.replace(/<[^>]+>/g, ""))
   .replace(/^\-/g, "")
@@ -45,19 +53,21 @@ const geoLevels = (lng = "en") => [
   }
 ];
 
+const industryLevels = [
+  {name: "Industry Group", id: "Industry Group"},
+  {name: "NAICS Industry", id: "NAICS Industry"},
+  {name: "National Industry", id: "National Industry"}
+];
+
 const cubes = {
-  denue: {
+  inegi_denue: {
     name: "DENUE",
     cube: "inegi_denue",
     measures: [
       {title: "Companies", id: "Companies"},
       {title: "Employees", id: "Number of Employees Midpoint"}
     ],
-    levels: [
-      {name: "Industry Group (4-digit)", id: "Industry Group"},
-      {name: "NAICS Industry (5-digit)", id: "NAICS Industry"},
-      {name: "National Industry (6-digit)", id: "National Industry"}
-    ],
+    levels: industryLevels,
     timeDrilldown: "Month",
     time: [
       {name: "2020-S1", id: 20200417},
@@ -71,15 +81,54 @@ const cubes = {
       {name: "2016-S1", id: 20160115},
       {name: "2015-S1", id: 20150225}
     ]
+  },
+  inegi_economic_census: {
+    name: "Economic Census",
+    cube: "inegi_economic_census",
+    measures: [
+      {title: "Economic Unit", id: "Economic Unit"},
+      {title: "Total Gross Production", id: "Total Gross Production"}
+    ],
+    levels: industryLevels,
+    timeDrilldown: "Year",
+    time: [
+      {name: "2014", id: 2014},
+      {name: "2009", id: 2009},
+      {name: "2004", id: 2004}
+    ]
+  },
+  inegi_enoe: {
+    name: "ENOE",
+    cube: "inegi_enoe",
+    measures: [
+      {title: "Workforce", id: "Workforce"}
+    ],
+    levels: [{name: "Occupation", id: "Occupation"}],
+    timeDrilldown: "Quarter",
+    time: [
+      {name: "2019-Q3", id: 20193},
+      {name: "2019-Q4", id: 20194},
+      {name: "2020-Q1", id: 20201}
+    ]
   }
 };
+
+const cubeItems = Object.keys(cubes).map(d => {
+  const obj = cubes[d];
+  return {id: obj.cube, name: obj.name};
+});
 
 
 class ECIExplorer extends React.Component {
   constructor(props) {
     super(props);
-    const cubeSelected = cubes.denue;
+
+    // Selects default params used on the site
+    const cubeSelected = cubes.inegi_economic_census;
+    const cubeItem = cubeItems[1];
     const tempStates = {
+      cubeItem,
+      cubeSelected,
       geoSelected: geoLevels(props.lng)[0],
       measureSelected: cubeSelected.measures[0],
       timeSelected: cubeSelected.time[0],
@@ -92,16 +141,22 @@ class ECIExplorer extends React.Component {
     }, {});
 
     this.state = {
+      ECIApi: undefined,
+      PCIApi: undefined,
       data: [],
       dataPCI: [],
       dataRCA: [],
       loading: true,
-      cubeSelected,
       thresholdGeo: 100,
       thresholdIndustry: 100,
       ...tempStates,
       ...newTempStates
     };
+  }
+
+  handleCopyClipboard = text => {
+    // this.setState({[key]: true});
+    navigator.clipboard.writeText(text);
   }
 
   onCSV = (data, title) => {
@@ -133,15 +188,15 @@ class ECIExplorer extends React.Component {
 
   fetchData = () => {
     this.setState({data: [], loading: true});
-    const {cubeSelected, levelSelectedTemp, geoSelectedTemp, measureSelectedTemp, thresholdGeo, thresholdIndustry, timeSelectedTemp} = this.state;
+    const {cubeSelectedTemp, levelSelectedTemp, geoSelectedTemp, measureSelectedTemp, thresholdGeo, thresholdIndustry, timeSelectedTemp} = this.state;
 
     const time = timeSelectedTemp.id;
-    const timeIndex = cubeSelected.time.findIndex(d => d.id === time);
+    const timeIndex = cubeSelectedTemp.time.findIndex(d => d.id === time);
 
-    const timeList = cubeSelected.time.slice(timeIndex, timeIndex + 3).map(d => d.id);
+    const timeList = cubeSelectedTemp.time.slice(timeIndex, timeIndex + 3).map(d => d.id);
     const n = timeList.length;
     const timeIds = timeList.join();
-    const timeDrilldown = cubeSelected.timeDrilldown || "Year";
+    const timeDrilldown = cubeSelectedTemp.timeDrilldown;
 
     const industryLevel = levelSelectedTemp.id;
     const geoLevel = geoSelectedTemp.id;
@@ -150,7 +205,7 @@ class ECIExplorer extends React.Component {
     const industryThreshold = thresholdIndustry * n;
 
     const params = {
-      cube: "inegi_denue",
+      cube: cubeSelectedTemp.cube,
       [timeDrilldown]: timeIds,
       rca: [geoLevel, industryLevel, measure].join(),
       threshold: [`${industryLevel}:${industryThreshold}`, `${geoLevel}:${geoThreshold}`].join(),
@@ -158,9 +213,16 @@ class ECIExplorer extends React.Component {
       locale: this.props.lng
     };
 
+    const origin = window.location.origin;
+    const ECIApiBase = "/api/stats/eci";
+    const PCIApiBase = "/api/stats/pci";
+    console.log(window);
+    const ECIApi = `${origin}${ECIApiBase}?${parseURL(params)}`;
+    const PCIApi = `${origin}${PCIApiBase}?${parseURL(params)}`;
+
     axios.all([
-      axios.get("/api/stats/eci", {params}),
-      axios.get("/api/stats/pci", {params})
+      axios.get(ECIApiBase, {params}),
+      axios.get(PCIApiBase, {params})
     ]).then(axios.spread((...resp) => {
       const data = resp[0].data.data;
       const dataPCI = resp[1].data.data;
@@ -168,7 +230,10 @@ class ECIExplorer extends React.Component {
       this.setState({
         data,
         dataPCI,
+        ECIApi,
+        PCIApi,
         loading: false,
+        cubeSelected: cubeSelectedTemp,
         geoSelected: geoSelectedTemp,
         timeSelected: timeSelectedTemp,
         levelSelected: levelSelectedTemp,
@@ -206,6 +271,7 @@ class ECIExplorer extends React.Component {
 
   render() {
     const {
+      cubeSelected,
       data,
       dataPCI,
       dataRCA,
@@ -262,14 +328,25 @@ class ECIExplorer extends React.Component {
         <div className="columns">
           <div className="column is-300">
             <h1 className="title">{t("ECI Explorer.Title")}</h1>
-            <p className="eci-explore">
+            {/* <p className="eci-explore">
               {t("ECI Explorer.Description")}
-            </p>
+            </p> */}
+
             <DMXSelect
-              callback={measureSelectedTemp => this.setState({measureSelectedTemp})}
-              items={this.state.cubeSelected.measures}
-              selectedItem={measureSelectedTemp}
-              title={t("Measure")}
+              callback={cubeItemTemp => {
+                const cubeSelectedTemp = cubes[cubeItemTemp.id];
+                this.setState({
+                  cubeItemTemp,
+                  cubeSelectedTemp,
+                  geoSelected: geoLevels(this.props.lng)[0],
+                  measureSelectedTemp: cubeSelectedTemp.measures[0],
+                  timeSelectedTemp: cubeSelectedTemp.time[0],
+                  levelSelectedTemp: cubeSelectedTemp.levels[0]
+                });
+              }}
+              items={cubeItems}
+              selectedItem={this.state.cubeItemTemp}
+              title={t("Dataset")}
             />
             <DMXButtonGroup
               items={geoLevels(lng)}
@@ -277,17 +354,17 @@ class ECIExplorer extends React.Component {
               title="Geo"
               callback={geoSelectedTemp => this.setState({geoSelectedTemp})}
             />
-            <DMXSelect
-              items={this.state.cubeSelected.levels}
-              selectedItem={levelSelectedTemp}
+            <DMXButtonGroup
+              items={this.state.cubeSelectedTemp.levels}
+              selected={levelSelectedTemp}
               callback={levelSelectedTemp => this.setState({levelSelectedTemp})}
               title={t("Industry Level")}
             />
             <DMXSelect
-              items={this.state.cubeSelected.time}
-              selectedItem={timeSelectedTemp}
-              callback={timeSelectedTemp => this.setState({timeSelectedTemp})}
-              title={t("Time")}
+              callback={measureSelectedTemp => this.setState({measureSelectedTemp})}
+              items={this.state.cubeSelectedTemp.measures}
+              selectedItem={measureSelectedTemp}
+              title={t("Measure")}
             />
             <div className="dmx-slider">
               <h4 className="title">{geoSelectedTemp.name} con al menos {this.state.thresholdGeo} {measureSelectedTemp.title}</h4>
@@ -311,6 +388,12 @@ class ECIExplorer extends React.Component {
                 value={this.state.thresholdIndustry}
               />
             </div>
+            <DMXSelect
+              items={this.state.cubeSelectedTemp.time}
+              selectedItem={timeSelectedTemp}
+              callback={timeSelectedTemp => this.setState({timeSelectedTemp})}
+              title={t("Time")}
+            />
             <button
               onClick={() => this.fetchData()}
               className="dmx-button"
@@ -321,17 +404,15 @@ class ECIExplorer extends React.Component {
           <div className="column">
             {!loading ? <div className="eci-geo-viz">
               <h2 className="title">
-                {t("Economic Complexity Index (ECI) ({{time}})", {
-                  time: timeSelected.name,
-                  geo: geoSelected.name,
-                  level: levelSelected.name
+                {t("ECI Explorer.ECI Title", {
+                  time: timeSelected.name
                 })}
               </h2>
               <h4 className="subtitle">
-                {t("{{geo}}, {{level}}", {
-                  time: timeSelected.name,
-                  geo: geoSelected.name,
-                  level: levelSelected.name
+                {t("{{cube}}, {{geo}}, {{level}}", {
+                  cube: t(cubeSelected.name),
+                  geo: t(geoSelected.name),
+                  level: t(levelSelected.name)
                 })}
               </h4>
               <Geomap
@@ -340,7 +421,9 @@ class ECIExplorer extends React.Component {
                   groupBy: [geoId],
                   colorScale: eciMeasure,
                   colorScaleConfig: {
-                    color: ["#00E9BC", "#00C8E4", "#00A4FF", "#007EFF", "#0052EC", "#0000B1"]
+                    color: ["#00E9BC", "#00C8E4", "#00A4FF", "#007EFF", "#0052EC", "#0000B1"],
+                    midpoint: 0,
+                    scale: "linear"
                   },
                   tooltipConfig: {
                     tbody: d => [
@@ -352,7 +435,7 @@ class ECIExplorer extends React.Component {
                   topojsonId: geoSelected.topojsonId
                 }}
               />
-            </div> : <Loading />}
+            </div> : <LoadingChart />}
           </div>
         </div>
 
@@ -360,6 +443,13 @@ class ECIExplorer extends React.Component {
         <div className="columns">
           <div className="column">
             {!loading ? <div>
+              <Label>API
+                <InputGroup
+                  rightElement={<Button>{t("Copy")}</Button>}
+                  value={this.state.ECIApi}
+                  onClick={() => this.handleCopyClipboard(this.state.ECIApi)}
+                />
+              </Label>
               <ReactTable
                 data={data}
                 columns={columns}
@@ -379,22 +469,30 @@ class ECIExplorer extends React.Component {
             </div> : <Loading />}
           </div>
           <div className="column">
-            {!loading ? <div><ReactTable
-              data={this.state.dataPCI}
-              columns={columnsPCI}
-              showPagination={false}
-              defaultPageSize={this.state.dataPCI.length}
-              minRows={1}
-              resizable={false}
-              defaultSorted={[{id: pciMeasure, desc: true}]}
-              defaultSortDesc={true}
-            />
-            <button
-              onClick={() => this.onCSV(this.state.dataPCI, "PCI")}
-              className="dmx-button"
-            >
-              {t("ECI Explorer.Download PCI dataset")}
-            </button>
+            {!loading ? <div>
+              <Label>API
+                <InputGroup
+                  rightElement={<Button>{t("Copy")}</Button>}
+                  value={this.state.PCIApi}
+                  onClick={() => this.handleCopyClipboard(this.state.PCIApi)}
+                />
+              </Label>
+              <ReactTable
+                data={this.state.dataPCI}
+                columns={columnsPCI}
+                showPagination={false}
+                defaultPageSize={this.state.dataPCI.length}
+                minRows={1}
+                resizable={false}
+                defaultSorted={[{id: pciMeasure, desc: true}]}
+                defaultSortDesc={true}
+              />
+              <button
+                onClick={() => this.onCSV(this.state.dataPCI, "PCI")}
+                className="dmx-button"
+              >
+                {t("ECI Explorer.Download PCI dataset")}
+              </button>
             </div> : <Loading />}
           </div>
         </div>

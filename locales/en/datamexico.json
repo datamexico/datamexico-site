@@ -63,7 +63,8 @@
     "Description": "Explore different Economic Complexity indicators for Mexico.",
     "Download ECI dataset": "Download ECI dataset",
     "Download PCI dataset": "Download PCI dataset",
-    "Title": "Economic Complexity Explorer"
+    "Title": "ECI Explorer",
+    "ECI Title": "Economic Complexity Index (ECI) ({{time}})"
   },
   "EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA": "EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA",
   "Elementary and Secondary Schools": "Elementary and Secondary Schools",

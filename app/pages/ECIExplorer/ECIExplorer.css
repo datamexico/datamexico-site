@@ -2,6 +2,8 @@
   margin-top: var(--nav-height);
   & h1.title {
     margin-bottom: var(--gutter-sm);
+    font-family: var(--base-font-stack-condensed);
+    text-transform: uppercase;
   }
   & .columns {
     margin-bottom: var(--gutter-md);
