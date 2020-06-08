@@ -14,22 +14,22 @@ class Loading extends Component {
   render() {
     const {progress, t, total} = this.props;
     return <div className="loading">
-      <div className="loading-wrapper">
-        <div className="brand">
+      <div className="loading-chart">
+        {/* <div className="brand">
           <Link to="/">
             <img src={"/icons/datamx-logo.gif"} alt="" />
           </Link>
-        </div>
+        </div> */}
         {/* <div className="progress-bar">
           <ProgressBar value={progress / total} />
         </div> */}
 
         {/* <div>{t("Loading.description", {progress, total})}</div> */}
         <div className="loading-spinner">
-          <Spinner size={Spinner.SIZE_STANDARD} value={null} />
+          <Spinner size={Spinner.SIZE_LARGE} value={null} />
         </div>
-        <div>
-          Loading chart...
+        <div className="loading-description">
+          <h4>Loading chart...</h4>
         </div>
       </div>
 
