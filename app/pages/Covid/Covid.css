@@ -1,0 +1,18 @@
+@import "helpers/mixins.css";
+
+.covid {
+  min-height: 100vh;
+  background-color: var(--dark-4);
+  color: var(--white);
+  padding-top: 50px;
+
+  & .covid-header {
+  }
+
+  & .covid-container {
+  }
+
+  & .footer {
+    margin-top: auto;
+  }
+}

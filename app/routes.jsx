@@ -12,6 +12,7 @@ import About from "./pages/About/About";
 import Data from "./pages/Data/Data";
 import Error from "./pages/Error/Error";
 import ECIExplorer from "./pages/ECIExplorer/ECIExplorer";
+import Covid from "./pages/Covid/Covid";
 
 /** */
 export default function RouteCreate() {
@@ -29,6 +30,7 @@ export default function RouteCreate() {
       {/* stubs */}
       <Route path="/:lang/about" component={About} />
       <Route path="/:lang/data" component={Data} />
+      <Route path="/:lang/covid" component={Covid} />
       {/* 404 */}
       <Route path="/:lang/*" component={Error} />
     </Route>

@@ -1,0 +1,28 @@
+@import "helpers/mixins.css";
+
+.covid-card {
+  display: flex;
+  flex-direction: column;
+
+  & .covid-card-header {
+    min-height: var(--gutter-lg);
+  }
+
+  & .covid-card-body {
+    min-height: var(--gutter-xl);
+    display: flex;
+    flex-direction: row;
+
+    & .card-body-options {
+      width: 33%
+    }
+
+    & .card-body-visualizations {
+      width: 67%;
+    }
+  }
+
+  & .covid-card-footer {
+    min-height: var(--gutter-md);
+  }
+}
