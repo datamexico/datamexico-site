@@ -65,8 +65,8 @@ const geoLevels = (lng = "en", dataset = "inegi_economic_census") => {
       {
         id: "Self Represented City",
         name: lng === "en" ? "Self Represented City" : "Ciudad Auto Representada",
-        topojson: "/topojson/Municipalities.json",
-        topojsonId: d => d.properties.mun_id,
+        topojson: "/topojson/SelfCities.json",
+        topojsonId: d => d.properties.self_city_id,
         tiles: false
       }
     ]);
@@ -431,7 +431,7 @@ class ECIExplorer extends React.Component {
                   topojsonId: geoSelected.topojsonId
                 }}
               />
-            </div> : <LoadingChart />}
+            </div> : <LoadingChart message={t("Loading")} />}
           </div>
         </div>
 
@@ -462,7 +462,7 @@ class ECIExplorer extends React.Component {
               >
                 {t("ECI Explorer.Download ECI dataset")}
               </button>
-            </div> : <Loading />}
+            </div> : <LoadingChart message={t("Loading")} />}
           </div>
           <div className="column">
             {!loading ? <div>
@@ -489,7 +489,7 @@ class ECIExplorer extends React.Component {
               >
                 {t("ECI Explorer.Download PCI dataset")}
               </button>
-            </div> : <Loading />}
+            </div> : <LoadingChart message={t("Loading")} />}
           </div>
         </div>
         {/* <div className="columns">
