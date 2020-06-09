@@ -2,6 +2,7 @@ import React from "react";
 import ReactTable from "react-table";
 import {withNamespaces} from "react-i18next";
 import {hot} from "react-hot-loader/root";
+import {Helmet} from "react-helmet";
 import axios from "axios";
 import {Geomap, Plot, Treemap} from "d3plus-react";
 import Nav from "../../components/Nav";
@@ -9,10 +10,12 @@ import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
 import DMXSelect from "../../components/DMXSelect";
 import DMXButtonGroup from "../../components/DMXButtonGroup";
-import {Slider, InputGroup, Button, Label} from "@blueprintjs/core";
+import {Switch, Slider, InputGroup, Button, Label} from "@blueprintjs/core";
 
 import {saveAs} from "file-saver";
 import {strip} from "d3plus-text";
+
+import {cubes} from "helpers/complexity";
 
 /** */
 export function parseURL(query) {
@@ -29,88 +32,46 @@ const filename = str => strip(str.replace(/<[^>]+>/g, ""))
   .replace(/^\-/g, "")
   .replace(/\-$/g, "");
 
-const geoLevels = (lng = "en") => [
-  {
-    id: "State",
-    name: lng === "en" ? "State" : "Entidad Federativa",
-    topojson: "/topojson/Entities.json",
-    topojsonId: d => d.properties.ent_id,
-    tiles: false
-  },
-  {
-    id: "Municipality",
-    name: lng === "en" ? "Municipality" : "Municipio",
-    topojson: "/topojson/Municipalities.json",
-    topojsonId: d => d.properties.mun_id,
-    tiles: false
-  },
-  {
-    id: "Metro Area",
-    name: lng === "en" ? "Metropolitan Area" : "Zona Metropolitana",
-    topojson: "/topojson/MetroAreas.json",
-    topojsonId: d => d.properties.zm_id,
-    tiles: true
+const geoLevels = (lng = "en", dataset = "inegi_economic_census") => {
+  let output = [
+    {
+      id: "State",
+      name: lng === "en" ? "State" : "Entidad Federativa",
+      topojson: "/topojson/Entities.json",
+      topojsonId: d => d.properties.ent_id,
+      tiles: false
+    }
+  ];
+  if (["inegi_economic_census", "inegi_denue", "economy_foreign_trade_mun"].includes(dataset)) {
+    output = output.concat([
+      {
+        id: "Metro Area",
+        name: lng === "en" ? "Metropolitan Area" : "Zona Metropolitana",
+        topojson: "/topojson/MetroAreas.json",
+        topojsonId: d => d.properties.zm_id,
+        tiles: true
+      },
+      {
+        id: "Municipality",
+        name: lng === "en" ? "Municipality" : "Municipio",
+        topojson: "/topojson/Municipalities.json",
+        topojsonId: d => d.properties.mun_id,
+        tiles: false
+      }
+    ]);
   }
-];
-
-const industryLevels = [
-  {name: "Industry Group", id: "Industry Group"},
-  {name: "NAICS Industry", id: "NAICS Industry"},
-  {name: "National Industry", id: "National Industry"}
-];
-
-const cubes = {
-  inegi_denue: {
-    name: "DENUE",
-    cube: "inegi_denue",
-    measures: [
-      {title: "Companies", id: "Companies"},
-      {title: "Employees", id: "Number of Employees Midpoint"}
-    ],
-    levels: industryLevels,
-    timeDrilldown: "Month",
-    time: [
-      {name: "2020-S1", id: 20200417},
-      {name: "2019-S2", id: 20191114},
-      {name: "2019-S1", id: 20190410},
-      {name: "2018-S2", id: 20181130},
-      {name: "2018-S1", id: 20180327},
-      {name: "2017-S2", id: 20171115},
-      {name: "2017-S1", id: 20170331},
-      {name: "2016-S2", id: 20161031},
-      {name: "2016-S1", id: 20160115},
-      {name: "2015-S1", id: 20150225}
-    ]
-  },
-  inegi_economic_census: {
-    name: "Economic Census",
-    cube: "inegi_economic_census",
-    measures: [
-      {title: "Economic Unit", id: "Economic Unit"},
-      {title: "Total Gross Production", id: "Total Gross Production"}
-    ],
-    levels: industryLevels,
-    timeDrilldown: "Year",
-    time: [
-      {name: "2014", id: 2014},
-      {name: "2009", id: 2009},
-      {name: "2004", id: 2004}
-    ]
-  },
-  inegi_enoe: {
-    name: "ENOE",
-    cube: "inegi_enoe",
-    measures: [
-      {title: "Workforce", id: "Workforce"}
-    ],
-    levels: [{name: "Occupation", id: "Occupation"}],
-    timeDrilldown: "Quarter",
-    time: [
-      {name: "2019-Q3", id: 20193},
-      {name: "2019-Q4", id: 20194},
-      {name: "2020-Q1", id: 20201}
-    ]
+  if (["inegi_enoe"].includes(dataset)) {
+    output = output.concat([
+      {
+        id: "Self Represented City",
+        name: lng === "en" ? "Self Represented City" : "Ciudad Auto Representada",
+        topojson: "/topojson/Municipalities.json",
+        topojsonId: d => d.properties.mun_id,
+        tiles: false
+      }
+    ]);
   }
+  return output;
 };
 
 const cubeItems = Object.keys(cubes).map(d => {
@@ -118,24 +79,26 @@ const cubeItems = Object.keys(cubes).map(d => {
   return {id: obj.cube, name: obj.name};
 });
 
-
 class ECIExplorer extends React.Component {
   constructor(props) {
     super(props);
 
     // Selects default params used on the site
-    const cubeSelected = cubes.inegi_economic_census;
-    const cubeItem = cubeItems[1];
-    const tempStates = {
+    const cubeId = "inegi_economic_census";
+    const cubeItem = cubeItems.find(d => d.id === cubeId);
+    const cubeSelected = cubes[cubeId];
+
+    const tempState = {
       cubeItem,
       cubeSelected,
-      geoSelected: geoLevels(props.lng)[0],
+      geoSelected: geoLevels(props.lng, cubeId)[0],
+      isAgg: cubeSelected.isAgg,
       measureSelected: cubeSelected.measures[0],
       timeSelected: cubeSelected.time[0],
       levelSelected: cubeSelected.levels[0]
     };
 
-    const newTempStates = Object.entries(tempStates).reduce((obj, d) => {
+    const newTempState = Object.entries(tempState).reduce((obj, d) => {
       obj[`${d[0]}Temp`] = d[1];
       return obj;
     }, {});
@@ -149,8 +112,8 @@ class ECIExplorer extends React.Component {
       loading: true,
       thresholdGeo: 100,
       thresholdIndustry: 100,
-      ...tempStates,
-      ...newTempStates
+      ...tempState,
+      ...newTempState
     };
   }
 
@@ -188,12 +151,13 @@ class ECIExplorer extends React.Component {
 
   fetchData = () => {
     this.setState({data: [], loading: true});
-    const {cubeSelectedTemp, levelSelectedTemp, geoSelectedTemp, measureSelectedTemp, thresholdGeo, thresholdIndustry, timeSelectedTemp} = this.state;
+    const {cubeSelectedTemp, isAggTemp, levelSelectedTemp, geoSelectedTemp, measureSelectedTemp, thresholdGeo, thresholdIndustry, timeSelectedTemp} = this.state;
 
     const time = timeSelectedTemp.id;
     const timeIndex = cubeSelectedTemp.time.findIndex(d => d.id === time);
 
-    const timeList = cubeSelectedTemp.time.slice(timeIndex, timeIndex + 3).map(d => d.id);
+    const agg = isAggTemp ? 3 : 1;
+    const timeList = cubeSelectedTemp.time.slice(timeIndex, timeIndex + agg).map(d => d.id);
     const n = timeList.length;
     const timeIds = timeList.join();
     const timeDrilldown = cubeSelectedTemp.timeDrilldown;
@@ -204,7 +168,7 @@ class ECIExplorer extends React.Component {
     const geoThreshold = thresholdGeo * n;
     const industryThreshold = thresholdIndustry * n;
 
-    const params = {
+    let params = {
       cube: cubeSelectedTemp.cube,
       [timeDrilldown]: timeIds,
       rca: [geoLevel, industryLevel, measure].join(),
@@ -213,10 +177,21 @@ class ECIExplorer extends React.Component {
       locale: this.props.lng
     };
 
+    if (cubeSelectedTemp.cube === "economy_foreign_trade_mun") {
+      const rightParams = {
+        cubeRight: "trade_i_baci_a_12",
+        rcaRight: `Exporter Country,${levelSelectedTemp.name},Trade Value`,
+        YearRight: timeIds,
+        method: "subnational",
+        aliasRight: `Country,${levelSelectedTemp.name}`
+      };
+      params = Object.assign(params, rightParams);
+    }
+
     const origin = window.location.origin;
     const ECIApiBase = "/api/stats/eci";
     const PCIApiBase = "/api/stats/pci";
-    console.log(window);
+
     const ECIApi = `${origin}${ECIApiBase}?${parseURL(params)}`;
     const PCIApi = `${origin}${PCIApiBase}?${parseURL(params)}`;
 
@@ -235,6 +210,7 @@ class ECIExplorer extends React.Component {
         loading: false,
         cubeSelected: cubeSelectedTemp,
         geoSelected: geoSelectedTemp,
+        isAgg: isAggTemp,
         timeSelected: timeSelectedTemp,
         levelSelected: levelSelectedTemp,
         measureSelected: measureSelectedTemp
@@ -295,28 +271,29 @@ class ECIExplorer extends React.Component {
     const geoName = geoSelected.id;
     const industryId = `${levelSelected.id} ID`;
     const columns = [
-      {id: geoId, accessor: geoId, Header: geoId},
-      {id: geoName, accessor: d => <a href="" onClick={() => this.fetchRCAData(d[geoId], geoName)}>{d[geoName]}</a>, Header: geoName},
+      {id: geoId, accessor: geoId, Header: `${t(geoSelected.id)} ID`, width: 200},
+      {id: geoName, accessor: d => <a href="" onClick={() => this.fetchRCAData(d[geoId], geoName)}>{d[geoName]}</a>, Header: t(geoName)},
       {id: eciMeasure, accessor: eciMeasure, Header: "ECI"}
     ];
     const columnsPCI = [
-      {id: industryId, accessor: industryId, Header: "id"},
-      {id: levelSelected.id, accessor: levelSelected.id, Header: levelSelected.name},
+      {id: industryId, accessor: industryId, Header: `${t(levelSelected.name)} ID`, width: 200},
+      {id: levelSelected.id, accessor: levelSelected.id, Header: t(levelSelected.name)},
       {id: pciMeasure, accessor: pciMeasure, Header: "PCI"}
     ];
 
-    const dataScatter = dataPCI.map(d => {
-      const item = dataRCA.find(h => h[industryId] === d[industryId]) || {};
-      return {...d, ...item};
-    }).filter(d => d[rcaMeasure] && d[pciMeasure]);
+    // const dataScatter = dataPCI.map(d => {
+    //   const item = dataRCA.find(h => h[industryId] === d[industryId]) || {};
+    //   return {...d, ...item};
+    // }).filter(d => d[rcaMeasure] && d[pciMeasure]);
 
-    const pciValues = dataScatter.map(d => d[pciMeasure]);
-    const rcaValues = dataScatter.map(d => d[rcaMeasure]);
-    const maxPCI = Math.max(...pciValues),
-          maxRCA = Math.max(...rcaValues),
-          minPCI = Math.min(...pciValues);
+    // const pciValues = dataScatter.map(d => d[pciMeasure]);
+    // const rcaValues = dataScatter.map(d => d[rcaMeasure]);
+    // const maxPCI = Math.max(...pciValues),
+    //       maxRCA = Math.max(...rcaValues),
+    //       minPCI = Math.min(...pciValues);
 
     return <div>
+      <Helmet title={t("ECI Explorer.Title")} />
       <Nav
         className={"background"}
         logo={false}
@@ -334,14 +311,17 @@ class ECIExplorer extends React.Component {
 
             <DMXSelect
               callback={cubeItemTemp => {
-                const cubeSelectedTemp = cubes[cubeItemTemp.id];
+                const cubeId = cubeItemTemp.id;
+                const cubeSelectedTemp = cubes[cubeId];
+                console.log(cubeId);
                 this.setState({
                   cubeItemTemp,
                   cubeSelectedTemp,
-                  geoSelected: geoLevels(this.props.lng)[0],
+                  geoSelectedTemp: geoLevels(this.props.lng, cubeId)[0],
+                  isAggTemp: cubeSelectedTemp.isAgg,
+                  levelSelectedTemp: cubeSelectedTemp.levels[0],
                   measureSelectedTemp: cubeSelectedTemp.measures[0],
-                  timeSelectedTemp: cubeSelectedTemp.time[0],
-                  levelSelectedTemp: cubeSelectedTemp.levels[0]
+                  timeSelectedTemp: cubeSelectedTemp.time[0]
                 });
               }}
               items={cubeItems}
@@ -349,7 +329,7 @@ class ECIExplorer extends React.Component {
               title={t("Dataset")}
             />
             <DMXButtonGroup
-              items={geoLevels(lng)}
+              items={geoLevels(lng, this.state.cubeItemTemp.id)}
               selected={geoSelectedTemp}
               title="Geo"
               callback={geoSelectedTemp => this.setState({geoSelectedTemp})}
@@ -358,7 +338,7 @@ class ECIExplorer extends React.Component {
               items={this.state.cubeSelectedTemp.levels}
               selected={levelSelectedTemp}
               callback={levelSelectedTemp => this.setState({levelSelectedTemp})}
-              title={t("Industry Level")}
+              title={t("Level")}
             />
             <DMXSelect
               callback={measureSelectedTemp => this.setState({measureSelectedTemp})}
@@ -367,7 +347,13 @@ class ECIExplorer extends React.Component {
               title={t("Measure")}
             />
             <div className="dmx-slider">
-              <h4 className="title">{geoSelectedTemp.name} con al menos {this.state.thresholdGeo} {measureSelectedTemp.title}</h4>
+              <h4 className="title" dangerouslySetInnerHTML={{
+                __html: t("threshold_eci_explorer", {
+                  level: t(geoSelectedTemp.name),
+                  measure: t(measureSelectedTemp.title)
+                })
+              }} />
+
               <Slider
                 min={100}
                 max={1000}
@@ -378,7 +364,12 @@ class ECIExplorer extends React.Component {
               />
             </div>
             <div className="dmx-slider">
-              <h4 className="title">{levelSelectedTemp.name} con al menos {this.state.thresholdIndustry} {measureSelectedTemp.title}</h4>
+              <h4 className="title" dangerouslySetInnerHTML={{
+                __html: t("threshold_eci_explorer", {
+                  level: t(levelSelectedTemp.name),
+                  measure: t(measureSelectedTemp.title)
+                })
+              }} />
               <Slider
                 min={100}
                 max={1000}
@@ -393,6 +384,11 @@ class ECIExplorer extends React.Component {
               selectedItem={timeSelectedTemp}
               callback={timeSelectedTemp => this.setState({timeSelectedTemp})}
               title={t("Time")}
+            />
+            <Switch
+              checked={this.state.isAggTemp}
+              label={t("Values aggregated")}
+              onChange={() => this.setState({isAggTemp: !this.state.isAggTemp})}
             />
             <button
               onClick={() => this.fetchData()}
@@ -421,7 +417,7 @@ class ECIExplorer extends React.Component {
                   groupBy: [geoId],
                   colorScale: eciMeasure,
                   colorScaleConfig: {
-                    color: ["#00E9BC", "#00C8E4", "#00A4FF", "#007EFF", "#0052EC", "#0000B1"],
+                    color: ["#C1564C", "#FE8A7D", "#FFC2B2", "#FFD687", "#E3C84C", "#99BD16", "#0FB002"],
                     midpoint: 0,
                     scale: "linear"
                   },

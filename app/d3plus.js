@@ -56,6 +56,7 @@ export const findColorV2 = (key, d) => {
   return palette ? colors[key][id] || colors[key][d[key]] || styles["gmx-green-1"] : styles["gmx-green-1"];
 };
 
+// Tooltip title
 export const tooltipTitle = (bgColor, imgUrl, title) => {
   let tooltip = "<div class='d3plus-tooltip-title-wrapper'>";
   if (imgUrl) {
