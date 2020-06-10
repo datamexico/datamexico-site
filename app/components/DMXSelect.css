@@ -1,5 +1,12 @@
 .dmx-selector {
   margin-bottom: var(--gutter-sm);
+  & .dmx-selector-header {
+    display: flex;
+    flex-direction: row;
+    & .dmx-selector-icon {
+      margin-right: 10px;
+    }
+  }
   & .bp3-popover-target {
     width: 100%;
   }
