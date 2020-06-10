@@ -29,7 +29,6 @@ class DMXSelect extends React.Component {
   };
   render() {
     const {disabled, items, popoverPosition, selectedItem, title, icon, t} = this.props;
-    console.log("Selector:", items, selectedItem);
     const {isOpen} = this.state;
     return <div className="dmx-selector">
       <div className="dmx-selector-header">
