@@ -6,6 +6,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  min-height: var(--gutter-md);
   & .cp-button {
     font-size: var(--font-xs);
     flex: 1;
