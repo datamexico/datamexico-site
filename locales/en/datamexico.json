@@ -58,6 +58,18 @@
   "Cities & Places": "Cities & Places",
   "Contributor": "Contributor",
   "Copper Ores and Concentrates": "Copper Ores and Concentrates",
+  "CovidCard": {
+    "Selector Name": "Show Results For",
+    "Source": "Source:",
+    "Stat ID": "Cases reported in",
+    "Graph Date": "Last data update:",
+    "Linear": "Linear",
+    "Logarithmic": "Logarithmic",
+    "Overview": "Overview",
+    "Stat1": "New cases",
+    "Stat2": "Deaths",
+    "Stat3": "Confirmed cases"
+  },
   "ECI Explorer": {
     "Build ECI / PCI": "Build ECI / PCI",
     "Description": "Explore different Economic Complexity indicators for Mexico.",

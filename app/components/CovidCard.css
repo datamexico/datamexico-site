@@ -2,6 +2,8 @@
 
 :root {
   --font-color-grey: #898888ff;
+  --font-color-green: #325a4fff;
+  --font-color-red: #622232ff;
   --font-color-yellow: #b69664ff;
   --font-weight-normal: 400;
   --font-weight-bold: 600;
@@ -16,20 +18,12 @@
     color: #5c6d7eff;
     padding: var(--gutter-md) var(--gutter-md);
 
+    /* CovidCard Description */
     & .covid-card-description {
-      width: 30%;
       & .covid-card-description-headline {
-        color: var(--font-color-grey);
-        font-size: var(--font-lg);
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: var(--letter-spacing-text);
         margin-bottom: var(--gutter-xs);
       }
       & .covid-card-description-title {
-        color: var(--font-color-yellow);
-        font-size: var(--font-xl);
-        letter-spacing: var(--letter-spacing-title);
         margin-bottom: var(--gutter-md);
       }
       & .covid-card-description-selector {
@@ -50,54 +44,35 @@
         }
       }
       & .covid-card-description-stat {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         background: #f9f9f9ff;
+        justify-content: center;
         border-radius: 10px;
-        padding: var(--gutter-sm) 0;
-        margin: 0 var(--gutter-sm);
         margin-bottom: var(--gutter-md);
         & .stat-text {
           & .stat {
-            color: #325a4fff;
+            color: var(--font-color-green);
             font-size: var(--font-xxl);
             font-weight: 900;
           }
-          & h5 {
-            font-size: var(--font-sm);
-            letter-spacing: var(--letter-spacing-text);
-            & .id {
-              font-weight: 900;
-              color: #622232ff;
-            }
+          & .id {
+            font-weight: 900;
+            color: var(--font-color-red);
           }
         }
       }
       & .covid-card-description-text {
-        font-weight: 500;
-        letter-spacing: var(--letter-spacing-text);
         margin-bottom: var(--gutter-md);
       }
       & .covid-card-description-source {
         display: flex;
         flex-direction: row;
         align-items: baseline;
-        color: #325a4fff;
-        & span {
-          font-weight: 600;
-          font-size: var(--font-xs);
-          letter-spacing: var(--letter-spacing-text);
-        }
-        & h6 {
-          font-size: var(--font-xs);
-          letter-spacing: var(--letter-spacing-text);
-          padding-left: 0.4em;
-        }
+        color: var(--font-color-green);
       }
     }
+
+    /* CovidCard Graph Div*/
     & .covid-card-graph {
-      width: 70%;
       padding-left: var(--gutter-lg);
       & .covid-card-graph-box {
         border: 1px solid #c7c7c8ff;
@@ -109,15 +84,10 @@
           & .covid-card-graph-box-header-text {
             flex-grow: 2;
             & h3 {
-              color: var(--font-color-grey);
-              font-size: var(--font-xl);
-              font-weight: var(--font-weight-bold);
-              letter-spacing: var(--letter-spacing-text);
+              font-size: var(--font-md);
             }
             & h4 {
-              color: var(--font-color-yellow);
-              font-size: var(--font-md);
-              letter-spacing: var(--letter-spacing-text);
+              font-size: var(--font-xl);
             }
           }
           & .covid-card-graph-box-header-buttons {

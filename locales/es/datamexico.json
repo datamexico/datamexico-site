@@ -184,6 +184,10 @@
     "Stat ID": "Casos reportados en",
     "Graph Date": "Última actualización de datos:",
     "Linear": "Lineal",
-    "Logarithmic": "Logaritmica"
+    "Logarithmic": "Logaritmica",
+    "Overview": "Resumen",
+    "Stat1": "Casos nuevos",
+    "Stat2": "Muertes",
+    "Stat3": "Casos confirmados"
   }
 }

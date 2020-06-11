@@ -7,6 +7,7 @@ import {withNamespaces} from "react-i18next";
 
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
+import CovidHero from "../../components/CovidHero";
 import CovidCard from "../../components/CovidCard";
 
 import "./Covid.css";
@@ -33,8 +34,14 @@ class Covid extends Component {
         routePath={"/:lang"}
         title={""}
       />
-      <div className="covid-header container">
-        <h2>Covid Header</h2>
+      <div className="covid-header">
+        <CovidHero
+          stats={[
+            {name: "CovidCard.Stat1", value: "3593", icon: "/"},
+            {name: "CovidCard.Stat2", value: "13699", icon: "/"},
+            {name: "CovidCard.Stat3", value: "117103", icon:"/"}
+          ]}
+        />
       </div>
       <div className="covid-body container">
         <CovidCard

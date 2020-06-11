@@ -1,0 +1,15 @@
+@import "helpers/mixins.css";
+
+.covid-hero-wrapper {
+  & .covid-hero-country-stats {
+    background-color: #eff2f2ff;
+    & .covid-hero-country-stats-overview {
+      background-color: #FFFFFF;
+      border: 1px solid #c7c7c8ff;
+      margin: var(--gutter-lg) var(--gutter-lg);
+      padding: var(--gutter-md) var(--gutter-md);
+    }
+    & .covid-hero-country-stats-map {
+    }
+  }
+}

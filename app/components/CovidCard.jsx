@@ -8,7 +8,7 @@ import DMXSelect from "./DMXSelect";
 
 import "./CovidCard.css";
 
-export class CovidCard extends Component {
+class CovidCard extends Component {
   render() {
     const {t, headline, title, stat, text, source, graph} = this.props;
 
@@ -22,8 +22,8 @@ export class CovidCard extends Component {
 
     return (
       <div className="covid-card-wrapper">
-        <div className="covid-card">
-          <div className="covid-card-description">
+        <div className="covid-card covid-columns">
+          <div className="covid-card-description covid-column-30">
             <h4 className="covid-card-description-headline">{headline}</h4>
             <h3 className="covid-card-description-title">{title}</h3>
             <div className="covid-card-description-selector">
@@ -35,7 +35,7 @@ export class CovidCard extends Component {
                 icon={"/"}
               />
             </div>
-            <div className="covid-card-description-stat">
+            <div className="covid-card-description-stat covid-stat">
               <img src="/" alt="stat-icon" />
               <div className="stat-text">
                 <span className="stat">{stat.value}</span>
@@ -48,12 +48,12 @@ export class CovidCard extends Component {
               <h6>{source}</h6>
             </div>
           </div>
-          <div className="covid-card-graph">
+          <div className="covid-card-graph covid-column-70">
             <div className="covid-card-graph-box">
               <div className="covid-card-graph-box-header">
                 <div className="covid-card-graph-box-header-text">
-                  <h3>{graph.title}</h3>
-                  <h4>{t("CovidCard.Graph Date")} {graph.date}</h4>
+                  <h4>{graph.title}</h4>
+                  <h3>{t("CovidCard.Graph Date")} {graph.date}</h3>
                 </div>
                 <div className="covid-card-graph-box-header-buttons">
                   <DMXButtonGroup
