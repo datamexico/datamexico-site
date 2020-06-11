@@ -1,28 +1,138 @@
 @import "helpers/mixins.css";
 
-.covid-card {
-  display: flex;
-  flex-direction: column;
+:root {
+  --font-color-grey: #898888ff;
+  --font-color-yellow: #b69664ff;
+  --font-weight-normal: 400;
+  --font-weight-bold: 600;
+  --letter-spacing-text: -1px;
+  --letter-spacing-title: -3px;
+}
 
-  & .covid-card-header {
-    min-height: var(--gutter-lg);
-  }
-
-  & .covid-card-body {
-    min-height: var(--gutter-xl);
+.covid-card-wrapper {
+  & .covid-card {
     display: flex;
     flex-direction: row;
+    color: #5c6d7eff;
+    padding: var(--gutter-md) var(--gutter-md);
 
-    & .card-body-options {
-      width: 33%
+    & .covid-card-description {
+      width: 30%;
+      & .covid-card-description-headline {
+        color: var(--font-color-grey);
+        font-size: var(--font-lg);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: var(--letter-spacing-text);
+        margin-bottom: var(--gutter-xs);
+      }
+      & .covid-card-description-title {
+        color: var(--font-color-yellow);
+        font-size: var(--font-xl);
+        letter-spacing: var(--letter-spacing-title);
+        margin-bottom: var(--gutter-md);
+      }
+      & .covid-card-description-selector {
+        margin: 0 var(--gutter-sm);
+        margin-bottom: var(--gutter-md);
+        & .dmx-selector-header {
+          & h6 {
+            letter-spacing: var(--letter-spacing-text);
+          }
+        }
+        & .dmx-selector-button {
+          border-radius: 10px;
+          & .bp3-button-text {
+            color: #5c6d7eff;
+            font-size: var(--font-sm);
+            letter-spacing: var(--letter-spacing-text);
+          }
+        }
+      }
+      & .covid-card-description-stat {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f9f9f9ff;
+        border-radius: 10px;
+        padding: var(--gutter-sm) 0;
+        margin: 0 var(--gutter-sm);
+        margin-bottom: var(--gutter-md);
+        & .stat-text {
+          & .stat {
+            color: #325a4fff;
+            font-size: var(--font-xxl);
+            font-weight: 900;
+          }
+          & h5 {
+            font-size: var(--font-sm);
+            letter-spacing: var(--letter-spacing-text);
+            & .id {
+              font-weight: 900;
+              color: #622232ff;
+            }
+          }
+        }
+      }
+      & .covid-card-description-text {
+        font-weight: 500;
+        letter-spacing: var(--letter-spacing-text);
+        margin-bottom: var(--gutter-md);
+      }
+      & .covid-card-description-source {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        color: #325a4fff;
+        & span {
+          font-weight: 600;
+          font-size: var(--font-xs);
+          letter-spacing: var(--letter-spacing-text);
+        }
+        & h6 {
+          font-size: var(--font-xs);
+          letter-spacing: var(--letter-spacing-text);
+          padding-left: 0.4em;
+        }
+      }
     }
-
-    & .card-body-visualizations {
-      width: 67%;
+    & .covid-card-graph {
+      width: 70%;
+      padding-left: var(--gutter-lg);
+      & .covid-card-graph-box {
+        border: 1px solid #c7c7c8ff;
+        padding: var(--gutter-md) var(--gutter-md);
+        & .covid-card-graph-box-header {
+          display: flex;
+          flex-direction: row;
+          margin-bottom: var(--gutter-md);
+          & .covid-card-graph-box-header-text {
+            flex-grow: 2;
+            & h3 {
+              color: var(--font-color-grey);
+              font-size: var(--font-xl);
+              font-weight: var(--font-weight-bold);
+              letter-spacing: var(--letter-spacing-text);
+            }
+            & h4 {
+              color: var(--font-color-yellow);
+              font-size: var(--font-md);
+              letter-spacing: var(--letter-spacing-text);
+            }
+          }
+          & .covid-card-graph-box-header-buttons {
+            flex-grow: 1;
+            & .dmx-button-group {
+              height: 100%;
+              padding: 0.4rem 0;
+              margin: 0;
+            }
+          }
+        }
+        & .covid-card-graph-box-viz {
+          height: 400px;
+        }
+      }
     }
-  }
-
-  & .covid-card-footer {
-    min-height: var(--gutter-md);
   }
 }

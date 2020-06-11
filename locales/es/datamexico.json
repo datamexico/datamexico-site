@@ -177,5 +177,13 @@
     "Download PCI dataset": "Descargar PCI",
     "Title": "Explorador ECI",
     "ECI Title": "Índice de Complejidad Económica (ECI) ({{time}})"
+  },
+  "CovidCard": {
+    "Selector Name": "Ver Resultados Para",
+    "Source": "Fuente:",
+    "Stat ID": "Casos reportados en",
+    "Graph Date": "Última actualización de datos:",
+    "Linear": "Lineal",
+    "Logarithmic": "Logaritmica"
   }
 }

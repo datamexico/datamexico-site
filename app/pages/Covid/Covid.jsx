@@ -13,7 +13,16 @@ import "./Covid.css";
 
 class Covid extends Component {
   render() {
-    return <div className="covid">
+    const exampleData = [
+      {id: "alpha", x: 4, y: 7},
+      {id: "alpha", x: 5, y: 25},
+      {id: "alpha", x: 6, y: 13},
+      {id: "beta", x: 4, y: 17},
+      {id: "beta", x: 5, y: 8},
+      {id: "beta", x: 6, y: 13}
+    ];
+
+    return <div className="covid-page">
       <Helmet title="Coronavirus">
         <meta property="og:title" content={"Coronavirus"} />
       </Helmet>
@@ -24,11 +33,54 @@ class Covid extends Component {
         routePath={"/:lang"}
         title={""}
       />
-      <div className="covid-header">
-        <h1>Covid</h1>
+      <div className="covid-header container">
+        <h2>Covid Header</h2>
       </div>
-      <div className="covid-container container">
-        <CovidCard />
+      <div className="covid-body container">
+        <CovidCard
+          headline={"Casos Reportados"}
+          title={"¿Cómo crece el número de casos positivos en México?"}
+          stat={{
+            value: 28500,
+            id: "Ciudad de México"
+          }}
+          text={<p>
+            Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
+          </p>}
+          source={"Datos proveídos por el Gobierno de México."}
+          graph={{
+            title: "Casos totales confirmados por día",
+            date: "08 Junio 2020, 4pm CEST",
+            type: "LinePlot",
+            config: {
+              data: exampleData,
+              groupBy: "id",
+              height: 400
+            }
+          }}
+        />
+        <CovidCard
+          headline={"Casos Reportados"}
+          title={"¿Cómo crece el número de casos positivos en México?"}
+          stat={{
+            value: 28500,
+            id: "Ciudad de México"
+          }}
+          text={<p>
+            Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
+          </p>}
+          source={"Datos proveídos por el Gobierno de México."}
+          graph={{
+            title: "Casos totales confirmados por día",
+            date: "08 Junio 2020, 4pm CEST",
+            type: "LinePlot",
+            config: {
+              data: exampleData,
+              groupBy: "id",
+              height: 400
+            }
+          }}
+        />
       </div>
       <Footer />
     </div>;
