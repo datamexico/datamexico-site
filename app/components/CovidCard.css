@@ -55,8 +55,8 @@
             font-weight: 900;
           }
           & .id {
-            font-weight: 900;
             color: var(--font-color-red);
+            font-weight: 900;
           }
         }
       }

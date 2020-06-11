@@ -8,6 +8,15 @@
       border: 1px solid #c7c7c8ff;
       margin: var(--gutter-lg) var(--gutter-lg);
       padding: var(--gutter-md) var(--gutter-md);
+      & .covid-hero-country-stats-stat {
+        & .stat-text {
+          color: #5c6d7eff;
+          & .stat {
+            font-size: var(--font-xl);
+            font-weight: 400;
+          }
+        }
+      }
     }
     & .covid-hero-country-stats-map {
     }
