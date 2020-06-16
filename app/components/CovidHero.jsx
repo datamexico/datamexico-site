@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {withNamespaces} from "react-i18next";
-import {LinePlot} from "d3plus-react";
+import {Geomap} from "d3plus-react";
 
 import "./CovidHero.css";
 
 class CovidHero extends Component {
   render() {
-    const {stats, t} = this.props;
+    const {stats, geomapData, t} = this.props;
 
     return (
       <div className="covid-hero-wrapper">
@@ -25,7 +25,20 @@ class CovidHero extends Component {
             ))}
           </div>
           <div className="covid-hero-country-stats-map covid-column-70">
-            Country Stats Map
+            <Geomap
+              config={{
+                data: geomapData,
+                groupBy: ["State ID", "Positive SARS-CoV-2"],
+                height: 400,
+                legend: false,
+                total: false,
+                ocean: "transparent",
+                topojson: "/topojson/Entities.json",
+                topojsonId: d => d.ent_id,
+                topojsonFill: d => !d["Country ID"] && "#ffffff",
+                zoom: false
+              }}
+            />
           </div>
         </div>
       </div >

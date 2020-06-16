@@ -354,7 +354,7 @@ p:last-of-type {
 }
 
 /* Covid-19 Page*/
-.covid-page {
+.covid-site {
   & h3 {
     color: #b69664ff;
     font-size: var(--font-xl);
@@ -391,6 +391,7 @@ p:last-of-type {
     letter-spacing: -1px;
   }
 }
+
 .covid-columns {
   display: flex;
   flex-direction: columns;
