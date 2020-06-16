@@ -145,6 +145,7 @@ const axisConfig = {
   // axis title labels
   titleConfig: {
     fontFamily: () => typeface,
+    fontSize: () => fontSizeLg,
     fontColor: headingFontColor
   },
   // value labels
@@ -190,8 +191,9 @@ export default {
   legendConfig: {
     label: "",
     shapeConfig: {
-      fill: d => findColor(d),
-      backgroundImage(d) {
+      // fill: d => findColor(d),
+      backgroundImage(d, i) {
+        // console.log(this._configDefault.groupBy[0](d));
         return findIcon(d);
       },
       width: shapeLegend,
