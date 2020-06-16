@@ -1,46 +1,29 @@
 const axios = require("axios");
 
 const BASE_URL = "/api/covid";
-const COVID_DAY_ACTUAL = "https://api.datamexico.org/tesseract/data.jsonrecords?Updated+Date=20200610&cube=gobmx_covid&drilldowns=Covid+Result%2CIs+Dead&measures=Cases&parents=false&sparse=false";
-const COVID_DAY_BEFORE = "https://api.datamexico.org/tesseract/data.jsonrecords?Updated+Date=20200609&cube=gobmx_covid&drilldowns=Covid+Result%2CIs+Dead&measures=Cases&parents=false&sparse=false";
-const COVID_ACTUAL_STATES = "https://api.datamexico.org/tesseract/data.jsonrecords?Updated+Date=20200610&cube=gobmx_covid&drilldowns=Covid+Result%2CState&measures=Cases&parents=false&sparse=false";
 
 module.exports = function (app) {
   app.get(BASE_URL, async (req, res) => {
     try {
-      await axios.all([axios.get(COVID_DAY_ACTUAL), axios.get(COVID_DAY_BEFORE), axios.get(COVID_ACTUAL_STATES)]).then(
-        axios.spread((resp1, resp2, resp3) => {
-          const data_actual = resp1.data.data;
-          const data_before = resp2.data.data;
+      const MEMBERS = "https://api.datamexico.org/tesseract/members?cube=gobmx_covid&level=Updated%20Date";
+      let date = {};
+      await axios.get(MEMBERS).then(resp => {
+        const today = resp.data.data.reverse()[0];
+        date["Reported Date ID"] = today["ID"];
+        date["Reported Date"] = today["Label"];
+      });
 
-          const data_actual_positive = [...new Set(data_actual.filter(d => d["Covid Result ID"] === 1))].reduce((acc, item) => acc += item["Cases"], 0);
-          const data_actual_nonpositive = [...new Set(data_actual.filter(d => d["Covid Result ID"] === 2))].reduce((acc, item) => acc += item["Cases"], 0);
-          const data_actual_pending = [...new Set(data_actual.filter(d => d["Covid Result ID"] === 3))].reduce((acc, item) => acc += item["Cases"], 0);
-          const data_actual_notdead = [...new Set(data_actual.filter(d => d["Is Dead ID"] === 0))].reduce((acc, item) => acc += item["Cases"], 0);
-          const data_actual_dead = [...new Set(data_actual.filter(d => d["Is Dead ID"] === 1))].reduce((acc, item) => acc += item["Cases"], 0);
+      const COVID_ACTUAL_COUNTRY = `https://api.datamexico.org/tesseract/data.jsonrecords?Reported+Date=${date["Reported Date ID"]}&cube=gobmx_covid_stats&drilldowns=Reported+Date%2CNation&measures=Daily+Cases%2CDaily+Deaths%2CAccum+Cases%2CAccum+Deaths%2CAVG+7+Days+Daily+Cases%2CAVG+7+Days+Accum+Cases%2CAVG+7+Days+Daily+Deaths%2CAVG+7+Days+Accum+Deaths%2CCases+Day%2CDeaths+Day%2CCases+last+7+Days%2CDeaths+last+7+Days&parents=false&sparse=false`;
+      const COVID_ACTUAL_STATES = `https://api.datamexico.org/tesseract/data.jsonrecords?Reported+Date=${date["Reported Date ID"]}&cube=gobmx_covid_stats&drilldowns=Reported+Date%2CState&measures=Daily+Cases%2CDaily+Deaths%2CAccum+Cases%2CAccum+Deaths%2CAVG+7+Days+Daily+Cases%2CAVG+7+Days+Accum+Cases%2CAVG+7+Days+Daily+Deaths%2CAVG+7+Days+Accum+Deaths%2CCases+Day%2CDeaths+Day%2CCases+last+7+Days%2CDeaths+last+7+Days&parents=false&sparse=false`;
 
-          const data_before_positive = [...new Set(data_before.filter(d => d["Covid Result ID"] === 1))].reduce((acc, item) => acc += item["Cases"], 0);
-          const data_before_nonpositive = [...new Set(data_before.filter(d => d["Covid Result ID"] === 2))].reduce((acc, item) => acc += item["Cases"], 0);
-          const data_before_pending = [...new Set(data_before.filter(d => d["Covid Result ID"] === 3))].reduce((acc, item) => acc += item["Cases"], 0);
-          const data_before_notdead = [...new Set(data_before.filter(d => d["Is Dead ID"] === 0))].reduce((acc, item) => acc += item["Cases"], 0);
-          const data_before_dead = [...new Set(data_before.filter(d => d["Is Dead ID"] === 1))].reduce((acc, item) => acc += item["Cases"], 0);
-
-          const summary = {
-            "Total Positive": data_actual_positive,
-            "Total Non Positive": data_actual_nonpositive,
-            "Total Pending": data_actual_pending,
-            "Total Not Dead": data_actual_notdead,
-            "Total Dead": data_actual_dead,
-            "New Positive": data_actual_positive - data_before_positive,
-            "New Non Positive": data_actual_nonpositive - data_before_nonpositive,
-            "New Pending": data_actual_pending - data_before_pending,
-            "New Not Dead": data_actual_notdead - data_before_notdead,
-            "New Dead": data_actual_dead - data_before_dead
-          };
+      await axios.all([axios.get(COVID_ACTUAL_COUNTRY), axios.get(COVID_ACTUAL_STATES)]).then(
+        axios.spread((resp1, resp2) => {
+          const data_country = resp1.data.data;
+          const data_state = resp2.data.data;
 
           res.json({
-            summary: summary,
-            geodata: resp3.data.data
+            data_country,
+            data_state
           });
         })
       );

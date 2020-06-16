@@ -1,14 +1,35 @@
 @import "helpers/mixins.css";
 
 .covid-hero-wrapper {
-  & .covid-hero-country-stats {
+  & .covid-hero-header {
+    display: flex;
+    align-items: center;
+    padding: var(--gutter-lg) var(--gutter-lg);
+    & .covid-hero-header-flag {
+      width: 3rem;
+      margin-right: var(--gutter-sm);
+    }
+    & .covid-hero-header-text {
+      & h4 {
+
+      }
+      & h3 {
+        font-size: var(--font-xs);
+      }
+    }
+  }
+  & .covid-hero-stats {
     background-color: #eff2f2ff;
-    & .covid-hero-country-stats-overview {
+    padding: var(--gutter-lg) var(--gutter-lg);
+    & .covid-hero-stats-overview {
       background-color: #FFFFFF;
       border: 1px solid #c7c7c8ff;
-      margin: var(--gutter-lg) var(--gutter-lg);
       padding: var(--gutter-md) var(--gutter-md);
-      & .covid-hero-country-stats-stat {
+      margin-right: var(--gutter-md);
+      & .covid-hero-stats-stat {
+        & img {
+          width: 4em;
+        }
         & .stat-text {
           color: #5c6d7eff;
           & .stat {
@@ -18,7 +39,18 @@
         }
       }
     }
-    & .covid-hero-country-stats-map {
+    & .covid-hero-stats-map {
+      margin-left: var(--gutter-md);
+      & .covid-hero-stats-map-buttons {
+        display: flex;
+        justify-content: flex-end;
+        & .dmx-button-group {
+          width: 30%;
+        }
+      }
+      & .covid-hero-stats-map-viz {
+        width: 100%;
+      }
     }
   }
 }

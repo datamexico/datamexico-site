@@ -390,6 +390,12 @@ p:last-of-type {
     font-weight: 500;
     letter-spacing: -1px;
   }
+
+  & .dmx-button-group {
+    background: #FFFFFF;
+    height: 2.5rem;
+    margin: 0;
+  }
 }
 
 .covid-columns {

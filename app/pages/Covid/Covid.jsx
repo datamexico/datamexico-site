@@ -17,17 +17,17 @@ class Covid extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      _dataLoaded: false,
-      summary: null,
-      geodata: null
+      data_country: null,
+      data_state: null,
+      _dataLoaded: false
     };
   }
 
   fetchData = () => {
     axios.get("/api/covid").then(resp => {
       this.setState({
-        summary: resp.data.summary,
-        geodata: resp.data.geodata,
+        data_country: resp.data.data_country,
+        data_state: resp.data.data_state,
         _dataLoaded: true
       })
     });
@@ -35,8 +35,7 @@ class Covid extends Component {
 
   render() {
     const {t} = this.props;
-    const {_dataLoaded, summary, geodata} = this.state;
-    console.log(summary, geodata);
+    const {data_country, data_state, _dataLoaded} = this.state;
 
     const exampleData = [
       {id: "alpha", x: 4, y: 7},
@@ -80,12 +79,13 @@ class Covid extends Component {
         <div className="covid-site">
           <div className="covid-header">
             <CovidHero
-              stats={[
-                {name: "CovidCard.Stat1", value: summary["New Positive"], icon: "/"},
-                {name: "CovidCard.Stat2", value: summary["Total Dead"], icon: "/"},
-                {name: "CovidCard.Stat3", value: summary["Total Positive"], icon: "/"}
+              data_country={data_country}
+              data_state={data_state}
+              timeSelector={[
+                {name: t("CovidCard.Today"), id: "Today"},
+                {name: t("CovidCard.Week"), id: "Week"},
+                {name: t("CovidCard.Historical"), id: "Historical"}
               ]}
-              geomapData={geodata}
             />
           </div>
           <div className="covid-body container">

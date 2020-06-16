@@ -92,11 +92,6 @@
           }
           & .covid-card-graph-box-header-buttons {
             flex-grow: 1;
-            & .dmx-button-group {
-              height: 100%;
-              padding: 0.4rem 0;
-              margin: 0;
-            }
           }
         }
         & .covid-card-graph-box-viz {

@@ -66,9 +66,14 @@
     "Linear": "Linear",
     "Logarithmic": "Logarithmic",
     "Overview": "Overview",
-    "Stat1": "New cases",
-    "Stat2": "Deaths",
-    "Stat3": "Confirmed cases"
+    "Historical": "Historical",
+    "Week": "Last Week",
+    "Today": "Today",
+    "Stats": {
+      "Cases": "New cases",
+      "Dead": "Deaths",
+      "Total": "Confirmed cases"
+    }
   },
   "ECI Explorer": {
     "Build ECI / PCI": "Build ECI / PCI",

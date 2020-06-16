@@ -186,8 +186,13 @@
     "Linear": "Lineal",
     "Logarithmic": "Logaritmica",
     "Overview": "Resumen",
-    "Stat1": "Casos nuevos",
-    "Stat2": "Muertes",
-    "Stat3": "Casos confirmados"
+    "Total": "Total",
+    "Week": "Semana Pasada",
+    "Day": "Hoy",
+    "Stats": {
+      "Cases": "Casos nuevos",
+      "Dead": "Muertes",
+      "Total": "Casos confirmados"
+    }
   }
 }
