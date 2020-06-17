@@ -17,8 +17,11 @@ class Covid extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      states: null,
       data_country: null,
       data_state: null,
+      data_country_historical: null,
+      data_state_historical: null,
       _dataLoaded: false
     };
   }
@@ -26,8 +29,11 @@ class Covid extends Component {
   fetchData = () => {
     axios.get("/api/covid").then(resp => {
       this.setState({
+        states: resp.data.states,
         data_country: resp.data.data_country,
         data_state: resp.data.data_state,
+        data_country_historical: resp.data.data_country_historical,
+        data_state_historical: resp.data.data_state_historical,
         _dataLoaded: true
       })
     });
@@ -35,7 +41,14 @@ class Covid extends Component {
 
   render() {
     const {t} = this.props;
-    const {data_country, data_state, _dataLoaded} = this.state;
+    const {
+      states,
+      data_country,
+      data_state,
+      data_country_historical,
+      data_state_historical,
+      _dataLoaded
+    } = this.state;
 
     const exampleData = [
       {id: "alpha", x: 4, y: 7},
@@ -48,20 +61,7 @@ class Covid extends Component {
 
     if (!_dataLoaded) {
       this.fetchData();
-      return <div>
-        <Helmet title="Coronavirus">
-          <meta property="og:title" content={"Coronavirus"} />
-        </Helmet>
-        <Nav
-          className={"background"}
-          logo={false}
-          routeParams={this.props.router.params}
-          routePath={"/:lang"}
-          title={""}
-        />
-        <Loading />
-        <Footer />
-      </div>;
+      return <Loading />
     }
 
     if (_dataLoaded) {
@@ -102,16 +102,31 @@ class Covid extends Component {
               </p>,
                 source: "Datos proveídos por el Gobierno de México."
               }}
-              selectOptions={[{name: "Option 1", id: "option_1"}, {name: "Option 2", id: "option_2"}]}
-              groupOptions={[{name: t("CovidCard.Linear"), id: "option_1"}, {name: t("CovidCard.Logarithmic"), id: "option_2"}]}
+              selectOptions={states}
+              groupOptions={[{name: t("CovidCard.Linear"), id: "linear"}, {name: t("CovidCard.Logarithmic"), id: "log"}]}
+              countryData={data_country_historical}
+              statesData={data_state_historical}
+              limitData={14}
+              statID={"Accum Cases"}
               graph={{
                 title: "Casos totales confirmados por día",
                 date: "08 Junio 2020, 4pm CEST",
                 type: "LinePlot",
                 config: {
-                  data: exampleData,
-                  groupBy: "id",
-                  height: 400
+                  groupBy: "State ID",
+                  height: 400,
+                  x: "Reported Date ID",
+                  y: "Daily Cases",
+                  sum: "Daily Cases",
+                  tooltipConfig: {
+                    title: d => "test",
+                    tbody: [
+                      ["Daily Cases", d => d["Daily Cases"]],
+                      ["Accum Cases", d => d["Accum Cases"]],
+                      ["Date", d => d["Reported Date"]]
+                    ],
+                    width: "200px"
+                  },
                 }
               }}
             />

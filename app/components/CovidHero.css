@@ -11,11 +11,18 @@
     }
     & .covid-hero-header-text {
       & h4 {
-
+        font-weight: 400;
       }
       & h3 {
         font-size: var(--font-xs);
       }
+    }
+  }
+  & .covid-hero-buttons {
+    display: flex;
+    justify-content: flex-end;
+    & .dmx-button-group {
+      width: 30%;
     }
   }
   & .covid-hero-stats {
@@ -41,13 +48,6 @@
     }
     & .covid-hero-stats-map {
       margin-left: var(--gutter-md);
-      & .covid-hero-stats-map-buttons {
-        display: flex;
-        justify-content: flex-end;
-        & .dmx-button-group {
-          width: 30%;
-        }
-      }
       & .covid-hero-stats-map-viz {
         width: 100%;
       }

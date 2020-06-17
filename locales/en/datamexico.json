@@ -58,6 +58,25 @@
   "Cities & Places": "Cities & Places",
   "Contributor": "Contributor",
   "Copper Ores and Concentrates": "Copper Ores and Concentrates",
+  "Covid": {
+    "Overview": "Overview",
+    "Stats": {
+      "Daily Cases": "Daily Cases",
+      "Daily Deaths": "Daily Deaths",
+      "Cases last 7 Days": "Cases last 7 Days",
+      "Deaths last 7 Days": "Deaths last 7 Days",
+      "Accum Cases": "Accum Cases",
+      "Accum Deaths": "Accum Deaths",
+      "Description": {
+        "Today 1": "There have been at least {{value}} confirmed cases of coronavirus in Mexico today, according to the Agency National Science and Technology.",
+        "Today 2": "Today, {{value}} people had died in the country.",
+        "Week 1": "There have been at least {{value}} confirmed cases of coronavirus in Mexico this week, according to the Agency National Science and Technology.",
+        "Week 2": "This week, {{value}} people had died in the country.",
+        "Historical 1": "There have been at least {{value}} confirmed cases of coronavirus in Mexico, according to the Agency National Science and Technology.",
+        "Historical 2": "{{value}} people had died in the country."
+      }
+    }
+  },
   "CovidCard": {
     "Selector Name": "Show Results For",
     "Source": "Source:",

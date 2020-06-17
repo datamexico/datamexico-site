@@ -393,8 +393,15 @@ p:last-of-type {
 
   & .dmx-button-group {
     background: #FFFFFF;
-    height: 2.5rem;
+    height: 2rem;
     margin: 0;
+  }
+
+  & .covid-data-source {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    color: #325a4fff;
   }
 }
 
