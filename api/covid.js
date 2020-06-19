@@ -23,8 +23,9 @@ module.exports = function (app) {
           const locations = resp1.data.data.filter(d => d["Label"] !== "No Informado");
           locations.forEach(d => {
             d["Division"] = "State"
+            d["Icon"] = `/icons/visualizations/State/png/white/${d["ID"]}.png`
           });
-          locations.unshift({ID: 0, Label: "México", Division: "Country"});
+          locations.unshift({ID: 0, Label: "México", Division: "Country", Icon: "/icons/visualizations/Country/country_mex.png"});
           /*
           states.forEach(d => {
             d["id"] = d["ID"];

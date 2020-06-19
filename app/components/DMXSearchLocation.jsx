@@ -3,6 +3,7 @@ import {InputGroup, Icon, Spinner, Popover, PopoverPosition, PopoverInteractionK
 import {Delete} from "@blueprintjs/icons";
 
 import {stringNormalizer} from "../helpers/funcs";
+import colors from "../../static/data/colors.json";
 
 import "./DMXSearchLocation.css";
 
@@ -30,6 +31,7 @@ export class DMXSearchLocation extends Component {
         {filterLocations.length > 0
           ? filterLocations.map(d =>
             <div className="dmx-search-results-option" onClick={() => this.props.selectDefaultLocation(d)}>
+              <img src={d.Icon} className="option-icon" style={{backgroundColor: colors.State[d.ID] ? colors.State[d.ID] : null}} />
               <span className="option-name">{`${d.Label}`}</span>
               <span className="option-division">{`${d.Division}`}</span>
             </div>
@@ -45,14 +47,13 @@ export class DMXSearchLocation extends Component {
   render() {
     const {filterValue, isOpen} = this.state;
 
-    const maybeSpinner = filterValue ? <Icon icon="delete" iconSize={16} onClick={() => this.setState({filterValue: ""})}/> : undefined;
+    const maybeSpinner = filterValue ? <Icon icon="delete" iconSize={16} onClick={() => this.setState({filterValue: ""})} /> : undefined;
     const filterLocationResults = this.filterLocationResult(filterValue);
-
     return (
       <div className="dmx-search-location">
         <Popover
           defaultIsOpen={false}
-          isOpen={isOpen}
+          isOpen={true}
           position={PopoverPosition.BOTTOM}
           content={filterLocationResults}
           captureDismiss={true}

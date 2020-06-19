@@ -7,9 +7,15 @@
   overflow: scroll;
 
   & .dmx-search-results-option {
+    display: flex;
+    align-items: center;
     padding: var(--gutter-xs) var(--gutter-sm);
-
+    & .option-icon {
+      height: 2em;
+      margin-right: var(--gutter-xs);
+    }
     & .option-name {
+      flex-grow: 1;
       font-size: var(--font-sm);
     }
     & .option-division {
