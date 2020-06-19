@@ -23,11 +23,11 @@ class CovidCard extends Component {
   }
 
   render() {
-    const {t, description, selectOptions, groupOptions, countryData, statesData, limitData, statID, graph} = this.props;
+    const {t, description, selectOptions, groupOptions, countryData, statesData, limitData, statID, graph, data_date} = this.props;
     const {selectValue, groupValue} = this.state;
 
-    const selectedData = selectValue["id"] === 0 ? countryData.slice(-limitData) : statesData.filter(d => d["State ID"] === selectValue["id"]).slice(-limitData);
-    const selectedStat = {value: selectedData.slice(-1)[0][statID], place: selectValue["name"]};
+    const selectedData = selectValue["ID"] === 0 ? countryData.slice(-limitData) : statesData.filter(d => d["State ID"] === selectValue["ID"]).slice(-limitData);
+    const selectedStat = {value: selectedData.slice(-1)[0][statID], place: selectValue["Label"]};
 
     let viz = null;
     graph.config["data"] = selectedData;
@@ -45,17 +45,15 @@ class CovidCard extends Component {
         <div className="covid-card-description covid-column-30">
           <h4 className="covid-card-description-headline">{description.headline}</h4>
           <h3 className="covid-card-description-title">{description.title}</h3>
-          <div className="covid-card-description-selector">
-            <DMXSelect
-              callback={selectValue => this.setState({selectValue})}
-              items={selectOptions}
-              selectedItem={selectValue}
-              title={t("CovidCard.Selector Name")}
-              icon={"/"}
+          <div className="covid-card-description-buttons">
+            <DMXButtonGroup
+              callback={groupValue => this.setState({groupValue})}
+              items={groupOptions}
+              selectedItem={groupValue}
             />
           </div>
           <div className="covid-card-description-stat covid-stat">
-            <img src="/" alt="stat-icon" />
+            <img src="/icons/visualizations/covid/reportados-icon.png" alt="stat-icon" />
             <div className="stat-text">
               <span className="stat">{selectedStat.value}</span>
               <h5>{t("CovidCard.Stat ID")} <span className="id">{selectedStat.place}</span></h5>
@@ -73,14 +71,7 @@ class CovidCard extends Component {
             <div className="covid-card-graph-box-header">
               <div className="covid-card-graph-box-header-text">
                 <h4>{graph.title}</h4>
-                <h3>{t("CovidCard.Graph Date")} {graph.date}</h3>
-              </div>
-              <div className="covid-card-graph-box-header-buttons">
-                <DMXButtonGroup
-                  callback={groupValue => this.setState({groupValue})}
-                  items={groupOptions}
-                  selectedItem={groupValue}
-                />
+                <h3>{t("CovidCard.Graph Date")} {`${t(data_date.dateDay)}, ${t(data_date.dateMonth)} ${data_date.dateNumber} ${data_date.dateYear}`}</h3>
               </div>
             </div>
             <div className="covid-card-graph-box-viz">

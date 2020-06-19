@@ -23,14 +23,20 @@
       margin-bottom: var(--gutter-xs);
     }
     & .covid-card-description-title {
-      margin-bottom: var(--gutter-md);
+      margin-bottom: var(--gutter-sm);
+    }
+    & .covid-card-description-buttons {
+      flex-grow: 1;
+      margin-bottom: var(--gutter-sm);
     }
     & .covid-card-description-selector {
       margin: 0 var(--gutter-sm);
       margin-bottom: var(--gutter-md);
       & .dmx-selector-header {
+        align-items: center;
         & h6 {
           letter-spacing: var(--letter-spacing-text);
+          margin: 0;
         }
       }
       & .dmx-selector-button {
@@ -40,6 +46,9 @@
           font-size: var(--font-sm);
           letter-spacing: var(--letter-spacing-text);
         }
+      }
+      & .dmx-selector-icon {
+        width: 4em;
       }
     }
     & .covid-card-description-stat {
@@ -57,6 +66,9 @@
           color: var(--font-color-red);
           font-weight: 900;
         }
+      }
+      & img {
+        width: 6em;
       }
     }
     & .covid-card-description-text {
@@ -82,9 +94,6 @@
           & h4 {
             font-size: var(--font-xl);
           }
-        }
-        & .covid-card-graph-box-header-buttons {
-          flex-grow: 1;
         }
       }
       & .covid-card-graph-box-viz {

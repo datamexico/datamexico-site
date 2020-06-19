@@ -2,11 +2,10 @@
 
 .covid-site {
   padding-top: 50px;
-  background-color: #00000000;
   color: var(--dark-3);
 
-  & .covid-header {
-    min-height: 20vh;
+  & .testing {
+    padding: var(--gutter-md) var(--gutter-md);
   }
 
   & .covid-body {
