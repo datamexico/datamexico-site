@@ -39,6 +39,7 @@ class Covid extends Component {
   fetchData = () => {
     axios.get("/api/covid").then(resp => {
       this.setState({
+        defaultLocation: resp.data.locations[0],
         locations: resp.data.locations,
         data_country: resp.data.data_country,
         data_state: resp.data.data_state,
@@ -117,7 +118,7 @@ class Covid extends Component {
               </p>,
                 source: "Datos proveídos por el Gobierno de México."
               }}
-              selectOptions={locations}
+              selectValue={defaultLocation}
               groupOptions={[{name: t("CovidCard.Linear"), id: "linear"}, {name: t("CovidCard.Logarithmic"), id: "log"}]}
               countryData={data_country_historical}
               statesData={data_state_historical}

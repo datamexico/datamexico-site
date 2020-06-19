@@ -13,18 +13,17 @@ class CovidCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectValue: this.props.selectOptions[0],
       groupValue: this.props.groupOptions[0]
     };
   }
 
   shouldComponentUpdate = (nextProp, nextState) => {
-    return nextState.selectValue !== this.state.selectValue;
+    return nextProp.selectValue !== this.props.selectValue;
   }
 
   render() {
-    const {t, description, selectOptions, groupOptions, countryData, statesData, limitData, statID, graph, data_date} = this.props;
-    const {selectValue, groupValue} = this.state;
+    const {t, description, selectValue, groupOptions, countryData, statesData, limitData, statID, graph, data_date} = this.props;
+    const {groupValue} = this.state;
 
     const selectedData = selectValue["ID"] === 0 ? countryData.slice(-limitData) : statesData.filter(d => d["State ID"] === selectValue["ID"]).slice(-limitData);
     const selectedStat = {value: selectedData.slice(-1)[0][statID], place: selectValue["Label"]};
