@@ -264,7 +264,8 @@ export default {
       const bgColor = findColorV2(itemBgImg, d);
       const imgUrl = findIconV2(itemBgImg, d);
       return tooltipTitle(bgColor, imgUrl, title);
-    }
+    },
+    tbody: []
   },
 
   // geomaps
@@ -438,8 +439,12 @@ export default {
       const {item, itemId, parent, parentId} = getTooltipTitle(this, d);
       const title = Array.isArray(item[1]) ? `Other ${parent[1] || "Values"}` : item[1];
       const itemBgImg = ["Country", "Organization"].includes(itemId) ? itemId : parentId;
-      const bgColor = findColorV2(itemBgImg, d);
-      const imgUrl = findIconV2(itemBgImg, d);
+      let bgColor = findColorV2(itemBgImg, d);
+      let imgUrl = findIconV2(itemBgImg, d);
+      if (parentId === "type" && ["México", "Mexico"].includes(title)) {
+        imgUrl = "/icons/visualizations/Country/country_mex.png";
+        bgColor = undefined;
+      }
       return tooltipTitle(bgColor, imgUrl, title);
     },
     tbody(d) {

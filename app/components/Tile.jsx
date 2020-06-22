@@ -19,7 +19,7 @@ class Tile extends Component {
       <El className={`tile${level && background ? " explore-tile" : ""}`}>
         <a className="tile-link" href={link || `/${lng}/profile/${slug}/${id}`}>
           <span className={`tile-title heading ${
-            title.length > 30 || title.match(/\w+/).toString().length > 25
+            title && (title.length > 30 || title.match(/\w+/).toString().length > 25)
               ? "u-font-xs"
               : "u-font-sm"
           }`} title={title}>

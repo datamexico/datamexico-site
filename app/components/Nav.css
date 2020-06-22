@@ -179,6 +179,12 @@
   }
 }
 
+.search-nav {
+  & .search-result {
+    background-color: var(--white);
+  }
+}
+
 .cp-subnav.is-fixed {
   background-color: var(--dark-3);
 }
