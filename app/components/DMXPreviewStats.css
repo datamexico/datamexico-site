@@ -1,0 +1,21 @@
+@import "helpers/mixins.css";
+
+.dmx-preview-stats {
+  display: flex;
+  justify-content: space-around;
+
+  & .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & .stat-value {
+      font-size: var(--font-lg);
+      font-weight: 600;
+    }
+    & .stat-name {
+      font-size: var(--font-sm);
+      font-weight: 400;
+    }
+  }
+}

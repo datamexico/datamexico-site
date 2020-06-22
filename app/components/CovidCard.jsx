@@ -22,7 +22,7 @@ class CovidCard extends Component {
   }
 
   render() {
-    const {t, description, selectValue, groupOptions, countryData, statesData, limitData, statID, graph, data_date} = this.props;
+    const {t, description, selectValue, groupOptions, countryData, statesData, limitData, statID, graph, data_date, buttonSelectLocation} = this.props;
     const {groupValue} = this.state;
 
     const selectedData = selectValue["ID"] === 0 ? countryData.slice(-limitData) : statesData.filter(d => d["State ID"] === selectValue["ID"]).slice(-limitData);
@@ -72,6 +72,7 @@ class CovidCard extends Component {
                 <h4>{graph.title}</h4>
                 <h3>{t("CovidCard.Graph Date")} {`${t(data_date.dateDay)}, ${t(data_date.dateMonth)} ${data_date.dateNumber} ${data_date.dateYear}`}</h3>
               </div>
+              {buttonSelectLocation}
             </div>
             <div className="covid-card-graph-box-viz">
               {viz}

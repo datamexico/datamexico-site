@@ -1,0 +1,23 @@
+.dmx-select-results {
+  & .dmx-select-result {
+    padding: var(--gutter-xs) var(--gutter-sm);
+    padding-bottom: 0;
+    & .dmx-select-results-division {
+      font-size: var(--font-md);
+      font-weight: 600;
+    }
+    & .dmx-select-result-options {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: var(--gutter-xs);
+      & .dmx-select-results-location {
+        width: 50%;
+        font-size: var(--font-xs);
+        font-weight: 400;
+      }
+      & .dmx-select-results-location:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

@@ -8,10 +8,11 @@ const BASE_URL = "/api/covid";
 module.exports = function (app) {
   app.get(BASE_URL, async (req, res) => {
     try {
-      const LATEST_TIME = CANON_CMS_CUBES + "/data.jsonrecords?cube=gobmx_covid_stats&drilldowns=Time&measures=Daily+Cases&parents=false&sparse=false&time=time.latest";
+      // const LATEST_TIME = CANON_CMS_CUBES + "/data.jsonrecords?cube=gobmx_covid_stats&drilldowns=Time&measures=Daily+Cases&parents=false&sparse=false&time=time.latest";
+      const TIME = CANON_CMS_CUBES + "/data.jsonrecords?cube=gobmx_covid_stats&drilldowns=Time&measures=Daily+Cases&parents=false&sparse=false";
       let date = {};
-      await axios.get(LATEST_TIME).then(resp => {
-        date = resp.data.data[0];
+      await axios.get(TIME).then(resp => {
+        date = resp.data.data.slice().reverse()[1];
       });
 
       const MEXICO_STATES = CANON_CMS_CUBES + "/members?cube=gobmx_covid_stats&level=State";

@@ -4,8 +4,35 @@
   padding-top: 50px;
   color: var(--dark-3);
 
-  & .testing {
+  & .covid-header {
+    display: flex;
+    flex-direction: column;
     padding: var(--gutter-md) var(--gutter-md);
+
+    & .dmx-search-location {
+      display: flex;
+      justify-content: center;
+      padding: var(--gutter-md) var(--gutter-md);
+    }
+
+    & .location-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: var(--gutter-md) var(--gutter-md);
+      & .location-name {
+        font-size: var(--font-xl);
+        font-weight: 600;
+      }
+      & .location-division {
+        font-size: var(--font-md);
+        font-weight: 400;
+      }
+    }
+
+    & .dmx-preview-stats {
+      flex-grow: 1;
+    }
   }
 
   & .covid-body {

@@ -1,28 +1,40 @@
+@import "helpers/mixins.css";
+
 .dmx-search-location {
 }
+
 .dmx-search-results {
   display: flex;
   flex-direction: column;
   max-height: 300px;
   overflow: scroll;
 
-  & .dmx-search-results-option {
+  & .dmx-result-row {
     display: flex;
     align-items: center;
     padding: var(--gutter-xs) var(--gutter-sm);
-    & .option-icon {
+  }
+
+  & .dmx-search-results-division {
+    background: rgba(182, 151, 100, 0.1);
+    font-size: var(--font-sm);
+    font-weight: 600;
+  }
+
+  & .dmx-search-results-location {
+    & .location-icon {
       height: 2em;
       margin-right: var(--gutter-xs);
     }
-    & .option-name {
+    & .location-name {
       flex-grow: 1;
       font-size: var(--font-sm);
     }
-    & .option-division {
+    & .location-division {
       font-size: var(--font-xs);
     }
   }
-  & .dmx-search-results-option:hover {
+  & .dmx-search-results-location:hover {
     background-color: rgba(182, 151, 100, 0.1);
     text-decoration: underline;
   }
