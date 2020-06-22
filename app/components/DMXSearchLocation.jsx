@@ -10,15 +10,10 @@ export class DMXSearchLocation extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      filterOptions: this.props.locationOptions,
       filterValue: "",
       isOpen: false
     };
-  }
-
-  changeFilterValue = (value) => {
-    this.setState({
-      filterValue: value
-    });
   }
 
   shouldComponentUpdate = (nextProps, nextState) => {
@@ -27,46 +22,58 @@ export class DMXSearchLocation extends Component {
     return prevProps.statsLocation !== nextProps.statsLocation || prevState.isOpen !== nextState.isOpen || prevState.filterValue !== nextState.filterValue;
   }
 
+  // Match the value of the filter variable with the text inside the search component
+  changeFilterValue = (value) => {this.setState({filterValue: value});}
+
+  // Change the global value of the selected location when the user press one location inside the popover component
   selectLocation = (location) => {
     this.props.selectNewLocation(location);
-    this.setState({
-      filterValue: "",
-      isOpen: false
-    });
+    this.setState({filterValue: "", isOpen: false});
   }
 
+  // Create the popover component with the location value inside filtered by the text inside the seach component
   filterLocationResult = (filter) => {
-    const {locationsArray} = this.props;
-    const filterLocations = locationsArray.filter(d => stringNormalizer(d.Label).toLowerCase().includes(stringNormalizer(filter).toLowerCase()));
-    const divisions = [...new Set(filterLocations.map(d => d.Division))];
+    const {filterOptions, filterValue} = this.state;
+    const filteredLocations = filterOptions.filter(d => stringNormalizer(d.Location).toLowerCase().includes(stringNormalizer(filter).toLowerCase()));
+    const filteredDivisions = [...new Set(filteredLocations.map(d => d.Division))];
+    const clearSearch = filterValue ? <Icon icon="delete" iconSize={16} onClick={() => this.setState({filterValue: ""})} /> : undefined;
 
     const filterLocationResult =
-      <div className="dmx-search-results">
-        {divisions.length > 0
-          ? divisions.map(d =>
-            <div className="dmx-search-result">
-              <span className="dmx-search-results-division dmx-result-row">{d}</span>
-              {filterLocations.filter(f => f.Division === d).map(m =>
-                <div className="dmx-search-results-location dmx-result-row" onClick={() => this.selectLocation(m)}>
-                  <img src={m.Icon} className="location-icon" style={{backgroundColor: colors.State[m.ID] ? colors.State[m.ID] : null}} />
-                  <span className="location-name">{`${m.Label}`}</span>
-                  <span className="location-division">{`${m.Division}`}</span>
-                </div>
-              )}
+      <div className="dmx-search-component">
+        <InputGroup
+          placeholder="Search location..."
+          className={"dmx-search-input"}
+          value={filterValue}
+          leftIcon="search"
+          rightElement={clearSearch}
+          onChange={event => this.changeFilterValue(event.target.value)}
+        />
+        <div className="dmx-search-results">
+          {filteredDivisions.length > 0
+            ? filteredDivisions.map(d =>
+              <div className="dmx-search-results-box">
+                <span className="dmx-search-results-division dmx-results-row">{d}</span>
+                {filteredLocations.filter(f => f.Division === d).map(m =>
+                  <div className="dmx-search-results-location dmx-results-row" onClick={() => this.selectLocation(m)}>
+                    <img src={m["Icon"]} className="location-icon" style={{backgroundColor: colors.State[m["Location ID"]] ? colors.State[m["Location ID"]] : null}} />
+                    <span className="location-name">{`${m["Location"]}`}</span>
+                    <span className="location-division">{`${m["Division"]}`}</span>
+                  </div>
+                )}
+              </div>
+            )
+            : <div className="dmx-search-results-box">
+              <span className="dmx-search-results-no-options dmx-results-row">{`No options for that search`}</span>
             </div>
-          )
-          : <div className="dmx-search-results-option">
-            <span className="option-name">No options with that search</span>
-          </div>
-        }
+          }
+        </div>
       </div>
     return filterLocationResult;
   }
 
   render() {
     const {filterValue, isOpen} = this.state;
-
-    const maybeSpinner = filterValue ? <Icon icon="delete" iconSize={16} onClick={() => this.setState({filterValue: ""})} /> : undefined;
+    const {locationSelected} = this.props;
     const filterLocationResults = this.filterLocationResult(filterValue);
 
     return (
@@ -78,18 +85,13 @@ export class DMXSearchLocation extends Component {
           content={filterLocationResults}
           captureDismiss={true}
           enforceFocus={true}
+          autoFocus={true}
         >
-          <InputGroup
-            placeholder="Search location..."
-            type="search"
-            value={filterValue}
-            leftIcon="search"
-            rightElement={maybeSpinner}
-            onChange={event => this.changeFilterValue(event.target.value)}
-            onClick={() => this.setState({isOpen: true})}
-          // onBlur={() => this.setState({isOpen: false})}
-          />
+          <h2 className="location-name" onClick={() => this.setState({isOpen: true})} >
+            {locationSelected["Location"]}
+          </h2>
         </Popover>
+        <h3 className="location-division">{locationSelected["Division"]}</h3>
       </div>
     )
   }

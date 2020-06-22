@@ -1,41 +1,74 @@
 @import "helpers/mixins.css";
 
 .dmx-search-location {
-}
-
-.dmx-search-results {
   display: flex;
   flex-direction: column;
-  max-height: 300px;
-  overflow: scroll;
-
-  & .dmx-result-row {
-    display: flex;
-    align-items: center;
-    padding: var(--gutter-xs) var(--gutter-sm);
-  }
-
-  & .dmx-search-results-division {
-    background: rgba(182, 151, 100, 0.1);
-    font-size: var(--font-sm);
+  align-items: center;
+  & .location-name {
+    font-size: var(--font-xl);
     font-weight: 600;
+    cursor: pointer;
   }
-
-  & .dmx-search-results-location {
-    & .location-icon {
-      height: 2em;
-      margin-right: var(--gutter-xs);
-    }
-    & .location-name {
-      flex-grow: 1;
-      font-size: var(--font-sm);
-    }
-    & .location-division {
-      font-size: var(--font-xs);
-    }
-  }
-  & .dmx-search-results-location:hover {
-    background-color: rgba(182, 151, 100, 0.1);
+  & .location-name:hover {
     text-decoration: underline;
   }
+  & .location-division {
+    font-size: var(--font-md);
+    font-weight: 400;
+  }
 }
+
+.dmx-search-component {
+  & .dmx-search-input {
+    padding: var(--gutter-xs) var(--gutter-sm);
+    & .bp3-icon {
+      margin: 7px;
+      padding: var(--gutter-xs) var(--gutter-sm);
+    }
+  }
+  & .dmx-search-results {
+    display: flex;
+    flex-direction: column;
+    max-height: 300px;
+    overflow: scroll;
+    & .dmx-search-results-box {
+      & .dmx-results-row {
+        display: flex;
+        align-items: center;
+        padding: var(--gutter-xs) var(--gutter-sm);
+      }
+      & .dmx-search-results-division {
+        background: rgba(182, 151, 100, 0.1);
+        font-size: var(--font-sm);
+        font-weight: 600;
+      }
+      & .dmx-search-results-location {
+        cursor: pointer;
+        & .location-icon {
+          height: 2em;
+          margin-right: var(--gutter-xs);
+        }
+        & .location-name {
+          flex-grow: 1;
+          font-size: var(--font-sm);
+          margin-right: var(--gutter-sm);
+        }
+        & .location-division {
+          font-size: var(--font-xs);
+        }
+      }
+      & .dmx-search-results-location:hover {
+        background-color: rgba(182, 151, 100, 0.1);
+        text-decoration: underline;
+      }
+      & .dmx-search-results-no-options {
+        flex-grow: 1;
+        font-size: var(--font-sm);
+      }
+    }
+  }
+}
+
+/* .bp3-popover {
+  width: max-content;
+} */
