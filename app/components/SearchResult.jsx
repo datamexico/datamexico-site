@@ -5,7 +5,7 @@ import "./SearchResult.css";
 
 class SearchResult extends React.Component {
   render() {
-    const {id, lng, slug, title, level} = this.props;
+    const {id, lng, slug, title, level, t} = this.props;
 
     return <li className="search-result">
       <a className="search-result-link" href={`/${lng}/profile/${slug}/${id}`}>
@@ -18,7 +18,7 @@ class SearchResult extends React.Component {
         {/* title & subtitle */}
         <span className="search-result-title" key="t">{title}</span>
         {level &&
-          <span className="search-result-subttitle u-font-xxs" key="l">{level}</span>
+          <span className="search-result-subttitle u-font-xxs" key="l">{t(level)}</span>
         }
       </a>
     </li>;

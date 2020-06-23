@@ -12,12 +12,15 @@ module.exports = {
     // {title: "Viz Builder",        url: `/${locale}/vizbuilder`},
     // {title: "Data Cart",          url: `/${locale}/cart`},
     {title: "Coronavirus",        url: `/${locale}/covid`},
+    {title: "ECI Explorer.Title",       url: `/${locale}/eci/explore`},
     {title: "About DataMexico",   url: `/${locale}/about`},
     {title: "Data sources",       url: `/${locale}/data`}
   ],
   FOOTER_NAV: [
     {title: "Explore", items: [
-      {title: "Profiles",         url: `/${locale}/explore`}
+      {title: "Profiles",         url: `/${locale}/explore`},
+      {title: "Coronavirus",        url: `/${locale}/covid`},
+      {title: "ECI Explorer.Title",     url: `/${locale}/eci/explore`}
       // {title: "Viz Builder",      url: `/${locale}/vizbuilder`},
       // {title: "Data Cart",        url: `/${locale}/cart`}
     ]},

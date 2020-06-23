@@ -56,6 +56,7 @@ export const findColorV2 = (key, d) => {
   return palette ? colors[key][id] || colors[key][d[key]] || styles["gmx-green-1"] : styles["gmx-green-1"];
 };
 
+// Tooltip title
 export const tooltipTitle = (bgColor, imgUrl, title) => {
   let tooltip = "<div class='d3plus-tooltip-title-wrapper'>";
   if (imgUrl) {
@@ -144,6 +145,7 @@ const axisConfig = {
   // axis title labels
   titleConfig: {
     fontFamily: () => typeface,
+    fontSize: () => fontSizeLg,
     fontColor: headingFontColor
   },
   // value labels
@@ -187,10 +189,13 @@ export default {
 
   // legends
   legendConfig: {
-    label: "",
+    label(d) {
+      return "";
+    },
     shapeConfig: {
-      fill: d => findColor(d),
-      backgroundImage(d) {
+      // fill: d => findColor(d),
+      backgroundImage(d, i) {
+        // console.log(this._configDefault.groupBy[0](d));
         return findIcon(d);
       },
       width: shapeLegend,
@@ -198,6 +203,7 @@ export default {
     },
     labelConfig: {
       fontColor: defaultFontColor,
+      fontSize: () => fontSizeLg,
       fontFamily: () => typeface
     },
     stroke: "transparent"
@@ -261,7 +267,8 @@ export default {
       const bgColor = findColorV2(itemBgImg, d);
       const imgUrl = findIconV2(itemBgImg, d);
       return tooltipTitle(bgColor, imgUrl, title);
-    }
+    },
+    tbody: []
   },
 
   // geomaps
@@ -435,8 +442,12 @@ export default {
       const {item, itemId, parent, parentId} = getTooltipTitle(this, d);
       const title = Array.isArray(item[1]) ? `Other ${parent[1] || "Values"}` : item[1];
       const itemBgImg = ["Country", "Organization"].includes(itemId) ? itemId : parentId;
-      const bgColor = findColorV2(itemBgImg, d);
-      const imgUrl = findIconV2(itemBgImg, d);
+      let bgColor = findColorV2(itemBgImg, d);
+      let imgUrl = findIconV2(itemBgImg, d);
+      if (parentId === "type" && ["México", "Mexico"].includes(title)) {
+        imgUrl = "/icons/visualizations/Country/country_mex.png";
+        bgColor = undefined;
+      }
       return tooltipTitle(bgColor, imgUrl, title);
     },
     tbody(d) {

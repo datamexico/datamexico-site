@@ -20,9 +20,29 @@
   },
   "Admin": "Admin",
   "Automotive Repair and Maintenance": "Reparación y Mantención Automotriz",
-  "Avocados": "Aguacates",
   "Built and Developed by": "Construído y Desarrollado por",
+  "Workforce": "Fuerza laboral",
+  "Companies": "Empresas",
+  "Trade Value": "Valor Comercial",
+  "Foreign Trade": "Comercio Exterior",
+  "Employees": "Empleados",
   "Business Administration Services": "Servicios de Administración de Empresas",
+  "Self Represented City": "Ciudad Auto Representada",
+  "threshold_eci_explorer": "Umbral de <span class='dashed'>{{measure}}</span> según <span class='dashed'>{{level}}</span>",
+  "Levels": {
+    "State": "Entidad Federativa",
+    "State_plural": "Entidades Federativas",
+    "Municipality": "Municipio",
+    "Municipality_plural": "Municipios",
+    "Metro Area": "Zona Metropolitana",
+    "Metro Area_plural": "Zonas Metropolitanas",
+    "NAICS Industry": "Industria SCIAN",
+    "NAICS Industry_plural": "Industrias SCIAN",
+    "Industry Group": "Rama Industrial",
+    "Industry Group_plural": "Ramas Industriales",
+    "Occupation": "Ocupación",
+    "Occupation_plural": "Ocupaciones"
+  },
   "CMS": {
     "Options": {
       "Close": "Cerrar",
@@ -156,6 +176,7 @@
     "success": "Successfully Signed Up"
   },
   "Copy": "Copiar",
+  "Level": "Nivel",
   "Dataset": "Conjunto de datos",
   "Industry Group": "Rama Industrial",
   "Institution": "Institución",
@@ -170,6 +191,7 @@
   "Universities": "Universidades",
   "User": "User",
   "Username": "Username",
+  "Values aggregated": "Valores agregados",
   "ECI Explorer": {
     "Build ECI / PCI": "Calcular ECI / PCI",
     "Description": "Explora diferentes indicadores de Complejidad Económica para México.",
