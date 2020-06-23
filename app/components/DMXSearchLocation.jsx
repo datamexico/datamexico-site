@@ -16,13 +16,13 @@ export class DMXSearchLocation extends Component {
     };
   }
 
-  /*
   shouldComponentUpdate = (nextProps, nextState) => {
     const prevProps = this.props;
     const prevState = this.state;
-    return prevProps.statsLocation !== nextProps.statsLocation || prevState.isOpen !== nextState.isOpen || prevState.filterValue !== nextState.filterValue;
+    return prevProps.statsLocation !== nextProps.statsLocation
+    || prevState.isOpen !== nextState.isOpen
+    || prevState.filterValue !== nextState.filterValue;
   }
-  */
 
   // Match the value of the filter variable with the text inside the search component
   changeFilterValue = (value) => {this.setState({filterValue: value});}

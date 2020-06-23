@@ -21,10 +21,9 @@ class CovidCard extends Component {
   shouldComponentUpdate = (nextProps, nextState) => {
     const prevProps = this.props;
     const prevState = this.state;
-    console.log(prevProps, nextProp);
+    console.log(prevProps.locationsSelected, nextProps.locationsSelected);
     return prevProps.locationsSelected !== nextProps.locationsSelected
-    || prevState.scaleSelected !== nextState.scaleSelected
-    || prevProps.locationsSelected !== nextProps.locationsSelected;
+    || prevState.scaleSelected !== nextState.scaleSelected;
   }
   */
 
@@ -62,22 +61,6 @@ class CovidCard extends Component {
     const selectedData = this.filterData(data, locationsSelected, dataLimit);
     const viz = this.createVisualization(visualization.type, visualization.config, selectedData);
 
-    /*
-    )
-            Source:
-    <div className="covid-data-source">
-            <span>{t("CovidCard.Source")}</span>
-            <h6>{description.source}</h6>
-          </div>
-    visTitle
-    <div className="covid-card-graph-box-header-text">
-              <h4>{graph.title}</h4>
-              <h3>{t("CovidCard.Graph Date")} {`${t(data_date.dateDay)}, ${t(data_date.dateMonth)} ${data_date.dateNumber} ${data_date.dateYear}`}</h3>
-            </div>
-
-            // callback={groupValue => this.setState({groupValue})}
-    */
-
     return (
       <div className="covid-card covid-columns">
 
@@ -93,7 +76,6 @@ class CovidCard extends Component {
           </div>
           <div className="covid-card-information-description">{cardDescription}</div>
         </div>
-
         <div className="covid-card-visualization covid-column-70">
           <div className="covid-card-visualization-header">
             {locationsSelector}
@@ -113,3 +95,19 @@ CovidCard.contextTypes = {
 };
 
 export default withNamespaces()(CovidCard);
+
+ /*
+    )
+            Source:
+    <div className="covid-data-source">
+            <span>{t("CovidCard.Source")}</span>
+            <h6>{description.source}</h6>
+          </div>
+    visTitle
+    <div className="covid-card-graph-box-header-text">
+              <h4>{graph.title}</h4>
+              <h3>{t("CovidCard.Graph Date")} {`${t(data_date.dateDay)}, ${t(data_date.dateMonth)} ${data_date.dateNumber} ${data_date.dateYear}`}</h3>
+            </div>
+
+            // callback={groupValue => this.setState({groupValue})}
+    */

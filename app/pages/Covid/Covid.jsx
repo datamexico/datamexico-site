@@ -25,18 +25,20 @@ class Covid extends Component {
       locations: null,
       data_actual: null,
       data_historical: null,
-      baseLocation: null,
-      selectedLocations: [],
+      locationBase: null,
+      locationsSelected: [],
       _dataLoaded: false
     };
     this.selectNewLocation = this.selectNewLocation.bind(this);
     this.addNewLocation = this.addNewLocation.bind(this);
   }
 
+  /*
   shouldComponentUpdate = (nextProp, nextState) => {
     const prevState = this.state;
-    return prevState.baseLocation !== nextState.baseLocation || prevState._dataLoaded !== nextState._dataLoaded;
+    return prevState.locationBase !== nextState.locationBase || prevState._dataLoaded !== nextState._dataLoaded;
   }
+  */
 
   componentDidMount = () => {
     this.fetchData();
@@ -48,45 +50,35 @@ class Covid extends Component {
         locations: resp.data.locations,
         data_actual: resp.data.data_actual,
         data_historical: resp.data.data_historical,
-        baseLocation: resp.data.locations[0],
-        selectedLocations: [resp.data.locations[0]["Location ID"]],
+        locationBase: resp.data.locations[0],
+        locationsSelected: [resp.data.locations[0]["Location ID"]],
         _dataLoaded: true
       })
     });
   }
 
-  selectNewLocation = (location) => {this.setState({baseLocation: location});}
+  selectNewLocation = (location) => {this.setState({locationBase: location});}
 
-  // mix both of them (addNew and createSelected)
-  addNewLocation = (location, add) => {
-    const {selectedLocations} = this.state;
-    const newLocationID = location["Location ID"];
-    if (add) {
-      selectedLocations.push(locationID);
-      this.setState({selectedLocations: selectedLocations});
+  addNewLocation = (location, event) => {
+    const {locationsSelected} = this.state;
+    if (event) {
+      locationsSelected.push(location["Location ID"]);
     } else {
-      const index = selectedLocations.indexOf(locationID);
-      selectedLocations.splice(index, 1);
-      this.setState({selectedLocations: selectedLocations});
+      const index = locationsSelected.indexOf(location["Location ID"]);
+      locationsSelected.splice(index, 1);
     }
-
-    console.log("HERE", baseLocation["Location ID"], selectedLocations);
+    this.setState({
+      locationsSelected: locationsSelected
+    });
   }
-
-  createSelectedLocations = (base, added) => {
-    const locationsArray = [base];
-    locationsArray.push(added);
-    return locationsArray.flat();
-  };
 
   render() {
     const {t} = this.props;
-    const {locations, data_actual, data_historical, baseLocation, selectedLocations, _dataLoaded} = this.state;
+    const {locations, data_actual, data_historical, locationBase, locationsSelected, _dataLoaded} = this.state;
+    console.log("Locations Selected in Covid Component:", locationsSelected);
 
     if (_dataLoaded) {
-      const baseData = data_actual.find(d => d["Location ID"] === baseLocation["Location ID"]);
-      const locationsSelected = this.createSelectedLocations(baseLocation["Location ID"], selectedLocations);
-      console.log(locationsSelected);
+      const baseData = data_actual.find(d => d["Location ID"] === locationBase["Location ID"]);
 
       return <div className="covid-wrapper">
         <Helmet title="Coronavirus">
@@ -103,7 +95,7 @@ class Covid extends Component {
           <div className="covid-header">
             <DMXSearchLocation
               locationOptions={locations}
-              locationSelected={baseLocation}
+              locationSelected={locationBase}
               selectNewLocation={this.selectNewLocation}
             />
             <DMXPreviewStats
