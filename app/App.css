@@ -186,6 +186,21 @@ p:last-of-type {
 
 .cp-button {
   border-radius: 0px;
+  font-family: var(--base-font-stack);
+}
+
+.cp-grouping-section {
+  & .cp-grouping-section-inner {
+    & .cp-stat-group-wrapper {
+      & .cp-stat {
+        text-align: center;
+        & .cp-stat-label-text {
+          justify-content: center;
+          margin: auto;
+        }
+      }
+    }
+  }
 }
 
 .title {

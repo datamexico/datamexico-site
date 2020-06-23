@@ -189,7 +189,9 @@ export default {
 
   // legends
   legendConfig: {
-    label: "",
+    label(d) {
+      return "";
+    },
     shapeConfig: {
       // fill: d => findColor(d),
       backgroundImage(d, i) {
@@ -201,6 +203,7 @@ export default {
     },
     labelConfig: {
       fontColor: defaultFontColor,
+      fontSize: () => fontSizeLg,
       fontFamily: () => typeface
     },
     stroke: "transparent"
