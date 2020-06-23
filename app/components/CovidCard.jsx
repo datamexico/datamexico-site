@@ -13,71 +13,77 @@ class CovidCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      groupValue: this.props.groupOptions[0]
+      scaleSelected: this.props.scaleSelector[1]
     };
   }
 
   shouldComponentUpdate = (nextProp, nextState) => {
-    return nextProp.selectValue !== this.props.selectValue;
+    const prevProps = this.props;
+    const prevState = this.state;
+    return prevProps.baseLocation !== nextProp.baseLocation || prevState.scaleSelected !== nextState.scaleSelected;
+  }
+
+  scaleSelector = (selected) => {
+    this.setState({scaleSelected: selected})
+  }
+
+  createVisualization = (type, config, data) => {
+    const {scaleSelected} = this.state;
+    let viz = null;
+    config["data"] = data;
+    config["yConfig"] = {
+      scale: scaleSelected.id
+    };
+    if (type === "LinePlot") {
+      viz = <LinePlot
+        config={config}
+        forceUpdate={true}
+      />
+    }
+    return viz;
   }
 
   render() {
-    const {t, description, selectValue, groupOptions, countryData, statesData, limitData, statID, graph, data_date, buttonSelectLocation} = this.props;
-    const {groupValue} = this.state;
+    const {t, baseLocation, cardTitle, cardDescription, data, dataSource, dataLimit, scaleSelector, indicatorSelector, indicatorBase, visualization} = this.props;
+    const {scaleSelected} = this.state;
+    const selectedData = data.filter(d => d["Location ID"] === baseLocation["Location ID"]).slice(-dataLimit);
+    const viz = this.createVisualization(visualization.type, visualization.config, selectedData);
 
-    const selectedData = selectValue["ID"] === 0 ? countryData.slice(-limitData) : statesData.filter(d => d["State ID"] === selectValue["ID"]).slice(-limitData);
-    const selectedStat = {value: selectedData.slice(-1)[0][statID], place: selectValue["Label"]};
+    /*
+            Source:
+    <div className="covid-data-source">
+            <span>{t("CovidCard.Source")}</span>
+            <h6>{description.source}</h6>
+          </div>
+    visTitle
+    <div className="covid-card-graph-box-header-text">
+              <h4>{graph.title}</h4>
+              <h3>{t("CovidCard.Graph Date")} {`${t(data_date.dateDay)}, ${t(data_date.dateMonth)} ${data_date.dateNumber} ${data_date.dateYear}`}</h3>
+            </div>
 
-    let viz = null;
-    graph.config["data"] = selectedData;
-    if (graph.type === "LinePlot") {
-      viz =
-        <LinePlot
-          config={graph.config}
-          forceUpdate={true}
-        />
-    }
+            // callback={groupValue => this.setState({groupValue})}
+    */
 
     return (
       <div className="covid-card covid-columns">
 
-        <div className="covid-card-description covid-column-30">
-          <h4 className="covid-card-description-headline">{description.headline}</h4>
-          <h3 className="covid-card-description-title">{description.title}</h3>
-          <div className="covid-card-description-buttons">
+        <div className="covid-card-information covid-column-30">
+          <h3 className="covid-card-information-title">{cardTitle}</h3>
+          <div className="covid-card-information-scale-selector">
             <DMXButtonGroup
-              callback={groupValue => this.setState({groupValue})}
-              items={groupOptions}
-              selectedItem={groupValue}
+              title={"Y-Axis Scale"}
+              items={scaleSelector}
+              selected={scaleSelected}
+              callback={groupValue => this.setState({ scaleSelected: groupValue })}
             />
           </div>
-          <div className="covid-card-description-stat covid-stat">
-            <img src="/icons/visualizations/covid/reportados-icon.png" alt="stat-icon" />
-            <div className="stat-text">
-              <span className="stat">{selectedStat.value}</span>
-              <h5>{t("CovidCard.Stat ID")} <span className="id">{selectedStat.place}</span></h5>
-            </div>
-          </div>
-          <div className="covid-card-description-text">{description.text}</div>
-          <div className="covid-data-source">
-            <span>{t("CovidCard.Source")}</span>
-            <h6>{description.source}</h6>
-          </div>
+          <div className="covid-card-information-description">{cardDescription}</div>
         </div>
 
-        <div className="covid-card-graph covid-column-70">
-          <div className="covid-card-graph-box">
-            <div className="covid-card-graph-box-header">
-              <div className="covid-card-graph-box-header-text">
-                <h4>{graph.title}</h4>
-                <h3>{t("CovidCard.Graph Date")} {`${t(data_date.dateDay)}, ${t(data_date.dateMonth)} ${data_date.dateNumber} ${data_date.dateYear}`}</h3>
-              </div>
-              {buttonSelectLocation}
-            </div>
-            <div className="covid-card-graph-box-viz">
-              {viz}
-            </div>
+        <div className="covid-card-visualization covid-column-70">
+          <div className="covid-card-visualization-header">
           </div>
+          <div className="covid-card-visualization-viz">{viz}</div>
         </div>
 
       </div>

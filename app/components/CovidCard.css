@@ -12,6 +12,66 @@
 }
 
 .covid-card {
+  & .covid-card-information > * {
+    margin-bottom: var(--gutter-sm);
+  }
+  & .covid-card-information {
+    & .covid-card-information-title {
+      color: #691c32;
+      font-size: var(--font-lg);
+      font-weight: 400;
+    }
+    & .covid-card-information-scale-selector {
+      & .dmx-button-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        & .dmx-button-group-title {
+          margin: 0;
+        }
+        & .dmx-button-group-items {
+          & .cp-button {
+            padding: var(--gutter-xs) 0;
+          }
+          & .is-inactive {
+          }
+          & .is-active {
+            background: #9f2241;
+            border: 1px solid #9f2241;
+          }
+        }
+      }
+    }
+    & .covid-card-information-description {
+
+    }
+  }
+  & .covid-card-visualization {
+    background-color: #FFFFFF;
+    border: 1px solid #c7c7c8ff;
+    & .covid-card-visualization-header {
+
+    }
+    & .covid-card-visualization-viz {
+
+    }
+  }
+}
+
+.covid-columns {
+  display: flex;
+  flex-direction: row;
+  & .covid-column-30 {
+    width: 30%;
+    padding: var(--gutter-sm) var(--gutter-sm);
+  }
+  & .covid-column-70 {
+    width: 70%;
+    padding: var(--gutter-sm) var(--gutter-sm);
+  }
+}
+
+.covid-card-xd {
   display: flex;
   flex-direction: row;
   color: #5c6d7eff;
@@ -78,10 +138,7 @@
 
   /* CovidCard Graph Div*/
   & .covid-card-graph {
-    padding-left: var(--gutter-lg);
     & .covid-card-graph-box {
-      border: 1px solid #c7c7c8ff;
-      padding: var(--gutter-md) var(--gutter-md);
       & .covid-card-graph-box-header {
         display: flex;
         flex-direction: row;

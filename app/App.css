@@ -354,7 +354,7 @@ p:last-of-type {
 }
 
 /* Covid-19 Page*/
-.covid-site {
+.covid-site-as {
   & h3 {
     color: #b69664ff;
     font-size: var(--font-xl);
@@ -405,7 +405,7 @@ p:last-of-type {
   }
 }
 
-.covid-columns {
+.covid-columns-as {
   display: flex;
   flex-direction: columns;
   & .covid-column-30 {
@@ -414,12 +414,5 @@ p:last-of-type {
   & .covid-column-70 {
     width: 70%;
   }
-}
-
-.covid-stat {
-  display: flex;
-  align-items: center;
-  padding: var(--gutter-sm) 0;
-  margin: 0 var(--gutter-sm);
 }
 

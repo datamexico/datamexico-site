@@ -4,58 +4,51 @@ import axios from "axios";
 import classnames from "classnames";
 import {Helmet} from "react-helmet";
 import {withNamespaces} from "react-i18next";
+import {arrayLengthCompare} from "@blueprintjs/core/lib/esm/common/utils";
 
 import "./Covid.css";
 
 import {weekdaysNames, monthsNames} from "../../helpers/helpers";
 
-import DMXSearchLocation from "../../components/DMXSearchLocation";
-import DMXSelectLocation from "../../components/DMXSelectLocation";
-import DMXPreviewStats from "../../components/DMXPreviewStats";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
 import CovidCard from "../../components/CovidCard";
-import {arrayLengthCompare} from "@blueprintjs/core/lib/esm/common/utils";
+import DMXSearchLocation from "../../components/DMXSearchLocation";
+import DMXSelectLocation from "../../components/DMXSelectLocation";
+import DMXPreviewStats from "../../components/DMXPreviewStats";
 
 class Covid extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // New way
+      locations: null,
+      data_actual: null,
+      data_historical: null,
       defaultLocation: null,
       selectedLocation: null,
       addedLocations: [],
-      // Old way
-      locations: null,
-      data_country: null,
-      data_state: null,
-      data_country_historical: null,
-      data_state_historical: null,
       _dataLoaded: false
     };
     this.selectNewLocation = this.selectNewLocation.bind(this);
     this.addNewLocation = this.addNewLocation.bind(this);
   }
 
-  componentDidMount = () => {
-    this.fetchData();
-  }
-
   shouldComponentUpdate = (nextProp, nextState) => {
     const prevState = this.state;
-    // console.log("here", prevState, nextState);
     return nextState._dataLoaded !== prevState._dataLoaded || nextState.selectedLocation !== prevState.selectedLocation;
+  }
+
+  componentDidMount = () => {
+    this.fetchData();
   }
 
   fetchData = () => {
     axios.get("/api/covid").then(resp => {
       this.setState({
         locations: resp.data.locations,
-        data_country: resp.data.data_country,
-        data_state: resp.data.data_state,
-        data_country_historical: resp.data.data_country_historical,
-        data_state_historical: resp.data.data_state_historical,
+        data_actual: resp.data.data_actual,
+        data_historical: resp.data.data_historical,
         defaultLocation: resp.data.locations[0],
         _dataLoaded: true
       })
@@ -74,14 +67,12 @@ class Covid extends Component {
   render() {
     const {t} = this.props;
     const {
+      locations,
+      data_actual,
+      data_historical,
       defaultLocation,
       selectedLocation,
       addedLocations,
-      locations,
-      data_country,
-      data_state,
-      data_country_historical,
-      data_state_historical,
       _dataLoaded
     } = this.state;
 
@@ -90,13 +81,13 @@ class Covid extends Component {
     }
 
     if (_dataLoaded) {
-      const statsLocation = selectedLocation ? selectedLocation : defaultLocation;
-      const statsData = statsLocation.Division === "State" ? data_state.find(d => d["State ID"] === statsLocation.ID) : data_country;
-      const locationsInVisualizations = [statsLocation.ID];
+      const baseLocation = selectedLocation ? selectedLocation : defaultLocation;
+      const baseData = data_actual.find(d => d["Location ID"] === baseLocation["Location ID"]);
+      const locationsInVisualizations = [baseLocation["Location ID"]];
       addedLocations.map(d => console.log("here", d));
 
-      // -- Check Later ----------------------------------
-      const updateDate = new Date(data_country["Time"]);
+      // -------------------- Check Later ------------------------
+      const updateDate = new Date(data_actual[0]["Time"]);
       const dataUpdateDate = {
         dateDay: weekdaysNames[updateDate.getDay()],
         dateNumber: updateDate.getDate(),
@@ -116,18 +107,16 @@ class Covid extends Component {
           routePath={"/:lang"}
           title={""}
         />
+
         <div className="covid-site">
           <div className="covid-header">
             <DMXSearchLocation
-              locationsArray={locations}
+              locationOptions={locations}
+              locationSelected={baseLocation}
               selectNewLocation={this.selectNewLocation}
             />
-            <div className="location-info">
-              <h2 className="location-name">{statsLocation.Label}</h2>
-              <h3 className="location-division">{statsLocation.Division}</h3>
-            </div>
             <DMXPreviewStats
-              data={statsData}
+              data={baseData}
               stats={[
                 {ID: "Daily Cases", Name: "New Cases"},
                 {ID: "Daily Deaths", Name: "New Deaths"},
@@ -138,29 +127,27 @@ class Covid extends Component {
               ]}
             />
           </div>
+          {/*
+          <DMXSelectLocation
+            locationsArray={locations}
+            locationsInVisualizations={locationsInVisualizations}
+            addNewLocation={this.addNewLocation}
+          />
+          */}
           <div className="covid-body container">
             <CovidCard
-              description={{
-                headline: "Casos Reportados",
-                title: "¿Cómo crece el número de casos positivos en México?",
-                stat: {
-                  value: 28500,
-                  id: "Ciudad de México"
-                },
-                text: <p>
-                  Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
-              </p>,
-                source: "Datos proveídos por el Gobierno de México."
-              }}
-              selectValue={statsLocation}
-              groupOptions={[{name: t("CovidCard.Linear"), id: "linear"}, {name: t("CovidCard.Logarithmic"), id: "log"}]}
-              countryData={data_country_historical}
-              statesData={data_state_historical}
-              limitData={14}
-              statID={"Accum Cases"}
-              graph={{
-                title: "Casos totales confirmados por día",
-                date: "08 Junio 2020, 4pm CEST",
+              baseLocation={baseLocation}
+              cardTitle={"Daily New Cases"}
+              cardDescription={<p>
+                Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
+              </p>}
+              data={data_historical}
+              dataSource={"Datos proveídos por el Gobierno de México."}
+              dataLimit={14}
+              scaleSelector={[{name: t("CovidCard.Linear"), id: "linear"}, {name: t("CovidCard.Logarithmic"), id: "log"}]}
+              indicatorSelector={[]}
+              indicatorBase={[]}
+              visualization={{
                 type: "LinePlot",
                 config: {
                   groupBy: "State ID",
@@ -176,17 +163,9 @@ class Covid extends Component {
                       ["Date", d => d["Time"]]
                     ],
                     width: "200px"
-                  },
+                  }
                 }
               }}
-              data_date={dataUpdateDate}
-              buttonSelectLocation={
-                <DMXSelectLocation
-                  locationsArray={locations}
-                  locationsInVisualizations={locationsInVisualizations}
-                  addNewLocation={this.addNewLocation}
-                />
-              }
             />
           </div>
         </div>

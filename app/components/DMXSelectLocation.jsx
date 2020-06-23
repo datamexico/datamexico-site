@@ -21,7 +21,7 @@ export class DMXSelectLocation extends Component {
 
   createLocationOptions = () => {
     const {locationsArray, locationsInVisualizations, addNewLocation} = this.props;
-    const divisions = [...new Set(locationsArray.map(d => d.Division))];
+    const divisions = [...new Set(locationsArray.map(d => d["Division"]))];
     console.log(locationsInVisualizations);
 
     const locationOptions =
@@ -30,9 +30,9 @@ export class DMXSelectLocation extends Component {
           <div className="dmx-select-result">
             <span className="dmx-select-results-division">{d}</span>
             <div className="dmx-select-result-options">
-              {locationsArray.filter(f => f.Division === d).map(m =>
+              {locationsArray.filter(f => f["Division"] === d).map(m =>
                 <Checkbox
-                  label={`${m.Label}`}
+                  label={`${m["Location"]}`}
                   className={"dmx-select-results-location"}
                   defaultChecked={locationsInVisualizations.includes(m.ID) ? true : false}
                   onChange={evt => addNewLocation(m, evt.currentTarget.checked)}
