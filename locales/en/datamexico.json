@@ -58,6 +58,7 @@
   "Cities & Places": "Cities & Places",
   "Contributor": "Contributor",
   "Copper Ores and Concentrates": "Copper Ores and Concentrates",
+  "threshold_eci_explorer": "Threshold of {{measure}} by {{level}}",
   "ECI Explorer": {
     "Build ECI / PCI": "Build ECI / PCI",
     "Description": "Explore different Economic Complexity indicators for Mexico.",

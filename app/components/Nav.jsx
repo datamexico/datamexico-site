@@ -112,7 +112,7 @@ class Nav extends React.Component {
           <li><a data-refresh="true" href={pathParser({...params, ":lang": "es"}, routePath)}>ES</a></li>
           <li><a data-refresh="true" href={pathParser({...params, ":lang": "en"}, routePath)}>EN</a></li>
         </ul>
-        <div className={classnames("search-button", {active: isSearchOpen})}>
+        <div className={classnames("search-button", "search-nav", {active: isSearchOpen})}>
           <Icon icon="search" className="click" onClick={() => this.setState({isSearchOpen: !isSearchOpen})} />
           <InputGroup
             placeholder={t("Search profiles")}

@@ -162,7 +162,6 @@
 .cp-single-column-section-paragraph,
 .cp-multi-column-section-paragraph {
   @mixin font-xs;
-  font-weight: var(--light-weight);
   margin-top: 0.5em;
 
   &:not(:last-of-type) {
@@ -182,8 +181,8 @@
 /* inverted section link styles */
 .cp-about-section-inner p > a {
   font-weight: var(--bold-weight);
-  color: var(--accent);
-  text-decoration-color: var(--dark-1);
+  color: var(--gmx-yellow-1);
+  text-decoration-color: var(--gmx-yellow-1);
 
   &:hover, &:focus {
     color: var(--white);
@@ -197,6 +196,4 @@
   font-style: italic;
 }
 
-.cp-subnav.is-fixed {
-  background-color: var(--dark-3);
-}
+
