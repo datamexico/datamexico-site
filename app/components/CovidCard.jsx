@@ -17,14 +17,27 @@ class CovidCard extends Component {
     };
   }
 
-  shouldComponentUpdate = (nextProp, nextState) => {
+  /*
+  shouldComponentUpdate = (nextProps, nextState) => {
     const prevProps = this.props;
     const prevState = this.state;
-    return prevProps.baseLocation !== nextProp.baseLocation || prevState.scaleSelected !== nextState.scaleSelected;
+    console.log(prevProps, nextProp);
+    return prevProps.locationsSelected !== nextProps.locationsSelected
+    || prevState.scaleSelected !== nextState.scaleSelected
+    || prevProps.locationsSelected !== nextProps.locationsSelected;
   }
+  */
 
   scaleSelector = (selected) => {
     this.setState({scaleSelected: selected})
+  }
+
+  filterData = (data, selected, limit) => {
+    const filterData = [];
+    selected.map(d => {
+      filterData.push(data.filter(f => f["Location ID"] === d).slice(-limit));
+    });
+    return filterData.flat();
   }
 
   createVisualization = (type, config, data) => {
@@ -44,12 +57,13 @@ class CovidCard extends Component {
   }
 
   render() {
-    const {t, baseLocation, cardTitle, cardDescription, data, dataSource, dataLimit, scaleSelector, indicatorSelector, indicatorBase, visualization} = this.props;
+    const {t, cardTitle, cardDescription, data, dataSource, dataLimit, locationsSelected, locationsSelector, scaleSelector, indicatorSelector, indicatorBase, visualization} = this.props;
     const {scaleSelected} = this.state;
-    const selectedData = data.filter(d => d["Location ID"] === baseLocation["Location ID"]).slice(-dataLimit);
+    const selectedData = this.filterData(data, locationsSelected, dataLimit);
     const viz = this.createVisualization(visualization.type, visualization.config, selectedData);
 
     /*
+    )
             Source:
     <div className="covid-data-source">
             <span>{t("CovidCard.Source")}</span>
@@ -74,7 +88,7 @@ class CovidCard extends Component {
               title={"Y-Axis Scale"}
               items={scaleSelector}
               selected={scaleSelected}
-              callback={groupValue => this.setState({ scaleSelected: groupValue })}
+              callback={groupValue => this.setState({scaleSelected: groupValue})}
             />
           </div>
           <div className="covid-card-information-description">{cardDescription}</div>
@@ -82,8 +96,11 @@ class CovidCard extends Component {
 
         <div className="covid-card-visualization covid-column-70">
           <div className="covid-card-visualization-header">
+            {locationsSelector}
           </div>
-          <div className="covid-card-visualization-viz">{viz}</div>
+          <div className="covid-card-visualization-viz">
+            {viz}
+          </div>
         </div>
 
       </div>

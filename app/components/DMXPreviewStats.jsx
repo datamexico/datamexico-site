@@ -5,10 +5,12 @@ import {withNamespaces} from "react-i18next";
 import "./DMXPreviewStats.css";
 
 class DMXPreviewStats extends Component {
+  /*
   shouldComponentUpdate = (nextProp, nextState) => {
     const prevProps = this.props;
     return nextProp !== prevProps;
   }
+  */
 
   render() {
     const {t, data, stats} = this.props;

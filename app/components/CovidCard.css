@@ -30,8 +30,9 @@
           margin: 0;
         }
         & .dmx-button-group-items {
+          height: 2rem;
+          margin: 0;
           & .cp-button {
-            padding: var(--gutter-xs) 0;
           }
           & .is-inactive {
           }
@@ -43,7 +44,7 @@
       }
     }
     & .covid-card-information-description {
-
+      font-size: var(--font-xs);
     }
   }
   & .covid-card-visualization {
