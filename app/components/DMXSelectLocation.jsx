@@ -50,20 +50,25 @@ export class DMXSelectLocation extends Component {
     const {isOpen} = this.state;
     const locationOptions = this.createLocationOptions();
 
+    const buttonContent = <div className="dmx-button-content">
+      <img src="/icons/visualizations/covid/agregar-ubicacion-icon.svg" alt="" className="dmx-button-content-img" />
+      <span className="dmx-button-content-text">{"Añadir Localidad"}</span>
+    </div>
+
     return (
       <div className="dmx-select-location">
         <Popover
           defaultIsOpen={false}
           isOpen={isOpen}
-          position={PopoverPosition.AUTO}
+          position={PopoverPosition.LEFT}
           content={locationOptions}
           captureDismiss={true}
           enforceFocus={false}
         >
           <Button
-            icon={"series-add"}
+            className={"dmx-button"}
             onClick={() => this.setState({isOpen: !isOpen})}
-            text={"Add Locations"}
+            text={buttonContent}
           />
         </Popover>
       </div>

@@ -68,7 +68,7 @@ class CovidCard extends Component {
           <h3 className="covid-card-information-title">{cardTitle}</h3>
           <div className="covid-card-information-scale-selector">
             <DMXButtonGroup
-              title={"Y-Axis Scale"}
+              title={"Escala Eje-Y"}
               items={scaleSelector}
               selected={scaleSelected}
               callback={groupValue => this.setState({scaleSelected: groupValue})}

@@ -38,7 +38,9 @@ export class DMXSearchLocation extends Component {
     const {filterOptions, filterValue} = this.state;
     const filteredLocations = filterOptions.filter(d => stringNormalizer(d.Location).toLowerCase().includes(stringNormalizer(filter).toLowerCase()));
     const filteredDivisions = [...new Set(filteredLocations.map(d => d.Division))];
-    const clearSearch = filterValue ? <Icon icon="delete" iconSize={16} onClick={() => this.setState({filterValue: ""})} /> : undefined;
+    const clearSearch = filterValue ? <Icon icon="cross" iconSize={16} onClick={() => this.setState({filterValue: ""})} /> : undefined;
+    // Delete after
+    const divisionDictionary = {"Country": "País", "State": "Estado"};
 
     const filterLocationResult =
       <div className="dmx-search-component">
@@ -59,7 +61,7 @@ export class DMXSearchLocation extends Component {
                   <div className="dmx-search-results-location dmx-results-row" onClick={() => this.selectLocation(m)}>
                     <img src={m["Icon"]} className="location-icon" style={{backgroundColor: colors.State[m["Location ID"]] ? colors.State[m["Location ID"]] : null}} />
                     <span className="location-name">{`${m["Location"]}`}</span>
-                    <span className="location-division">{`${m["Division"]}`}</span>
+                    <span className="location-division">{`${divisionDictionary[m["Division"]]}`}</span>
                   </div>
                 )}
               </div>
@@ -77,6 +79,8 @@ export class DMXSearchLocation extends Component {
     const {filterValue, isOpen} = this.state;
     const {locationSelected} = this.props;
     const filterLocationResults = this.filterLocationResult(filterValue);
+    // Delete after
+    const divisionDictionary = {"Country": "País", "State": "Estado"};
 
     return (
       <div className="dmx-search-location">
@@ -93,7 +97,7 @@ export class DMXSearchLocation extends Component {
             {locationSelected["Location"]}
           </h2>
         </Popover>
-        <h3 className="location-division">{locationSelected["Division"]}</h3>
+        <h3 className="location-division">{divisionDictionary[locationSelected["Division"]]}</h3>
       </div>
     )
   }

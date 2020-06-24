@@ -1,26 +1,26 @@
 const locale = "en";
 
 export const weekdaysNames = {
-  0: "Weekdays.Sunday",
-  1: "Weekdays.Monday",
-  2: "Weekdays.Tuesday",
-  3: "Weekdays.Wednesday",
-  4: "Weekdays.Thursday",
-  5: "Weekdays.Friday",
-  6: "Weekdays.Saturday"
+  0: "Domingo",
+  1: "Lunes",
+  2: "Martes",
+  3: "Miercoles",
+  4: "Jueves",
+  5: "Viernes",
+  6: "Sabado"
 };
 
 export const monthsNames = {
-  0: "Months.January",
-  1: "Months.February",
-  2: "Months.March",
-  3: "Months.April",
-  4: "Months.May",
-  5: "Months.June",
-  6: "Months.July",
-  7: "Months.August",
-  8: "Months.September",
-  9: "Months.October",
-  10: "Months.November",
-  11: "Months.December"
+  0: "Enero",
+  1: "Febrero",
+  2: "Marzo",
+  3: "Abril",
+  4: "Mayo",
+  5: "Junio",
+  6: "Julio",
+  7: "Agosto",
+  8: "Septiembre",
+  9: "Octubre",
+  10: "Noviembre",
+  11: "Diciembre"
 };

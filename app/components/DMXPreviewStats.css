@@ -1,21 +1,49 @@
 @import "helpers/mixins.css";
 
+:root {
+  --covid-red: #9F2241;
+  --covid-dark-red: #691C32;
+  --covid-gold: #BC955C;
+  --covid-beige: #F8F4EF;
+  --covid-black: #2B292A;
+  --covid-grey: #4D4D4D;
+  --covid-light-grey: #6F7271;
+  --covid-white: #F9F9F9;
+  --covid-green: #235B4E;
+}
+
 .dmx-preview-stats {
   display: flex;
   justify-content: space-around;
 
   & .stat {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-
-    & .stat-value {
-      font-size: var(--font-lg);
-      font-weight: 600;
+    justify-content: center;
+    flex: 1;
+    padding: 0 var(--gutter-xs);
+    & .stat-icon {
+      width: 3rem;
+      margin-right: var(--gutter-sm);
     }
-    & .stat-name {
-      font-size: var(--font-sm);
-      font-weight: 400;
+    & .stat-text {
+      display: flex;
+      flex-direction: column;
+      & .stat-value {
+        color: var(--covid-red);
+        font-size: var(--font-xl);
+        font-weight: 300;
+      }
+      & .stat-name {
+        color: var(--covid-light-grey);
+        font-size: var(--font-sm);
+        font-weight: 500;
+        text-transform: uppercase;
+      }
     }
+  }
+  & .notLast {
+    border-right: 1px solid var(--covid-light-grey);
   }
 }

@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {withNamespaces} from "react-i18next";
+import classnames from "classnames";
 
 import "./DMXPreviewStats.css";
 
@@ -15,10 +16,13 @@ class DMXPreviewStats extends Component {
 
     return (
       <div className="dmx-preview-stats">
-        {stats.map(d => (
-          <div className="stat">
-            <span className="stat-value">{data[d.ID]}</span>
-            <span className="stat-name">{d.Name}</span>
+        {stats.map((d, k) => (
+          <div className={classnames("stat", k < stats.length-1 && "notLast")}>
+            <img src={`/icons/visualizations/covid/${d.IconName}`} alt="" className="stat-icon" />
+            <div className="stat-text">
+              <span className="stat-value">{data[d.ID]}</span>
+              <span className="stat-name">{d.Name}</span>
+            </div>
           </div>
         ))}
       </div>

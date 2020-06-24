@@ -23,8 +23,8 @@ class Covid extends Component {
     super(props);
     this.state = {
       locations: null,
-      data_actual: null,
-      data_historical: null,
+      dataActual: null,
+      dataHistorical: null,
       locationBase: null,
       locationsSelected: [],
       _dataLoaded: false
@@ -36,7 +36,9 @@ class Covid extends Component {
   /*
   shouldComponentUpdate = (nextProp, nextState) => {
     const prevState = this.state;
-    return prevState.locationBase !== nextState.locationBase || prevState._dataLoaded !== nextState._dataLoaded;
+    return prevState._dataLoaded !== nextState._dataLoaded
+      || prevState.locationBase !== nextState.locationBase
+      || prevState.locationSelected !== nextState.locationSelected;
   }
   */
 
@@ -48,8 +50,8 @@ class Covid extends Component {
     axios.get("/api/covid").then(resp => {
       this.setState({
         locations: resp.data.locations,
-        data_actual: resp.data.data_actual,
-        data_historical: resp.data.data_historical,
+        dataActual: resp.data.data_actual,
+        dataHistorical: resp.data.data_historical,
         locationBase: resp.data.locations[0],
         locationsSelected: [resp.data.locations[0]["Location ID"]],
         _dataLoaded: true
@@ -57,7 +59,22 @@ class Covid extends Component {
     });
   }
 
-  selectNewLocation = (location) => {this.setState({locationBase: location});}
+  selectNewLocation = (location) => {
+    const {locationBase, locationsSelected} = this.state;
+    if (!locationsSelected.includes(location["Location ID"])) {
+      locationsSelected.push(location["Location ID"]);
+      const index = locationsSelected.indexOf(locationBase["Location ID"]);
+      locationsSelected.splice(index, 1);
+      this.setState({
+        locationBase: location,
+        locationsSelected: locationsSelected
+      });
+    } else {
+      this.setState({
+        locationBase: location
+      });
+    }
+  }
 
   addNewLocation = (location, event) => {
     const {locationsSelected} = this.state;
@@ -74,11 +91,17 @@ class Covid extends Component {
 
   render() {
     const {t} = this.props;
-    const {locations, data_actual, data_historical, locationBase, locationsSelected, _dataLoaded} = this.state;
-    console.log("Locations Selected in Covid Component:", locationsSelected);
+    const {locations, dataActual, dataHistorical, locationBase, locationsSelected, _dataLoaded} = this.state;
 
     if (_dataLoaded) {
-      const baseData = data_actual.find(d => d["Location ID"] === locationBase["Location ID"]);
+      const baseData = dataActual.find(d => d["Location ID"] === locationBase["Location ID"]);
+      const updateDate = new Date(dataActual[0].Time);
+      const dataUpdateDate = {
+        Day: weekdaysNames[updateDate.getDay()],
+        Number: updateDate.getDate(),
+        Month: monthsNames[updateDate.getMonth()],
+        Year: updateDate.getFullYear()
+      };
 
       return <div className="covid-wrapper">
         <Helmet title="Coronavirus">
@@ -98,25 +121,26 @@ class Covid extends Component {
               locationSelected={locationBase}
               selectNewLocation={this.selectNewLocation}
             />
+            <h4 className="covid-header-date">{`Data actualizada al ${dataUpdateDate.Number + 1} ${dataUpdateDate.Month} ${dataUpdateDate.Year}`}</h4>
             <DMXPreviewStats
               data={baseData}
               stats={[
-                {ID: "Daily Cases", Name: "New Cases"},
-                {ID: "Daily Deaths", Name: "New Deaths"},
-                {ID: "Cases last 7 Days", Name: "Last Week Cases"},
-                {ID: "Deaths last 7 Days", Name: "Last Week Deaths"},
-                {ID: "Accum Cases", Name: "Confirmed Cases"},
-                {ID: "Accum Deaths", Name: "Confirmed Deaths"}
+                {ID: "Daily Cases", Name: "Nuevos Casos", IconName: "nuevo-caso-icon.svg"},
+                {ID: "Daily Deaths", Name: "Nuevas Muertes", IconName: "nueva-muerte-icon.svg"},
+                {ID: "Cases last 7 Days", Name: "Casos Última Semana", IconName: "casos-ultima-semana-icon.svg"},
+                {ID: "Deaths last 7 Days", Name: "Muertes Última Semana", IconName: "muertes-ultima-semana-icon.svg"},
+                {ID: "Accum Cases", Name: "Casos Confirmados", IconName: "casos-confirmados-icon.png"},
+                {ID: "Accum Deaths", Name: "Muertes Confirmadas", IconName: "muertes-confirmadas-icon.svg"}
               ]}
             />
           </div>
           <div className="covid-body container">
             <CovidCard
-              cardTitle={"Daily New Cases"}
+              cardTitle={"Nuevos casos diarios"}
               cardDescription={<p>
                 Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
               </p>}
-              data={data_historical}
+              data={dataHistorical}
               dataSource={"Datos proveídos por el Gobierno de México."}
               dataLimit={14}
               locationsSelected={locationsSelected}
@@ -127,7 +151,7 @@ class Covid extends Component {
                   addNewLocation={this.addNewLocation}
                 />
               }
-              scaleSelector={[{name: t("CovidCard.Linear"), id: "linear"}, {name: t("CovidCard.Logarithmic"), id: "log"}]}
+              scaleSelector={[{name: t("Lineal"), id: "linear"}, {name: t("Logarítmica"), id: "log"}]}
               indicatorSelector={[]}
               indicatorBase={[]}
               visualization={{
@@ -138,7 +162,7 @@ class Covid extends Component {
                   x: "Time ID",
                   y: "Daily Cases",
                   tooltipConfig: {
-                    title: d => "Coronavirus",
+                    title: d => d["Location"],
                     tbody: [
                       ["Daily Cases", d => d["Daily Cases"]],
                       ["Accum Cases", d => d["Accum Cases"]],
