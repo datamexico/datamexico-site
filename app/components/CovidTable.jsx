@@ -6,6 +6,7 @@ import {hot} from "react-hot-loader/root";
 import {withNamespaces} from "react-i18next";
 import {Sparklines, SparklinesLine, SparklinesSpots} from "react-sparklines";
 import colors from "../../static/data/colors.json";
+import {commas} from "helpers/utils";
 
 import "./CovidTable.css";
 
@@ -72,16 +73,16 @@ class CovidTable extends React.Component {
                   </div>
                 </td>
                 <td>
-                  {d["Cases last 7 Days"]}
+                  {commas(d["Cases last 7 Days"])}
                 </td>
                 <td>
-                  {d["Deaths last 7 Days"]}
+                  {commas(d["Deaths last 7 Days"])}
                 </td>
                 <td>
-                  {d["Accum Cases"]}
+                  {commas(d["Accum Cases"])}
                 </td>
                 <td>
-                  {d["Accum Deaths"]}
+                  {commas(d["Accum Deaths"])}
                 </td>
               </tr>
             })}
