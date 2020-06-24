@@ -130,7 +130,7 @@ class Covid extends Component {
                 {ID: "Daily Deaths", Name: "Nuevas Muertes", IconName: "nueva-muerte-icon.svg"},
                 {ID: "Cases last 7 Days", Name: "Casos Última Semana", IconName: "casos-ultima-semana-icon.svg"},
                 {ID: "Deaths last 7 Days", Name: "Muertes Última Semana", IconName: "muertes-ultima-semana-icon.svg"},
-                {ID: "Accum Cases", Name: "Casos Confirmados", IconName: "casos-confirmados-icon.png"},
+                {ID: "Accum Cases", Name: "Casos Confirmados", IconName: "casos-confirmados-icon.svg"},
                 {ID: "Accum Deaths", Name: "Muertes Confirmadas", IconName: "muertes-confirmadas-icon.svg"}
               ]}
             />
@@ -147,6 +147,7 @@ class Covid extends Component {
               locationsSelected={locationsSelected}
               locationsSelector={
                 <DMXSelectLocation
+                  locationBase={locationBase}
                   locationsOptions={locations}
                   locationsSelected={locationsSelected}
                   addNewLocation={this.addNewLocation}
