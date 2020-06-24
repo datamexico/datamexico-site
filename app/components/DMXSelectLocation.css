@@ -1,0 +1,88 @@
+:root {
+  --covid-red: #9F2241;
+  --covid-dark-red: #691C32;
+  --covid-gold: #BC955C;
+  --covid-beige: #F8F4EF;
+  --covid-black: #2B292A;
+  --covid-grey: #4D4D4D;
+  --covid-light-grey: #6F7271;
+  --covid-white: #F9F9F9;
+  --covid-green: #235B4E;
+}
+
+.dmx-select-location {
+  & .bp3-popover-wrapper {
+    & .dmx-button {
+      background: var(--covid-red);
+      border-radius: 10px;
+      padding: var(--gutter-xs) var(--gutter-xs);
+      & .dmx-button-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        & .dmx-button-content-img {
+          color: var(--covid-white);
+          width: 1.2rem;
+          margin-right: 0.3rem;
+        }
+        & .dmx-button-content-text {
+          color: var(--covid-white);
+          font-weight: 600;
+          text-transform: uppercase;
+        }
+      }
+    }
+    & .dmx-button:hover {
+      background: var(--covid-dark-red);
+    }
+  }
+}
+
+.dmx-select-results {
+  background: var(--covid-beige);
+  & .dmx-select-result {
+    padding: var(--gutter-xs) var(--gutter-sm);
+    padding-bottom: 0;
+    & .dmx-select-results-division {
+      color: var(--covid-light-grey);
+      font-size: var(--font-sm);
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    & .dmx-select-result-options {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: var(--gutter-xs);
+      & .dmx-select-results-location {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+        & .dmx-result-label {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          & .label-icon {
+            width: 1.8em;
+            height: 1.8em;
+            margin-right: 0.5em;
+          }
+          & .label-name {
+            color: var(--covid-light-grey);
+            font-size: var(--font-xs);
+            font-weight: 400;
+          }
+        }
+      }
+      & .dmx-select-results-location:hover {
+        text-decoration: underline;
+      }
+      & .bp3-disabled:hover {
+        text-decoration: none;
+      }
+      & .bp3-control-indicator {
+        border-radius: 0;
+      }
+    }
+  }
+}

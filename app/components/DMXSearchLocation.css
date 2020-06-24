@@ -1,0 +1,112 @@
+@import "helpers/mixins.css";
+
+:root {
+  --covid-red: #9F2241;
+  --covid-dark-red: #691C32;
+  --covid-gold: #BC955C;
+  --covid-beige: #F8F4EF;
+  --covid-black: #2B292A;
+  --covid-grey: #4D4D4D;
+  --covid-light-grey: #6F7271;
+  --covid-white: #F9F9F9;
+  --covid-green: #235B4E;
+}
+
+.dmx-search-location {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & .search-location {
+    & .search-icon {
+      width: 3rem;
+      float: left;
+    }
+    & .location-name {
+      color: var(--covid-black);
+      font-size: var(--font-xxl);
+      font-weight: 600;
+      display: inline;
+      cursor: pointer;
+    }
+    & .location-name:hover {
+      text-decoration: underline;
+    }
+  }
+  & .location-division {
+    color: var(--covid-white);
+    background: var(--covid-gold);
+    font-size: var(--font-sm);
+    font-weight: 400;
+    border-radius: 20px;
+    padding: 0.3rem var(--gutter-sm);
+  }
+}
+
+.dmx-search-component {
+  background: var(--covid-white);
+  & .dmx-search-input {
+    border: 1px solid var(--covid-light-grey);
+    padding: var(--gutter-xs) var(--gutter-sm);
+    & .bp3-icon {
+      color: var(--covid-light-grey);
+      margin: 7px;
+      padding: var(--gutter-xs) var(--gutter-sm);
+    }
+    & .bp3-icon:hover {
+      cursor: pointer;
+    }
+  }
+  & .dmx-search-results {
+    display: flex;
+    flex-direction: column;
+    max-height: 300px;
+    overflow: scroll;
+    border: 1px solid var(--covid-light-grey);
+    border-top: none;
+    & .dmx-search-results-box {
+      background: var(--covid-white);
+      & .dmx-results-row {
+        display: flex;
+        align-items: center;
+        padding: var(--gutter-xs) var(--gutter-sm);
+      }
+      & .dmx-search-results-division {
+        color: var(--covid-light-grey);
+        font-size: var(--font-sm);
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+      & .dmx-search-results-location {
+        cursor: pointer;
+        & .location-icon {
+          height: 2em;
+          margin-right: var(--gutter-xs);
+        }
+        & .location-name {
+          flex-grow: 1;
+          font-size: var(--font-sm);
+          font-weight: 400;
+          margin-right: var(--gutter-sm);
+        }
+        & .location-division {
+          color: var(--covid-light-grey);
+          font-size: var(--font-xs);
+          font-weight: 500;
+          text-transform: uppercase;
+        }
+      }
+      & .dmx-search-results-location:hover {
+        background-color: var(--covid-beige);
+        color: var(--covid-gold);
+      }
+      & .dmx-search-results-no-options {
+        flex-grow: 1;
+        font-size: var(--font-sm);
+      }
+    }
+  }
+}
+
+/* .bp3-popover {
+  width: max-content;
+} */

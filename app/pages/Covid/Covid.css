@@ -1,0 +1,71 @@
+@import "helpers/mixins.css";
+
+:root {
+  --covid-red: #9F2241;
+  --covid-dark-red: #691C32;
+  --covid-gold: #BC955C;
+  --covid-beige: #F8F4EF;
+  --covid-black: #2B292A;
+  --covid-grey: #4D4D4D;
+  --covid-light-grey: #6F7271;
+  --covid-white: #F9F9F9;
+  --covid-green: #235B4E;
+}
+
+.covid-site {
+  padding-top: 50px;
+  background: #f2f2f2;
+  color: var(--dark-3);
+
+  & .covid-header {
+    display: flex;
+    flex-direction: column;
+    background: url("/images/covid-header.png") no-repeat fixed center;
+    padding: var(--gutter-md) var(--gutter-md);
+
+    & .dmx-search-location {
+      display: flex;
+      justify-content: center;
+      padding: var(--gutter-md) var(--gutter-md);
+    }
+
+    & .covid-header-date {
+      display: flex;
+      justify-content: center;
+      color: var(--covid-light-grey);
+      font-size: var(--font-xs);
+      font-weight: 500;
+      text-transform: uppercase;
+      padding-bottom: var(--gutter-md);
+    }
+
+    & .location-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: var(--gutter-md) var(--gutter-md);
+      & .location-name {
+        color: #BC955C;
+        font-size: var(--font-xl);
+        font-weight: 600;
+      }
+      & .location-division {
+        background: var(--covid-gold);
+        font-size: var(--font-md);
+        font-weight: 400;
+      }
+    }
+
+    & .dmx-preview-stats {
+      flex-grow: 1;
+    }
+  }
+
+  & .covid-body {
+    min-height: 50vh;
+  }
+
+  & .footer {
+    margin-top: auto;
+  }
+}

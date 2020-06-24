@@ -420,3 +420,66 @@ p:last-of-type {
   }
 }
 
+/* Covid-19 Page*/
+.covid-site-as {
+  & h3 {
+    color: #b69664ff;
+    font-size: var(--font-xl);
+    letter-spacing: -1px;
+  }
+
+  & h4 {
+    color: #898888ff;
+    font-size: var(--font-lg);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+  }
+
+  & h5 {
+    font-size: var(--font-sm);
+    letter-spacing: -1px;
+  }
+
+  & h6 {
+    font-size: var(--font-xs);
+    letter-spacing: -1px;
+    padding-left: 0.4em;
+  }
+
+  & span {
+    font-weight: 600;
+    font-size: var(--font-xs);
+    letter-spacing: -1px;
+  }
+
+  & p {
+    font-weight: 500;
+    letter-spacing: -1px;
+  }
+
+  & .dmx-button-group {
+    background: #FFFFFF;
+    height: 2rem;
+    margin: 0;
+  }
+
+  & .covid-data-source {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    color: #325a4fff;
+  }
+}
+
+.covid-columns-as {
+  display: flex;
+  flex-direction: columns;
+  & .covid-column-30 {
+    width: 30%;
+  }
+  & .covid-column-70 {
+    width: 70%;
+  }
+}
+

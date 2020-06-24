@@ -1,0 +1,55 @@
+.covid19-table {
+  & .is-center {text-align: center;}
+  border-spacing: 0;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid var(--gmx-red-1);
+  & tr:nth-child(even) {background: #f4f4f4}
+  & tr:nth-child(odd) {background: #FFF}
+  & td {border: 0px solid;}
+  & th, & td {
+    padding: calc(var(--gutter-xs) / 2) var(--gutter-xs);
+  }
+  & th {
+    text-align: left;
+    color: var(--white);
+    background-color: var(--gmx-red-1);
+    padding: var(--gutter-xs);
+    font-size: var(--font-sm);
+    font-family: var(--base-font-stack-condensed);
+    text-transform: uppercase;
+  }
+
+  font-size: var(--font-xs);
+  & .geo-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    & .icon {
+      width: 30px;
+      height: 30px;
+      & img {
+        width: inherit;
+      }
+    }
+    & .title {
+      margin-left: var(--gutter-xs);
+    }
+  }
+
+  & .trend-wrapper {
+    display: flex;
+    width: inherit;
+    height: inherit;
+    flex-direction: row;
+    align-items: center;
+    & svg {
+      width: inherit;
+      height: inherit;
+    }
+    & .trend-value {
+      color: blue;
+      font-weight: 700;
+    }
+  }
+}

@@ -28,10 +28,13 @@ class DMXSelect extends React.Component {
 
   };
   render() {
-    const {disabled, items, popoverPosition, selectedItem, title, t} = this.props;
+    const {disabled, items, popoverPosition, selectedItem, title, icon, t} = this.props;
     const {isOpen} = this.state;
     return <div className="dmx-selector">
-      <h6 className="title is-6">{title}</h6>
+      <div className="dmx-selector-header">
+        {icon && <img src={icon} alt="selector-icon" className="dmx-selector-icon"/>}
+        <h6 className="title is-6">{title}</h6>
+      </div>
       <Select
         activeItem={selectedItem}
         className={classnames(
