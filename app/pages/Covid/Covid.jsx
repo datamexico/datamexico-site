@@ -192,11 +192,8 @@ class Covid extends Component {
               }}
             />
           </div>
+          <CovidTable />
         </div>
-
-        <CovidTable
-
-        />
         <Footer />
       </div>;
     } else {
