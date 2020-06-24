@@ -16,14 +16,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  & .location-name {
-    color: var(--covid-black);
-    font-size: var(--font-xxl);
-    font-weight: 600;
-    cursor: pointer;
-  }
-  & .location-name:hover {
-    text-decoration: underline;
+  & .search-location {
+    & .search-icon {
+      width: 3rem;
+      float: left;
+    }
+    & .location-name {
+      color: var(--covid-black);
+      font-size: var(--font-xxl);
+      font-weight: 600;
+      display: inline;
+      cursor: pointer;
+    }
+    & .location-name:hover {
+      text-decoration: underline;
+    }
   }
   & .location-division {
     color: var(--covid-white);

@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import {withNamespaces} from "react-i18next";
 import classnames from "classnames";
 
+import {commas} from "helpers/utils";
+
 import "./DMXPreviewStats.css";
 
 class DMXPreviewStats extends Component {
@@ -20,7 +22,7 @@ class DMXPreviewStats extends Component {
           <div className={classnames("stat", k < stats.length-1 && "notLast")}>
             <img src={`/icons/visualizations/covid/${d.IconName}`} alt="" className="stat-icon" />
             <div className="stat-text">
-              <span className="stat-value">{data[d.ID]}</span>
+              <span className="stat-value">{commas(data[d.ID])}</span>
               <span className="stat-name">{d.Name}</span>
             </div>
           </div>

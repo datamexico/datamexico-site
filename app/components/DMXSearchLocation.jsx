@@ -20,8 +20,8 @@ export class DMXSearchLocation extends Component {
     const prevProps = this.props;
     const prevState = this.state;
     return prevProps.statsLocation !== nextProps.statsLocation
-    || prevState.isOpen !== nextState.isOpen
-    || prevState.filterValue !== nextState.filterValue;
+      || prevState.isOpen !== nextState.isOpen
+      || prevState.filterValue !== nextState.filterValue;
   }
 
   // Match the value of the filter variable with the text inside the search component
@@ -93,9 +93,12 @@ export class DMXSearchLocation extends Component {
           enforceFocus={true}
           autoFocus={true}
         >
-          <h2 className="location-name" onClick={() => this.setState({isOpen: true})} >
-            {locationSelected["Location"]}
-          </h2>
+          <div className="search-location">
+            <img src={isOpen ? "/icons/visualizations/covid/search-active-icon.svg" : "/icons/visualizations/covid/search-01-icon.svg"} alt="" className="search-icon" />
+            <h2 className="location-name" onClick={() => this.setState({isOpen: true})} >
+              {locationSelected["Location"]}
+            </h2>
+          </div>
         </Popover>
         <h3 className="location-division">{divisionDictionary[locationSelected["Division"]]}</h3>
       </div>

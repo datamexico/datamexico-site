@@ -9,6 +9,8 @@ import {arrayLengthCompare} from "@blueprintjs/core/lib/esm/common/utils";
 import "./Covid.css";
 
 import {weekdaysNames, monthsNames} from "../../helpers/helpers";
+import {commas} from "helpers/utils";
+import colors from "../../../static/data/colors.json";
 
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
@@ -153,24 +155,38 @@ class Covid extends Component {
                   addNewLocation={this.addNewLocation}
                 />
               }
-              scaleSelector={[{name: t("Lineal"), id: "linear"}, {name: t("Logarítmica"), id: "log"}]}
-              indicatorSelector={[]}
+              scaleSelector={[
+                {name: t("Lineal"), id: "linear"},
+                {name: t("Logarítmica"), id: "log"}
+              ]}
+              indicatorSelector={[
+                {name: "", id: ""},
+                {name: "", id: ""},
+                {name: "", id: ""}
+              ]}
               indicatorBase={[]}
               visualization={{
                 type: "LinePlot",
                 config: {
                   groupBy: "Location ID",
                   height: 400,
-                  x: "Time ID",
+                  lineLabels: true,
+                  x: "Time",
+                  time: "Time",
+                  timeline: false,
                   y: "Daily Cases",
                   tooltipConfig: {
-                    title: d => d["Location"],
                     tbody: [
                       ["Daily Cases", d => d["Daily Cases"]],
                       ["Accum Cases", d => d["Accum Cases"]],
                       ["Date", d => d["Time"]]
                     ],
                     width: "200px"
+                  },
+                  shapeConfig: {
+                    Line: {
+                      stroke: d => colors.State[d["Location ID"]] || "red"
+                    }
                   }
                 }
               }}

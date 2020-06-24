@@ -7,6 +7,8 @@ import LoadingChart from "./LoadingChart";
 import DMXButtonGroup from "./DMXButtonGroup";
 import DMXSelect from "./DMXSelect";
 
+import colors from "../../static/data/colors.json";
+
 import "./CovidCard.css";
 
 class CovidCard extends Component {
