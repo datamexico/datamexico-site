@@ -1,4 +1,5 @@
 const locale = "en";
+import {format} from "d3-format";
 
 export const weekdaysNames = {
   0: "Domingo",
