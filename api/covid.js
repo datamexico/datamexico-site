@@ -29,7 +29,7 @@ module.exports = function (app) {
       await axios.all([axios.get(MEXICO_STATES), axios.get(COVID_HISTORICAL_COUNTRY), axios.get(COVID_HISTORICAL_STATES)]).then(
         axios.spread((resp1, resp2, resp3) => {
           const locations = [];
-          const locations_country = {"Location ID": 0, Location: "México", Division: "Country", Icon: "/icons/visualizations/Country/country_mex.png"};
+          const locations_country = {"Location ID": 0, Location: "México", Division: "Country", Icon: "/icons/visualizations/covid/mexico-flag.svg"};
           const locations_states = resp1.data.data.filter(d => d["Label"] !== "No Informado");
           locations_states.forEach(d => {
             d["Location ID"] = d["ID"];
