@@ -13,16 +13,17 @@ export class DMXSelectLocation extends Component {
     };
   }
 
+  /*
   shouldComponentUpdate = (nextProps, nextState) => {
     const prevProps = this.props;
     const prevState = this.state;
-    return prevProps.locationsInVisualizations !== nextProps.locationsInVisualizations || prevState !== nextState;
+    return prevProps.locationsSelected !== nextProps.locationsSelected || prevState !== nextState;
   }
+  */
 
   createLocationOptions = () => {
-    const {locationsArray, locationsInVisualizations, addNewLocation} = this.props;
-    const divisions = [...new Set(locationsArray.map(d => d["Division"]))];
-    console.log(locationsInVisualizations);
+    const {locationsOptions, locationsSelected, addNewLocation} = this.props;
+    const divisions = [...new Set(locationsOptions.map(d => d["Division"]))];
 
     const locationOptions =
       <div className="dmx-select-results">
@@ -30,11 +31,11 @@ export class DMXSelectLocation extends Component {
           <div className="dmx-select-result">
             <span className="dmx-select-results-division">{d}</span>
             <div className="dmx-select-result-options">
-              {locationsArray.filter(f => f["Division"] === d).map(m =>
+              {locationsOptions.filter(f => f["Division"] === d).map(m =>
                 <Checkbox
                   label={`${m["Location"]}`}
                   className={"dmx-select-results-location"}
-                  defaultChecked={locationsInVisualizations.includes(m.ID) ? true : false}
+                  defaultChecked={locationsSelected.includes(m["Location ID"]) ? true : false}
                   onChange={evt => addNewLocation(m, evt.currentTarget.checked)}
                 />
               )}
@@ -49,20 +50,25 @@ export class DMXSelectLocation extends Component {
     const {isOpen} = this.state;
     const locationOptions = this.createLocationOptions();
 
+    const buttonContent = <div className="dmx-button-content">
+      <img src="/icons/visualizations/covid/agregar-ubicacion-icon.svg" alt="" className="dmx-button-content-img" />
+      <span className="dmx-button-content-text">{"Añadir Localidad"}</span>
+    </div>
+
     return (
       <div className="dmx-select-location">
         <Popover
           defaultIsOpen={false}
           isOpen={isOpen}
-          position={PopoverPosition.RIGHT}
+          position={PopoverPosition.LEFT}
           content={locationOptions}
           captureDismiss={true}
           enforceFocus={false}
         >
           <Button
-            icon={"series-add"}
+            className={"dmx-button"}
             onClick={() => this.setState({isOpen: !isOpen})}
-            text={"Add Locations"}
+            text={buttonContent}
           />
         </Popover>
       </div>

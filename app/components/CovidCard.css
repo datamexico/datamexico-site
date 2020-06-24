@@ -1,14 +1,15 @@
 @import "helpers/mixins.css";
 
 :root {
-  --font-color-grey: #898888ff;
-  --font-color-green: #325a4fff;
-  --font-color-red: #622232ff;
-  --font-color-yellow: #b69664ff;
-  --font-weight-normal: 400;
-  --font-weight-bold: 600;
-  --letter-spacing-text: -1px;
-  --letter-spacing-title: -3px;
+  --covid-red: #9F2241;
+  --covid-dark-red: #691C32;
+  --covid-gold: #BC955C;
+  --covid-beige: #F8F4EF;
+  --covid-black: #2B292A;
+  --covid-grey: #4D4D4D;
+  --covid-light-grey: #6F7271;
+  --covid-white: #F9F9F9;
+  --covid-green: #235B4E;
 }
 
 .covid-card {
@@ -23,15 +24,13 @@
     }
     & .covid-card-information-scale-selector {
       & .dmx-button-group {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
         & .dmx-button-group-title {
-          margin: 0;
+          color: var(--covid-light-grey);
         }
         & .dmx-button-group-items {
+          height: 2rem;
+          margin: 0;
           & .cp-button {
-            padding: var(--gutter-xs) 0;
           }
           & .is-inactive {
           }
@@ -43,14 +42,18 @@
       }
     }
     & .covid-card-information-description {
-
+      font-size: var(--font-xs);
     }
   }
   & .covid-card-visualization {
     background-color: #FFFFFF;
     border: 1px solid #c7c7c8ff;
     & .covid-card-visualization-header {
-
+      & .dmx-select-location {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 var(--gutter-md);
+      }
     }
     & .covid-card-visualization-viz {
 

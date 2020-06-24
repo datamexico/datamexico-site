@@ -24,21 +24,24 @@ class Covid extends Component {
     super(props);
     this.state = {
       locations: null,
-      data_actual: null,
-      data_historical: null,
-      defaultLocation: null,
-      selectedLocation: null,
-      addedLocations: [],
+      dataActual: null,
+      dataHistorical: null,
+      locationBase: null,
+      locationsSelected: [],
       _dataLoaded: false
     };
     this.selectNewLocation = this.selectNewLocation.bind(this);
     this.addNewLocation = this.addNewLocation.bind(this);
   }
 
+  /*
   shouldComponentUpdate = (nextProp, nextState) => {
     const prevState = this.state;
-    return nextState._dataLoaded !== prevState._dataLoaded || nextState.selectedLocation !== prevState.selectedLocation;
+    return prevState._dataLoaded !== nextState._dataLoaded
+      || prevState.locationBase !== nextState.locationBase
+      || prevState.locationSelected !== nextState.locationSelected;
   }
+  */
 
   componentDidMount = () => {
     this.fetchData();
@@ -48,54 +51,58 @@ class Covid extends Component {
     axios.get("/api/covid").then(resp => {
       this.setState({
         locations: resp.data.locations,
-        data_actual: resp.data.data_actual,
-        data_historical: resp.data.data_historical,
-        defaultLocation: resp.data.locations[0],
+        dataActual: resp.data.data_actual,
+        dataHistorical: resp.data.data_historical,
+        locationBase: resp.data.locations[0],
+        locationsSelected: [resp.data.locations[0]["Location ID"]],
         _dataLoaded: true
       })
     });
   }
 
   selectNewLocation = (location) => {
-    this.setState({selectedLocation: location});
+    const {locationBase, locationsSelected} = this.state;
+    if (!locationsSelected.includes(location["Location ID"])) {
+      locationsSelected.push(location["Location ID"]);
+      const index = locationsSelected.indexOf(locationBase["Location ID"]);
+      locationsSelected.splice(index, 1);
+      this.setState({
+        locationBase: location,
+        locationsSelected: locationsSelected
+      });
+    } else {
+      this.setState({
+        locationBase: location
+      });
+    }
   }
 
   addNewLocation = (location, event) => {
-    const {addedLocations} = this.state;
-    event ? this.setState({addedLocations: addedLocations.push(location.ID)}) : console.log(`Remove location ${location.Label} from array of objects`);
+    const {locationsSelected} = this.state;
+    if (event) {
+      locationsSelected.push(location["Location ID"]);
+    } else {
+      const index = locationsSelected.indexOf(location["Location ID"]);
+      locationsSelected.splice(index, 1);
+    }
+    this.setState({
+      locationsSelected: locationsSelected
+    });
   }
 
   render() {
     const {t} = this.props;
-    const {
-      locations,
-      data_actual,
-      data_historical,
-      defaultLocation,
-      selectedLocation,
-      addedLocations,
-      _dataLoaded
-    } = this.state;
-
-    if (!_dataLoaded) {
-      return <Loading />
-    }
+    const {locations, dataActual, dataHistorical, locationBase, locationsSelected, _dataLoaded} = this.state;
 
     if (_dataLoaded) {
-      const baseLocation = selectedLocation ? selectedLocation : defaultLocation;
-      const baseData = data_actual.find(d => d["Location ID"] === baseLocation["Location ID"]);
-      const locationsInVisualizations = [baseLocation["Location ID"]];
-      addedLocations.map(d => console.log("here", d));
-
-      // -------------------- Check Later ------------------------
-      const updateDate = new Date(data_actual[0]["Time"]);
+      const baseData = dataActual.find(d => d["Location ID"] === locationBase["Location ID"]);
+      const updateDate = new Date(dataActual[0].Time);
       const dataUpdateDate = {
-        dateDay: weekdaysNames[updateDate.getDay()],
-        dateNumber: updateDate.getDate(),
-        dateMonth: monthsNames[updateDate.getMonth()],
-        dateYear: updateDate.getFullYear()
+        Day: weekdaysNames[updateDate.getDay()],
+        Number: updateDate.getDate(),
+        Month: monthsNames[updateDate.getMonth()],
+        Year: updateDate.getFullYear()
       };
-      // ---------------------------------------------------------
 
       return <div className="covid-wrapper">
         <Helmet title="Coronavirus">
@@ -108,56 +115,55 @@ class Covid extends Component {
           routePath={"/:lang"}
           title={""}
         />
-
         <div className="covid-site">
           <div className="covid-header">
             <DMXSearchLocation
               locationOptions={locations}
-              locationSelected={baseLocation}
+              locationSelected={locationBase}
               selectNewLocation={this.selectNewLocation}
             />
+            <h4 className="covid-header-date">{`Data actualizada al ${dataUpdateDate.Number + 1} ${dataUpdateDate.Month} ${dataUpdateDate.Year}`}</h4>
             <DMXPreviewStats
               data={baseData}
               stats={[
-                {ID: "Daily Cases", Name: "New Cases"},
-                {ID: "Daily Deaths", Name: "New Deaths"},
-                {ID: "Cases last 7 Days", Name: "Last Week Cases"},
-                {ID: "Deaths last 7 Days", Name: "Last Week Deaths"},
-                {ID: "Accum Cases", Name: "Confirmed Cases"},
-                {ID: "Accum Deaths", Name: "Confirmed Deaths"}
+                {ID: "Daily Cases", Name: "Nuevos Casos", IconName: "nuevo-caso-icon.svg"},
+                {ID: "Daily Deaths", Name: "Nuevas Muertes", IconName: "nueva-muerte-icon.svg"},
+                {ID: "Cases last 7 Days", Name: "Casos Última Semana", IconName: "casos-ultima-semana-icon.svg"},
+                {ID: "Deaths last 7 Days", Name: "Muertes Última Semana", IconName: "muertes-ultima-semana-icon.svg"},
+                {ID: "Accum Cases", Name: "Casos Confirmados", IconName: "casos-confirmados-icon.png"},
+                {ID: "Accum Deaths", Name: "Muertes Confirmadas", IconName: "muertes-confirmadas-icon.svg"}
               ]}
             />
           </div>
-          {/*
-          <DMXSelectLocation
-            locationsArray={locations}
-            locationsInVisualizations={locationsInVisualizations}
-            addNewLocation={this.addNewLocation}
-          />
-          */}
           <div className="covid-body container">
             <CovidCard
-              baseLocation={baseLocation}
-              cardTitle={"Daily New Cases"}
+              cardTitle={"Nuevos casos diarios"}
               cardDescription={<p>
                 Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
               </p>}
-              data={data_historical}
+              data={dataHistorical}
               dataSource={"Datos proveídos por el Gobierno de México."}
               dataLimit={14}
-              scaleSelector={[{name: t("CovidCard.Linear"), id: "linear"}, {name: t("CovidCard.Logarithmic"), id: "log"}]}
+              locationsSelected={locationsSelected}
+              locationsSelector={
+                <DMXSelectLocation
+                  locationsOptions={locations}
+                  locationsSelected={locationsSelected}
+                  addNewLocation={this.addNewLocation}
+                />
+              }
+              scaleSelector={[{name: t("Lineal"), id: "linear"}, {name: t("Logarítmica"), id: "log"}]}
               indicatorSelector={[]}
               indicatorBase={[]}
               visualization={{
                 type: "LinePlot",
                 config: {
-                  groupBy: "State ID",
+                  groupBy: "Location ID",
                   height: 400,
                   x: "Time ID",
                   y: "Daily Cases",
-                  sum: "Daily Cases",
                   tooltipConfig: {
-                    title: d => "Coronavirus",
+                    title: d => d["Location"],
                     tbody: [
                       ["Daily Cases", d => d["Daily Cases"]],
                       ["Accum Cases", d => d["Accum Cases"]],
@@ -176,6 +182,8 @@ class Covid extends Component {
         />
         <Footer />
       </div>;
+    } else {
+      return <Loading />
     }
   }
 }
