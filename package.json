@@ -28,6 +28,7 @@
     "@datawheel/canon-cms": "^0.13.11",
     "@datawheel/canon-core": "^0.18.20",
     "@datawheel/canon-stats": "git+https://x-oauth-basic@github.com/Datawheel/canon-stats.git",
-    "mondrian-rest-client": "^1.1.3"
+    "mondrian-rest-client": "^1.1.3",
+    "react-sparklines": "^1.7.0"
   }
 }

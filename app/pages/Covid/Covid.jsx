@@ -14,6 +14,7 @@ import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
 import CovidCard from "../../components/CovidCard";
+import CovidTable from "components/CovidTable";
 import DMXSearchLocation from "../../components/DMXSearchLocation";
 import DMXSelectLocation from "../../components/DMXSelectLocation";
 import DMXPreviewStats from "../../components/DMXPreviewStats";
@@ -176,6 +177,10 @@ class Covid extends Component {
             />
           </div>
         </div>
+
+        <CovidTable
+
+        />
         <Footer />
       </div>;
     } else {
