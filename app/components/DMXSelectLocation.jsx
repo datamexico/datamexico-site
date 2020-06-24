@@ -22,7 +22,7 @@ export class DMXSelectLocation extends Component {
   */
 
   createLocationOptions = () => {
-    const {locationsOptions, locationsSelected, addNewLocation} = this.props;
+    const {locationBase, locationsOptions, locationsSelected, addNewLocation} = this.props;
     const divisions = [...new Set(locationsOptions.map(d => d["Division"]))];
 
     const locationOptions =
@@ -36,6 +36,8 @@ export class DMXSelectLocation extends Component {
                   label={`${m["Location"]}`}
                   className={"dmx-select-results-location"}
                   defaultChecked={locationsSelected.includes(m["Location ID"]) ? true : false}
+                  defaultIndeterminate={m["Location ID"] === locationBase["Location ID"] ? true : false}
+                  disabled={m["Location ID"] === locationBase["Location ID"] ? true : false}
                   onChange={evt => addNewLocation(m, evt.currentTarget.checked)}
                 />
               )}

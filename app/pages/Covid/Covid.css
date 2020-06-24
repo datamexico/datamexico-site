@@ -20,7 +20,7 @@
   & .covid-header {
     display: flex;
     flex-direction: column;
-    background-image: url("/images/covid-header.png") no-repeat fixed center;
+    background-image: url("/images/backgroundmx.jpg") no-repeat fixed center;
     padding: var(--gutter-md) var(--gutter-md);
 
     & .dmx-search-location {
