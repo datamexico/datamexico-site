@@ -31,12 +31,31 @@
           height: 2rem;
           margin: 0;
           & .cp-button {
+            border: 1px solid var(--covid-red);
+            cursor: pointer;
           }
           & .is-inactive {
+            color: var(--covid-red);
           }
           & .is-active {
-            background: #9f2241;
-            border: 1px solid #9f2241;
+            color: var(--covid-white) !important;
+            background: var(--covid-red);
+          }
+          & .cp-button:hover {
+            opacity: 0.9;
+          }
+        }
+      }
+    }
+    & .covid-card-information-stat-selector {
+      & .dmx-selector {
+        & .dmx-selector-header {
+          color: var(--covid-light-grey);
+        }
+        & .filter-selector {
+          & .bp3-button-text {
+            color: var(--covid-light-grey);
+            font-weight: 600;
           }
         }
       }

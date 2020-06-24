@@ -160,11 +160,10 @@ class Covid extends Component {
                 {name: t("Logarítmica"), id: "log"}
               ]}
               indicatorSelector={[
-                {name: "", id: ""},
-                {name: "", id: ""},
-                {name: "", id: ""}
+                {name: "Casos Diarios", id: "Daily Cases"},
+                {name: "Casos Confirmados", id: "Accum Cases"},
+                {name: "Muertes", id: "Accum Deaths"}
               ]}
-              indicatorBase={[]}
               visualization={{
                 type: "LinePlot",
                 config: {
@@ -174,18 +173,9 @@ class Covid extends Component {
                   x: "Time",
                   time: "Time",
                   timeline: false,
-                  y: "Daily Cases",
-                  tooltipConfig: {
-                    tbody: [
-                      ["Daily Cases", d => d["Daily Cases"]],
-                      ["Accum Cases", d => d["Accum Cases"]],
-                      ["Date", d => d["Time"]]
-                    ],
-                    width: "200px"
-                  },
                   shapeConfig: {
                     Line: {
-                      stroke: d => colors.State[d["Location ID"]] || "red"
+                      stroke: d => colors.State[d["Location ID"]] || "#235B4E"
                     }
                   }
                 }

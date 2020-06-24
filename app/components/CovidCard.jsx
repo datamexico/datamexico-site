@@ -7,6 +7,7 @@ import LoadingChart from "./LoadingChart";
 import DMXButtonGroup from "./DMXButtonGroup";
 import DMXSelect from "./DMXSelect";
 
+import {commas} from "helpers/utils";
 import colors from "../../static/data/colors.json";
 
 import "./CovidCard.css";
@@ -15,7 +16,8 @@ class CovidCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      scaleSelected: this.props.scaleSelector[1]
+      scaleSelected: this.props.scaleSelector[0],
+      indicatorSelected: this.props.indicatorSelector[0]
     };
   }
 
@@ -42,11 +44,19 @@ class CovidCard extends Component {
   }
 
   createVisualization = (type, config, data) => {
-    const {scaleSelected} = this.state;
+    const {scaleSelected, indicatorSelected} = this.state;
     let viz = null;
     config["data"] = data;
+    config["y"] = indicatorSelected.id;
     config["yConfig"] = {
       scale: scaleSelected.id
+    };
+    config["tooltipConfig"] = {
+      tbody: [
+        [indicatorSelected.name, d => commas(d[indicatorSelected.id])],
+        ["Date", d => d["Time"]]
+      ],
+      width: "200px"
     };
     if (type === "LinePlot") {
       viz = <LinePlot
@@ -58,8 +68,8 @@ class CovidCard extends Component {
   }
 
   render() {
-    const {t, cardTitle, cardDescription, data, dataSource, dataLimit, locationsSelected, locationsSelector, scaleSelector, indicatorSelector, indicatorBase, visualization} = this.props;
-    const {scaleSelected} = this.state;
+    const {t, cardTitle, cardDescription, data, dataSource, dataLimit, locationsSelected, locationsSelector, scaleSelector, indicatorSelector, visualization} = this.props;
+    const {scaleSelected, indicatorSelected} = this.state;
     const selectedData = this.filterData(data, locationsSelected, dataLimit);
     const viz = this.createVisualization(visualization.type, visualization.config, selectedData);
 
@@ -74,6 +84,14 @@ class CovidCard extends Component {
               items={scaleSelector}
               selected={scaleSelected}
               callback={groupValue => this.setState({scaleSelected: groupValue})}
+            />
+          </div>
+          <div className="covid-card-information-stat-selector">
+            <DMXSelect
+              title={"Indicador"}
+              items={indicatorSelector}
+              selectedItem={indicatorSelected}
+              callback={indicatorSelected => this.setState({indicatorSelected})}
             />
           </div>
           <div className="covid-card-information-description">{cardDescription}</div>
