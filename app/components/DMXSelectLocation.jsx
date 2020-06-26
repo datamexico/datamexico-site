@@ -31,17 +31,17 @@ export class DMXSelectLocation extends Component {
     const locationOptions =
       <div className="dmx-select-results">
         {divisions.map(d =>
-          <div className="dmx-select-result">
-            <span className="dmx-select-results-division">{divisionDictionary[d]}</span>
-            <div className="dmx-select-result-options">
+          <div className="dmx-select-results-result">
+            <span className="dmx-select-results-result-division">{divisionDictionary[d]}</span>
+            <div className="dmx-select-results-result-options">
               {locationsOptions.filter(f => f["Division"] === d).map(m => {
-                const checkbockLabel = <div className="dmx-result-label">
-                  <img src={m["Icon"]} className="label-icon" style={{backgroundColor: colors.State[m["Location ID"]] ? colors.State[m["Location ID"]] : null}} />
-                  <span className="label-name">{m["Location"]}</span>
+                const checkbockLabel = <div className="dmx-select-results-result-options-location-label">
+                  <img src={m["Icon"]} className="dmx-select-results-result-options-location-label-icon" style={{backgroundColor: colors.State[m["Location ID"]] ? colors.State[m["Location ID"]] : null}} />
+                  <span className="dmx-select-results-result-options-location-label-name">{m["Location"]}</span>
                 </div>
                 return <Checkbox
                   label={checkbockLabel}
-                  className={"dmx-select-results-location"}
+                  className={"dmx-select-results-result-options-location"}
                   defaultChecked={locationsSelected.includes(m["Location ID"]) ? true : false}
                   defaultIndeterminate={m["Location ID"] === locationBase["Location ID"] ? true : false}
                   disabled={m["Location ID"] === locationBase["Location ID"] ? true : false}
@@ -59,9 +59,9 @@ export class DMXSelectLocation extends Component {
     const {isOpen} = this.state;
     const locationOptions = this.createLocationOptions();
 
-    const buttonContent = <div className="dmx-button-content">
-      <img src="/icons/visualizations/covid/agregar-ubicacion-icon.svg" alt="" className="dmx-button-content-img" />
-      <span className="dmx-button-content-text">{"Añadir Localidad"}</span>
+    const buttonContent = <div className="dmx-select-location-button-content">
+      <img src="/icons/visualizations/covid/agregar-ubicacion-icon.svg" alt="" className="dmx-select-location-button-content-img" />
+      <span className="dmx-select-location-button-content-text">{"Añadir Localidad"}</span>
     </div>
 
     return (
@@ -75,7 +75,7 @@ export class DMXSelectLocation extends Component {
           enforceFocus={false}
         >
           <Button
-            className={"dmx-button"}
+            className={"dmx-select-location-button"}
             onClick={() => this.setState({isOpen: !isOpen})}
             text={buttonContent}
           />

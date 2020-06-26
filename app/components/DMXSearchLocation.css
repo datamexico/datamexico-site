@@ -23,7 +23,7 @@
     }
   }
   & .dmx-search-display-location-division {
-    background: var(--gmx-yellow-2);
+    background-color: var(--gmx-yellow-2);
     border-radius: calc(var(--infocard-border-radius) * 4);
     color: var(--white);
     font-size: var(--font-sm);
@@ -33,12 +33,12 @@
 }
 
 .dmx-search-component {
-  background: var(--white);
+  background-color: var(--white);
   & .dmx-search-component-input {
-    border: var(--field-border-width) solid var(--light-grey);
+    border: var(--field-border-width) solid var(--light-gray);
     padding: var(--gutter-xs) var(--gutter-sm);
     & .bp3-icon {
-      color: var(--light-grey);
+      color: var(--light-gray);
       margin: 7px;
       padding: var(--gutter-xs) var(--gutter-sm);
     }
@@ -48,22 +48,22 @@
   }
   & .dmx-search-component-results {
     border-top: none;
-    border: var(--field-border-width) solid var(--light-grey);
+    border: var(--field-border-width) solid var(--light-gray);
     display: flex;
     flex-direction: column;
     max-height: 300px;
     overflow-y: scroll;
     & .dmx-search-component-results-box {
-      background: var(--white);
+      background-color: var(--white);
       & .dmx-results-row {
         align-items: center;
         display: flex;
         padding: var(--gutter-xs) var(--gutter-sm);
       }
       & .dmx-search-component-results-box-division {
-        color: var(--light-grey);
+        color: var(--light-gray);
         font-size: var(--font-sm);
-        font-weight: 500;
+        font-weight: var(--light-bold-weight);
         text-transform: uppercase;
       }
       & .dmx-search-component-results-box-location {
@@ -75,13 +75,13 @@
         & .dmx-search-component-results-box-location-name {
           flex-grow: 1;
           font-size: var(--font-sm);
-          font-weight: 400;
+          font-weight: var(--base-font-weight);
           margin-right: var(--gutter-sm);
         }
         & .dmx-search-component-results-box-location-division {
-          color: var(--light-grey);
+          color: var(--light-gray);
           font-size: var(--font-xs);
-          font-weight: 500;
+          font-weight: var(--light-bold-weight);
           text-transform: uppercase;
         }
       }
