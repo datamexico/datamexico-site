@@ -31,7 +31,6 @@ class Covid extends Component {
       locationBase: undefined,
       locationSelected: []
     };
-    this.selectNewLocation = this.selectNewLocation.bind(this);
     this.addNewLocation = this.addNewLocation.bind(this);
   }
 
@@ -67,35 +66,27 @@ class Covid extends Component {
     });
   }
 
-  // add these two in to one function
-  selectNewLocation = (location) => {
-    const {locationBase, locationSelected} = this.state;
-    if (!locationSelected.includes(location["Location ID"])) {
-      locationSelected.push(location["Location ID"]);
-      const index = locationSelected.indexOf(locationBase["Location ID"]);
-      locationSelected.splice(index, 1);
-      this.setState({
-        locationBase: location,
-        locationSelected: locationSelected
-      });
-    } else {
-      this.setState({
-        locationBase: location
-      });
-    }
-  }
-
   addNewLocation = (location, event) => {
-    const {locationSelected} = this.state;
-    if (event) {
-      locationSelected.push(location["Location ID"]);
+    const {locationBase, locationSelected} = this.state;
+    const locationsArray = locationSelected.slice();
+    const nextState = {};
+    if (event === "base") {
+      if (location !== locationBase) {
+        if (!locationSelected.includes(location["Location ID"])) locationsArray.push(location["Location ID"]);
+        nextState.locationBase = location;
+        const index = locationsArray.indexOf(locationBase["Location ID"]);
+        locationsArray.splice(index, 1);
+        nextState.locationSelected = locationsArray;
+      }
+    } else if (event === "add") {
+      locationsArray.push(location["Location ID"]);
+      nextState.locationSelected = locationsArray;
     } else {
-      const index = locationSelected.indexOf(location["Location ID"]);
-      locationSelected.splice(index, 1);
+      const index = locationsArray.indexOf(location["Location ID"]);
+      locationsArray.splice(index, index > -1 ? 1 : 0);
+      nextState.locationSelected = locationsArray;
     }
-    this.setState({
-      locationSelected: locationSelected
-    });
+    this.setState(nextState);
   }
 
   render() {
@@ -144,7 +135,7 @@ class Covid extends Component {
           <DMXSearchLocation
             locationOptions={locationArray}
             locationSelected={locationBase}
-            selectNewLocation={this.selectNewLocation}
+            addNewLocation={this.addNewLocation}
           />
           <h4 className="covid-header-date">{`Data actualizada al ${dataUpdateDate.Number + 1} ${dataUpdateDate.Month} ${dataUpdateDate.Year}`}</h4>
           <div className="covid-header-stats">

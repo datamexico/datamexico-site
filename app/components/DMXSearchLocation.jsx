@@ -28,7 +28,7 @@ export class DMXSearchLocation extends Component {
 
   // Change the global value of the selected location when the user press one location inside the popover component
   selectLocation = (location) => {
-    this.props.selectNewLocation(location);
+    this.props.addNewLocation(location, "base");
     this.setState({filterValue: "", isOpen: false});
   }
 

@@ -45,7 +45,7 @@ export class DMXSelectLocation extends Component {
                   defaultChecked={locationsSelected.includes(m["Location ID"]) ? true : false}
                   defaultIndeterminate={m["Location ID"] === locationBase["Location ID"] ? true : false}
                   disabled={m["Location ID"] === locationBase["Location ID"] ? true : false}
-                  onChange={evt => addNewLocation(m, evt.currentTarget.checked)}
+                  onChange={evt => addNewLocation(m, evt.currentTarget.checked ? "add" : "remove")}
                 />
               })}
             </div>
