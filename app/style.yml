@@ -109,6 +109,7 @@ base-font-stack:            "'Fira Sans', 'Trebuchet MS', sans-serif" # Remember
 base-font-stack-condensed:  "'Fira Sans Extra Condensed', 'Trebuchet MS', sans-serif"
 base-font-weight:           "400"
 base-letter-spacing:        "0"
+light-bold-weight:          "500"
 bold-weight:                "600"
 light-weight:               "200"
 
@@ -253,3 +254,9 @@ gmx-yellow-1:       "#DDC9A3"
 gmx-yellow-2:       "#BC955C"
 gmx-red-1:          "#9F2241"
 gmx-red-2:          "#691C32"
+
+#aditional colors
+beige:        "#F8F4EF"
+cream:        "#F2F2F2"
+light-gray:   "#6F7271"
+
