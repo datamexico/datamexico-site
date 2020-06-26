@@ -1,45 +1,33 @@
 @import "helpers/mixins.css";
 
-:root {
-  --covid-red: #9F2241;
-  --covid-dark-red: #691C32;
-  --covid-gold: #BC955C;
-  --covid-beige: #F8F4EF;
-  --covid-black: #2B292A;
-  --covid-grey: #4D4D4D;
-  --covid-light-grey: #6F7271;
-  --covid-white: #F9F9F9;
-  --covid-green: #235B4E;
-}
-
 .covid-card {
   & .covid-card-information > * {
     margin-bottom: var(--gutter-sm);
   }
   & .covid-card-information {
     & .covid-card-information-title {
-      color: #691c32;
+      color: var(--gmx-red-2);
       font-size: var(--font-lg);
-      font-weight: 400;
+      font-weight: var(--base-font-weight);
     }
     & .covid-card-information-scale-selector {
       & .dmx-button-group {
         & .dmx-button-group-title {
-          color: var(--covid-light-grey);
+          color: var(--light-gray);
         }
         & .dmx-button-group-items {
-          height: 2rem;
+          height: var(--gutter-md);
           margin: 0;
           & .cp-button {
-            border: 1px solid var(--covid-red);
+            border: var(--field-border-radius) solid var(--gmx-red-1);
             cursor: pointer;
           }
           & .is-inactive {
-            color: var(--covid-red);
+            color: var(--gmx-red-1);
           }
           & .is-active {
-            color: var(--covid-white) !important;
-            background: var(--covid-red);
+            color: var(--white) !important;
+            background-color: var(--gmx-red-1);
           }
           & .cp-button:hover {
             opacity: 0.9;
@@ -50,12 +38,12 @@
     & .covid-card-information-stat-selector {
       & .dmx-selector {
         & .dmx-selector-header {
-          color: var(--covid-light-grey);
+          color: var(--light-gray);
         }
         & .filter-selector {
           & .bp3-button-text {
-            color: var(--covid-light-grey);
-            font-weight: 600;
+            color: var(--light-gray);
+            font-weight: var(--bold-weight);
           }
         }
       }
@@ -65,8 +53,8 @@
     }
   }
   & .covid-card-visualization {
-    background-color: #FFFFFF;
-    border: 1px solid #c7c7c8ff;
+    background-color: var(--white);
+    border: var(--field-border-radius) solid var(--light-3);
     & .covid-card-visualization-header {
       & .dmx-select-location {
         display: flex;
@@ -84,11 +72,11 @@
   display: flex;
   flex-direction: row;
   & .covid-column-30 {
+    padding: var(--gutter-sm);
     width: 30%;
-    padding: var(--gutter-sm) var(--gutter-sm);
   }
   & .covid-column-70 {
+    padding: var(--gutter-sm);
     width: 70%;
-    padding: var(--gutter-sm) var(--gutter-sm);
   }
 }
