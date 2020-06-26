@@ -11,7 +11,6 @@ import {weekdaysNames, monthsNames} from "helpers/helpers";
 
 import CovidCard from "components/CovidCard";
 import CovidTable from "components/CovidTable";
-import DMXPreviewStats from "components/DMXPreviewStats";
 import DMXSearchLocation from "components/DMXSearchLocation";
 import DMXSelectLocation from "components/DMXSelectLocation";
 import Footer from "components/Footer";
@@ -28,7 +27,7 @@ class Covid extends Component {
       dataActual: null,
       dataHistorical: null,
       locationArray: null,
-      locationBase: null,
+      locationBase: undefined,
       locationSelected: []
     };
     this.selectNewLocation = this.selectNewLocation.bind(this);

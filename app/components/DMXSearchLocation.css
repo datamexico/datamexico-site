@@ -1,54 +1,44 @@
 @import "helpers/mixins.css";
 
-:root {
-  --covid-red: #9F2241;
-  --covid-dark-red: #691C32;
-  --covid-gold: #BC955C;
-  --covid-beige: #F8F4EF;
-  --covid-black: #2B292A;
-  --covid-grey: #4D4D4D;
-  --covid-light-grey: #6F7271;
-  --covid-white: #F9F9F9;
-  --covid-green: #235B4E;
-}
-
-.dmx-search-location {
+.dmx-search-display {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  & .search-location {
-    & .search-icon {
-      width: 3rem;
+  padding: var(--gutter-lg);
+  & .dmx-search-display-location {
+    padding-bottom: calc(var(--gutter-xs) / 2);
+    & .dmx-search-display-location-icon {
       float: left;
+      width: var(--gutter-xl);
     }
-    & .location-name {
-      color: var(--covid-black);
-      font-size: var(--font-xxl);
-      font-weight: 600;
-      display: inline;
+    & .dmx-search-display-location-name {
+      color: var(--black);
       cursor: pointer;
+      display: inline;
+      font-size: var(--font-xxl);
+      font-weight: var(--bold-weight);
     }
-    & .location-name:hover {
+    & .dmx-search-display-location-name:hover {
       text-decoration: underline;
     }
   }
-  & .location-division {
-    color: var(--covid-white);
-    background: var(--covid-gold);
+  & .dmx-search-display-location-division {
+    background: var(--gmx-yellow-2);
+    border-radius: calc(var(--infocard-border-radius) * 4);
+    color: var(--white);
     font-size: var(--font-sm);
-    font-weight: 400;
-    border-radius: 20px;
-    padding: 0.3rem var(--gutter-sm);
+    font-weight: var(--base-font-weight);
+    padding: var(--button-padding);
   }
 }
 
 .dmx-search-component {
-  background: var(--covid-white);
-  & .dmx-search-input {
-    border: 1px solid var(--covid-light-grey);
+  background: var(--white);
+  & .dmx-search-component-input {
+    border: var(--field-border-width) solid var(--light-grey);
     padding: var(--gutter-xs) var(--gutter-sm);
     & .bp3-icon {
-      color: var(--covid-light-grey);
+      color: var(--light-grey);
       margin: 7px;
       padding: var(--gutter-xs) var(--gutter-sm);
     }
@@ -56,57 +46,53 @@
       cursor: pointer;
     }
   }
-  & .dmx-search-results {
+  & .dmx-search-component-results {
+    border-top: none;
+    border: var(--field-border-width) solid var(--light-grey);
     display: flex;
     flex-direction: column;
     max-height: 300px;
-    overflow: scroll;
-    border: 1px solid var(--covid-light-grey);
-    border-top: none;
-    & .dmx-search-results-box {
-      background: var(--covid-white);
+    overflow-y: scroll;
+    & .dmx-search-component-results-box {
+      background: var(--white);
       & .dmx-results-row {
-        display: flex;
         align-items: center;
+        display: flex;
         padding: var(--gutter-xs) var(--gutter-sm);
       }
-      & .dmx-search-results-division {
-        color: var(--covid-light-grey);
+      & .dmx-search-component-results-box-division {
+        color: var(--light-grey);
         font-size: var(--font-sm);
         font-weight: 500;
         text-transform: uppercase;
       }
-      & .dmx-search-results-location {
+      & .dmx-search-component-results-box-location {
         cursor: pointer;
-        & .location-icon {
+        & .dmx-search-component-results-box-location-icon {
           height: 2em;
           margin-right: var(--gutter-xs);
         }
-        & .location-name {
+        & .dmx-search-component-results-box-location-name {
           flex-grow: 1;
           font-size: var(--font-sm);
           font-weight: 400;
           margin-right: var(--gutter-sm);
         }
-        & .location-division {
-          color: var(--covid-light-grey);
+        & .dmx-search-component-results-box-location-division {
+          color: var(--light-grey);
           font-size: var(--font-xs);
           font-weight: 500;
           text-transform: uppercase;
         }
       }
-      & .dmx-search-results-location:hover {
-        background-color: var(--covid-beige);
-        color: var(--covid-gold);
+      & .dmx-search-component-results-box-location:hover {
+        background-color: var(--beige);
+        color: var(--gmx-yellow-2);
       }
-      & .dmx-search-results-no-options {
+      & .dmx-search-component-results-box-no-options {
         flex-grow: 1;
         font-size: var(--font-sm);
       }
     }
   }
 }
-
-/* .bp3-popover {
-  width: max-content;
-} */

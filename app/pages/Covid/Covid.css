@@ -9,11 +9,6 @@
     display: flex;
     flex-direction: column;
     padding: var(--gutter-md);
-    & .dmx-search-location {
-      display: flex;
-      justify-content: center;
-      padding: var(--gutter-md);
-    }
     & .covid-header-date {
       color: var(--light-gray);
       display: flex;
@@ -59,31 +54,5 @@
         border: 0;
       }
     }
-
-    & .location-info {
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      padding: var(--gutter-md);
-      & .location-name {
-        color: #BC955C;
-        font-size: var(--font-xl);
-        font-weight: 600;
-      }
-      & .location-division {
-        background: var(--gmx-yellow-2);
-        font-size: var(--font-md);
-        font-weight: 400;
-      }
-    }
-    & .dmx-preview-stats {
-      flex-grow: 1;
-    }
-  }
-  & .covid-body {
-    min-height: 50vh;
-  }
-  & .footer {
-    margin-top: auto;
   }
 }
