@@ -28,7 +28,7 @@ class Covid extends Component {
       dataActual: null,
       dataHistorical: null,
       locationArray: null,
-      locationBase: null,
+      locationBase: undefined,
       locationSelected: []
     };
     this.selectNewLocation = this.selectNewLocation.bind(this);
