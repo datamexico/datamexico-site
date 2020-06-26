@@ -87,7 +87,12 @@
       }
       & .dmx-search-component-results-box-location:hover {
         background-color: var(--beige);
-        color: var(--gmx-yellow-2);
+        & .dmx-search-component-results-box-location-name {
+          color: var(--gmx-yellow-2);
+        }
+        & .dmx-search-component-results-box-location-division {
+          color: var(--gmx-yellow-2);
+        }
       }
       & .dmx-search-component-results-box-no-options {
         flex-grow: 1;
