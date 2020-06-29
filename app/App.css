@@ -344,7 +344,7 @@ p:last-of-type {
       width: 40px;
       height: 40px;
       flex-shrink: 0;
-      border-radius: 40px;
+      border-radius: 0px;
       & img {
         width: 40px;
         height: 40px;
@@ -481,5 +481,10 @@ p:last-of-type {
   & .covid-column-70 {
     width: 70%;
   }
+}
+
+.cp-related .cp-related-tile-list > * {
+  flex: 1;
+  min-width: 200px;
 }
 

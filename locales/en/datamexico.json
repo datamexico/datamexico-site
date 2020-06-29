@@ -49,6 +49,14 @@
       "entire section": "entire section",
       "visualization only": "visualization only"
     },
+    "Search": {
+      "Empty": "Please enter a search term",
+      "Loading": "Loading results...",
+      "No results": "No results matching \"{{query}}\"",
+      "Related Profiles": "Related Profiles",
+      "Search profiles": "Search profiles",
+      "reset": "reset"
+    },
     "SourceGroup": {
       "Data provided by": "Data provided by",
       "and": "and"
@@ -58,14 +66,51 @@
   "Cities & Places": "Cities & Places",
   "Contributor": "Contributor",
   "Copper Ores and Concentrates": "Copper Ores and Concentrates",
-  "threshold_eci_explorer": "Threshold of {{measure}} by {{level}}",
+  "Copy": "Copy",
+  "Covid": {
+    "Overview": "Overview",
+    "Stats": {
+      "Accum Cases": "Accum Cases",
+      "Accum Deaths": "Accum Deaths",
+      "Cases last 7 Days": "Cases last 7 Days",
+      "Daily Cases": "Daily Cases",
+      "Daily Deaths": "Daily Deaths",
+      "Deaths last 7 Days": "Deaths last 7 Days",
+      "Description": {
+        "Historical 1": "There have been at least {{value}} confirmed cases of coronavirus in Mexico, according to the Agency National Science and Technology.",
+        "Historical 2": "{{value}} people had died in the country.",
+        "Today 1": "There have been at least {{value}} confirmed cases of coronavirus in Mexico today, according to the Agency National Science and Technology.",
+        "Today 2": "Today, {{value}} people had died in the country.",
+        "Week 1": "There have been at least {{value}} confirmed cases of coronavirus in Mexico this week, according to the Agency National Science and Technology.",
+        "Week 2": "This week, {{value}} people had died in the country."
+      }
+    }
+  },
+  "CovidCard": {
+    "Graph Date": "Last data update:",
+    "Historical": "Historical",
+    "Linear": "Linear",
+    "Logarithmic": "Logarithmic",
+    "Overview": "Overview",
+    "Selector Name": "Show Results For",
+    "Source": "Source:",
+    "Stat ID": "Cases reported in",
+    "Stats": {
+      "Cases": "New cases",
+      "Dead": "Deaths",
+      "Total": "Confirmed cases"
+    },
+    "Today": "Today",
+    "Week": "Last Week"
+  },
+  "Dataset": "Dataset",
   "ECI Explorer": {
     "Build ECI / PCI": "Build ECI / PCI",
     "Description": "Explore different Economic Complexity indicators for Mexico.",
     "Download ECI dataset": "Download ECI dataset",
     "Download PCI dataset": "Download PCI dataset",
-    "Title": "ECI Explorer",
-    "ECI Title": "Economic Complexity Index (ECI) ({{time}})"
+    "ECI Title": "Economic Complexity Index (ECI) ({{time}})",
+    "Title": "ECI Explorer"
   },
   "EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA": "EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA",
   "Elementary and Secondary Schools": "Elementary and Secondary Schools",
@@ -82,9 +127,12 @@
   "Industrial Engineers": "Industrial Engineers",
   "Industries": "Industries",
   "Industry Level": "Industry Level",
+  "Level": "Level",
+  "Lineal": "Lineal",
   "Loading": {
     "description": "Loading {{progress}} of {{total}} datasets"
   },
+  "Logarítmica": "Logarítmica",
   "Login": {
     "E-mail": "E-mail",
     "Facebook": "Facebook",
@@ -101,6 +149,20 @@
   "Measure": "Measure",
   "Menu": "Menu",
   "Metal Ore Mining": "Metal Ore Mining",
+  "Months": {
+    "April": "April",
+    "August": "August",
+    "December": "December",
+    "February": "February",
+    "January": "January",
+    "July": "July",
+    "June": "June",
+    "March": "March",
+    "May": "May",
+    "November": "November",
+    "October": "October",
+    "September": "September"
+  },
   "No results found": "No results found",
   "Occupations": "Occupations",
   "Parts of Seats": "Parts of Seats",
@@ -155,64 +217,17 @@
   "Universities": "Universities",
   "User": "User",
   "Username": "Username",
-  "Your email address": "Your email address",
-  "Covid": {
-    "Overview": "Overview",
-    "Stats": {
-      "Daily Cases": "Daily Cases",
-      "Daily Deaths": "Daily Deaths",
-      "Cases last 7 Days": "Cases last 7 Days",
-      "Deaths last 7 Days": "Deaths last 7 Days",
-      "Accum Cases": "Accum Cases",
-      "Accum Deaths": "Accum Deaths",
-      "Description": {
-        "Today 1": "There have been at least {{value}} confirmed cases of coronavirus in Mexico today, according to the Agency National Science and Technology.",
-        "Today 2": "Today, {{value}} people had died in the country.",
-        "Week 1": "There have been at least {{value}} confirmed cases of coronavirus in Mexico this week, according to the Agency National Science and Technology.",
-        "Week 2": "This week, {{value}} people had died in the country.",
-        "Historical 1": "There have been at least {{value}} confirmed cases of coronavirus in Mexico, according to the Agency National Science and Technology.",
-        "Historical 2": "{{value}} people had died in the country."
-      }
-    }
-  },
-  "CovidCard": {
-    "Selector Name": "Show Results For",
-    "Source": "Source:",
-    "Stat ID": "Cases reported in",
-    "Graph Date": "Last data update:",
-    "Linear": "Linear",
-    "Logarithmic": "Logarithmic",
-    "Overview": "Overview",
-    "Historical": "Historical",
-    "Week": "Last Week",
-    "Today": "Today",
-    "Stats": {
-      "Cases": "New cases",
-      "Dead": "Deaths",
-      "Total": "Confirmed cases"
-    }
-  },
+  "Values aggregated": "Values aggregated",
   "Weekdays": {
-    "Sunday": "Sunday",
-    "Monday": "Monday",
-    "Tuesday": "Tuesday",
-    "Wednesday": "Wednesday",
-    "Thursday": "Thursday",
     "Friday": "Friday",
-    "Saturday": "Saturday"
+    "Monday": "Monday",
+    "Saturday": "Saturday",
+    "Sunday": "Sunday",
+    "Thursday": "Thursday",
+    "Tuesday": "Tuesday",
+    "Wednesday": "Wednesday"
   },
-  "Months": {
-    "January": "January",
-    "February": "February",
-    "March": "March",
-    "April": "April",
-    "May": "May",
-    "June": "June",
-    "July": "July",
-    "August": "August",
-    "September": "September",
-    "October": "October",
-    "November": "November",
-    "December": "December"
-  }
+  "Your email address": "Your email address",
+  "threshold_eci_explorer": "Threshold of {{measure}} by {{level}}",
+  "{{cube}}, {{geo}}, {{level}}": "{{cube}}, {{geo}}, {{level}}"
 }

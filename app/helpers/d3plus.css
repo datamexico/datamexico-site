@@ -21,8 +21,8 @@ general hacks
 
 /* rounded legends */
 .d3plus-Legend rect {
-  rx: 50%;
-  ry: 50%;
+  /* rx: 50%;
+  ry: 50%; */
 }
 
 /* -----------------------------------

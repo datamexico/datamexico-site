@@ -198,6 +198,7 @@ export default {
         // console.log(this._configDefault.groupBy[0](d));
         return findIcon(d);
       },
+      borderRadius: 0,
       width: shapeLegend,
       height: shapeLegend
     },
