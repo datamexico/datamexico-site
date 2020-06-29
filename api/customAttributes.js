@@ -60,7 +60,7 @@ module.exports = function (app) {
           .then(resp => resp.data.data)
           .catch(catcher);
         covidUpdated.sort((a, b) => b["Updated Date ID"] - a["Updated Date ID"]);
-        const covidLatestUpdated = covidUpdated[0]["Updated Date ID"];
+        const covidLatestUpdated = covidUpdated[0]["Updated Date ID"] - 2;
 
         return res.json({
           covidLatestUpdated,
