@@ -45,7 +45,7 @@
   margin-right: 0; /* override canon */
 
   & .cp-stat-label-text {
-    font-size: inherit;
+    font-size: var(--base-font-stack);
   }
 }
 

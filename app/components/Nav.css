@@ -237,3 +237,18 @@
     transform: scale(1.075);
   }
 }
+
+@media (max-width: 767px) {
+  .cp-subnav {
+    background-color: var(--dark-4) !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    & .cp-subnav-item {
+      & a {
+        font-size: var(--font-sm);
+        padding: var(--gutter-xs) var(--gutter-sm);
+      }
+    }
+  }
+}

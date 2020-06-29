@@ -2,6 +2,7 @@
 
 body {
   /* don't remove the default focus styles, unless you plan on bringing your own */
+  -webkit-font-smoothing: antialiased;
   & *:focus {
     outline: 2px solid var(--accent-dark);
     outline-offset: 1px;
@@ -78,21 +79,6 @@ p:last-of-type {
     & .cp-stat-label-text {
       display: flex;
       max-width: 150px;
-    }
-  }
-}
-
-.cp-hero-stat-group-wrapper {
-  & .cp-hero-stat {
-    & .cp-stat-label {
-      & .cp-stat-label-text {
-        font-weight: 700;
-        justify-content: center;
-        margin: auto;
-      }
-    }
-    &:first-child {
-      padding-left: 1.5rem;
     }
   }
 }

@@ -195,7 +195,7 @@ export default {
     shapeConfig: {
       // fill: d => findColor(d),
       backgroundImage(d, i) {
-        // console.log(this._configDefault.groupBy[0](d));
+        console.log(this);
         return findIcon(d);
       },
       borderRadius: 0,
