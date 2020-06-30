@@ -51,6 +51,20 @@
     & .covid-card-information-description {
       font-size: var(--font-xs);
     }
+    & .covid-card-information-sources {
+      color: var(--light-gray);
+      display: flex;
+      & .covid-card-information-sources-source {
+        & a {
+          color: var(--gmx-red-2);
+          font-weight: var(--bold-weight);
+          text-decoration: underline;
+        }
+      }
+    }
+    & .covid-card-information-sources > * {
+      margin-right: calc(var(--gutter-sm) / 4);
+    }
   }
   & .covid-card-visualization {
     background-color: var(--white);

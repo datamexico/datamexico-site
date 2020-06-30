@@ -95,6 +95,16 @@ class CovidCard extends Component {
             />
           </div>
           <div className="covid-card-information-description">{cardDescription}</div>
+          <div className="covid-card-information-sources">
+            <span className="covid-card-information-sources-title">{"Fuente:"}</span>
+            <span className="covid-card-information-sources-text">{"Datos generados por"}</span>
+            {dataSource.map((d, k, {length}) => {
+              return <div className="covid-card-information-sources-source">
+                <a href={d.link} target="_blank" rel="noopener noreferrer">{d.name}</a>
+                <span>{k + 1 < length ? ", " : "."}</span>
+              </div>
+            })}
+          </div>
         </div>
         <div className="covid-card-visualization covid-column-70">
           <div className="covid-card-visualization-header">
@@ -116,18 +126,18 @@ CovidCard.contextTypes = {
 
 export default withNamespaces()(CovidCard);
 
- /*
-    )
-            Source:
-    <div className="covid-data-source">
-            <span>{t("CovidCard.Source")}</span>
-            <h6>{description.source}</h6>
-          </div>
-    visTitle
-    <div className="covid-card-graph-box-header-text">
-              <h4>{graph.title}</h4>
-              <h3>{t("CovidCard.Graph Date")} {`${t(data_date.dateDay)}, ${t(data_date.dateMonth)} ${data_date.dateNumber} ${data_date.dateYear}`}</h3>
-            </div>
+/*
+   )
+           Source:
+   <div className="covid-data-source">
+           <span>{t("CovidCard.Source")}</span>
+           <h6>{description.source}</h6>
+         </div>
+   visTitle
+   <div className="covid-card-graph-box-header-text">
+             <h4>{graph.title}</h4>
+             <h3>{t("CovidCard.Graph Date")} {`${t(data_date.dateDay)}, ${t(data_date.dateMonth)} ${data_date.dateNumber} ${data_date.dateYear}`}</h3>
+           </div>
 
-            // callback={groupValue => this.setState({groupValue})}
-    */
+           // callback={groupValue => this.setState({groupValue})}
+   */

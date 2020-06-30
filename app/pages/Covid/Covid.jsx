@@ -157,7 +157,9 @@ class Covid extends Component {
               Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
               </p>}
             data={dataHistorical}
-            dataSource={"Datos proveídos por el Gobierno de México."}
+            dataSource={[
+              {name: "Secretaria de Salud", link: "https://coronavirus.gob.mx/datos/"}
+            ]}
             dataLimit={14}
             locationsSelected={locationSelected}
             locationsSelector={
