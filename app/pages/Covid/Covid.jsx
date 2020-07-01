@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, {Component} from "react";
 import axios from "axios";
-import classnames from "classnames";
+// import classnames from "classnames";
 import {Helmet} from "react-helmet";
 import {withNamespaces} from "react-i18next";
 
@@ -215,7 +215,8 @@ class Covid extends Component {
             indicatorSelector={[
               {name: "Casos Diarios", id: "Daily Cases"},
               {name: "Casos Confirmados", id: "Accum Cases"},
-              {name: "Muertes", id: "Accum Deaths"}
+              {name: "Muertes Diarias", id: "Daily Deaths"},
+              {name: "Muertes Confirmadas", id: "Accum Deaths"}
             ]}
             visualization={{
               type: "LinePlot",

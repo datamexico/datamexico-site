@@ -1,14 +1,15 @@
-import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {withNamespaces} from "react-i18next";
+import React, {Component} from "react";
 import {LinePlot} from "d3plus-react";
+import {withNamespaces} from "react-i18next";
 
-import LoadingChart from "./LoadingChart";
 import DMXButtonGroup from "./DMXButtonGroup";
+import DMXCheckbox from "components/DMXCheckbox";
 import DMXSelect from "./DMXSelect";
+import LoadingChart from "./LoadingChart";
 
-import {commas} from "helpers/utils";
 import colors from "../../static/data/colors.json";
+import {commas} from "helpers/utils";
 
 import "./CovidCard.css";
 
@@ -16,9 +17,13 @@ class CovidCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      scaleSelected: this.props.scaleSelector[0],
-      indicatorSelected: this.props.indicatorSelector[0]
+      baseAxis: false,
+      baseUnique: null,
+      indicatorSelected: null,
+      ready: false,
+      scaleSelected: null
     };
+    this.baseSelector = this.baseSelector.bind(this);
   }
 
   /*
@@ -31,11 +36,34 @@ class CovidCard extends Component {
   }
   */
 
+  componentDidMount= () => {
+    const indicatorSelected = this.props.indicatorSelector[0];
+    const scaleSelected = this.props.scaleSelector[0];
+    this.setState({
+      indicatorSelected,
+      ready: true,
+      scaleSelected
+    });
+  }
+
   scaleSelector = (selected) => {
     this.setState({scaleSelected: selected})
   }
 
+  /**
+   * This function takes the value of the checkbox component
+   * @param {Check or not the checkbox} event
+   * @param {Name of the variable in state} id
+   * @param {Value of the variable in state} value
+   */
+  baseSelector = (event, id, value) => {
+    const nextState = {};
+    nextState[id] = event ? value : null;
+    this.setState(nextState);
+  }
+
   filterData = (data, selected, limit) => {
+    console.log("filterData", data, selected, limit);
     const filterData = [];
     selected.map(d => {
       filterData.push(data.filter(f => f["Location ID"] === d).slice(-limit));
@@ -44,16 +72,22 @@ class CovidCard extends Component {
   }
 
   createVisualization = (type, config, data) => {
-    const {scaleSelected, indicatorSelected} = this.state;
+    const {
+      baseAxis,
+      baseUnique,
+      indicatorSelected,
+      scaleSelected
+    } = this.state;
+    const statId = baseUnique ? `${baseUnique} ${indicatorSelected.id}` : indicatorSelected.id;
     let viz = null;
     config["data"] = data;
-    config["y"] = indicatorSelected.id;
+    config["y"] = statId;
     config["yConfig"] = {
       scale: scaleSelected.id
     };
     config["tooltipConfig"] = {
       tbody: [
-        [indicatorSelected.name, d => commas(d[indicatorSelected.id])],
+        [indicatorSelected.name, d => commas(d[statId])],
         ["Date", d => d["Time"]]
       ],
       width: "200px"
@@ -68,32 +102,64 @@ class CovidCard extends Component {
   }
 
   render() {
-    const {t, cardTitle, cardDescription, data, dataSource, dataLimit, locationsSelected, locationsSelector, scaleSelector, indicatorSelector, visualization} = this.props;
-    const {scaleSelected, indicatorSelected} = this.state;
+    const {
+      t,
+      baseSelector,
+      cardDescription,
+      cardTitle,
+      data,
+      dataLimit,
+      dataSource,
+      indicatorSelector,
+      locationsSelected,
+      locationsSelector,
+      scaleSelector,
+      visualization
+    } = this.props;
+    const {
+      baseUnique,
+      indicatorSelected,
+      ready,
+      scaleSelected
+    } = this.state;
+    if (!ready) return <LoadingChart />;
+
     const selectedData = this.filterData(data, locationsSelected, dataLimit);
     const viz = this.createVisualization(visualization.type, visualization.config, selectedData);
-
     return (
       <div className="covid-card covid-columns">
 
         <div className="covid-card-information covid-column-30">
           <h3 className="covid-card-information-title">{cardTitle}</h3>
-          <div className="covid-card-information-scale-selector">
-            <DMXButtonGroup
-              title={"Escala Eje-Y"}
-              items={scaleSelector}
-              selected={scaleSelected}
-              callback={groupValue => this.setState({scaleSelected: groupValue})}
-            />
-          </div>
-          <div className="covid-card-information-stat-selector">
-            <DMXSelect
-              title={"Indicador"}
-              items={indicatorSelector}
-              selectedItem={indicatorSelected}
-              callback={indicatorSelected => this.setState({indicatorSelected})}
-            />
-          </div>
+          {scaleSelector && (
+            <div className="covid-card-information-scale-selector">
+              <DMXButtonGroup
+                title={"Escala Eje-Y"}
+                items={scaleSelector}
+                selected={scaleSelected}
+                callback={groupValue => this.setState({scaleSelected: groupValue})}
+              />
+            </div>
+          )}
+          {indicatorSelector && (
+            <div className="covid-card-information-stat-selector">
+              <DMXSelect
+                title={"Indicador"}
+                items={indicatorSelector}
+                selectedItem={indicatorSelected}
+                callback={indicatorSelected => this.setState({indicatorSelected})}
+              />
+            </div>
+          )}
+          {baseSelector && (
+            <div className="covid-card-information-base-selector">
+              <DMXCheckbox
+                items={baseSelector}
+                unique={baseUnique}
+                onChange={this.baseSelector}
+              />
+            </div>
+          )}
           <div className="covid-card-information-description">{cardDescription}</div>
           <div className="covid-card-information-sources">
             <span className="covid-card-information-sources-title">{"Fuente:"}</span>
