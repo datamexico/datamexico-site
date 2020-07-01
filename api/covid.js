@@ -23,8 +23,8 @@ module.exports = function (app) {
       });
 
       const MEXICO_STATES = CANON_CMS_CUBES + "/members?cube=gobmx_covid_stats&level=State";
-      const COVID_HISTORICAL_COUNTRY = CANON_CMS_CUBES + "/data.jsonrecords?cube=gobmx_covid_stats&drilldowns=Time&measures=Daily+Cases%2CDaily+Deaths%2CAccum+Cases%2CAccum+Deaths%2CAVG+7+Days+Daily+Cases%2CAVG+7+Days+Accum+Cases%2CAVG+7+Days+Daily+Deaths%2CAVG+7+Days+Accum+Deaths%2CDays+from+50+Cases%2CDays+from+10+Deaths%2CCases+last+7+Days%2CDeaths+last+7+Days&parents=false&sparse=false";
-      const COVID_HISTORICAL_STATES = CANON_CMS_CUBES + "/data.jsonrecords?cube=gobmx_covid_stats&drilldowns=Time%2CState&measures=Daily+Cases%2CDaily+Deaths%2CAccum+Cases%2CAccum+Deaths%2CAVG+7+Days+Daily+Cases%2CAVG+7+Days+Accum+Cases%2CAVG+7+Days+Daily+Deaths%2CAVG+7+Days+Accum+Deaths%2CDays+from+50+Cases%2CDays+from+10+Deaths%2CCases+last+7+Days%2CDeaths+last+7+Days&parents=false&sparse=false";
+      const COVID_HISTORICAL_COUNTRY = CANON_CMS_CUBES + "/data.jsonrecords?cube=gobmx_covid_stats&drilldowns=Time%2CNation&measures=Daily+Cases%2CDaily+Deaths%2CDays+Between+Ingress+and+Death%2CAccum+Cases%2CAccum+Deaths%2CRate+Daily+Cases%2CRate+Accum+Cases%2CRate+Daily+Deaths%2CRate+Accum+Deaths%2CAVG+7+Days+Daily+Cases%2CAVG+7+Days+Accum+Cases%2CAVG+7+Days+Daily+Deaths%2CAVG+7+Days+Accum+Deaths%2CDays+from+50+Cases%2CDays+from+10+Deaths%2CCases+Day%2CDeaths+Day%2CCases+last+7+Days%2CDeaths+last+7+Days&parents=false&sparse=false";
+      const COVID_HISTORICAL_STATES = CANON_CMS_CUBES + "/data.jsonrecords?cube=gobmx_covid_stats&drilldowns=Time%2CState&measures=Daily+Cases%2CDaily+Deaths%2CDays+Between+Ingress+and+Death%2CAccum+Cases%2CAccum+Deaths%2CRate+Daily+Cases%2CRate+Accum+Cases%2CRate+Daily+Deaths%2CRate+Accum+Deaths%2CAVG+7+Days+Daily+Cases%2CAVG+7+Days+Accum+Cases%2CAVG+7+Days+Daily+Deaths%2CAVG+7+Days+Accum+Deaths%2CDays+from+50+Cases%2CDays+from+10+Deaths%2CCases+Day%2CDeaths+Day%2CCases+last+7+Days%2CDeaths+last+7+Days&parents=false&sparse=false";
 
       await axios.all([axios.get(MEXICO_STATES), axios.get(COVID_HISTORICAL_COUNTRY), axios.get(COVID_HISTORICAL_STATES)]).then(
         axios.spread((resp1, resp2, resp3) => {
@@ -48,6 +48,8 @@ module.exports = function (app) {
             d["Location ID"] = locations_country["Location ID"];
             d["Location"] = locations_country["Location"];
             d["Division"] = "Country";
+            delete d["Nation ID"];
+            delete d["Nation"];
           });
 
           const data_state_historical = resp3.data.data;

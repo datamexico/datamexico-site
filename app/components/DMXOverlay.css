@@ -1,0 +1,14 @@
+.dmx-overlay {
+  & .bp3-icon {
+    cursor: pointer;
+  }
+}
+
+.bp3-overlay-open {
+  & .dmx-overlay-open {
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    position: inherit;
+  }
+}
