@@ -9,14 +9,18 @@
     display: flex;
     flex-direction: column;
     padding: var(--gutter-md);
-    & .covid-header-date {
-      color: var(--light-gray);
+    & .covid-header-info {
+      align-items: center;
       display: flex;
-      font-size: var(--font-xs);
-      font-weight: var(--light-bold-weight);
       justify-content: center;
       padding-bottom: var(--gutter-md);
-      text-transform: uppercase;
+      & .covid-header-info-date {
+        color: var(--light-gray);
+        font-size: var(--font-xs);
+        font-weight: var(--light-bold-weight);
+        text-transform: uppercase;
+        margin-right: var(--gutter-xs);
+      }
     }
     & .covid-header-stats {
       display: flex;
@@ -54,5 +58,32 @@
         border: 0;
       }
     }
+  }
+}
+
+.covid-overlay-content {
+  color: var(--light-gray);
+  & h4,
+  & h5 {
+    font-size: var(--font-sm);
+  }
+  & h4 {
+    font-weight: var(--light-bold-weight);
+    margin-bottom: var(--gutter-xs);
+  }
+  & p,
+  & li {
+    font-size: var(--font-xs);
+    font-weight: var(--base-font-weight);
+  }
+  & .highlighted {
+    font-weight: var(--bold-weight);
+  }
+  & .covid-overlay-card-header {
+    border-bottom: 1px solid var(--dark-3);
+    padding-bottom: var(--gutter-sm);
+  }
+  & .covid-overlay-card-body {
+    padding-top: var(--gutter-sm);
   }
 }

@@ -4,11 +4,21 @@
   }
 }
 
-.bp3-overlay-open {
-  & .dmx-overlay-open {
-    align-content: center;
-    display: flex;
-    justify-content: center;
-    position: inherit;
+.bp3-overlay {
+  display: flex;
+  justify-content: center;
+  & .bp3-tooltip {
+    width: max-content;
+  }
+}
+
+.dmx-overlay-card {
+  background-color: var(--white);
+  border-radius: var(--infocard-border-radius);
+  margin-top: calc(var(--nav-height) + var(--gutter-md));
+  padding: var(--gutter-md);
+  width: 50%;
+  & .dmx-overlay-card-button {
+    float: right;
   }
 }

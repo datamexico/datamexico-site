@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Icon, Overlay} from "@blueprintjs/core";
+import {Icon, Tooltip, Overlay, Button} from "@blueprintjs/core";
 
 import "./DMXOverlay.css";
 
@@ -12,22 +12,27 @@ export class DMXOverlay extends Component {
   }
 
   handleOpen = () => this.setState({isOpen: true});
-  handleClose = () => this.setState({isOpen: false, useTallContent: false});
+  handleClose = () => this.setState({isOpen: false});
 
   render() {
     const {isOpen} = this.state;
-    const {icon} = this.props;
+    const {buttonToClose, content, icon, tooltip} = this.props;
 
     return (
       <div className="dmx-overlay">
-        <Icon icon={icon} onClick={this.handleOpen} />
+        <Tooltip content={tooltip} boundary={"flip"}><Icon icon={icon} onClick={this.handleOpen} /></Tooltip>
         <Overlay
+          canEscapeKeyClose={true}
+          canOutsideClickClose={true}
+          hasBackdrop={true}
           isOpen={isOpen}
           onClose={this.handleClose}
-          hasBackdrop={true}
+          transitionDuration={0}
+          useTallContent={true}
         >
-          <div className="dmx-overlay-open">
-            <p>Im a overlay</p>
+          <div className="dmx-overlay-card">
+            {content}
+            {buttonToClose && <Button text={buttonToClose} className={"dmx-overlay-card-button"} onClick={this.handleClose}/>}
           </div>
         </Overlay>
       </div>
