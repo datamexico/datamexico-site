@@ -10,7 +10,8 @@ export default class Default extends Component {
     let {paragraphs} = this.props;
     const tooltip = contents.descriptions[0].description;
     // Removes first element of paragraphs
-    paragraphs = paragraphs.slice(1);
+
+    if (paragraphs && Array.isArray(paragraphs)) paragraphs = paragraphs.slice(1);
 
     return (
       <div

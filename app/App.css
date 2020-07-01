@@ -59,6 +59,10 @@ p:last-of-type {
   padding-right: var(--gutter-sm);
 }
 
+.cp-section-grouping-inner>.cp-section {
+  flex-basis: 100% !important;
+}
+
 .cp-main > *:nth-child(odd):not(.cp-grouping-section) {
   background-color: var(--white);
 }
