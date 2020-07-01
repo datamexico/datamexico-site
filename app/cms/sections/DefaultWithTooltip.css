@@ -1,0 +1,16 @@
+.heading-title-tooltip {
+  cursor: help;
+  display: flex;
+  & .bp3-icon {
+    color: var(--gmx-yellow-2);
+    margin-left: 2px;
+    width: var(--font-sm);
+  }
+}
+
+.bp3-transition-container.bp3-popover-enter-done {
+  z-index: 100;
+}
+.bp3-tooltip {
+  z-index: 100;
+}
