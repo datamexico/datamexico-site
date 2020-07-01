@@ -67,31 +67,6 @@ export const tooltipTitle = (bgColor, imgUrl, title) => {
   return tooltip;
 };
 
-const bad = styles["viz-negative"];
-const good = styles["viz-positive"];
-
-const badMeasures = [];
-export {badMeasures};
-
-/**
- * Finds a color if defined in the color lookup.
- * @param {Object} d
- */
-function findColor(d) {
-  let detectedColors = [];
-  if (this && this._filteredData) {
-    detectedColors = Array.from(new Set(this._filteredData.map(findColor)));
-  }
-
-  if (detectedColors.length !== 1) {
-    for (const key in colors) {
-      if (`${key} ID` in d || key in d) {
-        return colors[key][d[`${key} ID`]] || colors[key][d[key]] || colors.colorGrey;
-      }
-    }
-  }
-  return Object.keys(d).some(v => badMeasures.includes(v)) ? bad : good;
-}
 
 export const findIconV2 = (key, d) => {
   // const options = {2: "export", 1: "import"};
@@ -103,31 +78,6 @@ export const findIconV2 = (key, d) => {
     ? `/icons/visualizations/${icon}/png/white/${d[`${key} ID`]}.png`
     : undefined;
 };
-
-/** */
-function findIcon(d) {
-  const keys = [
-    "Area",
-    "Category",
-    "Chapter",
-    "Chapter 2 Digit",
-    "Chapter 4 Digit",
-    "Flow",
-    "Generic Investment",
-    "Continent",
-    "Sector",
-    "Sex"
-  ];
-
-  for (const key of keys) {
-    if (`${key} ID` in d || key in d) {
-      const icon = key.replace(" 4 Digit", "");
-      return `/icons/visualizations/${icon}/png/white/${d[`${key} ID`]}.png`;
-    }
-
-  }
-  return undefined;
-}
 
 /** default x/y axis styles */
 const axisConfig = {
@@ -193,10 +143,17 @@ export default {
       return "";
     },
     shapeConfig: {
-      // fill: d => findColor(d),
+      fill(d) {
+        const item = this._parent._groupBy[0](d);
+        let itemId = Object.entries(d).find(h => h[1] === item)[0];
+        if (itemId.includes(" ID")) itemId = itemId.replace(" ID", "");
+        return findColorV2(itemId, d);
+      },
       backgroundImage(d, i) {
-        console.log(this);
-        return findIcon(d);
+        const item = this._parent._groupBy[0](d);
+        let itemId = Object.entries(d).find(h => h[1] === item)[0];
+        if (itemId.includes(" ID")) itemId = itemId.replace(" ID", "");
+        return findIconV2(itemId, d);
       },
       borderRadius: 0,
       width: shapeLegend,
@@ -296,10 +253,7 @@ export default {
         // fontMax: fontSizeLg,
         // fontMin: fontSizeSm
       },
-      strokeWidth: d => {
-        const c = findColor(d);
-        return [good, bad].includes(c) ? 1 : 0;
-      }
+      strokeWidth: d => 1
     },
     Bar: {
       labelConfig: {
@@ -308,15 +262,20 @@ export default {
       },
       textAlign: "left",
       stroke: "transparent",
-      strokeWidth: d => {
-        const c = findColor(d);
-        return [good, bad].includes(c) ? 1 : 0;
-      }
+      strokeWidth: d => 1
     },
     // line charts
     Line: {
       curve: "monotoneX",
-      stroke: findColor,
+      stroke(d) {
+        if (this && this._groupBy) {
+          const item = this._groupBy[0](d);
+          let itemId = Object.entries(d).find(h => h[1] === item)[0];
+          if (itemId.includes(" ID")) itemId = itemId.replace(" ID", "");
+          return findColorV2(itemId, d);
+        }
+        return undefined;
+      },
       strokeWidth: 3,
       strokeLinecap: "round"
     },
@@ -348,9 +307,8 @@ export default {
         else return "green";
       }
       else {
-        return findColor(d) || "green";
+        return "blue";
       }
-
     }
   },
 
@@ -441,7 +399,7 @@ export default {
     },
     title(d) {
       const {item, itemId, parent, parentId} = getTooltipTitle(this, d);
-      const title = Array.isArray(item[1]) ? `Other ${parent[1] || "Values"}` : item[1];
+      const title = Array.isArray(item[1]) ? `Otros ${parent[1] || "Valores"}` : item[1];
       const itemBgImg = ["Country", "Organization"].includes(itemId) ? itemId : parentId;
       let bgColor = findColorV2(itemBgImg, d);
       let imgUrl = findIconV2(itemBgImg, d);
