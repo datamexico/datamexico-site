@@ -62,16 +62,7 @@ class CovidCard extends Component {
     this.setState(nextState);
   }
 
-  filterData = (data, selected, limit) => {
-    console.log("filterData", data, selected, limit);
-    const filterData = [];
-    selected.map(d => {
-      filterData.push(data.filter(f => f["Location ID"] === d).slice(-limit));
-    });
-    return filterData.flat();
-  }
-
-  createVisualization = (type, config, data) => {
+  createVisualization = (type, config) => {
     const {
       baseAxis,
       baseUnique,
@@ -80,7 +71,6 @@ class CovidCard extends Component {
     } = this.state;
     const statId = baseUnique ? `${baseUnique} ${indicatorSelected.id}` : indicatorSelected.id;
     let viz = null;
-    config["data"] = data;
     config["y"] = statId;
     config["yConfig"] = {
       scale: scaleSelected.id
@@ -89,8 +79,7 @@ class CovidCard extends Component {
       tbody: [
         [indicatorSelected.name, d => commas(d[statId])],
         ["Date", d => d["Time"]]
-      ],
-      width: "200px"
+      ]
     };
     if (type === "LinePlot") {
       viz = <LinePlot
@@ -104,14 +93,9 @@ class CovidCard extends Component {
   render() {
     const {
       t,
+      cardInformation,
       baseSelector,
-      cardDescription,
-      cardTitle,
-      data,
-      dataLimit,
-      dataSource,
       indicatorSelector,
-      locationsSelected,
       locationsSelector,
       scaleSelector,
       visualization
@@ -123,14 +107,16 @@ class CovidCard extends Component {
       scaleSelected
     } = this.state;
     if (!ready) return <LoadingChart />;
+    console.log(cardInformation);
 
-    const selectedData = this.filterData(data, locationsSelected, dataLimit);
-    const viz = this.createVisualization(visualization.type, visualization.config, selectedData);
+    const viz = this.createVisualization(visualization.type, visualization.config);
     return (
       <div className="covid-card covid-columns">
 
         <div className="covid-card-information covid-column-30">
-          <h3 className="covid-card-information-title">{cardTitle}</h3>
+          {cardInformation.title && (
+            <h3 className="covid-card-information-title">{cardInformation.title}</h3>
+          )}
           {scaleSelector && (
             <div className="covid-card-information-scale-selector">
               <DMXButtonGroup
@@ -160,12 +146,14 @@ class CovidCard extends Component {
               />
             </div>
           )}
-          {cardDescription && (<div className="covid-card-information-description">{cardDescription}</div>)}
-          {dataSource && (
+          {cardInformation.description && (
+            <div className="covid-card-information-description">{cardInformation.description}</div>
+          )}
+          {cardInformation.source && (
             <div className="covid-card-information-sources">
               <span className="covid-card-information-sources-title">{"Fuente:"}</span>
               <span className="covid-card-information-sources-text">{"Datos generados por"}</span>
-              {dataSource.map((d, k, {length}) => {
+              {cardInformation.source.map((d, k, {length}) => {
                 return <div className="covid-card-information-sources-source">
                   <a href={d.link} target="_blank" rel="noopener noreferrer">{d.name}</a>
                   <span>{k + 1 < length ? ", " : "."}</span>

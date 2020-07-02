@@ -60,6 +60,14 @@ class Covid extends Component {
     });
   }
 
+  filterData = (data, selected, limit) => {
+    const filterData = [];
+    selected.map(d => {
+      filterData.push(data.filter(f => f["Location ID"] === d).slice(-limit));
+    });
+    return filterData.flat();
+  }
+
   componentDidMount = () => {
     this.fetchData();
   }
@@ -100,14 +108,15 @@ class Covid extends Component {
 
     if (!_dataLoaded) return <Loading />;
 
-    const locationData = dataActual.find(d => d["Location ID"] === locationBase["Location ID"]);
+    const locationBaseData = dataActual.find(d => d["Location ID"] === locationBase["Location ID"]);
+    const locationSelectedData = this.filterData(dataHistorical, locationSelected, 60);
     const locationStats = [
-      {id: "stat_new_cases", name: "Nuevos Casos", icon: "nuevo-caso-icon.svg", value: commas(locationData["Daily Cases"])},
-      {id: "stat_new_dead", name: "Nuevas Muertes", icon: "nueva-muerte-icon.svg", value: commas(locationData["Daily Deaths"])},
-      {id: "stat_lastweek_cases", name: "Casos Última Semana", icon: "casos-ultima-semana-icon.svg", value: commas(locationData["Cases last 7 Days"])},
-      {id: "stat_lastweek_dead", name: "Muertes Última Semana", icon: "muertes-ultima-semana-icon.svg", value: commas(locationData["Deaths last 7 Days"])},
-      {id: "stat_accum_cases", name: "Casos Confirmados", icon: "casos-confirmados-icon.svg", value: commas(locationData["Accum Cases"])},
-      {id: "stat_accum_dead", name: "Muertes Confirmadas", icon: "muertes-confirmadas-icon.svg", value: commas(locationData["Accum Deaths"])}
+      {id: "stat_new_cases", name: "Nuevos Casos", icon: "nuevo-caso-icon.svg", value: commas(locationBaseData["Daily Cases"])},
+      {id: "stat_new_dead", name: "Nuevas Muertes", icon: "nueva-muerte-icon.svg", value: commas(locationBaseData["Daily Deaths"])},
+      {id: "stat_lastweek_cases", name: "Casos Última Semana", icon: "casos-ultima-semana-icon.svg", value: commas(locationBaseData["Cases last 7 Days"])},
+      {id: "stat_lastweek_dead", name: "Muertes Última Semana", icon: "muertes-ultima-semana-icon.svg", value: commas(locationBaseData["Deaths last 7 Days"])},
+      {id: "stat_accum_cases", name: "Casos Confirmados", icon: "casos-confirmados-icon.svg", value: commas(locationBaseData["Accum Cases"])},
+      {id: "stat_accum_dead", name: "Muertes Confirmadas", icon: "muertes-confirmadas-icon.svg", value: commas(locationBaseData["Accum Deaths"])}
     ];
     const updateDate = new Date(dataActual[0].Time);
     const dataUpdateDate = {
@@ -185,16 +194,16 @@ class Covid extends Component {
         </div>
         <div className="covid-body container">
           <CovidCard
-            cardTitle={"Nuevos casos diarios"}
-            cardDescription={<p>
-              Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
-              </p>}
-            data={dataHistorical}
-            dataSource={[
-              {name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}
-            ]}
-            dataLimit={60}
-            locationsSelected={locationSelected}
+            cardInformation={{
+              title: "Nuevos casos diarios",
+              description: <div className="card-description">
+                <p>
+                  Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
+                </p>
+                <p className="italic">La data posee un desfase de 7 días</p>
+              </div>,
+              source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
+            }}
             locationsSelector={
               <DMXSelectLocation
                 locationBase={locationBase}
@@ -221,6 +230,7 @@ class Covid extends Component {
             visualization={{
               type: "LinePlot",
               config: {
+                data: locationSelectedData,
                 groupBy: "Location ID",
                 height: 400,
                 lineLabels: true,

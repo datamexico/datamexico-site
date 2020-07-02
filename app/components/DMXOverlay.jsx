@@ -15,7 +15,6 @@ export class DMXOverlay extends Component {
 
   render() {
     const {isOpen} = this.state;
-    console.log("ioOpen", isOpen);
     const {buttonToClose, content, icon, tooltip} = this.props;
 
     return (
@@ -26,7 +25,7 @@ export class DMXOverlay extends Component {
           canOutsideClickClose={true}
           hasBackdrop={true}
           isOpen={isOpen}
-          onClose={this.handleClose}
+          onClose={this.handleOverlay}
           transitionDuration={0}
           useTallContent={true}
         >
