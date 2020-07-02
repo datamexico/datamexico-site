@@ -11,16 +11,16 @@ export class DMXOverlay extends Component {
     };
   }
 
-  handleOpen = () => this.setState({isOpen: true});
-  handleClose = () => this.setState({isOpen: false});
+  handleOverlay = () => this.setState({isOpen: !this.state.isOpen});
 
   render() {
     const {isOpen} = this.state;
+    console.log("ioOpen", isOpen);
     const {buttonToClose, content, icon, tooltip} = this.props;
 
     return (
       <div className="dmx-overlay">
-        <Tooltip content={tooltip} boundary={"flip"}><Icon icon={icon} onClick={this.handleOpen} /></Tooltip>
+        <Tooltip content={tooltip} boundary={"flip"}><Icon icon={icon} onClick={this.handleOverlay} /></Tooltip>
         <Overlay
           canEscapeKeyClose={true}
           canOutsideClickClose={true}
@@ -32,7 +32,7 @@ export class DMXOverlay extends Component {
         >
           <div className="dmx-overlay-card">
             {content}
-            {buttonToClose && <Button text={buttonToClose} className={"dmx-overlay-card-button"} onClick={this.handleClose}/>}
+            {buttonToClose && <Button text={buttonToClose} className={"dmx-overlay-card-button"} onClick={this.handleOverlay}/>}
           </div>
         </Overlay>
       </div>
