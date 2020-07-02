@@ -26,15 +26,15 @@ class CovidCard extends Component {
     this.baseSelector = this.baseSelector.bind(this);
   }
 
-  /*
   shouldComponentUpdate = (nextProps, nextState) => {
     const prevProps = this.props;
     const prevState = this.state;
-    console.log(prevProps.locationsSelected, nextProps.locationsSelected);
-    return prevProps.locationsSelected !== nextProps.locationsSelected
-    || prevState.scaleSelected !== nextState.scaleSelected;
+    return prevState.ready !== nextState.ready
+    || prevState.baseUnique !== nextState.baseUnique
+    || prevState.indicatorSelected !== nextState.indicatorSelected
+    || prevState.scaleSelected !== nextState.scaleSelected
+    || prevProps.visualization !== nextProps.visualization;
   }
-  */
 
   componentDidMount = () => {
     const indicatorSelected = this.props.indicatorSelector[0];
@@ -107,7 +107,6 @@ class CovidCard extends Component {
       scaleSelected
     } = this.state;
     if (!ready) return <LoadingChart />;
-    console.log(cardInformation);
 
     const viz = this.createVisualization(visualization.type, visualization.config);
     return (
