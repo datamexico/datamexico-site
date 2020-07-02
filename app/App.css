@@ -59,7 +59,7 @@ p:last-of-type {
   padding-right: var(--gutter-sm);
 }
 
-.cp-section-grouping-inner>.cp-section {
+.cp-section-grouping-inner>.cp-section.cp-default-with-tooltip-section {
   flex-basis: 100% !important;
 }
 
