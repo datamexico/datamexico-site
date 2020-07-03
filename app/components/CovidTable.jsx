@@ -19,9 +19,9 @@ class CovidTable extends React.Component {
   componentDidMount() {
     axios.get("/api/covid").then(resp => {
       console.log(resp.data);
-      let data = resp.data.data_historical;
+      let data = resp.data.data_stats_historical;
       const {locations} = resp.data;
-      const today = new Date(resp.data.data_actual[0].Time);
+      const today = new Date(resp.data.data_stats_actual[0].Time);
       const lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 14).getTime();
       data = data.filter(d => new Date(d.Time).getTime() >= lastWeek);
       const nestedData = nest()

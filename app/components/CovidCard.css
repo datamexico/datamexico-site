@@ -1,6 +1,7 @@
 @import "helpers/mixins.css";
 
 .covid-card {
+  margin-top: var(--gutter-lg);
   & .covid-card-information > * {
     margin-bottom: var(--gutter-sm);
   }
@@ -95,6 +96,9 @@
 
     }
   }
+}
+.covid-card:first-child {
+  margin-top: 0;
 }
 
 .covid-columns {
