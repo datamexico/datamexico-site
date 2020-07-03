@@ -8,9 +8,18 @@
   }
 }
 
-.bp3-transition-container.bp3-popover-enter-done {
-  z-index: 100;
+.bp3-transition-container {
+  width: 400px;
 }
+
+.bp3-transition-container.bp3-popover-enter-done {
+  width: 400px;
+  z-index: 100;
+  & p {
+    font-size: var(--font-sm);
+  }
+}
+
 .bp3-tooltip {
   z-index: 100;
 }

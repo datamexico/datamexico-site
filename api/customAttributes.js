@@ -21,13 +21,21 @@ module.exports = function (app) {
         .catch(catcher);
 
       data.sort((a, b) => b["Quarter ID"] - a["Quarter ID"]);
-      const latest = data[0];
-      return latest;
+      const enoeLatestQuarter = data[0]["Quarter ID"];
+      const enoePrevQuarter = data[1]["Quarter ID"];
+      const enoePrevYear = data[4]["Quarter ID"];
+      return {enoeLatestQuarter, enoePrevQuarter, enoePrevYear};
     }
+
+    let enoeLatestQuarter, enoePrevQuarter, enoePrevYear;
 
     switch (pid) {
       case 1:
         const ENOE_GEO = await ENOE_DATASET();
+        enoeLatestQuarter = ENOE_GEO.enoeLatestQuarter;
+        enoePrevQuarter = ENOE_GEO.enoePrevQuarter;
+        enoePrevYear = ENOE_GEO.enoePrevYear;
+
         const isMunicipality = ["Metro Area", "Municipality"].includes(hierarchy1);
         const isState = ["Nation", "State"].includes(hierarchy1);
 
@@ -61,23 +69,34 @@ module.exports = function (app) {
           .catch(catcher);
         covidUpdated.sort((a, b) => b["Updated Date ID"] - a["Updated Date ID"]);
         const covidLatestUpdated = covidUpdated[0]["Updated Date ID"] - 2;
+        const customGiniCube = hierarchy1 === "Nation"
+          ? "coneval_gini_nat"
+          : hierarchy1 === "State" ? "coneval_gini_ent" : "coneval_gini_mun";
 
         return res.json({
           covidLatestUpdated,
           customCovidCube: isState ? "gobmx_covid_stats" : "gobmx_covid_stats_mun",
+          customGiniCube,
           customForeignTradeCube: isState ? "economy_foreign_trade_ent" : "economy_foreign_trade_mun",
           customHierarchy: isMunicipality ? "State" : hierarchy1,
           customId,
           customName,
-          enoeLatestQuarter: ENOE_GEO["Quarter ID"],
+          enoeLatestQuarter,
+          enoePrevQuarter,
+          enoePrevYear,
           foreignTradeLatestYear: "2018"
         });
 
       case 28:
         const ENOE_OCCUPATION = await ENOE_DATASET();
+        enoeLatestQuarter = ENOE_OCCUPATION.enoeLatestQuarter;
+        enoePrevQuarter = ENOE_OCCUPATION.enoePrevQuarter;
+        enoePrevYear = ENOE_OCCUPATION.enoePrevYear;
 
         return res.json({
-          enoeLatestQuarter: ENOE_OCCUPATION["Quarter ID"]
+          enoeLatestQuarter,
+          enoePrevQuarter,
+          enoePrevYear
         });
 
       default:

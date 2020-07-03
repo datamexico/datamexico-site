@@ -21,8 +21,9 @@ export default class Default extends Component {
         {/* sidebar */}
         <div className="cp-section-content cp-default-section-caption">
           <Tooltip
-            content={<div dangerouslySetInnerHTML={{__html: tooltip}}></div>}
+            content={<div dangerouslySetInnerHTML={{__html: tooltip}} />}
             position={Position.RIGHT_TOP}
+            usePortal={false}
           >
             <div className="heading-title-tooltip">{heading} <Icon icon="info-sign" /></div>
           </Tooltip>
