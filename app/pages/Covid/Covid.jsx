@@ -25,8 +25,9 @@ class Covid extends Component {
     super(props);
     this.state = {
       _dataLoaded: false,
-      dataActual: null,
-      dataHistorical: null,
+      dataCovidMXActual: null,
+      dataStatsActual: null,
+      dataStatsHistorical: null,
       locationArray: null,
       locationBase: undefined,
       locationSelected: []
@@ -44,20 +45,30 @@ class Covid extends Component {
   fetchData = () => {
     axios.get("/api/covid").then(resp => {
       const data = resp.data;
-      const dataActual = data.data_actual;
-      const dataHistorical = data.data_historical;
+      const dataCovidMXActual = data.data_covid_mx;
+      const dataStatsActual = data.data_stats_actual;
+      const dataStatsHistorical = data.data_stats_historical;
       const locationArray = data.locations;
       const locationBase = locationArray[0];
       const locationSelected = [locationBase["Location ID"]];
       this.setState({
         _dataLoaded: true,
-        dataActual,
-        dataHistorical,
+        dataCovidMXActual,
+        dataStatsActual,
+        dataStatsHistorical,
         locationArray,
         locationBase,
         locationSelected
       })
     });
+  }
+
+  filterData = (data, selected, limit) => {
+    const filterData = [];
+    selected.map(d => {
+      filterData.push(data.filter(f => f["Location ID"] === d).slice(-limit));
+    });
+    return filterData.flat();
   }
 
   componentDidMount = () => {
@@ -90,8 +101,9 @@ class Covid extends Component {
   render() {
     const {
       _dataLoaded,
-      dataActual,
-      dataHistorical,
+      dataCovidMXActual,
+      dataStatsActual,
+      dataStatsHistorical,
       locationArray,
       locationBase,
       locationSelected
@@ -100,16 +112,19 @@ class Covid extends Component {
 
     if (!_dataLoaded) return <Loading />;
 
-    const locationData = dataActual.find(d => d["Location ID"] === locationBase["Location ID"]);
+    const locationBaseData = dataStatsActual.find(d => d["Location ID"] === locationBase["Location ID"]);
+    const locationSelectedData = this.filterData(dataStatsHistorical, locationSelected, 60);
     const locationStats = [
-      {id: "stat_new_cases", name: "Nuevos Casos", icon: "nuevo-caso-icon.svg", value: commas(locationData["Daily Cases"])},
-      {id: "stat_new_dead", name: "Nuevas Muertes", icon: "nueva-muerte-icon.svg", value: commas(locationData["Daily Deaths"])},
-      {id: "stat_lastweek_cases", name: "Casos Última Semana", icon: "casos-ultima-semana-icon.svg", value: commas(locationData["Cases last 7 Days"])},
-      {id: "stat_lastweek_dead", name: "Muertes Última Semana", icon: "muertes-ultima-semana-icon.svg", value: commas(locationData["Deaths last 7 Days"])},
-      {id: "stat_accum_cases", name: "Casos Confirmados", icon: "casos-confirmados-icon.svg", value: commas(locationData["Accum Cases"])},
-      {id: "stat_accum_dead", name: "Muertes Confirmadas", icon: "muertes-confirmadas-icon.svg", value: commas(locationData["Accum Deaths"])}
+      {id: "stat_new_cases", name: "Nuevos Casos", icon: "nuevo-caso-icon.svg", value: commas(locationBaseData["Daily Cases"])},
+      {id: "stat_new_dead", name: "Nuevas Muertes", icon: "nueva-muerte-icon.svg", value: commas(locationBaseData["Daily Deaths"])},
+      {id: "stat_lastweek_cases", name: "Casos Última Semana", icon: "casos-ultima-semana-icon.svg", value: commas(locationBaseData["Cases last 7 Days"])},
+      {id: "stat_lastweek_dead", name: "Muertes Última Semana", icon: "muertes-ultima-semana-icon.svg", value: commas(locationBaseData["Deaths last 7 Days"])},
+      {id: "stat_accum_cases", name: "Casos Confirmados", icon: "casos-confirmados-icon.svg", value: commas(locationBaseData["Accum Cases"])},
+      {id: "stat_accum_dead", name: "Muertes Confirmadas", icon: "muertes-confirmadas-icon.svg", value: commas(locationBaseData["Accum Deaths"])}
     ];
-    const updateDate = new Date(dataActual[0].Time);
+    const barChartData = this.filterData(dataCovidMXActual, locationSelected, 60);
+    console.log(barChartData);
+    const updateDate = new Date(dataStatsActual[0].Time);
     const dataUpdateDate = {
       Day: weekdaysNames[updateDate.getDay()],
       Number: updateDate.getDate(),
@@ -185,16 +200,16 @@ class Covid extends Component {
         </div>
         <div className="covid-body container">
           <CovidCard
-            cardTitle={"Nuevos casos diarios"}
-            cardDescription={<p>
-              Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
-              </p>}
-            data={dataHistorical}
-            dataSource={[
-              {name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}
-            ]}
-            dataLimit={60}
-            locationsSelected={locationSelected}
+            cardInformation={{
+              title: "Nuevos casos diarios",
+              description: <div className="card-description">
+                <p>
+                  Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
+                </p>
+                <p className="italic">La data posee un desfase de 7 días.</p>
+              </div>,
+              source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
+            }}
             locationsSelector={
               <DMXSelectLocation
                 locationBase={locationBase}
@@ -203,35 +218,83 @@ class Covid extends Component {
                 addNewLocation={this.addNewLocation}
               />
             }
-            scaleSelector={[
-              {name: t("Lineal"), id: "linear"},
-              {name: t("Logarítmica"), id: "log"}
-            ]}
             baseSelector={[
               {name: "Promedio de 7 Dias", value: "AVG 7 Days", unique: true, id: "baseUnique"},
               {name: "Per Capita", value: "Rate", unique: true, id: "baseUnique"},
               {name: "Cambiar Eje Temporal", value: "true", unique: false, id: "baseAxis"}
             ]}
-            indicatorSelector={[
+            scaleOptions={[
+              {name: t("Lineal"), id: "linear"},
+              {name: t("Logarítmica"), id: "log"}
+            ]}
+            indicatorVariable={"y"}
+            indicatorOptions={[
               {name: "Casos Diarios", id: "Daily Cases"},
               {name: "Casos Confirmados", id: "Accum Cases"},
               {name: "Muertes Diarias", id: "Daily Deaths"},
               {name: "Muertes Confirmadas", id: "Accum Deaths"}
             ]}
             visualization={{
+              data: locationSelectedData,
               type: "LinePlot",
-              config: {
-                groupBy: "Location ID",
-                height: 400,
-                lineLabels: true,
-                x: "Time",
-                time: "Time",
-                timeline: false,
-                shapeConfig: {
-                  Line: {
-                    stroke: d => colors.State[d["Location ID"]] || "#235B4E"
-                  }
+              groupBy: "Location ID",
+              height: 400,
+              lineLabels: true,
+              x: "Time",
+              time: "Time",
+              timeline: false,
+              tooltipConfig: {
+                tbody: [
+                  ["Casos Diarios", d => d["Daily Cases"]],
+                  ["Casos Acumulados", d => d["Accum Cases"]],
+                  ["Muertes Diarias", d => d["Daily Deaths"]],
+                  ["Muertes Acumuladas", d => d["Accum Deaths"]],
+                  ["Date", d => d["Time"]]
+                ]
+              },
+              shapeConfig: {
+                Line: {
+                  stroke: d => colors.State[d["Location ID"]] || "#235B4E"
                 }
+              }
+            }}
+          />
+          <CovidCard
+            cardInformation={{
+              title: "Nuevos casos diarios",
+              description: <div className="card-description">
+                <p>
+                  Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
+                </p>
+                <p className="italic">La data posee un desfase de 7 días.</p>
+              </div>,
+              source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
+            }}
+            locationsSelector={null}
+            baseSelector={null}
+            scaleOptions={[
+              {name: t("Lineal"), id: "linear"}
+            ]}
+            indicatorVariable={"groupBy"}
+            indicatorOptions={[
+              {name: "Sexo", id: "Sex"},
+              {name: "Tipo de Paciente", id:"Patient Type"}
+            ]}
+            visualization={{
+              data: barChartData,
+              type: "BarChart",
+              height: 400,
+              label: d => String(d["Sex"]),
+              x: "Age Range ID",
+              y: "Cases",
+              stacked: true,
+              xConfig: {"title": "Age Range"},
+              yConfig: {"title": "Cases"},
+              tooltipConfig: {
+                tbody: [
+                  ["Age Range", d => d["Age Range"]],
+                  ["Cases", d => d["Cases"]]
+                ]
               }
             }}
           />
