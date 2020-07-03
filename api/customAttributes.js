@@ -76,6 +76,7 @@ module.exports = function (app) {
         return res.json({
           covidLatestUpdated,
           customCovidCube: isState ? "gobmx_covid_stats" : "gobmx_covid_stats_mun",
+          customSocialLagCube: `coneval_social_lag_${isState ? "ent" : "mun"}`,
           customGiniCube,
           customForeignTradeCube: isState ? "economy_foreign_trade_ent" : "economy_foreign_trade_mun",
           customHierarchy: isMunicipality ? "State" : hierarchy1,
