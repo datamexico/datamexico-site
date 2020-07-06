@@ -10,7 +10,7 @@ class Background extends Component {
     const {t} = this.props;
     return (
       <div className="about-background">
-        <h3 className="background-title">{t("About DataMexico")}</h3>
+        <h3>{t("About DataMexico")}</h3>
         <p>DataMéxico es un esfuerzo conjunto entre la Secretaría de Economía (SE) y Datawheel, que permite la integración, visualización y análisis de datos para mejorar la toma de decisiones de políticas públicas enfocadas en fomentar la innovación, inclusión y diversicación de la economía mexicana.</p>
         <p>¿Por qué México necesita una plataforma de datos?Para transformar datos en conocimiento y conocimiento en decisiones estratégicas se necesitan herramientas que ayuden a integrar información de diversas fuentes y que conviertan datos en narrativas articuladas.</p>
         <p>Actualmente, el problema principal de los sitios de datos abiertos se encuentra en la dicultad para encontrar y combinar diferentes fuentes de información, visualizarla y procesarla para tomar decisiones acertadas.</p>
