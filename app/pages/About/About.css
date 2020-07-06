@@ -1,1 +1,9 @@
 @import "helpers/mixins.css";
+
+.about-content {
+  margin-top: var(--nav-height);
+}
+
+.about-press {
+  min-height: 30vh;
+}

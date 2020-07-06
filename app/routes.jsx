@@ -28,7 +28,7 @@ export default function RouteCreate() {
       <Route exact path="/:lang/eci/explore" component={ECIExplorer} />
       <Route exact path="/:lang/profile/:slug/:id" component={Profile} />
       {/* stubs */}
-      <Route path="/:lang/about" component={About} />
+      <Route path="/:lang/about(/:page)" component={About} />
       <Route path="/:lang/data" component={Data} />
       <Route path="/:lang/covid" component={Covid} />
       {/* 404 */}
