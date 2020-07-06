@@ -1,4 +1,10 @@
 {
+  "AboutSite": {
+    "background": "Background",
+    "press": "In the press",
+    "glossary": "Glossary",
+    "legal": "Terms of use"
+  },
   "Activate": {
     "actions": {
       "ACTIVATE_SEND_FAILURE": "Error sending activation to {{email}}.",

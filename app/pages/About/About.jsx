@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
+import classnames from "classnames";
 import {Helmet} from "react-helmet";
 import {hot} from "react-hot-loader/root";
 import {withNamespaces} from "react-i18next";
@@ -17,7 +18,7 @@ import "./About.css";
 class About extends Component {
   render() {
     const {t} = this.props;
-    const {page} = this.props.params;
+    const {lang, page} = this.props.params;
     const site = page ? page : "background";
     const validPages = ["background", "press", "glossary", "legal"];
 
@@ -36,24 +37,34 @@ class About extends Component {
           routePath="/:lang"
           title=""
         />
-        <div className="about-hero">
-          <h2 className="about-hero-title">{site}</h2>
-        </div>
         <div className="about-content">
-          {(function () {
-            switch (site) {
-              case "background":
-                return <Background />;
-              case "press":
-                return <Press />;
-              case "glossary":
-                return <Glossary />;
-              case "legal":
-                return <Legal />;
-              default:
-                return <Background />;
-            }
-          }())}
+          <div className="about-hero">
+            <h2 className="about-hero-title">{t("About")}</h2>
+            <div className="about-hero-buttons">
+              {validPages.map(d => (
+                <a href={`/${lang}/about/${d}`} className={classnames("about-hero-button", {"is-active": d === site})}>
+                  <img src="" alt="" className="about-hero-button-icon" />
+                  <span className="about-hero-button-name">{t(`AboutSite.${d}`)}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+          <div className="about-body about-section container">
+            {(function () {
+              switch (site) {
+                case "background":
+                  return <Background />;
+                case "press":
+                  return <Press />;
+                case "glossary":
+                  return <Glossary />;
+                case "legal":
+                  return <Legal />;
+                default:
+                  return <Background />;
+              }
+            }())}
+          </div>
         </div>
         <Footer />
       </div>

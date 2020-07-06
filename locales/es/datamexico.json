@@ -1,5 +1,11 @@
 {
   "About": "Acerca",
+  "AboutSite": {
+    "background": "Sobre DataMéxico",
+    "press": "En la prensa",
+    "glossary": "Glosario",
+    "legal": "Términos de Uso"
+  },
   "About DataMexico": "Sobre DataMéxico",
   "Activate": {
     "actions": {

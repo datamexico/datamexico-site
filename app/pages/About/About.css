@@ -1,9 +1,104 @@
 @import "helpers/mixins.css";
 
 .about-content {
+  background-color: var(--dark-4);
+  color: white;
   margin-top: var(--nav-height);
 }
 
+.about-hero {
+  display: flex;
+  flex-direction: column;
+  height: 30vh;
+  justify-content: center;
+  & .about-hero-title {
+    display: flex;
+    font-size: var(--font-xl);
+    font-weight: var(--light-bold-weight);
+    justify-content: center;
+    text-transform: uppercase;
+    margin: var(--gutter-xl) 0;
+  }
+  & .about-hero-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    width: 50%;
+    & .about-hero-button {
+      font-size: var(--font-md);
+      font-weight: var(--light-weight);
+      text-transform: uppercase;
+      color: var(--white);
+      & .about-hero-button-name {
+        padding-bottom: var(--gutter-sm);
+      }
+    }
+    & .about-hero-button:hover {
+      text-decoration: underline;
+    }
+    & .about-hero-button.is-active {
+      font-weight: var(--bold-weight);
+      color: var(--primary-2);
+    }
+  }
+}
+
+.about-section {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 60%;
+
+  & h3 {
+    color: var(--primary-2);
+    font-size: var(--font-lg);
+    font-weight: var(--light-bold-weight);
+    margin-bottom: var(--gutter-lg);
+    text-transform: uppercase;
+  }
+
+  & h4 {
+    font-size: var(--font-lg);
+    font-weight: var(--light-bold-weight);
+    margin-bottom: var(--gutter-sm);
+  }
+
+  & h5 {
+    font-size: var(--font-md);
+    font-weight: var(--base-font-weight);
+    text-transform: uppercase;
+    background-color: var(--primary-3);
+    width: max-content;
+    padding: var(--gutter-xs);
+    margin-bottom: var(--gutter-sm);
+  }
+
+  & p {
+    font-size: var(--font-md);
+    font-weight: var(--light-weight);
+    margin-bottom: var(--gutter-md);
+  }
+
+  & img {
+    border-bottom: calc(var(--button-border-width) * 5) solid var(--primary-2);
+    margin-bottom: var(--gutter-md);
+  }
+}
+
 .about-press {
-  min-height: 30vh;
+  & .press-news {
+    margin-bottom: var(--gutter-xl);
+  }
+}
+
+.about-legal {
+  & h4 {
+    text-transform: uppercase;
+  }
+}
+
+.about-glossary {
+  & h4 {
+    margin-bottom: var(--gutter-lg);
+  }
 }
