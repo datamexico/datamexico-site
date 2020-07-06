@@ -7,7 +7,7 @@ module.exports = function (app) {
   app.post("/api/cms/customAttributes/:pid", async(req, res) => {
     const pid = req.params.pid * 1;
     const {variables, locale} = req.body;
-    const {id1, dimension1, hierarchy1, slug1, name1, cubeName1, user} = variables;
+    const {id1, dimension1, hierarchy1, slug1, name1, cubeName1, parents1} = variables;
 
     const ENOE_DATASET = async() => {
       // Latest Quarter
@@ -30,6 +30,7 @@ module.exports = function (app) {
     let enoeLatestQuarter, enoePrevQuarter, enoePrevYear;
 
     switch (pid) {
+      // Geo profile
       case 1:
         const ENOE_GEO = await ENOE_DATASET();
         enoeLatestQuarter = ENOE_GEO.enoeLatestQuarter;
@@ -68,14 +69,15 @@ module.exports = function (app) {
           .then(resp => resp.data.data)
           .catch(catcher);
         covidUpdated.sort((a, b) => b["Updated Date ID"] - a["Updated Date ID"]);
-        const covidLatestUpdated = covidUpdated[0]["Updated Date ID"] - 2;
+        const covidLatestUpdated = covidUpdated[0]["Updated Date ID"];
         const customGiniCube = hierarchy1 === "Nation"
           ? "coneval_gini_nat"
           : hierarchy1 === "State" ? "coneval_gini_ent" : "coneval_gini_mun";
 
         return res.json({
           covidLatestUpdated,
-          customCovidCube: isState ? "gobmx_covid_stats" : "gobmx_covid_stats_mun",
+          customCovidCube: isState ? "gobmx_covid_stats" : hierarchy1 === "Nation"
+            ? "gobmx_covid_stats_nation" : "gobmx_covid_stats_mun",
           customSocialLagCube: `coneval_social_lag_${isState ? "ent" : "mun"}`,
           customGiniCube,
           customForeignTradeCube: isState ? "economy_foreign_trade_ent" : "economy_foreign_trade_mun",
@@ -98,6 +100,29 @@ module.exports = function (app) {
           enoeLatestQuarter,
           enoePrevQuarter,
           enoePrevYear
+        });
+
+      // Industry profile
+      case 33:
+        const ENOE_INDUSTRY = await ENOE_DATASET();
+        enoeLatestQuarter = ENOE_INDUSTRY.enoeLatestQuarter;
+        enoePrevQuarter = ENOE_INDUSTRY.enoePrevQuarter;
+        enoePrevYear = ENOE_INDUSTRY.enoePrevYear;
+        const isDeepestLevel = ["NAICS Industry", "National Industry"].includes(hierarchy1);
+
+        return res.json({
+          customId: isDeepestLevel ? id1.toString().slice(0, 4) : id1,
+          customHierarchy: isDeepestLevel ? "Industry Group" : hierarchy1,
+          denueLatestMonth: 20200417,
+          denuePrevMonth: 20191114,
+          economicCensusLatestYear: 2014,
+          economicCensusPrevYear: 2009,
+          enoeLatestQuarter,
+          enoePrevQuarter,
+          enoePrevYear,
+          fdiLatestQuarter: 20192,
+          fdiLatestYear: 2018,
+          isDeepestLevel
         });
 
       default:

@@ -403,6 +403,7 @@ export default {
       const itemBgImg = ["Country", "Organization"].includes(itemId) ? itemId : parentId;
       let bgColor = findColorV2(itemBgImg, d);
       let imgUrl = findIconV2(itemBgImg, d);
+      console.log(parentId, title);
       if (parentId === "type" && ["México", "Mexico"].includes(title)) {
         imgUrl = "/icons/visualizations/Country/country_mex.png";
         bgColor = undefined;
