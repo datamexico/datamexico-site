@@ -31,10 +31,10 @@ module.exports = {
     ]},
     {title: "About", items: [
       // {title: "Background",       url: `/${locale}/about`},
-      {title: "In the press",     url: `/${locale}/about#press`},
-      {title: "Team",             url: `/${locale}/about#team`},
-      {title: "Glossary",         url: `/${locale}/about#glossary`},
-      {title: "Terms of use",     url: `/${locale}/about#legal`},
+      {title: "In the press",     url: `/${locale}/about/press`},
+      // {title: "Team",             url: `/${locale}/about/team`},
+      {title: "Glossary",         url: `/${locale}/about/glossary`},
+      {title: "Terms of use",     url: `/${locale}/about/legal`},
       {title: "Contact us",       url: "mailto:alex@datawheel.us?subject=Message from DataMexico footer contact link"}
     ]}
   ],
