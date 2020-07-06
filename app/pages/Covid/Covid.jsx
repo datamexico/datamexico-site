@@ -123,7 +123,7 @@ class Covid extends Component {
       {id: "stat_accum_dead", name: "Muertes Confirmadas", icon: "muertes-confirmadas-icon.svg", value: commas(locationBaseData["Accum Deaths"])}
     ];
     const barChartData = this.filterData(dataCovidMXActual, locationSelected, 60);
-    console.log(barChartData);
+    const barChartDictionary = [...new Set(barChartData.sort((a, b) => a["Age Range ID"] - b["Age Range ID"]).map(d => d["Age Range"]))];
     const updateDate = new Date(dataStatsActual[0].Time);
     const dataUpdateDate = {
       Day: weekdaysNames[updateDate.getDay()],
@@ -261,7 +261,7 @@ class Covid extends Component {
           />
           <CovidCard
             cardInformation={{
-              title: "Nuevos casos diarios",
+              title: "Rangos de edad",
               description: <div className="card-description">
                 <p>
                   Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
@@ -278,22 +278,26 @@ class Covid extends Component {
             indicatorVariable={"groupBy"}
             indicatorOptions={[
               {name: "Sexo", id: "Sex"},
-              {name: "Tipo de Paciente", id:"Patient Type"}
+              {name: "Tipo de Paciente", id: "Patient Type"}
             ]}
             visualization={{
               data: barChartData,
               type: "BarChart",
               height: 400,
-              label: d => String(d["Sex"]),
               x: "Age Range ID",
+              xConfig: {
+                title: "Age Range",
+                tickFormat: d => barChartDictionary[d-1]
+              },
               y: "Cases",
+              yConfig: {
+                "title": "Cases"
+              },
               stacked: true,
-              xConfig: {"title": "Age Range"},
-              yConfig: {"title": "Cases"},
               tooltipConfig: {
                 tbody: [
                   ["Age Range", d => d["Age Range"]],
-                  ["Cases", d => d["Cases"]]
+                  ["Cases", d => commas(d["Cases"])]
                 ]
               }
             }}
