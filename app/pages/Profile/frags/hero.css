@@ -21,11 +21,13 @@
       padding-right: var(--gutter-md);
       & .cp-hero-heading {
         margin-bottom: 10px;
-        display: flex;
+        /*display: flex;*/
         & img {
-          width: 60px;
           height: 60px;
-          margin-right: 5px;
+          margin-bottom: 7px;
+          margin-right: 0px;
+          vertical-align: middle;
+          width: 60px;
         }
       }
       & .cp-hero-heading-dimension {

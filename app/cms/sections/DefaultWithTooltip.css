@@ -9,14 +9,18 @@
 }
 
 .bp3-transition-container {
-  width: 400px;
+  width: 450px;
 }
 
 .bp3-transition-container.bp3-popover-enter-done {
-  width: 400px;
+  width: 450px;
   z-index: 100;
   & p {
     font-size: var(--font-sm);
+  }
+  & a {
+    color: var(--gmx-yellow-1);
+    text-decoration-color: var(--gmx-yellow-1);
   }
 }
 
