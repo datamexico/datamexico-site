@@ -21,14 +21,18 @@
   }
   & .about-hero-buttons {
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
     margin: 0 auto;
     width: 50%;
     & .about-hero-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-size: var(--font-md);
       font-weight: var(--light-weight);
       text-transform: uppercase;
       color: var(--white);
+      width: 25%;
       & .about-hero-button-name {
         padding-bottom: var(--gutter-sm);
       }
@@ -51,8 +55,10 @@
 
   & h3 {
     color: var(--primary-2);
+    display: flex;
     font-size: var(--font-lg);
     font-weight: var(--light-bold-weight);
+    justify-content: center;
     margin-bottom: var(--gutter-lg);
     text-transform: uppercase;
   }
