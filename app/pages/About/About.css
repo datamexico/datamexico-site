@@ -7,10 +7,23 @@
 }
 
 .about-hero {
+  position: relative;
+  background: url(/images/about.jpg);
+  background-position: center center;
+  background-size: cover;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
-  height: 30vh;
   justify-content: center;
+  align-content: center;
+  z-index: 1;
+  &::before {
+    @mixin overlay-gradient;
+    @mixin absolute-expand;
+    display: block;
+    content: "";
+    z-index: -1;
+  }
   & .about-hero-title {
     display: flex;
     font-size: var(--font-xl);
@@ -22,27 +35,32 @@
   & .about-hero-buttons {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     margin: 0 auto;
     width: 50%;
     & .about-hero-button {
-      display: flex;
-      justify-content: center;
       align-items: center;
+      color: var(--white);
+      display: flex;
       font-size: var(--font-md);
       font-weight: var(--light-weight);
+      justify-content: center;
       text-transform: uppercase;
-      color: var(--white);
-      width: 25%;
+      margin: var(--gutter-sm) auto;
       & .about-hero-button-name {
-        padding-bottom: var(--gutter-sm);
+        padding-bottom: var(--gutter-xs);
       }
     }
     & .about-hero-button:hover {
-      text-decoration: underline;
+      opacity: 0.7;
+      text-decoration: none;
     }
     & .about-hero-button.is-active {
-      font-weight: var(--bold-weight);
       color: var(--primary-2);
+      font-weight: var(--bold-weight);
+      & .about-hero-button-name {
+        border-bottom: var(--button-border-width) solid var(--primary-2);
+      }
     }
   }
 }
@@ -51,7 +69,9 @@
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  width: 60%;
+  max-width: 1000px;
+  padding: var(--gutter-lg);
+  width: 100%;
 
   & h3 {
     color: var(--primary-2);
@@ -70,13 +90,13 @@
   }
 
   & h5 {
+    background-color: var(--primary-3);
     font-size: var(--font-md);
     font-weight: var(--base-font-weight);
-    text-transform: uppercase;
-    background-color: var(--primary-3);
-    width: max-content;
-    padding: var(--gutter-xs);
     margin-bottom: var(--gutter-sm);
+    padding: var(--gutter-xs);
+    text-transform: uppercase;
+    width: max-content;
   }
 
   & p {

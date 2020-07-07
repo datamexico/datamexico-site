@@ -49,7 +49,7 @@ class About extends Component {
               ))}
             </div>
           </div>
-          <div className="about-body about-section container">
+          <div className="about-body about-section">
             {(function () {
               switch (site) {
                 case "background":
