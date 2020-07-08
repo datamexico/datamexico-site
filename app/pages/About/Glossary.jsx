@@ -47,8 +47,8 @@ class Glossary extends Component {
         {initials.map(d => (
           <div className="glossary-initial">
             <h4>{d}</h4>
-            {glossary.filter(f => f.initial === d).sort((a, b) => a.title.localeCompare(b.title)).map(m => (
-              <div className="glossary-item">
+            {glossary.filter(f => f.initial === d).sort((a, b) => a.title.localeCompare(b.title)).map((m, i) => (
+              <div className="glossary-item" key={i}>
                 <h5>{m.title}</h5>
                 <p>{m.description}</p>
               </div>

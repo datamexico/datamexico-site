@@ -23,8 +23,8 @@ class Press extends Component {
     return (
       <div className="about-press">
         <h3>{t("AboutSite.press")}</h3>
-        {news.map(d => (
-          <div className="press-news">
+        {news.map((d, i) => (
+          <div className="press-news" key={i}>
             <img src={`/images/press/${d.img}`} alt="img" className="news-picture" />
             <h4>{d.title}</h4>
             <p>{d.text}</p>

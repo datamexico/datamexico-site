@@ -50,7 +50,6 @@ class Home extends Component {
     const {scrolled} = this.state;
     const {t, lng, router} = this.props;
     const tiles = lng === "es" ? tilesES : tilesEN;
-    console.log(tiles);
 
     return (
       <div className="home">
@@ -91,7 +90,6 @@ class Home extends Component {
             {Object.keys(tiles).map((d, i) => {
               const items = tiles[d];
               const info = homeTiles[d];
-              console.log(d, items, info);
               return <div
                 className="column"
                 key={`home-tile-title_${i}_${lng}`}

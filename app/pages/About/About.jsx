@@ -41,8 +41,8 @@ class About extends Component {
           <div className="about-hero">
             <h2 className="about-hero-title">{t("About")}</h2>
             <div className="about-hero-buttons">
-              {validPages.map(d => (
-                <a href={`/${lang}/about/${d}`} className={classnames("about-hero-button", {"is-active": d === site})}>
+              {validPages.map((d, i) => (
+                <a href={`/${lang}/about/${d}`} className={classnames("about-hero-button", {"is-active": d === site})} key={i}>
                   <img src="" alt="" className="about-hero-button-icon" />
                   <span className="about-hero-button-name">{t(`AboutSite.${d}`)}</span>
                 </a>
