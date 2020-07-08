@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 import classnames from "classnames";
 import {Helmet} from "react-helmet";
 import {hot} from "react-hot-loader/root";
@@ -16,9 +17,18 @@ import Press from "./Press";
 import "./About.css";
 
 class About extends Component {
+  state = {
+    glossary: []
+  };
+
+  componentDidMount = () => {
+    axios.get("/api/glossary").then(resp => this.setState({glossary: resp.data.data}));
+  }
+
   render() {
     const {t} = this.props;
     const {lang, page} = this.props.params;
+    const {glossary} = this.state;
     const site = page ? page : "background";
     const validPages = ["background", "press", "glossary", "legal"];
 
@@ -57,7 +67,7 @@ class About extends Component {
                 case "press":
                   return <Press />;
                 case "glossary":
-                  return <Glossary />;
+                  return <Glossary glossary={glossary} />;
                 case "legal":
                   return <Legal />;
                 default:
