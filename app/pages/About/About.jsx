@@ -18,17 +18,18 @@ import "./About.css";
 
 class About extends Component {
   state = {
-    glossary: []
+    glossary: [],
+    terms: []
   };
 
   componentDidMount = () => {
-    axios.get("/api/glossary").then(resp => this.setState({glossary: resp.data.data}));
+    axios.all([axios.get("/api/glossary"), axios.get("/api/legal")]).then(axios.spread((resp1, resp2) => this.setState({glossary: resp1.data.data, terms: resp2.data.data})));
   }
 
   render() {
     const {t} = this.props;
     const {lang, page} = this.props.params;
-    const {glossary} = this.state;
+    const {glossary, terms} = this.state;
     const site = page ? page : "background";
     const validPages = ["background", "press", "glossary", "legal"];
 
@@ -69,7 +70,7 @@ class About extends Component {
                 case "glossary":
                   return <Glossary glossary={glossary} />;
                 case "legal":
-                  return <Legal />;
+                  return <Legal terms={terms} />;
                 default:
                   return <Background />;
               }
