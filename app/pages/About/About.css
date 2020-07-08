@@ -59,7 +59,7 @@
       color: var(--primary-2);
       font-weight: var(--bold-weight);
       & .about-hero-button-name {
-        border-bottom: var(--button-border-width) solid var(--primary-2);
+        border-bottom: calc(var(--button-border-width) * 2) solid var(--primary-2);
       }
     }
   }
