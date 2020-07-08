@@ -1,1 +1,130 @@
 @import "helpers/mixins.css";
+
+.about-content {
+  background-color: var(--dark-4);
+  color: var(--white);
+  margin-top: var(--nav-height);
+}
+
+.about-hero {
+  align-content: center;
+  background: url(/images/about.jpg);
+  background-position: center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 50vh;
+  position: relative;
+  z-index: 1;
+  &::before {
+    @mixin overlay-gradient;
+    @mixin absolute-expand;
+    content: "";
+    display: block;
+    z-index: -1;
+  }
+  & .about-hero-title {
+    display: flex;
+    font-size: var(--font-xl);
+    font-weight: var(--light-bold-weight);
+    justify-content: center;
+    margin: var(--gutter-xl) 0;
+    text-transform: uppercase;
+  }
+  & .about-hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+    width: 50%;
+    & .about-hero-button {
+      align-items: center;
+      color: var(--white);
+      display: flex;
+      font-size: var(--font-md);
+      font-weight: var(--light-weight);
+      justify-content: center;
+      margin: var(--gutter-sm) auto;
+      text-transform: uppercase;
+      & .about-hero-button-name {
+        padding-bottom: var(--gutter-xs);
+      }
+    }
+    & .about-hero-button:hover {
+      opacity: 0.7;
+      text-decoration: none;
+    }
+    & .about-hero-button.is-active {
+      color: var(--primary-2);
+      font-weight: var(--bold-weight);
+      & .about-hero-button-name {
+        border-bottom: var(--button-border-width) solid var(--primary-2);
+      }
+    }
+  }
+}
+
+.about-section {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: var(--gutter-lg);
+  width: 100%;
+
+  & h3 {
+    color: var(--primary-2);
+    display: flex;
+    font-size: var(--font-lg);
+    font-weight: var(--light-bold-weight);
+    justify-content: center;
+    margin-bottom: var(--gutter-lg);
+    text-transform: uppercase;
+  }
+
+  & h4 {
+    font-size: var(--font-lg);
+    font-weight: var(--light-bold-weight);
+    margin-bottom: var(--gutter-sm);
+  }
+
+  & h5 {
+    background-color: var(--primary-3);
+    font-size: var(--font-md);
+    font-weight: var(--base-font-weight);
+    margin-bottom: var(--gutter-sm);
+    padding: var(--gutter-xs);
+    text-transform: uppercase;
+    width: max-content;
+  }
+
+  & p {
+    font-size: var(--font-md);
+    font-weight: var(--light-weight);
+    margin-bottom: var(--gutter-md);
+  }
+
+  & img {
+    border-bottom: calc(var(--button-border-width) * 5) solid var(--primary-2);
+    margin-bottom: var(--gutter-md);
+  }
+}
+
+.about-press {
+  & .press-news {
+    margin-bottom: var(--gutter-xl);
+  }
+}
+
+.about-legal {
+  & h4 {
+    text-transform: uppercase;
+  }
+}
+
+.about-glossary {
+  & h4 {
+    margin-bottom: var(--gutter-lg);
+  }
+}

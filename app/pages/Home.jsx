@@ -8,6 +8,7 @@ import {Button, Icon, InputGroup, Popover} from "@blueprintjs/core";
 
 import {LOGOS} from "helpers/consts.js";
 import homeTiles from "helpers/homeTiles";
+import {backgroundID} from "helpers/utils";
 import Tile from "../components/Tile";
 import TileTitle from "../components/TileTitle";
 import HeroSearch from "../components/HeroSearch";
@@ -62,7 +63,8 @@ class Home extends Component {
           routePath={"/:lang"}
           title={""}
         />
-        <div className="hero container">
+
+        <div className="hero container" style={{background: `url(/images/backgroundmx-${backgroundID}.jpg)`}} >
           <h1 className="hero-logo">
             <img src="/icons/datamx-logo.gif" alt="DataMexico" />
           </h1>
