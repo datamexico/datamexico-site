@@ -2,26 +2,26 @@
 
 .about-content {
   background-color: var(--dark-4);
-  color: white;
+  color: var(--white);
   margin-top: var(--nav-height);
 }
 
 .about-hero {
-  position: relative;
+  align-content: center;
   background: url(/images/about.jpg);
   background-position: center center;
   background-size: cover;
-  min-height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: center;
+  min-height: 50vh;
+  position: relative;
   z-index: 1;
   &::before {
     @mixin overlay-gradient;
     @mixin absolute-expand;
-    display: block;
     content: "";
+    display: block;
     z-index: -1;
   }
   & .about-hero-title {
@@ -29,8 +29,8 @@
     font-size: var(--font-xl);
     font-weight: var(--light-bold-weight);
     justify-content: center;
-    text-transform: uppercase;
     margin: var(--gutter-xl) 0;
+    text-transform: uppercase;
   }
   & .about-hero-buttons {
     display: flex;
@@ -45,8 +45,8 @@
       font-size: var(--font-md);
       font-weight: var(--light-weight);
       justify-content: center;
-      text-transform: uppercase;
       margin: var(--gutter-sm) auto;
+      text-transform: uppercase;
       & .about-hero-button-name {
         padding-bottom: var(--gutter-xs);
       }

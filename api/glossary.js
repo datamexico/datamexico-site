@@ -23,7 +23,7 @@ module.exports = function (app) {
         return all;
       }, []);
 
-      res.json({data: data});
+      res.json({data});
     } catch (e) {
       console.log(e);
     }

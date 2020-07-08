@@ -23,7 +23,9 @@ class About extends Component {
   };
 
   componentDidMount = () => {
-    axios.all([axios.get("/api/glossary"), axios.get("/api/legal")]).then(axios.spread((resp1, resp2) => this.setState({glossary: resp1.data.data, terms: resp2.data.data})));
+    axios
+      .all([axios.get("/api/glossary"), axios.get("/api/legal")])
+      .then(axios.spread((...resp) => this.setState({glossary: resp[0].data.data, terms: resp[1].data.data})));
   }
 
   render() {
@@ -35,6 +37,20 @@ class About extends Component {
 
     const valid = validPages.includes(site);
     if (!valid) {return <Error />;}
+
+    let childComponent = <Background />;
+    switch (site) {
+      case "background":
+        childComponent = <Background />;
+      case "press":
+        childComponent = <Press />;
+      case "glossary":
+        childComponent = <Glossary glossary={glossary} />;
+      case "legal":
+        childComponent = <Legal terms={terms} />;
+      default:
+        childComponent = <Background />;
+    }
 
     return (
       <div className="about-wrapper">
@@ -60,22 +76,7 @@ class About extends Component {
               ))}
             </div>
           </div>
-          <div className="about-body about-section">
-            {(function () {
-              switch (site) {
-                case "background":
-                  return <Background />;
-                case "press":
-                  return <Press />;
-                case "glossary":
-                  return <Glossary glossary={glossary} />;
-                case "legal":
-                  return <Legal terms={terms} />;
-                default:
-                  return <Background />;
-              }
-            }())}
-          </div>
+          <div className="about-body about-section">{childComponent}</div>
         </div>
         <Footer />
       </div>
