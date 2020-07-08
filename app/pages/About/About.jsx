@@ -42,14 +42,19 @@ class About extends Component {
     switch (site) {
       case "background":
         childComponent = <Background />;
+        break;
       case "press":
         childComponent = <Press />;
+        break;
       case "glossary":
         childComponent = <Glossary glossary={glossary} />;
+        break;
       case "legal":
         childComponent = <Legal terms={terms} />;
+        break;
       default:
         childComponent = <Background />;
+        break;
     }
 
     return (
