@@ -4,9 +4,10 @@ const BASE_API = "https://api.datamexico.org/tesseract/data";
 
 module.exports = function (app) {
   app.get("/api/trade/data", async(req, res) => {
+    const queryObject = query => Object.keys(query).map(d => `${d}=${query[d]}`).join("&");
     const {query} = req;
     const {drilldowns, measures} = query;
-    const queryString = Object.keys(query).map(d => `${d}=${query[d]}`).join("&");
+    const queryString = queryObject(query);
 
     const isMunLevel = ["Metro Area", "Municipality"].some(d => queryString.includes(d));
     const cube = `economy_foreign_trade_${isMunLevel ? "mun" : "ent"}`;
@@ -27,16 +28,20 @@ module.exports = function (app) {
     }, {});
 
 
+    const productLevel = drilldowns.includes("HS4") ? 4 : drilldowns.includes("HS6") ? 6 : 2;
     const params2 = {
       cube,
       drilldowns: dds,
-      measures: measures || "Trade Value"
+      measures: measures || "Trade Value",
+      Level: isMunLevel ? 2 : drilldowns.includes("Nation") ? 1 : 1, // TODO
+      "Product Level": productLevel
     }
     const params = Object.assign(params1, params2);
 
     const data = await axios.get(BASE_API, {params})
       .then(resp => resp.data)
       .catch(error => ({data: [], error: error.toString()}));
+    data.response = BASE_API + "?" + queryObject(params);
 
     const customReplaces = {
       "Chapter 2 Digit": "Chapter",

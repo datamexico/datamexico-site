@@ -56,7 +56,7 @@ p:last-of-type {
 }
 
 .cp-stat-group-wrapper .cp-stat:not(:only-child) {
-  padding-right: var(--gutter-sm);
+  padding-right: var(--gutter-md);
 }
 
 .cp-section-grouping-inner>.cp-section.cp-default-with-tooltip-section {
@@ -71,7 +71,7 @@ p:last-of-type {
   & .cp-stat {
     flex: 1 !important;
     margin-right: 0 !important;
-    min-width: 150px !important;
+    min-width: 170px !important;
     padding: 0;
     & .cp-stat-label-text {
       display: flex;
@@ -110,6 +110,8 @@ p:last-of-type {
   }
 }
 
+.ReactTable .rt-tbody { overflow: hidden !important; }
+
 .cp-viz-container > .cp-viz-header {
   justify-content: center;
 }
@@ -141,12 +143,21 @@ p:last-of-type {
 
 .cp-viz-container {
   height: 100% !important;
+  width: 100%;
   margin-top: 20px;
   min-height: 400px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 300px;
+  padding: 0 var(--gutter-md);
   & > .cp-viz-header + .cp-viz-figure {
     bottom: 1.5rem;
-    height: 100% !important;
+    height: auto !important;
+    flex: 1;
     top: 1.5rem;
+    width: 100%;
   }
 }
 
@@ -154,11 +165,30 @@ p:last-of-type {
   .cp-default-section-figure {
     width: calc(100% - 17rem - 1.5rem);
   }
+
+  .cp-multicolumn-default-section-figure {
+    grid-template-columns: repeat( auto-fit, minmax(0rem, 1fr) );
+  }
+}
+
+.cp-default-section-figure {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  & .cp-graphic-viz-container {
+    min-width: 150px;
+    max-width: 250px;
+    & .cp-graphic {
+      & img {
+        width: 66.67%;
+      }
+    }
+  }
+
 }
 
 .cp-viz-container > .cp-viz-header > .cp-viz-title {
-  font-weight: 500;
-  font-family: var(--base-font-stack);
+  font-weight: 400;
 }
 
 .Options {

@@ -244,10 +244,15 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    & .cp-subnav-list {
+      width: 100%;
+    }
     & .cp-subnav-item {
+      width: auto;
       & a {
         font-size: var(--font-sm);
         padding: var(--gutter-xs) var(--gutter-sm);
+        padding-left: 0px;
       }
     }
   }

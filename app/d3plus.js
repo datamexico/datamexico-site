@@ -82,6 +82,7 @@ export const findIconV2 = (key, d) => {
 /** default x/y axis styles */
 const axisConfig = {
   // main bar lines
+  maxSize: 100,
   barConfig: {
     stroke: "transparent"
   },
@@ -267,6 +268,12 @@ export default {
     // line charts
     Line: {
       curve: "monotoneX",
+      labelConfig: {
+        fontStrokeWidth: d => 0.5,
+        fontWeight: 600,
+        fontFamily: () => styles["base-font-stack-condensed"],
+        padding: 3
+      },
       stroke(d) {
         if (this && this._groupBy) {
           const item = this._groupBy[0](d);
@@ -307,7 +314,7 @@ export default {
         else return "green";
       }
       else {
-        return "blue";
+        return "transparent";
       }
     }
   },

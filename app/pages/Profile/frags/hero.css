@@ -56,6 +56,16 @@
     & .cp-hero-stat-group-wrapper {
       & .cp-hero-stat {
         text-align: left;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        & .cp-stat-subtitle {
+          font-size: var(--font-xs);
+          text-transform: uppercase;
+          margin: 5px auto 2px 0;
+          max-width: 160px;
+          line-height: var(--font-md);
+        }
         & .cp-stat-label {
           & .cp-stat-label-text {
             font-weight: 700;
@@ -67,11 +77,14 @@
         &:first-child {
           padding-left: 0rem;
         }
-        & .cp-stat-subtitle.heading {
+        & .cp-stat-label {
           background-color: var(--gmx-red-2);
           width: fit-content;
-          padding: 5px 10px;
+          padding: 4px 8px;
           border-radius: 5px;
+          & .cp-stat-label-text {
+            font-size: var(--font-xxs);
+          }
         }
       }
     }
