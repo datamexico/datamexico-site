@@ -1,0 +1,73 @@
+@import "../helpers/mixins.css";
+
+.home {
+  background-color: var(--dark-4);
+  color: var(--white);
+}
+
+.home-hero {
+  position: relative;
+  background-position: center center;
+  background-size: cover;
+  min-height: 70vh;
+  z-index: 2;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  padding-top: var(--nav-height);
+  flex-wrap: wrap;
+
+  /* overlay */
+  &::before {
+    @mixin overlay-gradient;
+    @mixin absolute-expand;
+    display: block;
+    content: "";
+    z-index: -1;
+  }
+
+  & .home-hero-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0 var(--gutter-xs);
+
+    & > * {
+      margin-bottom: var(--gutter-sm);
+    }
+
+    & .hero-info-logo {
+      width: calc(var(--font-md) * 13);
+    }
+
+    & .hero-info-tagline {
+      @mixin text-shadow;
+    }
+
+    & .hero-info-logo-list {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      & > :not(:last-child) {
+        margin-right: var(--gutter-sm);
+      }
+      & .hero-info-logo-img {
+        height: calc(var(--font-md) * 2);
+        transition: 0.15s ease-out;
+      }
+      & .hero-info-logo-img:hover {
+        transform: scale(1.075);
+      }
+    }
+  }
+  & .home-hero-search {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+  }
+}
+
+.home-content {
+
+}

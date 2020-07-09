@@ -5,6 +5,7 @@ import {Login, SignUp} from "@datawheel/canon-core";
 
 import App from "./App";
 import Home from "./pages/Home";
+import NewHome from "./pages/NewHome";
 import Profile from "./pages/Profile/Profile";
 import Loading from "./components/Loading";
 import Explore from "./pages/Explore/Explore";
@@ -20,6 +21,7 @@ export default function RouteCreate() {
     <Route path="/" component={App} history={browserHistory}>
       <IndexRoute component={Home} />
       <Route path="/:lang" component={Home} />
+      <Route path="/:lang/newhome" component={NewHome} />
       <Route exact path="/cms/admin" component={Builder} />
       <Route path="/:lang/explore" component={Explore} />
       <Route path="/loading" component={Loading} />

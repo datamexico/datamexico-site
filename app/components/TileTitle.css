@@ -1,16 +1,18 @@
 .tile-title {
-  align-items: center;
   display: flex;
-  justify-content: center;
+  align-items: center;
 
   & .tile-title-icon {
     height: 1.75em;
     width: 1.75em;
     margin-right: 0.25em;
     margin-left: -1em; /* optical alignment */
+    fill: white;
   }
 
   & .tile-title-link {
     color: var(--white);
+    text-transform: uppercase;
+    font-weight: var(--light-bold-weight);
   }
 }
