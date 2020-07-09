@@ -10,6 +10,7 @@ import {LOGOS} from "helpers/consts.js";
 import homeTiles from "helpers/homeTiles";
 import {backgroundID} from "helpers/utils";
 import Tile from "../components/Tile";
+import NewTile from "../components/NewTile";
 import TileTitle from "../components/TileTitle";
 import HeroSearch from "../components/HeroSearch";
 
@@ -110,6 +111,17 @@ class Home extends Component {
                     level={t(h.hierarchy)}
                     lng={lng}
                     slug={d}
+                    title={h.name}
+                  />)}
+                </ul>
+                <ul className="tile-list">
+                  {items.map(h => <NewTile
+                    id={h.id}
+                    key={`${h.id}-home-tile-${lng}`}
+                    level={t(h.hierarchy)}
+                    lng={lng}
+                    slug={d}
+                    slugColor={info.background}
                     title={h.name}
                   />)}
                 </ul>
