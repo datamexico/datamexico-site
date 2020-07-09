@@ -36,7 +36,6 @@ module.exports = function (app) {
     }
     if (!params1["Product Level"]) params2["Product Level"] = productLevel;
     if (!params1.Level) params2.Level = isMunLevel ? 2 : drilldowns.includes("Nation") ? 1 : 1; // TODO
-
     const params = Object.assign(params1, params2);
 
     const data = await axios.get(BASE_API, {params})
