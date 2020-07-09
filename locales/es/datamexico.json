@@ -1,12 +1,12 @@
 {
   "About": "Acerca",
+  "About DataMexico": "Sobre DataMéxico",
   "AboutSite": {
     "background": "Sobre DataMéxico",
-    "press": "En la prensa",
     "glossary": "Glosario",
-    "legal": "Términos de uso"
+    "legal": "Términos de uso",
+    "press": "En la prensa"
   },
-  "About DataMexico": "Sobre DataMéxico",
   "Activate": {
     "actions": {
       "ACTIVATE_SEND_FAILURE": "Error sending activation to {{email}}.",
@@ -66,6 +66,15 @@
     "SourceGroup": {
       "Data provided by": "Fuente",
       "and": "y"
+    },
+    "Table": {
+      "Loading": "Cargando...",
+      "Next": "Siguiente",
+      "No rows found": "No se encontraron resultados",
+      "Page": "Página",
+      "Previous": "Anterior",
+      "of": "de",
+      "rows": "filas"
     }
   },
   "Category": "Categoría",
