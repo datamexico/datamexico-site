@@ -76,8 +76,10 @@ module.exports = function (app) {
 
         return res.json({
           covidLatestUpdated,
-          customCovidCube: isState ? "gobmx_covid_stats" : hierarchy1 === "Nation"
-            ? "gobmx_covid_stats_nation" : "gobmx_covid_stats_mun",
+          customCovidCube: hierarchy1 === "State"
+            ? "gobmx_covid_stats_state"
+            : hierarchy1 === "Nation"
+              ? "gobmx_covid_stats_nation" : "gobmx_covid_stats_mun",
           customSocialLagCube: `coneval_social_lag_${isState ? "ent" : "mun"}`,
           customGiniCube,
           customForeignTradeCube: isState ? "economy_foreign_trade_ent" : "economy_foreign_trade_mun",
