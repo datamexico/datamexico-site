@@ -18,43 +18,44 @@ import "./About.css";
 
 class About extends Component {
   state = {
-    glossary: [],
-    terms: []
+    data: null
   };
 
   componentDidMount = () => {
-    axios
-      .all([axios.get("/api/glossary"), axios.get("/api/legal")])
-      .then(axios.spread((...resp) => this.setState({glossary: resp[0].data.data, terms: resp[1].data.data})));
+    axios.get("/api/about").then(resp => {
+      this.setState({data: resp.data});
+    });
   }
 
   render() {
     const {t} = this.props;
     const {lang, page} = this.props.params;
-    const {glossary, terms} = this.state;
+    const {data} = this.state;
     const site = page ? page : "background";
     const validPages = ["background", "press", "glossary", "legal"];
 
     const valid = validPages.includes(site);
     if (!valid) {return <Error />;}
 
-    let childComponent = <Background />;
-    switch (site) {
-      case "background":
-        childComponent = <Background />;
-        break;
-      case "press":
-        childComponent = <Press />;
-        break;
-      case "glossary":
-        childComponent = <Glossary glossary={glossary} />;
-        break;
-      case "legal":
-        childComponent = <Legal terms={terms} />;
-        break;
-      default:
-        childComponent = <Background />;
-        break;
+    let childComponent = null;
+    if (data) {
+      switch (site) {
+        case "background":
+          childComponent = <Background background={data.background} />;
+          break;
+        case "press":
+          childComponent = <Press press={data.press} />;
+          break;
+        case "glossary":
+          childComponent = <Glossary glossary={data.glossary} />;
+          break;
+        case "legal":
+          childComponent = <Legal terms={data.terms} />;
+          break;
+        default:
+          childComponent = <Background background={data.background} />;
+          break;
+      }
     }
 
     return (
@@ -81,7 +82,7 @@ class About extends Component {
               ))}
             </div>
           </div>
-          <div className="about-body about-section">{childComponent}</div>
+          <div className="about-body about-section">{data && childComponent}</div>
         </div>
         <Footer />
       </div>
