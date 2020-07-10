@@ -52,7 +52,7 @@ class Covid extends Component {
       const dataGobmxLatest = data.covid_gobmx;
       const dataStats = data.covid_stats;
       const dataStatsLatest = dataStats.filter(d => d["Time ID"] === latestDate["Time ID"]);
-      const locationArray = data.locations;
+      const locationArray = data.locations.filter(d => d["Division"] !== "Municipality");
       const locationBase = locationArray[0];
       const locationSelected = [locationBase["Location ID"]];
       this.setState({
