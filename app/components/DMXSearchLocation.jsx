@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
+import PropTypes from "prop-types";
 import {InputGroup, Icon, Popover, PopoverPosition, PopoverInteractionKind} from "@blueprintjs/core";
+import {withNamespaces} from "react-i18next";
 
 import colors from "../../static/data/colors.json";
 import {stringNormalizer} from "helpers/funcs";
 
 import "./DMXSearchLocation.css";
 
-export class DMXSearchLocation extends Component {
+class DMXSearchLocation extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,13 +36,11 @@ export class DMXSearchLocation extends Component {
 
   // Create the popover component with the location value inside filtered by the text inside the seach component
   filterLocationResult = (filter) => {
-    const {locationOptions} = this.props;
+    const {t, locationOptions} = this.props;
     const {filterValue} = this.state;
     const filteredLocations = locationOptions.filter(d => stringNormalizer(d.Location).toLowerCase().includes(stringNormalizer(filter).toLowerCase()));
     const filteredDivisions = [...new Set(filteredLocations.map(d => d.Division))];
     const clearSearch = filterValue ? <Icon icon="cross" iconSize={16} onClick={() => this.setState({filterValue: ""})} /> : undefined;
-    // Delete after
-    const divisionDictionary = {"Country": "País", "State": "Estado"};
 
     const filterLocationResult =
       <div className="dmx-search-component">
@@ -56,12 +56,12 @@ export class DMXSearchLocation extends Component {
           {filteredDivisions.length > 0
             ? filteredDivisions.map(d =>
               <div className="dmx-search-component-results-box">
-                <span className="dmx-search-component-results-box-division dmx-results-row">{divisionDictionary[d]}</span>
+                <span className="dmx-search-component-results-box-division dmx-results-row">{t(d)}</span>
                 {filteredLocations.filter(f => f.Division === d).map(m =>
                   <div className="dmx-search-component-results-box-location dmx-results-row" onClick={() => this.selectLocation(m)}>
-                    <img src={m["Icon"]} className="dmx-search-component-results-box-location-icon" style={{backgroundColor: colors.State[m["Location ID"]] ? colors.State[m["Location ID"]] : null}} />
+                    <img src={m["Icon"]} className="dmx-search-component-results-box-location-icon" style={{backgroundColor: d === "State" ? colors.State[m["Location ID"]] : d === "Municipality" ? colors.State[m["Location ID"].toString().slice(0, -3)] : null}} />
                     <span className="dmx-search-component-results-box-location-name">{`${m["Location"]}`}</span>
-                    <span className="dmx-search-component-results-box-location-division">{`${divisionDictionary[m["Division"]]}`}</span>
+                    <span className="dmx-search-component-results-box-location-division">{`${t(m["Division"])}`}</span>
                   </div>
                 )}
               </div>
@@ -76,11 +76,9 @@ export class DMXSearchLocation extends Component {
   }
 
   render() {
+    const {t, locationSelected} = this.props;
     const {filterValue, isOpen} = this.state;
-    const {locationSelected} = this.props;
     const filterLocationResults = this.filterLocationResult(filterValue);
-    // Delete after
-    const divisionDictionary = {"Country": "País", "State": "Estado"};
 
     return (
       <div className="dmx-search-display">
@@ -100,10 +98,14 @@ export class DMXSearchLocation extends Component {
             </h2>
           </div>
         </Popover>
-        <h3 className="dmx-search-display-location-division">{divisionDictionary[locationSelected["Division"]]}</h3>
+        <h3 className="dmx-search-display-location-division">{t(locationSelected["Division"])}</h3>
       </div>
     )
   }
 }
 
-export default DMXSearchLocation
+DMXSearchLocation.contextTypes = {
+  router: PropTypes.object
+};
+
+export default withNamespaces()(DMXSearchLocation);

@@ -72,6 +72,7 @@
   max-width: 1000px;
   padding: var(--gutter-lg);
   width: 100%;
+  min-height: 40vh;
 
   & h3 {
     color: var(--primary-2);
