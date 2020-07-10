@@ -120,13 +120,14 @@ const axisConfig = {
 export default {
   // global defaults
   aggs: {
+    "Affected Legal Good ID": mean,
     "Area ID": mean,
     "Category ID": mean,
-    "Chapter ID": mean,
     "Chapter 2 Digit ID": mean,
     "Chapter 4 Digit ID": mean,
-    "Generic Investment ID": mean,
+    "Chapter ID": mean,
     "Flow ID": mean,
+    "Generic Investment ID": mean,
     "Sex ID": mean,
     "State ID": mean,
     "Year": mean
@@ -410,7 +411,6 @@ export default {
       const itemBgImg = ["Country", "Organization"].includes(itemId) ? itemId : parentId;
       let bgColor = findColorV2(itemBgImg, d);
       let imgUrl = findIconV2(itemBgImg, d);
-      console.log(parentId, title);
       if (parentId === "type" && ["México", "Mexico"].includes(title)) {
         imgUrl = "/icons/visualizations/Country/country_mex.png";
         bgColor = undefined;
