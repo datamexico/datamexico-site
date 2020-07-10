@@ -37,81 +37,60 @@ module.exports = function (app) {
         }))
         .catch(e => console.log(e));
 
-        // Gets all the data from the gobmx_covid_stats cube
-        const COVID_STATS_MEASURES = "Daily Cases,Daily Deaths,Daily Hospitalized,Daily Suspect,Accum Cases,Accum Deaths,Accum Hospitalized,Accum Suspect,Days Between Ingress and Death,New Cases Report,New Deaths Report,New Hospitalized Report,New Suspect Report,Accum Cases Report,Accum Deaths Report,Accum Hospitalized Report,Accum Suspect Report,AVG 7 Days Daily Cases,AVG 7 Days Accum Cases,AVG 7 Days Daily Deaths,AVG 7 Days Accum Deaths,AVG 7 New Cases Report,AVG 7 Accum Cases Report,AVG 7 New Deaths Report,AVG 7 Accum Deaths Report,Last 7 Daily Cases,Last 7 Daily Deaths,Last 7 Accum Cases,Last 7 Accum Deaths,Last 7 New Cases Report,Last 7 Accum Cases Report,Last 7 New Deaths Report,Last 7 Accum Deaths Report,Rate Daily Cases,Rate Accum Cases,Rate Daily Deaths,Rate Accum Deaths,Rate New Cases Report,Rate Accum Cases Report,Rate New Deaths Report,Rate Accum Deaths Report,Days from 50 Cases,Days from 10 Deaths";
-        const COVID_STATS_NATION = CANON_CMS_CUBES + `/data.jsonrecords?cube=gobmx_covid_stats_nation&drilldowns=Geography+Nation%2CTime&measures=${COVID_STATS_MEASURES}&parents=false&sparse=false`
-        const COVID_STATS_STATES = CANON_CMS_CUBES + `/data.jsonrecords?cube=gobmx_covid_stats_state&drilldowns=State%2CTime&measures=${COVID_STATS_MEASURES}&parents=false&sparse=false`
-        const COVID_STATS_DATA = await axios
-          .all([axios.get(COVID_STATS_NATION), axios.get(COVID_STATS_STATES)])
-          .then(axios.spread((...resp) => {
-            resp[0].data.data.forEach(d => {
-              d["ID"] = d["Geography Nation ID"];
-              d["Label"] = d["Geography Nation"];
-              delete d["Geography Nation ID"];
-              delete d["Geography Nation"];
-            });
-            resp[1].data.data.forEach(d => {
-              d["ID"] = d["State ID"];
-              d["Label"] = d["State"];
-              delete d["State ID"];
-              delete d["State"];
-            })
-            const dataArray = resp.map(d => d.data.data);
-            return dataArray.flat();
-          }))
-          .catch(e => console.log(e));
+      // Gets all the data from the gobmx_covid_stats cube
+      const COVID_STATS_MEASURES = "Daily Cases,Daily Deaths,Daily Hospitalized,Daily Suspect,Accum Cases,Accum Deaths,Accum Hospitalized,Accum Suspect,Days Between Ingress and Death,New Cases Report,New Deaths Report,New Hospitalized Report,New Suspect Report,Accum Cases Report,Accum Deaths Report,Accum Hospitalized Report,Accum Suspect Report,AVG 7 Days Daily Cases,AVG 7 Days Accum Cases,AVG 7 Days Daily Deaths,AVG 7 Days Accum Deaths,AVG 7 New Cases Report,AVG 7 Accum Cases Report,AVG 7 New Deaths Report,AVG 7 Accum Deaths Report,Last 7 Daily Cases,Last 7 Daily Deaths,Last 7 Accum Cases,Last 7 Accum Deaths,Last 7 New Cases Report,Last 7 Accum Cases Report,Last 7 New Deaths Report,Last 7 Accum Deaths Report,Rate Daily Cases,Rate Accum Cases,Rate Daily Deaths,Rate Accum Deaths,Rate New Cases Report,Rate Accum Cases Report,Rate New Deaths Report,Rate Accum Deaths Report,Days from 50 Cases,Days from 10 Deaths";
+      const COVID_STATS_NATION = CANON_CMS_CUBES + `/data.jsonrecords?cube=gobmx_covid_stats_nation&drilldowns=Geography+Nation%2CTime&measures=${COVID_STATS_MEASURES}&parents=false&sparse=false`
+      const COVID_STATS_STATES = CANON_CMS_CUBES + `/data.jsonrecords?cube=gobmx_covid_stats_state&drilldowns=State%2CTime&measures=${COVID_STATS_MEASURES}&parents=false&sparse=false`
+      const COVID_STATS_DATA = await axios
+        .all([axios.get(COVID_STATS_NATION), axios.get(COVID_STATS_STATES)])
+        .then(axios.spread((...resp) => {
+          resp[0].data.data.forEach(d => {
+            d["ID"] = d["Geography Nation ID"];
+            d["Label"] = d["Geography Nation"];
+            delete d["Geography Nation ID"];
+            delete d["Geography Nation"];
+          });
+          resp[1].data.data.forEach(d => {
+            d["ID"] = d["State ID"];
+            d["Label"] = d["State"];
+            delete d["State ID"];
+            delete d["State"];
+          });
+          const dataArray = resp.map(d => d.data.data);
+          return dataArray.flat();
+        }))
+        .catch(e => console.log(e));
 
-        // Gets the most recent data from the gobmx_covid cube
+      // Gets the most recent data from the gobmx_covid cube
+      const COVID_GOBMX_DRILLDOWNS = "Updated Date,Covid Result,Patient Type,Age Range,Sex";
+      const COVID_GOBMX_NATION = CANON_CMS_CUBES + `/data.jsonrecords?Updated+Date=${LATEST_DATE.ID}&cube=gobmx_covid&drilldowns=${COVID_GOBMX_DRILLDOWNS + ",Nation"}&measures=Cases&parents=false&sparse=false`;
+      const COVID_GOBMX_STATES = CANON_CMS_CUBES + `/data.jsonrecords?Updated+Date=${LATEST_DATE.ID}&cube=gobmx_covid&drilldowns=${COVID_GOBMX_DRILLDOWNS + ",State"}&measures=Cases&parents=false&sparse=false`;
+      const COVID_GOBMX_DATA = await axios
+        .all([axios.get(COVID_GOBMX_NATION), axios.get(COVID_GOBMX_STATES)])
+        .then(axios.spread((...resp) => {
+          resp[0].data.data.forEach(d => {
+            d["ID"] = d["Nation ID"];
+            d["Label"] = d["Nation"];
+            delete d["Nation ID"];
+            delete d["Nation"];
+          });
+          resp[1].data.data.forEach(d => {
+            d["ID"] = d["State ID"];
+            d["Label"] = d["State"];
+            delete d["State ID"];
+            delete d["State"];
+          });
+          const dataArray = resp.map(d => d.data.data);
+          return dataArray.flat();
+        }))
+        .catch(e => console.log(e));
 
       res.json({
         date: LATEST_DATE,
         locations: LOCATIONS,
-        covid_stats: COVID_STATS_DATA
+        covid_stats: COVID_STATS_DATA,
+        covid_gobmx: COVID_GOBMX_DATA
       });
-
-      /*
-      const COVID_STATS_HISTORICAL_COUNTRY = CANON_CMS_CUBES + "/data.jsonrecords?cube=gobmx_covid_stats&drilldowns=Time%2CNation&measures=Daily+Cases%2CDaily+Deaths%2CDays+Between+Ingress+and+Death%2CAccum+Cases%2CAccum+Deaths%2CRate+Daily+Cases%2CRate+Accum+Cases%2CRate+Daily+Deaths%2CRate+Accum+Deaths%2CAVG+7+Days+Daily+Cases%2CAVG+7+Days+Accum+Cases%2CAVG+7+Days+Daily+Deaths%2CAVG+7+Days+Accum+Deaths%2CDays+from+50+Cases%2CDays+from+10+Deaths%2CCases+Day%2CDeaths+Day%2CCases+last+7+Days%2CDeaths+last+7+Days&parents=false&sparse=false";
-      const COVID_STATS_HISTORICAL_STATES = CANON_CMS_CUBES + "/data.jsonrecords?cube=gobmx_covid_stats&drilldowns=Time%2CState&measures=Daily+Cases%2CDaily+Deaths%2CDays+Between+Ingress+and+Death%2CAccum+Cases%2CAccum+Deaths%2CRate+Daily+Cases%2CRate+Accum+Cases%2CRate+Daily+Deaths%2CRate+Accum+Deaths%2CAVG+7+Days+Daily+Cases%2CAVG+7+Days+Accum+Cases%2CAVG+7+Days+Daily+Deaths%2CAVG+7+Days+Accum+Deaths%2CDays+from+50+Cases%2CDays+from+10+Deaths%2CCases+Day%2CDeaths+Day%2CCases+last+7+Days%2CDeaths+last+7+Days&parents=false&sparse=false";
-      const COVID_MX_COUNTRY = CANON_CMS_CUBES + `/data.jsonrecords?Covid+Result=1&Updated+Date=${date["Time ID"]}&cube=gobmx_covid&drilldowns=Patient+Type%2CAge+Range%2CSex%2CUpdated+Date%2CCovid+Result%2CNation&measures=Cases&parents=false&sparse=false`;
-      const COVID_MX_STATES = CANON_CMS_CUBES + `/data.jsonrecords?Covid+Result=1&Updated+Date=${date["Time ID"]}&cube=gobmx_covid&drilldowns=Patient+Type%2CAge+Range%2CSex%2CState%2CUpdated+Date%2CCovid+Result&measures=Cases&parents=false&sparse=false`;
-      */
-
-      /*
-      await axios.all([
-        axios.get(COVID_MX_COUNTRY),
-        axios.get(COVID_MX_STATES)
-      ]).then(
-        axios.spread((resp4, resp5) => {
-          const data_covid_mx = [];
-          const data_covid_mx_country = resp4.data.data;
-          data_covid_mx_country.forEach(d => {
-            d["Location ID"] = locations_country["Location ID"];
-            d["Location"] = locations_country["Location"];
-            d["Division"] = "Country";
-            delete d["Nation ID"];
-            delete d["Nation"];
-          });
-
-          const data_covid_mx_states = resp5.data.data;
-          data_covid_mx_states.forEach(d => {
-            d["Location ID"] = d["State ID"];
-            d["Location"] = d["State"];
-            d["Division"] = "State";
-            delete d["State ID"];
-            delete d["State"];
-          });
-          data_covid_mx.push(data_covid_mx_country);
-          data_covid_mx.push(data_covid_mx_states);
-
-          res.json({
-            data_covid_mx: data_covid_mx.flat(),
-            data_stats_actual: data_stats_actual.flat(),
-            data_stats_historical: data_stats_historical.flat(),
-            locations: locations.flat()
-          });
-        })
-      );
-      */
     } catch (e) {
       console.log(e);
     }
