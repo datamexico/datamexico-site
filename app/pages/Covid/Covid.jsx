@@ -230,6 +230,59 @@ class Covid extends Component {
           </div>
         </div>
         <div className="covid-body container">
+        <CovidCard
+            cardInformation={{
+              title: "Testing"
+            }}
+            locationsSelector={
+              <DMXSelectLocation
+                locationBase={locationBase}
+                locationsOptions={locationArray}
+                locationsSelected={locationSelected}
+                addNewLocation={this.addNewLocation}
+              />
+            }
+            baseSelector={[
+              {name: "Promedio de 7 Dias", value: "AVG 7 Days", unique: true, id: "baseUnique"},
+              {name: "Per Capita", value: "Rate", unique: true, id: "baseUnique"},
+              {name: "Cambiar Eje Temporal", value: "true", unique: false, id: "baseAxis"}
+            ]}
+            scaleOptions={[
+              {name: t("Lineal"), id: "linear"},
+              {name: t("Logarítmica"), id: "log"}
+            ]}
+            indicatorVariable={"y"}
+            indicatorOptions={[
+              {name: "Casos Diarios", id: "Daily Cases"},
+              {name: "Casos Confirmados", id: "Accum Cases"},
+              {name: "Muertes Diarias", id: "Daily Deaths"},
+              {name: "Muertes Confirmadas", id: "Accum Deaths"}
+            ]}
+            visualization={{
+              data: locationSelectedData,
+              type: "LinePlot",
+              groupBy: "Location ID",
+              height: 400,
+              lineLabels: true,
+              x: "Time",
+              time: "Time",
+              timeline: false,
+              tooltipConfig: {
+                tbody: [
+                  ["Casos Diarios", d => d["Daily Cases"]],
+                  ["Casos Acumulados", d => d["Accum Cases"]],
+                  ["Muertes Diarias", d => d["Daily Deaths"]],
+                  ["Muertes Acumuladas", d => d["Accum Deaths"]],
+                  ["Date", d => d["Time"]]
+                ]
+              },
+              shapeConfig: {
+                Line: {
+                  stroke: d => colors.State[d["Location ID"]] || "#235B4E"
+                }
+              }
+            }}
+          />
           <CovidCard
             cardInformation={{
               title: "Nuevos casos diarios",
