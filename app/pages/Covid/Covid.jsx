@@ -25,9 +25,11 @@ class Covid extends Component {
     super(props);
     this.state = {
       _dataLoaded: false,
-      dataCovidMXActual: null,
-      dataStatsActual: null,
-      dataStatsHistorical: null,
+      dataGobmxLatest: null,
+      dataStats: null,
+      dataStatsLatest: null,
+      dates: null,
+      latestDate: null,
       locationArray: null,
       locationBase: undefined,
       locationSelected: []
@@ -45,17 +47,21 @@ class Covid extends Component {
   fetchData = () => {
     axios.get("/api/covid").then(resp => {
       const data = resp.data;
-      const dataCovidMXActual = data.data_covid_mx;
-      const dataStatsActual = data.data_stats_actual;
-      const dataStatsHistorical = data.data_stats_historical;
+      const dates = data.dates;
+      const latestDate = dates[0];
+      const dataGobmxLatest = data.covid_gobmx;
+      const dataStats = data.covid_stats;
+      const dataStatsLatest = dataStats.filter(d => d["Time ID"] === latestDate["Time ID"]);
       const locationArray = data.locations;
       const locationBase = locationArray[0];
       const locationSelected = [locationBase["Location ID"]];
       this.setState({
         _dataLoaded: true,
-        dataCovidMXActual,
-        dataStatsActual,
-        dataStatsHistorical,
+        dataGobmxLatest,
+        dataStats,
+        dataStatsLatest,
+        dates,
+        latestDate,
         locationArray,
         locationBase,
         locationSelected
@@ -98,12 +104,28 @@ class Covid extends Component {
     this.setState(nextState);
   }
 
+  showDate = (d) => {
+    const {t} = this.props;
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const fullDate = new Date(d);
+    const day = fullDate.getDay();
+    const date = fullDate.getDate() + 1;
+    const month = fullDate.getMonth();
+    const year = fullDate.getFullYear();
+    const hour = fullDate.getHours();
+
+    return `${t(days[day])} ${date} ${t(months[month])} ${year} ${hour}:00`
+  }
+
   render() {
     const {
       _dataLoaded,
-      dataCovidMXActual,
-      dataStatsActual,
-      dataStatsHistorical,
+      dataGobmxLatest,
+      dataStats,
+      dataStatsLatest,
+      dates,
+      latestDate,
       locationArray,
       locationBase,
       locationSelected
@@ -112,8 +134,9 @@ class Covid extends Component {
 
     if (!_dataLoaded) return <Loading />;
 
-    const locationBaseData = dataStatsActual.find(d => d["Location ID"] === locationBase["Location ID"]);
-    const locationSelectedData = this.filterData(dataStatsHistorical, locationSelected, 60);
+    const showDate = this.showDate(latestDate.Time);
+    const locationBaseData = dataStatsLatest.find(d => d["Location ID"] === locationBase["Location ID"]);
+    const locationSelectedData = this.filterData(dataStats, locationSelected, 60);
     const locationStats = [
       {id: "stat_new_cases", name: "Nuevos Casos", icon: "nuevo-caso-icon.svg", value: commas(locationBaseData["Daily Cases"])},
       {id: "stat_new_dead", name: "Nuevas Muertes", icon: "nueva-muerte-icon.svg", value: commas(locationBaseData["Daily Deaths"])},
@@ -122,15 +145,9 @@ class Covid extends Component {
       {id: "stat_accum_cases", name: "Casos Confirmados", icon: "casos-confirmados-icon.svg", value: commas(locationBaseData["Accum Cases"])},
       {id: "stat_accum_dead", name: "Muertes Confirmadas", icon: "muertes-confirmadas-icon.svg", value: commas(locationBaseData["Accum Deaths"])}
     ];
-    const barChartData = this.filterData(dataCovidMXActual, locationSelected, 60);
+    const barChartData = this.filterData(dataGobmxLatest, locationSelected, 60);
     const barChartDictionary = [...new Set(barChartData.sort((a, b) => a["Age Range ID"] - b["Age Range ID"]).map(d => d["Age Range"]))];
-    const updateDate = new Date(dataStatsActual[0].Time);
-    const dataUpdateDate = {
-      Day: weekdaysNames[updateDate.getDay()],
-      Number: updateDate.getDate(),
-      Month: monthsNames[updateDate.getMonth()],
-      Year: updateDate.getFullYear()
-    };
+
     const overlayContent = <div className="covid-overlay-content">
       <div className="covid-overlay-card-header">
         <h3>Nota Metodológica</h3>
@@ -178,7 +195,7 @@ class Covid extends Component {
             addNewLocation={this.addNewLocation}
           />
           <div className="covid-header-info">
-            <h4 className="covid-header-info-date">{`Data actualizada al ${dataUpdateDate.Number + 1} ${dataUpdateDate.Month} ${dataUpdateDate.Year}`}</h4>
+            <h4 className="covid-header-info-date">{`Data actualizada al ${showDate}`}</h4>
             <DMXOverlay
               content={overlayContent}
               icon={"info-sign"}
@@ -287,7 +304,7 @@ class Covid extends Component {
               x: "Age Range ID",
               xConfig: {
                 title: "Age Range",
-                tickFormat: d => barChartDictionary[d-1]
+                tickFormat: d => barChartDictionary[d - 1]
               },
               y: "Cases",
               yConfig: {
@@ -303,7 +320,7 @@ class Covid extends Component {
             }}
           />
         </div>
-        <CovidTable />
+        {/* <CovidTable /> */}
       </div>
       <Footer />
     </div>;
