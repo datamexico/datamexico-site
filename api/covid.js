@@ -60,10 +60,10 @@ module.exports = function (app) {
         .all([axios.get(COVID_STATS_NATION), axios.get(COVID_STATS_STATES)])
         .then(axios.spread((...resp) => {
           resp[0].data.data.forEach(d => {
-            d["Location ID"] = d["Geography Nation ID"];
-            d["Location"] = d["Geography Nation"];
-            delete d["Geography Nation ID"];
-            delete d["Geography Nation"];
+            d["Location ID"] = d["Nation ID"];
+            d["Location"] = d["Nation"];
+            delete d["Nation ID"];
+            delete d["Nation"];
           });
           resp[1].data.data.forEach(d => {
             d["Location ID"] = d["State ID"];

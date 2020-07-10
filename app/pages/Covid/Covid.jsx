@@ -159,7 +159,6 @@ class Covid extends Component {
       {id: "stat_accum_dead", name: "Muertes Confirmadas", icon: "muertes-confirmadas-icon.svg", value: commas(locationBaseData["Accum Deaths"])}
     ];
     const barChartData = this.filterData(dataGobmxLatest, locationSelected);
-    console.log(barChartData);
     const barChartDictionary = [...new Set(barChartData.sort((a, b) => a["Age Range ID"] - b["Age Range ID"]).map(d => d["Age Range"]))];
 
     const overlayContent = <div className="covid-overlay-content">
