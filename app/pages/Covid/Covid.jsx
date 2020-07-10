@@ -16,7 +16,6 @@ import Nav from "components/Nav";
 
 import colors from "../../../static/data/colors.json";
 import {commas} from "helpers/utils";
-import {weekdaysNames, monthsNames} from "helpers/helpers";
 
 import "./Covid.css";
 
@@ -44,11 +43,24 @@ class Covid extends Component {
       || prevState.locationSelected !== nextState.locationSelected;
   }
 
-  fetchData = () => {
-    axios.get("/api/covid").then(resp => {
+  fetchData = async () => {
+    const DATASET_DATES = "https://api.datamexico.org/tesseract/members?cube=gobmx_covid&level=Updated%20Date";
+    const LATEST_WEEK = await axios.get(DATASET_DATES).then(resp => {
+      const dateArray = resp.data.data.reverse().slice(0, 8);
+      dateArray.forEach(d => {
+        d["Time ID"] = d["ID"];
+        d["Time"] = d["Label"];
+        delete d["ID"];
+        delete d["Label"];
+      });
+      return dateArray;
+    });
+    const LATEST_DATE = LATEST_WEEK[0];
+
+    await axios.get(`/api/covid/${LATEST_DATE["Time"]}`).then(resp => {
       const data = resp.data;
-      const dates = data.dates;
-      const latestDate = dates[0];
+      const dates = LATEST_WEEK;
+      const latestDate = LATEST_DATE;
       const dataGobmxLatest = data.covid_gobmx;
       const dataStats = data.covid_stats;
       const dataStatsLatest = dataStats.filter(d => d["Time ID"] === latestDate["Time ID"]);
@@ -69,7 +81,7 @@ class Covid extends Component {
     });
   }
 
-  filterData = (data, selected, limit) => {
+  filterData = (data, selected, limit = null) => {
     const filterData = [];
     selected.map(d => {
       filterData.push(data.filter(f => f["Location ID"] === d).slice(-limit));
@@ -114,8 +126,9 @@ class Covid extends Component {
     const month = fullDate.getMonth();
     const year = fullDate.getFullYear();
     const hour = fullDate.getHours();
-
-    return `${t(days[day])} ${date} ${t(months[month])} ${year} ${hour}:00`
+    // console.log("Date:", d, "Fulldate:", fullDate);
+    // return `${t(days[day])} ${date} ${t(months[month])} ${year} ${hour}:00`
+    return `${d}`
   }
 
   render() {
@@ -136,7 +149,7 @@ class Covid extends Component {
 
     const showDate = this.showDate(latestDate.Time);
     const locationBaseData = dataStatsLatest.find(d => d["Location ID"] === locationBase["Location ID"]);
-    const locationSelectedData = this.filterData(dataStats, locationSelected, 60);
+    const locationSelectedData = this.filterData(dataStats, locationSelected);
     const locationStats = [
       {id: "stat_new_cases", name: "Nuevos Casos", icon: "nuevo-caso-icon.svg", value: commas(locationBaseData["Daily Cases"])},
       {id: "stat_new_dead", name: "Nuevas Muertes", icon: "nueva-muerte-icon.svg", value: commas(locationBaseData["Daily Deaths"])},
@@ -145,7 +158,8 @@ class Covid extends Component {
       {id: "stat_accum_cases", name: "Casos Confirmados", icon: "casos-confirmados-icon.svg", value: commas(locationBaseData["Accum Cases"])},
       {id: "stat_accum_dead", name: "Muertes Confirmadas", icon: "muertes-confirmadas-icon.svg", value: commas(locationBaseData["Accum Deaths"])}
     ];
-    const barChartData = this.filterData(dataGobmxLatest, locationSelected, 60);
+    const barChartData = this.filterData(dataGobmxLatest, locationSelected);
+    console.log(barChartData);
     const barChartDictionary = [...new Set(barChartData.sort((a, b) => a["Age Range ID"] - b["Age Range ID"]).map(d => d["Age Range"]))];
 
     const overlayContent = <div className="covid-overlay-content">
