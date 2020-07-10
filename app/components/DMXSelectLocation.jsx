@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
+import PropTypes from "prop-types";
 import {Checkbox, Button, Popover, PopoverPosition, PopoverInteractionKind} from "@blueprintjs/core";
+import {withNamespaces} from "react-i18next";
 
 import {stringNormalizer} from "../helpers/funcs";
 import colors from "../../static/data/colors.json";
 
 import "./DMXSelectLocation.css";
 
-export class DMXSelectLocation extends Component {
+class DMXSelectLocation extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,20 +25,18 @@ export class DMXSelectLocation extends Component {
   */
 
   createLocationOptions = () => {
-    const {locationBase, locationsOptions, locationsSelected, addNewLocation} = this.props;
+    const {t, locationBase, locationsOptions, locationsSelected, addNewLocation} = this.props;
     const divisions = [...new Set(locationsOptions.map(d => d["Division"]))];
-    // Delete after
-    const divisionDictionary = {"Country": "País", "State": "Estado"};
 
     const locationOptions =
       <div className="dmx-select-results">
         {divisions.map(d =>
           <div className="dmx-select-results-result">
-            <span className="dmx-select-results-result-division">{divisionDictionary[d]}</span>
+            <span className="dmx-select-results-result-division">{t(d)}</span>
             <div className="dmx-select-results-result-options">
               {locationsOptions.filter(f => f["Division"] === d).map(m => {
                 const checkbockLabel = <div className="dmx-select-results-result-options-location-label">
-                  <img src={m["Icon"]} className="dmx-select-results-result-options-location-label-icon" style={{backgroundColor: colors.State[m["Location ID"]] ? colors.State[m["Location ID"]] : null}} />
+                  <img src={m["Icon"]} className="dmx-select-results-result-options-location-label-icon" style={{backgroundColor: d === "State" ? colors.State[m["Location ID"]] : d === "Municipality" ? colors.State[m["Location ID"].toString().slice(0, -3)] : null}} />
                   <span className="dmx-select-results-result-options-location-label-name">{m["Location"]}</span>
                 </div>
                 return <Checkbox
@@ -85,4 +85,8 @@ export class DMXSelectLocation extends Component {
   }
 }
 
-export default DMXSelectLocation
+DMXSelectLocation.contextTypes = {
+  router: PropTypes.object
+};
+
+export default withNamespaces()(DMXSelectLocation);
