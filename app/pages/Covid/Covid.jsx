@@ -24,11 +24,11 @@ class Covid extends Component {
     super(props);
     this.state = {
       _dataLoaded: false,
+      dataDate: null,
       dataGobmxLatest: null,
       dataStats: null,
       dataStatsLatest: null,
       dates: null,
-      latestDate: null,
       locationArray: null,
       locationBase: undefined,
       locationSelected: []
@@ -43,37 +43,24 @@ class Covid extends Component {
       || prevState.locationSelected !== nextState.locationSelected;
   }
 
-  fetchData = async () => {
-    const DATASET_DATES = "https://api.datamexico.org/tesseract/members?cube=gobmx_covid&level=Updated%20Date";
-    const LATEST_WEEK = await axios.get(DATASET_DATES).then(resp => {
-      const dateArray = resp.data.data.reverse().slice(0, 8);
-      dateArray.forEach(d => {
-        d["Time ID"] = d["ID"];
-        d["Time"] = d["Label"];
-        delete d["ID"];
-        delete d["Label"];
-      });
-      return dateArray;
-    });
-    const LATEST_DATE = LATEST_WEEK[0];
-
-    await axios.get(`/api/covid/${LATEST_DATE["Time"]}`).then(resp => {
+  fetchData = () => {
+    axios.get("/api/covid/").then(resp => {
       const data = resp.data;
-      const dates = LATEST_WEEK;
-      const latestDate = LATEST_DATE;
+      const dates = data.dates;
+      const dataDate = data.data_date;
       const dataGobmxLatest = data.covid_gobmx;
       const dataStats = data.covid_stats;
-      const dataStatsLatest = dataStats.filter(d => d["Time ID"] === latestDate["Time ID"]);
+      const dataStatsLatest = dataStats.filter(d => d["Time ID"] === dataDate["Time ID"]);
       const locationArray = data.locations.filter(d => d["Division"] !== "Municipality");
       const locationBase = locationArray[0];
       const locationSelected = [locationBase["Location ID"]];
       this.setState({
         _dataLoaded: true,
+        dataDate,
         dataGobmxLatest,
         dataStats,
         dataStatsLatest,
         dates,
-        latestDate,
         locationArray,
         locationBase,
         locationSelected
@@ -134,11 +121,11 @@ class Covid extends Component {
   render() {
     const {
       _dataLoaded,
+      dataDate,
       dataGobmxLatest,
       dataStats,
       dataStatsLatest,
       dates,
-      latestDate,
       locationArray,
       locationBase,
       locationSelected
@@ -147,7 +134,7 @@ class Covid extends Component {
 
     if (!_dataLoaded) return <Loading />;
 
-    const showDate = this.showDate(latestDate.Time);
+    const showDate = this.showDate(dataDate.Time);
     const locationBaseData = dataStatsLatest.find(d => d["Location ID"] === locationBase["Location ID"]);
     const locationSelectedData = this.filterData(dataStats, locationSelected);
     const locationStats = [
@@ -229,23 +216,12 @@ class Covid extends Component {
           </div>
         </div>
         <div className="covid-body container">
-        <CovidCard
+          <CovidCard
             cardInformation={{
               title: "Testing"
             }}
-            locationsSelector={
-              <DMXSelectLocation
-                locationBase={locationBase}
-                locationsOptions={locationArray}
-                locationsSelected={locationSelected}
-                addNewLocation={this.addNewLocation}
-              />
-            }
-            baseSelector={[
-              {name: "Promedio de 7 Dias", value: "AVG 7 Days", unique: true, id: "baseUnique"},
-              {name: "Per Capita", value: "Rate", unique: true, id: "baseUnique"},
-              {name: "Cambiar Eje Temporal", value: "true", unique: false, id: "baseAxis"}
-            ]}
+            locationsSelector={null}
+            baseSelector={null}
             scaleOptions={[
               {name: t("Lineal"), id: "linear"},
               {name: t("Logarítmica"), id: "log"}
