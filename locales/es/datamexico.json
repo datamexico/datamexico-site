@@ -40,7 +40,7 @@
       "Endpoint": "API",
       "Image Format": "Formato de imagen",
       "Image area": "Área de imagen",
-      "Loading Data": "Cargando datos",
+      "Loading Data": "Cargando datos...",
       "Processing image": "Procesando imagen",
       "Save Image": "Guardar imagen",
       "Save visualization as": "Guardar visualización",
@@ -51,9 +51,9 @@
       "Social": "Social",
       "Transparent Background": "Fondo Transparente",
       "View Data": "Ver datos",
-      "Visualization options": "Opciones de Visualización",
-      "entire section": "sección completa",
-      "visualization only": "solo visualización"
+      "Visualization options": "Opciones de visualización",
+      "entire section": "Sección completa",
+      "visualization only": "Solo visualización"
     },
     "Search": {
       "Empty": "Por favor ingrese un término de búsqueda",
