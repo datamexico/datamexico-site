@@ -9,7 +9,7 @@ module.exports = function (app) {
     const {drilldowns, measures} = query;
     const queryString = queryObject(query);
 
-    const isMunLevel = ["Metro Area", "Municipality"].some(d => queryString.includes(d));
+    const isMunLevel = ["Metro Area", "Municipality"].some(d => queryString.includes(d)) || (query.Level && query.Level === "2");
     const cube = `economy_foreign_trade_${isMunLevel ? "mun" : "ent"}`;
 
     const replaces = {
