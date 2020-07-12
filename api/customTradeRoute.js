@@ -27,8 +27,9 @@ module.exports = function (app) {
       return obj;
     }, {});
 
-
-    const productLevel = drilldowns.includes("HS4") ? 4 : drilldowns.includes("HS6") ? 6 : 2;
+    const keys = Object.keys(params1).join();
+    const productLevel = drilldowns.includes("HS4") || keys.includes("HS4")
+      ? 4 : drilldowns.includes("HS6") || keys.includes("HS6") ? 6 : 2;
     const params2 = {
       cube,
       drilldowns: dds,
