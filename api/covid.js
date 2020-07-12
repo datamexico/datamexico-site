@@ -3,17 +3,24 @@ const axios = require("axios");
 let {CANON_CMS_CUBES} = process.env;
 if (CANON_CMS_CUBES.substr(-1) === "/") CANON_CMS_CUBES = CANON_CMS_CUBES.substr(0, CANON_CMS_CUBES.length - 1);
 
-const BASE_URL = "/api/covid/:timeid";
+const BASE_URL = "/api/covid/";
 
 module.exports = function (app) {
   app.get(BASE_URL, async (req, res) => {
     try {
-      // For the data that needs a time url
-      const date = req.params;
-      const REQUESTED_DATE = {
-        "Time ID": date.timeid.replace(/\-/g, "") * 1,
-        "Time": date.timeid
-      };
+      // Gets the dates from the last 7 days
+      const DATASET_DATES = "https://api.datamexico.org/tesseract/members?cube=gobmx_covid&level=Updated%20Date";
+      const LATEST_WEEK = await axios.get(DATASET_DATES).then(resp => {
+        const dateArray = resp.data.data.reverse().slice(0, 8);
+        dateArray.forEach(d => {
+          d["Time ID"] = d["ID"];
+          d["Time"] = d["Label"];
+          delete d["ID"];
+          delete d["Label"];
+        });
+        return dateArray;
+      });
+      const LATEST_DATE = LATEST_WEEK[0];
 
       // Gets all the data from the mexican geo divisions
       const MEXICO_NATION = CANON_CMS_CUBES + "/members?cube=gobmx_covid&level=Nation";
@@ -75,12 +82,12 @@ module.exports = function (app) {
           return dataArray.flat();
         }))
         .catch(e => console.log(e));
-      const COVID_STATS_DATA = COVID_STATS_DATA_ALL.filter(d => d["Time ID"] <= REQUESTED_DATE["Time ID"]);
+      const COVID_STATS_DATA = COVID_STATS_DATA_ALL.filter(d => d["Time ID"] <= LATEST_DATE["Time ID"]);
 
       // Gets the most recent data from the gobmx_covid cube
       const COVID_GOBMX_DRILLDOWNS = "Updated Date,Covid Result,Patient Type,Age Range,Sex";
-      const COVID_GOBMX_NATION = CANON_CMS_CUBES + `/data.jsonrecords?Updated+Date=${REQUESTED_DATE["Time ID"]}&cube=gobmx_covid&drilldowns=${COVID_GOBMX_DRILLDOWNS + ",Nation"}&measures=Cases&parents=false&sparse=false`;
-      const COVID_GOBMX_STATES = CANON_CMS_CUBES + `/data.jsonrecords?Updated+Date=${REQUESTED_DATE["Time ID"]}&cube=gobmx_covid&drilldowns=${COVID_GOBMX_DRILLDOWNS + ",State"}&measures=Cases&parents=false&sparse=false`;
+      const COVID_GOBMX_NATION = CANON_CMS_CUBES + `/data.jsonrecords?Updated+Date=${LATEST_DATE["Time ID"]}&cube=gobmx_covid&drilldowns=${COVID_GOBMX_DRILLDOWNS + ",Nation"}&measures=Cases&parents=false&sparse=false`;
+      const COVID_GOBMX_STATES = CANON_CMS_CUBES + `/data.jsonrecords?Updated+Date=${LATEST_DATE["Time ID"]}&cube=gobmx_covid&drilldowns=${COVID_GOBMX_DRILLDOWNS + ",State"}&measures=Cases&parents=false&sparse=false`;
       const COVID_GOBMX_DATA = await axios
         .all([axios.get(COVID_GOBMX_NATION), axios.get(COVID_GOBMX_STATES)])
         .then(axios.spread((...resp) => {
@@ -102,7 +109,8 @@ module.exports = function (app) {
         .catch(e => console.log(e));
 
       res.json({
-        date: REQUESTED_DATE,
+        dates: LATEST_WEEK,
+        data_date: LATEST_DATE,
         locations: LOCATIONS,
         covid_stats: COVID_STATS_DATA,
         covid_gobmx: COVID_GOBMX_DATA
