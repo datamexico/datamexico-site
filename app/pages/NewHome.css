@@ -69,5 +69,12 @@
 }
 
 .home-content {
-
+  & .home-content-profiles {
+    & .profiles-tile-container {
+      & .profile-tile-container-list {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+  }
 }

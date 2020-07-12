@@ -15,7 +15,7 @@ class NewTile extends Component {
       link,           //profile direct link
       lng,            //locale
       slug,           //profile type
-      slugColor,  //profile type color
+      slugColor,      //profile type color
       title           //profile name
     } = this.props;
     // console.log(this.props);
@@ -24,9 +24,16 @@ class NewTile extends Component {
     );
 
     return (
-      <Element className={classnames("tile", level && slugColor ? "explore-tile" : "")}>
+      <Element className={classnames("tile-container", level && slugColor ? "explore-tile" : "")}>
         <a className="tile-link" href={link || `/${lng}/profile/${slug}/${id}`}>
-          <span className={classnames("tile-title", {:})}></span>
+          <div className="tile-content">
+            <img src={`/icons/explore/${slug}-white.png`} alt="tag" className="tile-content-tag" style={{backgroundColor: `${slugColor}`}} />
+            <div className="tile-content-description">
+              <h3 className={classnames("tile-content-description-title", title && (stringNormalizer(title).length > 30 || stringNormalizer(title).match(/\w+/).toString().length > 25) ? "u-font-xs" : "u-font-sm")}>{title}</h3>
+              <span className="tile-content-description-level">{level}</span>
+            </div>
+          </div>
+          <div className="tile-background" style={{backgroundImage: `url(/api/image?slug=${slug}&id=${id})`}} />
         </a>
       </Element>
     );
@@ -36,7 +43,7 @@ class NewTile extends Component {
 NewTile.defaultProps = {
   link: undefined,
   title: "",
-  Element: "li"
+  Element: "div"
 };
 
 export default withNamespaces()(NewTile);

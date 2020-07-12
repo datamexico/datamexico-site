@@ -5,8 +5,6 @@
   & .tile-title-icon {
     height: 1.75em;
     width: 1.75em;
-    margin-right: 0.25em;
-    margin-left: -1em; /* optical alignment */
     fill: white;
   }
 

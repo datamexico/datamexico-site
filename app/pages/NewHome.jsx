@@ -9,7 +9,6 @@ import {Button, Icon, InputGroup, Popover} from "@blueprintjs/core";
 import {LOGOS} from "helpers/consts.js";
 import homeTiles from "helpers/homeTiles";
 import {backgroundID} from "helpers/utils";
-import Tile from "../components/Tile";
 import NewTile from "../components/NewTile";
 import TileTitle from "../components/TileTitle";
 import HeroSearch from "../components/HeroSearch";
@@ -96,25 +95,14 @@ class Home extends Component {
               const items = tiles[d];
               const info = homeTiles[d];
               return <div
-                className="column"
+                className="profiles-tile-container"
                 key={`home-tile-title_${i}_${lng}`}
               >
                 <TileTitle
                   icon={d}
                   title={t(info.name)}
                 />
-                <ul className="tile-list">
-                  {items.map(h => <Tile
-                    background={info.background}
-                    id={h.id}
-                    key={`${h.id}-home-tile-${lng}`}
-                    level={t(h.hierarchy)}
-                    lng={lng}
-                    slug={d}
-                    title={h.name}
-                  />)}
-                </ul>
-                <ul className="tile-list">
+                <div className="profile-tile-container-list">
                   {items.map(h => <NewTile
                     id={h.id}
                     key={`${h.id}-home-tile-${lng}`}
@@ -124,7 +112,7 @@ class Home extends Component {
                     slugColor={info.background}
                     title={h.name}
                   />)}
-                </ul>
+                </div>
               </div>;
             })}
           </div>
