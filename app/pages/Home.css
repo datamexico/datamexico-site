@@ -1,138 +1,87 @@
 @import "../helpers/mixins.css";
 
 .home {
-  text-align: center;
   background-color: var(--dark-4);
   color: var(--white);
+}
 
-  & .hero {
-    position: relative;
-    /* background: url(/images/backgroundmx.jpg); */
-    background-position: center center;
-    background-size: cover;
-    min-height: 70vh;
-    z-index: 2; /* keep search results above tiles */
+.home-hero {
+  align-items: center;
+  background-position: center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-height: 50vh;
+  padding-top: var(--nav-height);
+  position: relative;
+  z-index: 2;
+
+  /* overlay */
+  &::before {
+    @mixin overlay-gradient;
+    @mixin absolute-expand;
+    display: block;
+    content: "";
+    z-index: -1;
+  }
+
+  & .home-hero-info {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    margin: 0 auto;
+    padding: 0 var(--gutter-xs);
 
-    /* overlay */
-    &::before {
-      @mixin overlay-gradient;
-      @mixin absolute-expand;
-      display: block;
-      content: "";
-      z-index: -1;
+    & > * {
+      margin-bottom: var(--gutter-sm);
     }
 
-    /* space out adjacent elements */
-    & > *:not(:last-child) {
-      margin-bottom: calc(var(--gutter-sm) + 2.5vh);
+    & .hero-info-logo {
+      width: calc(var(--font-md) * 13);
     }
 
-    & .hero-logo img {
-      width: 13rem;
-    }
-
-    & .tagline {
+    & .hero-info-tagline {
       @mixin text-shadow;
     }
 
-    /* logos */
-    & .home-logo-link {
-      display: inline-block;
-      vertical-align: middle;
-
-      &:not(:last-child) {
-        margin-right: var(--gutter-md);
+    & .hero-info-logo-list {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      & > :not(:last-child) {
+        margin-right: var(--gutter-sm);
       }
-
-      & .home-logo-img {
-        height: 2rem;
+      & .hero-info-logo-img {
+        height: calc(var(--font-md) * 2);
         transition: 0.15s ease-out;
       }
-
-      &:hover .home-logo-img {
+      & .hero-info-logo-img:hover {
         transform: scale(1.075);
       }
     }
   }
+  & .home-hero-search {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+  }
+}
 
-  & .home-input {
-    border-radius: 0;
-    height: 45px;
-    max-width: 650px;
-    min-width: 600px;
-    box-shadow: 0 0 12px color(var(--black) a(0.5));
-
-    & .bp3-icon-search {
-      margin-top: 14px;
-      color: var(--accent-dark);
-    }
-
-    & .bp3-input {
-      height: 100%;
-      border-radius: 0;
-      box-shadow: none;
-    }
-
-    & .home-search {
-      background: var(--accent-dark); /* background needed to override blueprint's background-image */
-      color: var(--white);
-      border-radius: 0;
-      border: none;
-      box-shadow: none;
-      margin: 0;
-      height: 45px;
-      padding: 5px 20px;
-      transition: background 0.2s ease-out;
-
-      &:hover, &:focus {
-        background: var(--accent-black); /* background needed to override blueprint's background-image */
+.home-content {
+  & .home-content-profiles {
+    display: flex;
+    flex-wrap: wrap;
+    & .profiles-tile-container {
+      width: 50%;
+      & .profile-tile-container-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
       }
     }
-  }
-
-  & .tiles {
-    padding-top: 0;
-    padding-bottom: 0;
-
-    & .column {
-      min-width: 10rem;
-      margin-bottom: var(--gutter-md);
-    }
-
-    & .tile-list {
-      @mixin list-reset;
+    & .profiles-tile-container:first-child {
+      width: 100%;
     }
   }
-}
-
-.search-results {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  width: 498px;
-  background-color: var(--light-2);
-  margin-top: 0;
-  z-index: 22;
-  max-height: 30vh;
-  @mixin vertical-overflow-container;
-
-  & .search-result {
-    margin-left: -40px;
-  }
-}
-
-.bp3-popover {
-  width: 404px;
-  & .bp3-popover-content {
-    border-radius: 0 !important;
-  }
-}
-
-.cp-grouping-section-heading {
-  text-align: center;
 }

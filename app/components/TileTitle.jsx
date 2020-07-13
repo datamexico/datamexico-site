@@ -6,7 +6,7 @@ class TileTitle extends React.Component {
     const {icon, locale, title} = this.props;
 
     return <h3 className="tile-title">
-      {icon && <img className="tile-title-icon" src={`/icons/explore/${icon}.png`} alt=""/>}
+      {icon && <img className="tile-title-icon" src={`/icons/explore/${icon}-white.png`} alt="" />}
       <a className="tile-title-link" href={icon ? `/${locale}/explore?profile=${icon}` : "#"}>
         {title}
       </a>
