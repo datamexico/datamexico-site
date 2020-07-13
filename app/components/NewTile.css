@@ -3,9 +3,9 @@
 .tile-container {
   border: 1px solid var(--dark-1);
   height: 5rem;
+  margin: var(--gutter-sm);
   overflow: hidden;
   position: relative;
-  margin: var(--gutter-sm);
   width: 100%;
   z-index: 1;
   &:hover {
@@ -20,10 +20,10 @@
   & .tile-content {
     align-items: center;
     display: flex;
+    height: max-content;
     padding: var(--gutter-sm);
     position: absolute;
     z-index: 2;
-    height: max-content;
     & .tile-content-tag {
       max-width: var(--gutter-lg);
     }
