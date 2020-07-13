@@ -3,11 +3,10 @@
 .tile-container {
   border: 1px solid var(--dark-1);
   height: 5rem;
-  margin: var(--gutter-sm);
   overflow: hidden;
   position: relative;
-  /* EDIT THE WITH FOR THE FIRST ONE TO HAVE ONE PEER ROW AND THE OTHER ONES TWO PER ROW*/
-  width: 20%;
+  margin: var(--gutter-sm);
+  width: 100%;
   z-index: 1;
   &:hover {
     border-color: var(--white);
@@ -18,8 +17,6 @@
 }
 
 .tile-link {
-  height: 100%;
-  width: 100%;
   & .tile-content {
     align-items: center;
     display: flex;

@@ -18,10 +18,6 @@ class NewTile extends Component {
       slugColor,      //profile type color
       title           //profile name
     } = this.props;
-    // console.log(this.props);
-    console.log(
-      "title", title, stringNormalizer(title), "titleMatch", title.match(/\w+/).toString()
-    );
 
     return (
       <Element className={classnames("tile-container", level && slugColor ? "explore-tile" : "")}>
