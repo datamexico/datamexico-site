@@ -1,12 +1,11 @@
 import React, {Component} from "react";
 import classnames from "classnames";
 import {withNamespaces} from "react-i18next";
-
 import {stringNormalizer} from "helpers/funcs";
 
-import "./NewTile.css";
+import "./TileV2.css";
 
-class NewTile extends Component {
+class TileV2 extends Component {
   render() {
     const {
       Element,
@@ -36,10 +35,10 @@ class NewTile extends Component {
   }
 }
 
-NewTile.defaultProps = {
+TileV2.defaultProps = {
   link: undefined,
   title: "",
   Element: "div"
 };
 
-export default withNamespaces()(NewTile);
+export default withNamespaces()(TileV2);
