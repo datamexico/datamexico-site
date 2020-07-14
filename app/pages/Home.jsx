@@ -68,7 +68,7 @@ class Home extends Component {
           routePath={"/:lang"}
           title={""}
         />
-        <div className="home-hero" style={{background: `url(/images/backgroundmx-${backgroundID}.jpg)`}}>
+        <div className="home-hero" style={{backgroundImage: `url(/images/backgroundmx-${backgroundID}.jpg)`}}>
           <div className="home-hero-info">
             <h1 className="hero-info-logo">
               <img src="/icons/datamx-logo.gif" alt="DataMexico" />
