@@ -1,4 +1,4 @@
-const locale = "en";
+const locale = "es";
 
 module.exports = {
   SIDEBAR_NAV: [
