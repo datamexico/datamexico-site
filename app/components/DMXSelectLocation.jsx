@@ -27,7 +27,6 @@ class DMXSelectLocation extends Component {
   createLocationOptions = () => {
     const {t, locationsOptions, locationsSelected, addNewLocation} = this.props;
     const divisions = [...new Set(locationsOptions.map(d => d["Division"]))];
-
     const locationOptions =
       <div className="dmx-select-results">
         {divisions.map(d =>
@@ -43,6 +42,7 @@ class DMXSelectLocation extends Component {
                   label={checkbockLabel}
                   className={"dmx-select-results-result-options-location"}
                   defaultChecked={locationsSelected.includes(m["Location ID"]) ? true : false}
+                  disabled={locationsSelected.length === 1 && m["Location ID"] === locationsSelected[0] ? true : false}
                   onChange={evt => addNewLocation(m, evt.currentTarget.checked ? "add" : "remove")}
                 />
               })}
