@@ -9,21 +9,22 @@ module.exports = function (app) {
     const {variables, locale} = req.body;
     const {id1, dimension1, hierarchy1, slug1, name1, cubeName1, parents1} = variables;
 
-    const ENOE_DATASET = async() => {
+    const ENOE_DATASET = async(hierarchy, id) => {
       // Latest Quarter
       const params = {
         cube: "inegi_enoe",
         drilldowns: "Quarter",
-        measures: "Workforce"
-      }
+        measures: "Workforce",
+        [hierarchy]: id
+      };
       const data = await axios.get(BASE_API, {params})
         .then(resp => resp.data.data)
         .catch(catcher);
 
       data.sort((a, b) => b["Quarter ID"] - a["Quarter ID"]);
-      const enoeLatestQuarter = data[0]["Quarter ID"];
-      const enoePrevQuarter = data[1]["Quarter ID"];
-      const enoePrevYear = data[4]["Quarter ID"];
+      const enoeLatestQuarter = data[0] ? data[0]["Quarter ID"] : undefined;
+      const enoePrevQuarter = data[1] ? data[1]["Quarter ID"] : undefined;
+      const enoePrevYear = data[4] ? data[4]["Quarter ID"] : undefined;
       return {enoeLatestQuarter, enoePrevQuarter, enoePrevYear};
     }
 
@@ -32,7 +33,7 @@ module.exports = function (app) {
     switch (pid) {
       // Geo profile
       case 1:
-        const ENOE_GEO = await ENOE_DATASET();
+        const ENOE_GEO = await ENOE_DATASET(hierarchy1, id1);
         enoeLatestQuarter = ENOE_GEO.enoeLatestQuarter;
         enoePrevQuarter = ENOE_GEO.enoePrevQuarter;
         enoePrevYear = ENOE_GEO.enoePrevYear;
@@ -99,7 +100,7 @@ module.exports = function (app) {
         });
 
       case 28:
-        const ENOE_OCCUPATION = await ENOE_DATASET();
+        const ENOE_OCCUPATION = await ENOE_DATASET(hierarchy1, id1);
         enoeLatestQuarter = ENOE_OCCUPATION.enoeLatestQuarter;
         enoePrevQuarter = ENOE_OCCUPATION.enoePrevQuarter;
         enoePrevYear = ENOE_OCCUPATION.enoePrevYear;
@@ -112,7 +113,7 @@ module.exports = function (app) {
 
       // Industry profile
       case 33:
-        const ENOE_INDUSTRY = await ENOE_DATASET();
+        const ENOE_INDUSTRY = await ENOE_DATASET(hierarchy1, id1);
         enoeLatestQuarter = ENOE_INDUSTRY.enoeLatestQuarter;
         enoePrevQuarter = ENOE_INDUSTRY.enoePrevQuarter;
         enoePrevYear = ENOE_INDUSTRY.enoePrevYear;
