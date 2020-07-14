@@ -32,7 +32,6 @@
         display: flex;
         flex-grow: 1;
         justify-content: center;
-        padding: 0 var(--gutter-sm);
         & .covid-header-stats-stat-icon {
           height: calc(var(--gutter-lg) * 1.8);
           margin-right: var(--gutter-xs);
@@ -50,6 +49,12 @@
             color: var(--light-gray);
             font-size: var(--font-sm);
             font-weight: var(--light-bold-weight);
+            text-transform: uppercase;
+          }
+          & .covid-header-stats-stat-subname {
+            color: var(--light-gray);
+            font-size: var(--font-xs);
+            font-weight: var(--light-weight);
             text-transform: uppercase;
           }
         }

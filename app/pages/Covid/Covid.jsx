@@ -15,7 +15,7 @@ import Loading from "components/Loading";
 import Nav from "components/Nav";
 
 import colors from "../../../static/data/colors.json";
-import {commas} from "helpers/utils";
+import {commas, percentagenumber} from "helpers/utils";
 
 import "./Covid.css";
 
@@ -68,16 +68,17 @@ class Covid extends Component {
     });
   }
 
-  filterData = (data, selected, limit = null) => {
-    const filterData = [];
-    selected.map(d => {
-      filterData.push(data.filter(f => f["Location ID"] === d).slice(-limit));
-    });
-    return filterData.flat();
-  }
-
   componentDidMount = () => {
     this.fetchData();
+  }
+
+  filterData = (data, selected) => {
+    const filterData = [];
+    selected.map(d => {
+      const locationData = data.filter(f => f["Location ID"] === d);
+      filterData.push(locationData);
+    });
+    return filterData.flat();
   }
 
   addNewLocation = (location, event) => {
@@ -118,6 +119,38 @@ class Covid extends Component {
     return `${d}`
   }
 
+  keepElementsInData = (dataset, keepElements) => {
+    const filteredData = dataset.map(d => {
+      const row = {};
+      for (const index in keepElements) {
+        row[keepElements[index]] = d[keepElements[index]];
+      }
+      return row;
+    });
+    return filteredData;
+  }
+
+  calculateStats = (dataset, division, stats) => {
+    const data = dataset.filter(d => d.Division === division);
+    const total = data.reduce((acc, element) => (acc + element.Cases), 0);
+    const result = [];
+    for (const statID in stats) {
+      const statValues = [...new Set(data.map(d => d[stats[statID]]))];
+      for (const statValueID in statValues) {
+        const count = data.reduce((acc, element) => (element[stats[statID]] === statValues[statValueID] ? acc + element.Cases : acc), 0);
+        const statRow = {
+          stat: stats[statID],
+          value: statValues[statValueID],
+          count: count,
+          percentage: count / total
+        };
+        console.log(statRow);
+        result.push(statRow);
+      }
+    }
+    return result;
+  }
+
   render() {
     const {
       _dataLoaded,
@@ -134,19 +167,35 @@ class Covid extends Component {
 
     if (!_dataLoaded) return <Loading />;
 
+    // const lastWeekDates = dates.map(d => d["Time ID"]);
+    // console.log("lastWeekDates", lastWeekDates);
+
+    // Date of the data
     const showDate = this.showDate(dataDate.Time);
+
+    // Stats showed in the hero
     const locationBaseData = dataStatsLatest.find(d => d["Location ID"] === locationBase["Location ID"]);
+    console.log(locationBaseData);
     const locationSelectedData = this.filterData(dataStats, locationSelected);
     const locationStats = [
-      {id: "stat_new_cases", name: "Nuevos Casos", icon: "nuevo-caso-icon.svg", value: commas(locationBaseData["Daily Cases"])},
-      {id: "stat_new_dead", name: "Nuevas Muertes", icon: "nueva-muerte-icon.svg", value: commas(locationBaseData["Daily Deaths"])},
-      {id: "stat_lastweek_cases", name: "Casos Última Semana", icon: "casos-ultima-semana-icon.svg", value: commas(locationBaseData["Cases last 7 Days"])},
-      {id: "stat_lastweek_dead", name: "Muertes Última Semana", icon: "muertes-ultima-semana-icon.svg", value: commas(locationBaseData["Deaths last 7 Days"])},
-      {id: "stat_accum_cases", name: "Casos Confirmados", icon: "casos-confirmados-icon.svg", value: commas(locationBaseData["Accum Cases"])},
-      {id: "stat_accum_dead", name: "Muertes Confirmadas", icon: "muertes-confirmadas-icon.svg", value: commas(locationBaseData["Accum Deaths"])}
+      {id: "stat_new_cases", name: "Contagios", subname: "En los últimos 7 días", icon: "nuevo-caso-icon.svg", value: commas(locationBaseData["Last 7 Daily Cases"])},
+      {id: "stat_new_dead", name: "Fallecidos", subname: "En los últimos 7 días", icon: "nueva-muerte-icon.svg", value: commas(locationBaseData["Last 7 Daily Deaths"])},
+      {id: "stat_lastweek_cases", name: "Casos Sospechosos", subname: "A la fecha", icon: "casos-ultima-semana-icon.svg", value: commas(locationBaseData["Accum Suspect"])},
+      {id: "stat_lastweek_dead", name: "Hospitalizados", subname:"Sobre el total de contagiados", icon: "muertes-ultima-semana-icon.svg", value: percentagenumber(locationBaseData["Accum Hospitalized"]/locationBaseData["Accum Cases"])},
+      {id: "stat_accum_cases", name: "Total Contagios Confirmados", icon: "casos-confirmados-icon.svg", value: commas(locationBaseData["Accum Cases"])},
+      {id: "stat_accum_dead", name: "Total Fallecidos Confirmados", icon: "muertes-confirmadas-icon.svg", value: commas(locationBaseData["Accum Deaths"])}
     ];
-    const barChartData = this.filterData(dataGobmxLatest, locationSelected);
-    const barChartDictionary = [...new Set(barChartData.sort((a, b) => a["Age Range ID"] - b["Age Range ID"]).map(d => d["Age Range"]))];
+
+    // Data loader for the barchart of agerange
+    const ageRangeDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected);
+    const barChartStats = this.calculateStats(ageRangeDataLocations, locationBase.Division, ["Is Dead", "Patient Type", "Sex"]);
+    console.log(barChartStats);
+    const ageRangeDictionary = [...new Set(ageRangeDataLocations.sort((a, b) => a["Age Range ID"] - b["Age Range ID"]).map(d => d["Age Range"]))];
+    // console.log("ageRangeDataLocations", ageRangeDataLocations);
+
+    // filter data elements in array by key
+    const confirmedData = this.keepElementsInData(dataStats, ["Time ID", "Time", "Daily Cases", "Location ID", "Location"]);
+    // console.log("Confirmed Data", confirmedData);
 
     const overlayContent = <div className="covid-overlay-content">
       <div className="covid-overlay-card-header">
@@ -210,6 +259,7 @@ class Covid extends Component {
                 <div className="covid-header-stats-stat-text">
                   <span className="covid-header-stats-stat-value">{d.value}</span>
                   <span className="covid-header-stats-stat-name">{d.name}</span>
+                  {d.subname && (<span className="covid-header-stats-stat-subname">{d.subname}</span>)}
                 </div>
               </div>
             ))}
@@ -336,21 +386,23 @@ class Covid extends Component {
             ]}
             indicatorVariable={"groupBy"}
             indicatorOptions={[
-              {name: "Sexo", id: "Sex"},
-              {name: "Tipo de Paciente", id: "Patient Type"}
+              {name: "Muertos", id: "Is Dead"},
+              {name: "Tipo de Paciente", id: "Patient Type"},
+              {name: "Sexo", id: "Sex"}
             ]}
+            indicatorStats={barChartStats}
             visualization={{
-              data: barChartData,
+              data: ageRangeDataLocations,
               type: "BarChart",
-              height: 400,
+              height: 500,
               x: "Age Range ID",
               xConfig: {
                 title: "Age Range",
-                tickFormat: d => barChartDictionary[d - 1]
+                tickFormat: d => ageRangeDictionary[d - 1]
               },
               y: "Cases",
               yConfig: {
-                "title": "Cases"
+                title: "Cases"
               },
               stacked: true,
               tooltipConfig: {

@@ -69,12 +69,14 @@ module.exports = function (app) {
           resp[0].data.data.forEach(d => {
             d["Location ID"] = d["Nation ID"];
             d["Location"] = d["Nation"];
+            d["Division"] = "Nation";
             delete d["Nation ID"];
             delete d["Nation"];
           });
           resp[1].data.data.forEach(d => {
             d["Location ID"] = d["State ID"];
             d["Location"] = d["State"];
+            d["Division"] = "State";
             delete d["State ID"];
             delete d["State"];
           });
@@ -85,7 +87,7 @@ module.exports = function (app) {
       const COVID_STATS_DATA = COVID_STATS_DATA_ALL.filter(d => d["Time ID"] <= LATEST_DATE["Time ID"]);
 
       // Gets the most recent data from the gobmx_covid cube
-      const COVID_GOBMX_DRILLDOWNS = "Updated Date,Covid Result,Patient Type,Age Range,Sex";
+      const COVID_GOBMX_DRILLDOWNS = "Covid Result,Is Dead,Patient Type,Age Range,Sex,Updated Date";
       const COVID_GOBMX_NATION = CANON_CMS_CUBES + `/data.jsonrecords?Updated+Date=${LATEST_DATE["Time ID"]}&cube=gobmx_covid&drilldowns=${COVID_GOBMX_DRILLDOWNS + ",Nation"}&measures=Cases&parents=false&sparse=false`;
       const COVID_GOBMX_STATES = CANON_CMS_CUBES + `/data.jsonrecords?Updated+Date=${LATEST_DATE["Time ID"]}&cube=gobmx_covid&drilldowns=${COVID_GOBMX_DRILLDOWNS + ",State"}&measures=Cases&parents=false&sparse=false`;
       const COVID_GOBMX_DATA = await axios
@@ -94,12 +96,14 @@ module.exports = function (app) {
           resp[0].data.data.forEach(d => {
             d["Location ID"] = d["Nation ID"];
             d["Location"] = d["Nation"];
+            d["Division"] = "Nation";
             delete d["Nation ID"];
             delete d["Nation"];
           });
           resp[1].data.data.forEach(d => {
             d["Location ID"] = d["State ID"];
             d["Location"] = d["State"];
+            d["Division"] = "State";
             delete d["State ID"];
             delete d["State"];
           });

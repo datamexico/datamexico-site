@@ -94,6 +94,7 @@ class CovidCard extends Component {
       baseSelector,
       cardInformation,
       indicatorOptions,
+      indicatorStats,
       locationsSelector,
       scaleOptions,
       visualization
@@ -141,6 +142,11 @@ class CovidCard extends Component {
                 unique={baseUnique}
                 onChange={this.baseSelector}
               />
+            </div>
+          )}
+          {indicatorStats && (
+            <div className="covid-card-information-stats">
+              {console.log(indicatorStats)}
             </div>
           )}
           {cardInformation.description && (
