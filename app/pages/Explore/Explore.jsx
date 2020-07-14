@@ -5,6 +5,7 @@ import classnames from "classnames";
 import {Helmet} from "react-helmet";
 import {withNamespaces} from "react-i18next";
 import {InputGroup} from "@blueprintjs/core";
+import {connect} from "react-redux";
 
 import ExploreHeader from "../../components/ExploreHeader";
 import ExploreProfile from "../../components/ExploreProfile";
@@ -17,11 +18,11 @@ const CancelToken = axios.CancelToken;
 let cancel;
 
 const levels = {
-  geo: ["Nation", "State", "Metro Area", "Municipality"],
-  product: ["Chapter", "HS2", "HS4", "HS6"],
-  industry: ["Sector", "Subsector", "Industry Group", "NAICS Industry", "National Industry"],
+  geo: ["Explore", "Nation", "State", "Metro Area", "Municipality"],
+  product: ["Explore", "Chapter", "HS2", "HS4", "HS6"],
+  industry: ["Explore", "Sector", "Subsector", "Industry Group", "NAICS Industry", "National Industry"],
   institution: ["Institution"],
-  occupation: ["Group", "Subgroup", "Occupation"]
+  occupation: ["Explore", "Group", "Subgroup", "Occupation"]
 };
 
 const headers = [
@@ -37,8 +38,8 @@ class Explore extends React.Component {
 
   state = {
     query: "",
-    selected: this.props.location.query.profile || "filter",
-    tab: this.props.location.query.profile && this.props.location.query.profile === "institution" ? "Institution" : "Explore",
+    profile: this.props.location.query.profile || "filter",
+    tab: this.props.location.query.tab || "0",
     results: []
   };
 
@@ -48,48 +49,66 @@ class Explore extends React.Component {
   }
 
   handleSearch = e => {
-    const {selected} = this.state;
+    const {profile, tab} = this.state;
     const query = e.target.value;
-    const searchParams = new URLSearchParams();
-    searchParams.set("q", query);
-    if (selected && selected !== "filter") searchParams.set("profile", selected);
-    this.context.router.replace(`${this.props.location.pathname}?${searchParams.toString()}`);
-
+    this.updateUrl(query, profile, tab);
     this.requestApi(query);
-
   }
 
-  handleTab = selected => {
+  handleProfile = profile => {
     const {query} = this.state;
-    const searchParams = new URLSearchParams();
-    if (query && query.length > 0) searchParams.set("q", query);
-    if (selected && selected !== "filter") searchParams.set("profile", selected);
-    this.context.router.replace(`${this.props.location.pathname}?${searchParams.toString()}`);
+    const tab = "0";
+    this.updateUrl(query, profile, tab);
+    this.setState({profile, tab});
+  }
 
-    this.setState({selected, tab: selected === "institution" ? levels[selected][0] : "Explore"});
+  handleTab = tab => {
+    const {query, profile} = this.state;
+    this.updateUrl(query,profile,tab);
+    this.setState({tab});
+  }
+
+  updateUrl = (q,profile,tab) => {
+    const searchParams = new URLSearchParams();
+    if (q && q.length > 0) searchParams.set("q", q);
+    searchParams.set("profile", profile);
+    searchParams.set("tab", tab);
+    this.context.router.replace(`${this.props.location.pathname}?${searchParams.toString()}`);
   }
 
   requestApi = query => {
+
+    const {defaultData} = this.props;
+
+    const {tab, profile} = this.state;
 
     this.setState({query});
     if (cancel !== undefined) {
       cancel();
     }
+
+    //Search actual query
     if (query && query.length > 0) {
-      return axios.get("/api/search", {
+      return axios.get("/api/profilesearch", {
         cancelToken: new CancelToken(c => {
           // An executor function receives a cancel function as a parameter
           cancel = c;
         }),
         params: {
-          q: query,
-          limit: 50,
+          query,
+          limit: 100,
           locale: this.props.lng
         }
       })
         .then(resp => {
-          const data = resp.data.results;
-          const results = data.map(d => ({id: d.id, name: d.name, slug: d.profile, level: d.hierarchy}));
+          const results = [];
+          Object.keys(resp.data.profiles).forEach(key => {
+            resp.data.profiles[key].forEach(elements => {
+              elements.forEach(profile => {
+                results.push({id: profile.id, name: profile.name, slug: profile.slug, level: profile.memberHierarchy});
+              });
+            });
+          });
           this.setState({results});
         })
         .catch(error => {
@@ -98,30 +117,21 @@ class Explore extends React.Component {
         });
     }
     else {
+      //No query
 
-      return axios.all([
-        axios.get("/api/search?q=&dimension=Geography&limit=10"),
-        axios.get("/api/search?q=&dimension=Product&limit=10"),
-        axios.get("/api/search?q=&dimension=Occupation Actual Job&limit=10"),
-        axios.get("/api/search?q=&dimension=Industry&limit=10"),
-        axios.get("/api/search?q=&dimension=Campus&limit=10")
-      ])
-        .then(axios.spread((geoResp, univResp, occupResp, sectorResp, prodResp) => {
-          const data = geoResp.data.results
-            .concat(univResp.data.results)
-            .concat(occupResp.data.results)
-            .concat(sectorResp.data.results)
-            .concat(prodResp.data.results);
-          const results = data.map(d => ({id: d.id, name: d.name, slug: d.profile, level: d.hierarchy}));
-          this.setState({results});
-        }));
+      if(profile==='filter'){
+        this.setState({results: defaultData});
+      }
+
     }
 
   }
 
   render() {
-    const {query, tab, selected} = this.state;
+    const {query, tab, profile, results} = this.state;
     const {t} = this.props;
+
+
 
     return <div className="explore">
       <Helmet title="Explore">
@@ -135,6 +145,7 @@ class Explore extends React.Component {
         title={""}
       />
       <div className="ep-container container">
+
         <div className="ep-search">
           <InputGroup
             leftIcon="search"
@@ -142,46 +153,42 @@ class Explore extends React.Component {
             onChange={this.handleSearch}
             value={query}
           />
+          <h1>[{profile}] - [{tab}]</h1>
         </div>
+
         <div className="ep-headers">
           {headers.map((d, i) => <ExploreHeader
             key={`explore_header_${i}`}
             title={t(d.title)}
-            selected={selected}
+            selected={profile}
             slug={d.slug}
-            handleTabSelected={selected => this.handleTab(selected)}
+            handleTabSelected={profile => this.handleProfile(profile)}
           />)}
-
-
         </div>
-        {selected !== "filter" &&
-          <div className="ep-profile-tabs">
-            {levels[selected].length > 1 && <div
-              className={`ep-profile-tab ${tab === "Explore" ? "selected" : ""}`}
-              onClick={() => this.setState({tab: "Explore"})}>
-              {t("Explore")}
-            </div>}
-            {levels[selected].map((d, i) => {
-              // selected = Slug
-              // tab = Tab selected (Translated)
-              const results = this.state.results.filter(h => h.slug === selected && h.level === d);
-              const len = results.length;
 
+        {profile !== "filter" &&
+          <div className="ep-profile-tabs">
+            {levels[profile].map((d, ix) => {
+              const filtered = results.filter(h => h.slug === profile && h.level === d);
+              const len = filtered.length;
+              const levelKey = `${ix}`;
               return <div
                 className={classnames(
                   "ep-profile-tab",
-                  {selected: tab === t(d)},
+                  {"selected": tab === levelKey},
                   {"u-hide-below-sm": len === 0}
                 )}
-                key={i}
-                onClick={() => this.setState({tab: t(d)})}
+                key={levelKey}
+                onClick={() => this.handleTab(levelKey)}
               >
                 {`${t(d)} (${len})`}
               </div>;
             })}
-          </div>}
+          </div>
+        }
+
         <div className="ep-profiles">
-          {this.state.results.length === 0 && selected === "filter"
+          {results.length === 0 && profile === "filter"
             ? <ExploreProfile
               title={""}
               background={""}
@@ -190,15 +197,13 @@ class Explore extends React.Component {
             />
 
             : headers.filter(d => d.slug !== "filter").map(d => {
-              if (["filter", d.slug].includes(selected)) {
+              if (["filter", d.slug].includes(profile)) {
                 let results = this.state.results.filter(h => h.slug === d.slug);
-                if (tab !== "Explore") results = results.filter(h => h.level === tab);
-
 
                 return <ExploreProfile
                   title={t(d.title)}
                   background={d.background}
-                  filterPanel={selected === "filter"}
+                  filterPanel={profile === "filter"}
                   results={results}
                 />;
 
@@ -218,4 +223,39 @@ Explore.contextTypes = {
   router: PropTypes.object
 };
 
-export default withNamespaces()(Explore);
+Explore.need = [
+  (params, store) => {
+    const defaultDataPromise = new Promise((resolve, reject) => {
+      return axios.all([
+        axios.get(`${store.env.CANON_API}/api/search?q=&dimension=Geography&limit=10`),
+        axios.get(`${store.env.CANON_API}/api/search?q=&dimension=Product&limit=10`),
+        axios.get(`${store.env.CANON_API}/api/search?q=&dimension=Occupation Actual Job&limit=10`),
+        axios.get(`${store.env.CANON_API}/api/search?q=&dimension=Industry&limit=10`),
+        axios.get(`${store.env.CANON_API}/api/search?q=&dimension=Campus&limit=10`)
+      ])
+      .then(axios.spread((geoResp, univResp, occupResp, sectorResp, prodResp) => {
+        const data = geoResp.data.results
+          .concat(univResp.data.results)
+          .concat(occupResp.data.results)
+          .concat(sectorResp.data.results)
+          .concat(prodResp.data.results);
+        const results = data.map(d => ({id: d.id, name: d.name, slug: d.profile, level: d.hierarchy}));
+        resolve({
+          key: "exploreData",
+          data: results
+        });
+      }));
+    });
+
+    return {
+      type: "GET_DATA",
+      promise: defaultDataPromise
+    };
+  }
+]
+
+export default withNamespaces()(
+  connect(state => ({
+    defaultData: state.data.exploreData
+  }))(Explore)
+);

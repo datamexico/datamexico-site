@@ -34,7 +34,7 @@ class ExploreProfile extends React.Component {
             level={t(d.level)}
             background={background}
             lng={lng}
-            key={`${d.slug}-tile-${d.slug}`}
+            key={`${d.slug}-tile-${d.id}`}
           />
         )}
       </div>
