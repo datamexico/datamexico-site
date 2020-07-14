@@ -34,6 +34,7 @@ class Covid extends Component {
       locationSelected: []
     };
     this.addNewLocation = this.addNewLocation.bind(this);
+    this.resetBaseLocation = this.resetBaseLocation.bind(this);
   }
 
   shouldComponentUpdate = (nextProp, nextState) => {
@@ -81,27 +82,25 @@ class Covid extends Component {
     return filterData.flat();
   }
 
+  resetBaseLocation = (location) => {
+    this.setState({
+      locationBase: location,
+      locationSelected: [location["Location ID"]]
+    })
+  }
+
   addNewLocation = (location, event) => {
-    const {locationBase, locationSelected} = this.state;
+    const {locationSelected} = this.state;
     const locationsArray = locationSelected.slice();
-    const nextState = {};
-    if (event === "base") {
-      if (location !== locationBase) {
-        if (!locationSelected.includes(location["Location ID"])) locationsArray.push(location["Location ID"]);
-        nextState.locationBase = location;
-        const index = locationsArray.findIndex(d => d === locationBase["Location ID"]);
-        locationsArray.splice(index, 1);
-        nextState.locationSelected = locationsArray;
-      }
-    } else if (event === "add") {
+    if (event === "add") {
       locationsArray.push(location["Location ID"]);
-      nextState.locationSelected = locationsArray;
     } else {
       const index = locationsArray.findIndex(d => d === location["Location ID"]);
       locationsArray.splice(index, index > -1 ? 1 : 0);
-      nextState.locationSelected = locationsArray;
     }
-    this.setState(nextState);
+    this.setState({
+      locationSelected: locationsArray
+    });
   }
 
   showDate = (d) => {
@@ -254,7 +253,7 @@ class Covid extends Component {
           <DMXSearchLocation
             locationOptions={locationArray}
             locationSelected={locationBase}
-            addNewLocation={this.addNewLocation}
+            resetBaseLocation={this.resetBaseLocation}
           />
           <div className="covid-header-info">
             <h4 className="covid-header-info-date">{`Data actualizada al ${showDate}`}</h4>
@@ -336,7 +335,6 @@ class Covid extends Component {
             }}
             locationsSelector={
               <DMXSelectLocation
-                locationBase={locationBase}
                 locationsOptions={locationArray}
                 locationsSelected={locationSelected}
                 addNewLocation={this.addNewLocation}
@@ -436,7 +434,11 @@ class Covid extends Component {
             }}
           />
         </div>
-        {/* <CovidTable /> */}
+        <CovidTable
+          data={dataStats}
+          dates={dates}
+          locations={locationArray}
+        />
       </div>
       <Footer />
     </div>;
