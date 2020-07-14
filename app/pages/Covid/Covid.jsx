@@ -167,8 +167,8 @@ class Covid extends Component {
 
     if (!_dataLoaded) return <Loading />;
 
-    // const lastWeekDates = dates.map(d => d["Time ID"]);
-    // console.log("lastWeekDates", lastWeekDates);
+    const lastWeekDates = dates.map(d => d["Time ID"]);
+    const minLastDayDate = Math.min(...lastWeekDates);
 
     // Date of the data
     const showDate = this.showDate(dataDate.Time);
@@ -177,6 +177,19 @@ class Covid extends Component {
     const locationBaseData = dataStatsLatest.find(d => d["Location ID"] === locationBase["Location ID"]);
     // console.log(locationBaseData);
     const locationSelectedData = this.filterData(dataStats, locationSelected);
+    locationSelectedData.map(d => d["Type"] = lastWeekDates.includes(d["Time ID"]) ? 1 : 0);
+
+    const lastWeekData = locationSelectedData.filter(d => lastWeekDates.includes(d["Time ID"]));
+
+    const _lastWeekData = lastWeekData.map(d => {
+      const h = Object.assign({}, d, {"Type": 2, "Daily Cases": d["Time ID"] !== minLastDayDate ? d["Daily Suspect"] : d["Daily Cases"]});
+      return h;
+    });
+    locationSelectedData.push(..._lastWeekData);
+
+    const minLastDayData = Object.assign({}, locationSelectedData.find(d => d["Time ID"] === minLastDayDate), {"Type": 0});
+    locationSelectedData.push(minLastDayData);
+
     const locationStats = [
       {id: "stat_new_cases", name: "Contagios", subname: "En los últimos 7 días", icon: "nuevo-caso-icon.svg", value: commas(locationBaseData["Last 7 Daily Cases"])},
       {id: "stat_new_dead", name: "Fallecidos", subname: "En los últimos 7 días", icon: "nueva-muerte-icon.svg", value: commas(locationBaseData["Last 7 Daily Deaths"])},
@@ -348,24 +361,31 @@ class Covid extends Component {
             visualization={{
               data: locationSelectedData,
               type: "LinePlot",
-              groupBy: "Location ID",
+              groupBy: ["Location", "Type"],
               height: 400,
               lineLabels: true,
               x: "Time",
               time: "Time",
               timeline: false,
               tooltipConfig: {
-                tbody: [
-                  ["Casos Diarios", d => d["Daily Cases"]],
-                  ["Casos Acumulados", d => d["Accum Cases"]],
-                  ["Muertes Diarias", d => d["Daily Deaths"]],
-                  ["Muertes Acumuladas", d => d["Accum Deaths"]],
-                  ["Date", d => d["Time"]]
-                ]
+                title: d => d["Location"],
+                tbody: d => {
+                  const tBody = [
+                    [d["Type"] === 2 ? "Sospechas Diarias" : "Casos Diarios", d["Daily Cases"]],
+                    ["Casos Acumulados", d["Accum Cases"]],
+                    ["Muertes Diarias", d["Daily Deaths"]],
+                    ["Muertes Acumuladas", d["Accum Deaths"]],
+                    ["Date", d["Time"]]
+                  ];
+
+                  return tBody;
+                }
               },
               shapeConfig: {
+                label: d => d.Type ? d.Location : "",
                 Line: {
-                  stroke: d => colors.State[d["Location ID"]] || "#235B4E"
+                  stroke: d => colors.State[d["Location ID"]] || "#235B4E",
+                  strokeDasharray: d => d.Type ? "10" : "0"
                 }
               }
             }}
