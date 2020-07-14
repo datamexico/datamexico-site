@@ -18,10 +18,8 @@ class CovidTable extends React.Component {
   }
 
   componentDidMount = () => {
-    const {data, dates, locations} = this.props;
-    console.log(this.props);
-
-    const today = new Date(dates[0].Time);
+    const {data, date, locations} = this.props;
+    const today = new Date(date.Time);
     const lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 14).getTime();
     const dataFiltered = data.filter(d => new Date(d.Time).getTime() >= lastWeek);
     const nestedData = nest()
@@ -51,7 +49,6 @@ class CovidTable extends React.Component {
   render() {
     const {lng} = this.props;
     const {tableData} = this.state;
-    console.log(tableData);
 
     return <div className="container">
       <div className="columns">

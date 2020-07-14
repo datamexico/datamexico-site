@@ -436,7 +436,7 @@ class Covid extends Component {
         </div>
         <CovidTable
           data={dataStats}
-          dates={dates}
+          date={dataDate}
           locations={locationArray}
         />
       </div>
