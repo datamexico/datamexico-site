@@ -12,7 +12,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  min-height: 50vh;
+  min-height: 60vh;
   padding-top: var(--nav-height);
   position: relative;
   z-index: 2;
@@ -42,6 +42,7 @@
     }
 
     & .hero-info-tagline {
+      text-align: center;
       @mixin text-shadow;
     }
 
@@ -70,18 +71,15 @@
 
 .home-content {
   & .home-content-profiles {
-    display: flex;
-    flex-wrap: wrap;
     & .profiles-tile-container {
-      width: 50%;
+      margin: var(--gutter-xs) auto;
+      & .tile-title {
+        margin-bottom: var(--gutter-xs);
+      }
       & .profile-tile-container-list {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
       }
-    }
-    & .profiles-tile-container:first-child {
-      width: 100%;
     }
   }
 }
