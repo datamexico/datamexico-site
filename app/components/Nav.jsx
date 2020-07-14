@@ -104,14 +104,14 @@ class Nav extends React.Component {
         </button>
       </div>
       <div className="nav-center">
-        {(logo || className === "background") && <a className="profile-logo" href="/" data-refresh="true"><img src="/icons/logo-horizontal.svg" alt=""/></a>}
+        {(logo || className === "background") && <a className="profile-logo" href="/" data-refresh="true"><img src="/icons/logo-horizontal.svg" alt="" /></a>}
         <span className="nav-subtitle">{title}</span>
       </div>
       <div className="nav-right">
-        <ul className="langs">
+        {/* <ul className="langs">
           <li><a data-refresh="true" href={pathParser({...params, ":lang": "es"}, routePath)}>ES</a></li>
           <li><a data-refresh="true" href={pathParser({...params, ":lang": "en"}, routePath)}>EN</a></li>
-        </ul>
+        </ul> */}
         <div className={classnames("search-button", "search-nav", {active: isSearchOpen})}>
           <Icon icon="search" className="click" onClick={() => this.setState({isSearchOpen: !isSearchOpen})} />
           <InputGroup
