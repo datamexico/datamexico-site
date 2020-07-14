@@ -71,7 +71,7 @@ class Home extends Component {
         <div className="home-hero" style={{backgroundImage: `url(/images/backgroundmx-${backgroundID}.jpg)`}}>
           <div className="home-hero-info">
             <h1 className="hero-info-logo">
-              <img src="/icons/datamx-logo.gif" alt="DataMexico" />
+              <img src="/icons/logo-horizontal.png" alt="DataMexico" />
             </h1>
             <p className="hero-info-tagline u-font-md">
               {t("EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA")}

@@ -38,7 +38,7 @@
     }
 
     & .hero-info-logo {
-      width: calc(var(--font-md) * 13);
+      width: calc(var(--font-lg) * 18);
     }
 
     & .hero-info-tagline {
