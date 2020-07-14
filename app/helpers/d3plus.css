@@ -35,9 +35,11 @@ loading in
 }
 .d3plus-Message {
   /* @mixin absolute-vertical-center; */
-  top: 50% !important;
+  top: calc(50% - 20px) !important;
   transform: translate(0, -50%) !important;
-
+	& img {
+		max-width: 400px;
+	}
   & strong {
     color: var(--dark-3);
   }

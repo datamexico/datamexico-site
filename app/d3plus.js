@@ -442,5 +442,6 @@ export default {
   totalConfig: {
     locale: "es-MX",
     fontSize: () => fontSizeMd
-  }
+  },
+  noDataHTML: "<img src='/icons/no-data.png' />"
 };
