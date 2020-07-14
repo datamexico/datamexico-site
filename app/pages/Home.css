@@ -71,13 +71,17 @@
 
 .home-content {
   & .home-content-profiles {
+    display: flex;
     & .profiles-tile-container {
       margin: var(--gutter-xs) auto;
+      width: 20%;
       & .tile-title {
         margin-bottom: var(--gutter-xs);
       }
       & .profile-tile-container-list {
+        align-content: center;
         display: flex;
+        flex-direction: column;
         flex-wrap: wrap;
       }
     }

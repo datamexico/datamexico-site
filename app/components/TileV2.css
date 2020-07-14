@@ -3,11 +3,11 @@
 .tile-container {
   border: 1px solid var(--dark-1);
   height: 6rem;
-  margin: 0 auto;
   overflow: hidden;
   position: relative;
-  width: 19%;
+  width: 96%;
   z-index: 1;
+  margin-bottom: var(--gutter-sm);
   &:hover {
     border-color: var(--white);
     & .tile-background {
@@ -63,8 +63,4 @@
 }
 
 @media (max-width: 800px) {
-  .tile-container {
-    margin-bottom: var(--gutter-xs);
-    width: 100%;
-  }
 }
