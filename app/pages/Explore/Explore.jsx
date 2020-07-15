@@ -4,7 +4,7 @@ import axios from "axios";
 import classnames from "classnames";
 import {Helmet} from "react-helmet";
 import {withNamespaces} from "react-i18next";
-import {InputGroup} from "@blueprintjs/core";
+import {InputGroup, Button} from "@blueprintjs/core";
 import {connect} from "react-redux";
 
 import ExploreHeader from "../../components/ExploreHeader";
@@ -17,27 +17,19 @@ import "./Explore.css";
 const CancelToken = axios.CancelToken;
 let cancel;
 
-const levels = {
-  geo: ["Explore", "Nation", "State", "Metro Area", "Municipality"],
-  product: ["Explore", "Chapter", "HS2", "HS4", "HS6"],
-  industry: ["Explore", "Sector", "Subsector", "Industry Group", "NAICS Industry", "National Industry"],
-  institution: ["Institution"],
-  occupation: ["Explore", "Group", "Subgroup", "Occupation"]
-};
-
-const headers = [
-  {title: "Explore", slug: "filter"},
-  {title: "Cities & Places", slug: "geo", background: "#8b9f65"},
-  {title: "Products", slug: "product", background: "#ea8db2"},
-  {title: "Industries", slug: "industry", background: "#f5c094"},
-  {title: "Universities", slug: "institution", background: "#e7d98c"},
-  {title: "Occupations", slug: "occupation", background: "#68adcd"}
-];
+const profilesList = {
+  'filter': {title: "Explore", dimension: false, levels: []},
+  'geo': {title: "Cities & Places", cube: "inegi_population", dimension: "Geography", levels: ["Nation", "State", "Municipality"], background: "#8b9f65"},
+  'product': {title: "Products", cube: "economy_foreign_trade_ent", dimension: "Product", levels: ["Chapter", "HS2", "HS4", "HS6"], background: "#ea8db2"},
+  'industry': {title: "Industries", cube: "inegi_economic_census", dimension: "Industry", levels: ["Sector", "Subsector", "Industry Group", "NAICS Industry", "National Industry"], background: "#f5c094"},
+  'institution': {title: "Universities", cube: "anuies_status", dimension: "Campus", levels: ["Institution"], background: "#e7d98c"},
+  'occupation': {title: "Occupations", cube: "inegi_enoe", dimension: "Occupation Actual Job", levels: ["Group", "Subgroup", "Occupation"], background: "#68adcd"}
+}
 
 class Explore extends React.Component {
 
   state = {
-    query: "",
+    query: this.props.location.query.q || "",
     profile: this.props.location.query.profile || "filter",
     tab: this.props.location.query.tab || "0",
     results: [],
@@ -45,27 +37,27 @@ class Explore extends React.Component {
   };
 
   componentDidMount = () => {
-    this.requestApi(this.props.location.query.q);
+    this.requestApi();
   }
 
   handleSearch = e => {
     const {profile, tab} = this.state;
     const query = e.target.value;
     this.updateUrl(query, profile, tab);
-    this.requestApi(query);
+    this.setState({query}, () => this.requestApi());
   }
 
   handleProfile = profile => {
     const {query} = this.state;
     const tab = "0";
     this.updateUrl(query, profile, tab);
-    this.setState({profile, tab});
+    this.setState({profile, tab}, () => this.requestApi());
   }
 
   handleTab = tab => {
     const {query, profile} = this.state;
     this.updateUrl(query,profile,tab);
-    this.setState({tab});
+    this.setState({tab}, () => this.requestApi());
   }
 
   updateUrl = (q,profile,tab) => {
@@ -76,20 +68,24 @@ class Explore extends React.Component {
     this.context.router.replace(`${this.props.location.pathname}?${searchParams.toString()}`);
   }
 
-  requestApi = query => {
+  clearSearch = () => {
+    this.setState({query: '', profile: 'filter', tab: '0', results:[]}, () => this.requestApi());
+    this.updateUrl('', 'filter', '0');
+  }
 
-    const {defaultData} = this.props;
+  requestApi = () => {
 
-    const {tab, profile} = this.state;
+    const {query, tab, profile} = this.state;
 
-    this.setState({query, loading:true});
+    this.setState({loading:true, results: []});
+
     if (cancel !== undefined) {
       cancel();
     }
 
     //Search actual query
-    if (query && query.length > 0) {
-      return axios.get("/api/profilesearch", {
+    if (profile === 'filter' || query && query!=='' && query.length>2){
+      axios.get("/api/profilesearch", {
         cancelToken: new CancelToken(c => {
           // An executor function receives a cancel function as a parameter
           cancel = c;
@@ -101,35 +97,55 @@ class Explore extends React.Component {
         }
       })
         .then(resp => {
-          const results = [];
-          Object.keys(resp.data.profiles).forEach(key => {
-            resp.data.profiles[key].forEach(elements => {
-              elements.forEach(profile => {
-                results.push({id: profile.id, name: profile.name, slug: profile.slug, level: profile.memberHierarchy});
-              });
+          let results = [];
+          let parsed = [];
+          if(profile === 'filter'){
+            results = resp.data.grouped;
+          } else {
+            if (resp.data.profiles[profile]){
+              results = resp.data.profiles[profile];
+            }
+          }
+
+          results.forEach(elements => {
+            elements.forEach(profileItem => {
+              if (profile === 'filter' || profileItem.memberHierarchy === profilesList[profile].levels[tab]){
+                parsed.push({id: profileItem.id, name: profileItem.name, slug: profileItem.slug, level: profileItem.memberHierarchy, background: 'red'});
+              }
             });
           });
-          this.setState({results, loading:false});
+          this.setState({results:parsed, loading:false});
         })
         .catch(error => {
           const result = error.response;
           return Promise.reject(result);
         });
+    }else{
+      axios.get("/api/search", {
+        cancelToken: new CancelToken(c => {
+          // An executor function receives a cancel function as a parameter
+          cancel = c;
+        }),
+        params: {
+          limit: 600,
+          locale: this.props.lng,
+          dimension: profilesList[profile].dimension,
+          cubeName: profilesList[profile].cube ? profilesList[profile].cube:'',
+          levels: profilesList[profile].levels[tab],
+          pslug: profile
+        }
+      })
+        .then(resp => {
+          this.setState({results: resp.data.results.map(profileItem => ({id: profileItem.id, name: profileItem.name, slug: profileItem.profile, level: profileItem.hierarchy, background: 'green'})), loading: false});
+        });
     }
-    else {
-      //No query
-
-      if(profile==='filter'){
-        this.setState({results: defaultData, loading: false});
-      }
-
-    }
-
   }
 
   render() {
     const {query, tab, profile, results, loading} = this.state;
     const {t} = this.props;
+
+    const clearButton = query !== '' ? <Button onClick={() => this.clearSearch()} minimal={true} className="ep-clear-btn" icon="cross" large={true} outlined={true}>{t('Explore Profile.Clear Filters')}</Button>:<span></span>
 
     return <div className="explore">
       <Helmet title="Explore">
@@ -144,76 +160,54 @@ class Explore extends React.Component {
       />
       <div className="ep-container container">
 
+        <div className={`ep-loading-splash ${loading?'show':''}`}></div>
+
         <div className="ep-search">
           <InputGroup
             leftIcon="search"
             placeholder={t("Explore Profile.Search Placeholder")}
             onChange={this.handleSearch}
             value={query}
-            rightElement={<div>{loading ? <p>Loading...</p> : <></>}{!loading && query !== '' ? <a onClick={() => this.setState({query:''})}>Clear</a> : <></>}</div>}
+            rightElement={clearButton}
           />
-          <h1 style={{color:"red"}}>[{profile}] - [{tab}] - [{loading?'SI':'NO'}]</h1>
         </div>
 
         <div className="ep-headers">
-          {headers.map((d, i) => <ExploreHeader
+          {Object.keys(profilesList).map((sectionSlug, i) => <ExploreHeader
             key={`explore_header_${i}`}
-            title={t(d.title)}
+            title={t(profilesList[sectionSlug].title)}
             selected={profile}
-            slug={d.slug}
+            slug={sectionSlug}
             handleTabSelected={profile => this.handleProfile(profile)}
           />)}
         </div>
 
-        {profile !== "filter" &&
-          <div className="ep-profile-tabs">
-            {levels[profile].map((levelName, ix) => {
-              const filterTabNameTemp = levels[profile] ? levels[profile][tab] : false;
-              let len = results.filter(h => h.slug === profile).length;
-              if(levelName !== 'Explore'){
-                len = results.filter(h => h.slug === profile && (h.level === levelName)).length;
-              }
-              const levelKey = `${ix}`;
-              return <div
-                className={classnames(
-                  "ep-profile-tab",
-                  {"selected": tab === levelKey},
-                  {"u-hide-below-sm": len === 0}
-                )}
-                key={levelKey}
-                onClick={() => this.handleTab(levelKey)}
-              >
-                {`${t(levelName)} (${len})`}
-              </div>;
-            })}
-          </div>
-        }
+        <div className="ep-profile-tabs">
+          {profilesList[profile].levels.map((levelName, ix) => {
+            const levelKey = `${ix}`;
+            const len = 0;
+            return <div
+              className={classnames(
+                "ep-profile-tab",
+                {"selected": tab === levelKey},
+                {"u-hide-below-sm": len === 0}
+              )}
+              key={levelKey}
+              onClick={() => this.handleTab(levelKey)}
+            >
+              {`${t(levelName)} (${len})`}
+            </div>;
+          })}
+        </div>
 
         <div className="ep-profiles">
-          {results.length === 0 && profile === "filter"
-            ? <ExploreProfile
-              title={""}
-              background={""}
-              filterPanel={false}
-              results={[]}
-            />
-
-            : headers.filter(d => d.slug !== "filter").map(header => {
-              if (["filter", header.slug].includes(profile)) {
-                const filterTabName = levels[profile] && levels[profile][tab] !== 'Explore' ? levels[profile][tab] : false;
-                let results = this.state.results.filter(h => h.slug === header.slug && (filterTabName===false || h.level===filterTabName) );
-                return <ExploreProfile
-                  title={t(header.title)}
-                  background={header.background}
-                  filterPanel={profile === "filter"}
-                  results={results}
-                />;
-
-              }
-              return undefined;
-            })}
-
-
+          <ExploreProfile
+            title={""}
+            background={""}
+            filterPanel={profile === "filter"}
+            results={results}
+            loading={loading}
+          />
         </div>
       </div>
       <Footer />
@@ -225,42 +219,9 @@ Explore.contextTypes = {
   router: PropTypes.object
 };
 
-Explore.need = [
-  (params, store) => {
-    const defaultDataPromise = new Promise((resolve, reject) => {
-      return axios.all([
-        axios.get(`${store.env.CANON_API}/api/search?q=&dimension=Geography&limit=10`),
-        axios.get(`${store.env.CANON_API}/api/search?q=&dimension=Product&limit=10`),
-        axios.get(`${store.env.CANON_API}/api/search?q=&dimension=Occupation Actual Job&limit=10`),
-        axios.get(`${store.env.CANON_API}/api/search?q=&cube=inegi_denue&dimension=Industry&limit=10`),
-        axios.get(`${store.env.CANON_API}/api/search?q=&dimension=Campus&limit=10`)
-      ])
-      .then(axios.spread((geoResp, univResp, occupResp, sectorResp, prodResp) => {
-        const data = geoResp.data.results
-          .concat(univResp.data.results)
-          .concat(occupResp.data.results)
-          .concat(sectorResp.data.results)
-          .concat(prodResp.data.results);
-        const results = data.map(d => ({id: d.id, name: d.name, slug: d.profile, level: d.hierarchy}));
-        resolve({
-          key: "exploreData",
-          data: results
-        });
-      }))
-      .catch(error => {
-        console.error(error.response);
-      });
-    });
-
-    return {
-      type: "GET_DATA",
-      promise: defaultDataPromise
-    };
-  }
-]
+Explore.need = []
 
 export default withNamespaces()(
   connect(state => ({
-    defaultData: state.data.exploreData
   }))(Explore)
 );

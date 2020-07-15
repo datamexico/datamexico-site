@@ -13,6 +13,8 @@
   background-color: var(--black);
   color: var(--white);
 
+  width: 24%;
+
   &:not(.explore-tile) {
     margin-top: var(--gutter-sm);
     margin-bottom: var(--gutter-sm);

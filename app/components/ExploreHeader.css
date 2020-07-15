@@ -8,7 +8,7 @@
   flex-direction: row;
   display: flex;
   align-items: center;
-
+  cursor: pointer;
   /* scale up spacing on bigger screens */
   &:not(:last-child) {
     @mixin min-sm { margin-right: calc(0.25em + 1vw); }

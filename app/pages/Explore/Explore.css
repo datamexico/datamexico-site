@@ -39,6 +39,17 @@
     padding-left: 60px;
   }
 
+  & .bp3-input-group .bp3-input-action .ep-clear-btn{
+    height: 48px;
+    border: 1px solid white;
+    & .bp3-button-text{
+      color: white;
+    }
+    & .bp3-icon svg path{
+      fill: white;
+    }
+  }
+
   & .ep-headers {
     margin: 30px auto;
 
@@ -88,6 +99,22 @@
     @mixin min-xs {
       @mixin vertical-overflow-container;
       height: calc(100vh - var(--nav-height) - 260px);
+    }
+  }
+
+  & .ep-loading-splash{
+    position: absolute;
+    display: none;
+    background-color: rgba(22,28,44,0.6);
+    top: 0;
+    bottom:0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    &.show{
+      display:flex;
     }
   }
 }
