@@ -79,7 +79,7 @@
       font-weight: var(--base-font-weight);
       line-height: 1.5;
       color: var(--light-2);
-      display: inline-block;
+      display: block;
 
       /* space out adjacent paragraphs */
       &:not(:last-of-type) {

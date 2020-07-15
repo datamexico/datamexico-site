@@ -99,6 +99,12 @@ module.exports = function (app) {
           foreignTradePrevYear: 2018
         });
 
+      case 22:
+        return res.json({
+          anuiesLatestYear: 2019,
+          anuiesPrevYear: 2018
+        });
+
       case 28:
         const ENOE_OCCUPATION = await ENOE_DATASET(hierarchy1, id1);
         enoeLatestQuarter = ENOE_OCCUPATION.enoeLatestQuarter;
