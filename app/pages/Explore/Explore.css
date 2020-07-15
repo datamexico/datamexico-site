@@ -17,6 +17,7 @@
 
     &:focus {
       box-shadow: none;
+      outline-color: var(--dark-1);
     }
 
     &.bp3-active {
@@ -41,12 +42,12 @@
 
   & .bp3-input-group .bp3-input-action .ep-clear-btn{
     height: 48px;
-    border: 1px solid white;
+    border: 1px solid var(--white);
     & .bp3-button-text{
-      color: white;
+      color: var(--white);
     }
     & .bp3-icon svg path{
-      fill: white;
+      fill: var(--white);
     }
   }
 

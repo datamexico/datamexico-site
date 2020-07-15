@@ -20,24 +20,23 @@ class ExploreProfile extends React.Component {
           </div>
         }
 
-        {filterPanel &&
-          <h3 className="ep-profile-title">{t(title)}</h3>
-        }
-
         {results && results.length > 0 &&
-          <div className="ep-profile-results">
-            {results.map(d =>
-              <Tile
-                title={d.name}
-                slug={d.slug}
-                id={d.id}
-                level={t(d.level)}
-                background={background}
-                lng={lng}
-                key={`${d.slug}-tile-${d.id}`}
-              />
-            )}
-          </div>
+          <>
+            <div className="ep-profile-results">
+              {results.map(d =>
+                <Tile
+                  title={d.name}
+                  slug={d.slug}
+                  id={d.id}
+                  level={t(d.level)}
+                  background={background}
+                  lng={lng}
+                  key={`${d.slug}-tile-${d.id}`}
+                />
+              )}
+            </div>
+            {results.length === 100 && <p className="message">{t("Explore Profile.MaxResults")}</p>}
+          </>
         }
     </div>;
   }

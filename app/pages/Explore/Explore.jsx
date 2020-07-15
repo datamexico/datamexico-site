@@ -127,7 +127,7 @@ class Explore extends React.Component {
           cancel = c;
         }),
         params: {
-          limit: 600,
+          limit: 100,
           locale: this.props.lng,
           dimension: profilesList[profile].dimension,
           cubeName: profilesList[profile].cube ? profilesList[profile].cube:'',
@@ -195,7 +195,7 @@ class Explore extends React.Component {
               key={levelKey}
               onClick={() => this.handleTab(levelKey)}
             >
-              {`${t(levelName)} (${len})`}
+              {`${t(levelName)}`}
             </div>;
           })}
         </div>
