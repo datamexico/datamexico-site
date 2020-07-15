@@ -33,7 +33,11 @@
       }
     }
     & .title {
+      color: var(--black);
       margin-left: var(--gutter-xs);
+      &:hover {
+        color: var(--gmx-red-1);
+      }
     }
   }
 

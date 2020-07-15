@@ -17,7 +17,7 @@ import "./CovidCard.css";
 Props that CovidCard component accept (* if you don't wanna use it, just give a null value):
 cardInformation* => type: dictionary / properties: title, description and source
 locationsSelector => type: component / uses the locationsSelector component
-baseSelector* => type: array of dictionaries / properties: name, value, unique, id
+baseOptions* => type: array of dictionaries / properties: name, value, unique, id
                  unique: true or false if
 */
 
@@ -25,65 +25,23 @@ class CovidCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      baseAxis: false,
-      baseUnique: null,
-      indicatorSelected: null,
-      scaleSelected: null,
-      ready: false
     };
-    this.baseSelector = this.baseSelector.bind(this);
   }
 
   shouldComponentUpdate = (nextProps, nextState) => {
     const prevProps = this.props;
     const prevState = this.state;
-    return prevState.ready !== nextState.ready
-      || prevState.baseUnique !== nextState.baseUnique
-      || prevState.indicatorSelected !== nextState.indicatorSelected
-      || prevState.scaleSelected !== nextState.scaleSelected
-      || prevProps.visualization !== nextProps.visualization;
+    return prevProps.visualization !== nextProps.visualization;
   }
 
-  componentDidMount = () => {
-    const indicatorSelected = this.props.indicatorOptions[0];
-    const scaleSelected = this.props.scaleOptions[0];
-    this.setState({
-      indicatorSelected,
-      scaleSelected,
-      ready: true
-    });
-  }
-
-  baseSelector = (event, id, value) => {
-    this.setState({
-      [id]: event ? value : null
-    });
-  }
-
-  createVisualization = (vizData) => {
-    const {indicatorVariable} = this.props;
-    const {
-      baseAxis,
-      baseUnique,
-      indicatorSelected,
-      scaleSelected
-    } = this.state;
-
-    const vizStatID = baseUnique ? `${baseUnique} ${indicatorSelected.id}` : indicatorSelected.id;
-    const additionalVizConfig = {};
-    additionalVizConfig[indicatorVariable] = vizStatID;
-    additionalVizConfig["yConfig"] = {
-      scale: scaleSelected.id
-    };
-
+  createViz = (vizData) => {
     const d3VizTypes = {...d3plus};
     const vizConfig = Object.assign({}, vizData);
     const type = vizConfig.type;
     delete vizConfig.type;
     const Visualization = d3VizTypes[type];
-    const finalVizConfig = Object.assign(vizConfig, additionalVizConfig);
     const viz = <Visualization
-      config={finalVizConfig}
+      config={vizConfig}
       forceUpdate={true}
     />;
     return viz;
@@ -91,62 +49,40 @@ class CovidCard extends Component {
 
   render() {
     const {
-      baseSelector,
       cardInformation,
       indicatorOptions,
       indicatorStats,
+      indicatorSelector,
       locationsSelector,
-      scaleOptions,
+      baseSelector,
+      scaleSelector,
       visualization
     } = this.props;
-    const {
-      baseUnique,
-      indicatorSelected,
-      ready,
-      scaleSelected
-    } = this.state;
-    if (!ready) return <LoadingChart />;
 
-    let viz = {};
-    if (visualization) {viz = this.createVisualization(visualization)};
+    const viz = this.createViz(visualization);
     return (
       <div className="covid-card covid-columns">
         <div className="covid-card-information covid-column-30">
           {cardInformation.title && (
             <h3 className="covid-card-information-title">{cardInformation.title}</h3>
           )}
-          {scaleOptions.length > 1 && (
+          {scaleSelector && (
             <div className="covid-card-information-scale-selector">
-              <DMXButtonGroup
-                title={"Escala Eje-Y"}
-                items={scaleOptions}
-                selected={scaleSelected}
-                callback={groupValue => this.setState({scaleSelected: groupValue})}
-              />
+              {scaleSelector}
             </div>
           )}
-          {indicatorOptions.length > 1 && (
+          {indicatorSelector && (
             <div className="covid-card-information-stat-selector">
-              <DMXSelect
-                title={"Indicador"}
-                items={indicatorOptions}
-                selectedItem={indicatorSelected}
-                callback={indicatorSelected => this.setState({indicatorSelected})}
-              />
+              {indicatorSelector}
             </div>
           )}
           {baseSelector && (
             <div className="covid-card-information-base-selector">
-              <DMXCheckbox
-                items={baseSelector}
-                unique={baseUnique}
-                onChange={this.baseSelector}
-              />
+              {baseSelector}
             </div>
           )}
           {indicatorStats && (
             <div className="covid-card-information-stats">
-              {console.log(indicatorStats)}
             </div>
           )}
           {cardInformation.description && (
