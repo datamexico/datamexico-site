@@ -57,6 +57,13 @@
             box-shadow: inset 0 0 0 1px var(--gmx-red-1), inset 0 -1px 0 var(--gmx-red-1);
           }
         }
+        & .bp3-control.disabled {
+          color: var(--gray);
+          font-weight: var(--base-font-weight);
+          & .bp3-control-indicator {
+            box-shadow: inset 0 0 0 1px var(--gray), inset 0 -1px 0 var(--gray);
+          }
+        }
         & .bp3-control input:checked ~ .bp3-control-indicator {
           background-color: var(--gmx-red-1);
         }
