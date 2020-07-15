@@ -230,8 +230,10 @@ p:last-of-type {
   }
 }
 
+/* Stats section */
 .cp-stat-value-text {
-  font-size: var(--font-xl);
+  color: var(--gmx-red-1);
+  font-size: 1.5rem;
 }
 
 .cp-graphic {
@@ -314,10 +316,6 @@ p:last-of-type {
       color: var(--white);
     }
   }
-}
-
-.cp-stat-value-text {
-  color: var(--gmx-red-1);
 }
 
 .bp3-dialog.options-dialog {
