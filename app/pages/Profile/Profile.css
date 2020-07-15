@@ -58,6 +58,9 @@
   font-family: var(--base-font-stack-condensed);
 }
 
+.cp-grouping > .cp-section:last-child {
+  padding-bottom: 6rem;
+}
 
 .cp-main {
   /* about section overrides */
@@ -121,10 +124,19 @@
   }
 }
 
+.cp-grouping-section {
+  background: var(--dark-2);
+  & .cp-section-content {
+    margin-bottom: 0;
+  }
+}
+
 /* grouping headings */
 .cp-grouping-section-heading {
   @mixin display;
-  margin-bottom: 1em;
+  color: var(--white);
+  font-size: 2.25rem;
+  margin-bottom: 0 !important;
   font-family: var(--base-font-stack-condensed);
 }
 
