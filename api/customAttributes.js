@@ -90,13 +90,13 @@ module.exports = function (app) {
           enoeLatestQuarter,
           enoePrevQuarter,
           enoePrevYear,
-          foreignTradeLatestYear: "2018"
+          foreignTradeLatestYear: "2019"
         });
 
       case 11:
         return res.json({
-          foreignTradeLatestYear: 2018,
-          foreignTradePrevYear: 2017
+          foreignTradeLatestYear: 2019,
+          foreignTradePrevYear: 2018
         });
 
       case 28:
