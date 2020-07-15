@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {withNamespaces} from "react-i18next";
-import "./Tile.css";
+import "./ExploreTile.css";
 
-class Tile extends Component {
+class ExploreTile extends Component {
   render() {
     const {
       El,           // the element used as the container (it's an li by default)
@@ -12,11 +12,12 @@ class Tile extends Component {
       title,        // profile name
       level,        // displayed in a tag
       background,   // tag color
-      lng           // locale
+      lng,           // locale
+      ix
     } = this.props;
 
     return (
-      <El className={`tile${level && background ? " explore-tile" : ""}`}>
+      <El className={`explore-tile`} key={`explore-inner-tile-${slug}-${id}-${ix}`}>
         <a className="tile-link" href={link || `/${lng}/profile/${slug}/${id}`}>
           <span className={`tile-title heading ${
             title && (title.length > 30 || title.match(/\w+/).toString().length > 25)
@@ -25,12 +26,10 @@ class Tile extends Component {
           }`} title={title}>
             {title}
           </span>
-          {level && background
-            ? <div className="tile-tag" style={{backgroundColor: background}}>
-              <img className="tile-tag-img" src={`/icons/explore/${slug}-white.png`} alt=""/>
-              <span className="tile-tag-text display u-font-xxs">{level}</span>
-            </div> : ""
-          }
+          <div className="tile-tag" style={{backgroundColor: background}}>
+            <img className="tile-tag-img" src={`/icons/explore/${slug}-white.png`} alt=""/>
+            <span className="tile-tag-text display u-font-xxs">{level}</span>
+          </div>
           <div className="tile-cover-img" style={{backgroundImage: `url(/api/image?slug=${slug}&id=${id})`}} />
         </a>
       </El>
@@ -38,10 +37,10 @@ class Tile extends Component {
   }
 }
 
-Tile.defaultProps = {
+ExploreTile.defaultProps = {
   link: undefined,
   title: "",
   El: "li"
 };
 
-export default withNamespaces()(Tile);
+export default withNamespaces()(ExploreTile);

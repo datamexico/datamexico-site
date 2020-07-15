@@ -119,8 +119,10 @@
   "Employees": "Empleados",
   "Explore": "Explora",
   "Explore Profile": {
-    "No data available": "Lo sentimos, no hay resultados para esta búsqueda. Intente con otros parámetros de búsqueda.",
-    "Search Placeholder": "Buscar perfiles..."
+    "No data available": "Lo sentimos, no hay resultados para esta búsqueda. Intente con otros parámetros o en otras secciones.",
+    "Search Placeholder": "Buscar perfiles...",
+    "Clear Filters": "Limpiar filtros",
+    "MaxResults": "La consulta supera los 100 resultados, intente ingresar filtros adicionales para refinar la búsqueda."
   },
   "Foreign Trade": "Comercio Exterior",
   "Glossary": "Glosario",

@@ -1,6 +1,6 @@
 @import "helpers/mixins.css";
 
-.tile-container {
+.tile-v2-container {
   border: 1px solid var(--dark-1);
   height: 6rem;
   overflow: hidden;
@@ -14,53 +14,53 @@
       transform: scale(1.05);
     }
   }
+  & .tile-link {
+    & .tile-content {
+      align-items: flex-start;
+      display: flex;
+      padding: var(--gutter-sm);
+      position: absolute;
+      width: -moz-available;
+      z-index: 2;
+      & .tile-content-tag {
+        max-width: var(--gutter-lg);
+      }
+      & .tile-content-description {
+        align-items: baseline;
+        color: var(--white);
+        display: flex;
+        flex-direction: column;
+        padding-left: var(--gutter-xs);
+        & .tile-content-description-title {
+          font-weight: var(--light-bold-weight);
+          margin-bottom: calc(var(--gutter-xs) / 3);
+          text-align: left;
+        }
+        & .tile-content-description-level {
+          font-weight: var(--base-font-weight);
+          text-transform: uppercase;
+        }
+      }
+    }
+    & .tile-background {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100%;
+      transition: transform 0.3s ease-out;
+      width: 100%;
+      z-index: -1;
+      &::before {
+        @mixin overlay-gradient;
+        @mixin absolute-expand;
+        display: block;
+        content: "";
+        z-index: 1;
+      }
+    }
+  }
 }
 
-.tile-link {
-  & .tile-content {
-    align-items: flex-start;
-    display: flex;
-    padding: var(--gutter-sm);
-    position: absolute;
-    width: -moz-available;
-    z-index: 2;
-    & .tile-content-tag {
-      max-width: var(--gutter-lg);
-    }
-    & .tile-content-description {
-      align-items: baseline;
-      color: var(--white);
-      display: flex;
-      flex-direction: column;
-      padding-left: var(--gutter-xs);
-      & .tile-content-description-title {
-        font-weight: var(--light-bold-weight);
-        margin-bottom: calc(var(--gutter-xs) / 3);
-        text-align: left;
-      }
-      & .tile-content-description-level {
-        font-weight: var(--base-font-weight);
-        text-transform: uppercase;
-      }
-    }
-  }
-  & .tile-background {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-    transition: transform 0.3s ease-out;
-    width: 100%;
-    z-index: -1;
-    &::before {
-      @mixin overlay-gradient;
-      @mixin absolute-expand;
-      display: block;
-      content: "";
-      z-index: 1;
-    }
-  }
-}
 
 @media (max-width: 800px) {
 }
