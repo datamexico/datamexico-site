@@ -40,9 +40,9 @@ class Explore extends React.Component {
     query: "",
     profile: this.props.location.query.profile || "filter",
     tab: this.props.location.query.tab || "0",
-    results: []
+    results: [],
+    loading: true
   };
-
 
   componentDidMount = () => {
     this.requestApi(this.props.location.query.q);
@@ -82,7 +82,7 @@ class Explore extends React.Component {
 
     const {tab, profile} = this.state;
 
-    this.setState({query});
+    this.setState({query, loading:true});
     if (cancel !== undefined) {
       cancel();
     }
@@ -109,7 +109,7 @@ class Explore extends React.Component {
               });
             });
           });
-          this.setState({results});
+          this.setState({results, loading:false});
         })
         .catch(error => {
           const result = error.response;
@@ -120,7 +120,7 @@ class Explore extends React.Component {
       //No query
 
       if(profile==='filter'){
-        this.setState({results: defaultData});
+        this.setState({results: defaultData, loading: false});
       }
 
     }
@@ -128,10 +128,8 @@ class Explore extends React.Component {
   }
 
   render() {
-    const {query, tab, profile, results} = this.state;
+    const {query, tab, profile, results, loading} = this.state;
     const {t} = this.props;
-
-
 
     return <div className="explore">
       <Helmet title="Explore">
@@ -152,8 +150,9 @@ class Explore extends React.Component {
             placeholder={t("Explore Profile.Search Placeholder")}
             onChange={this.handleSearch}
             value={query}
+            rightElement={<div>{loading ? <p>Loading...</p> : <></>}{!loading && query !== '' ? <a onClick={() => this.setState({query:''})}>Clear</a> : <></>}</div>}
           />
-          <h1>[{profile}] - [{tab}]</h1>
+          <h1 style={{color:"red"}}>[{profile}] - [{tab}] - [{loading?'SI':'NO'}]</h1>
         </div>
 
         <div className="ep-headers">
@@ -168,9 +167,12 @@ class Explore extends React.Component {
 
         {profile !== "filter" &&
           <div className="ep-profile-tabs">
-            {levels[profile].map((d, ix) => {
-              const filtered = results.filter(h => h.slug === profile && h.level === d);
-              const len = filtered.length;
+            {levels[profile].map((levelName, ix) => {
+              const filterTabNameTemp = levels[profile] ? levels[profile][tab] : false;
+              let len = results.filter(h => h.slug === profile).length;
+              if(levelName !== 'Explore'){
+                len = results.filter(h => h.slug === profile && (h.level === levelName)).length;
+              }
               const levelKey = `${ix}`;
               return <div
                 className={classnames(
@@ -181,7 +183,7 @@ class Explore extends React.Component {
                 key={levelKey}
                 onClick={() => this.handleTab(levelKey)}
               >
-                {`${t(d)} (${len})`}
+                {`${t(levelName)} (${len})`}
               </div>;
             })}
           </div>
@@ -196,13 +198,13 @@ class Explore extends React.Component {
               results={[]}
             />
 
-            : headers.filter(d => d.slug !== "filter").map(d => {
-              if (["filter", d.slug].includes(profile)) {
-                let results = this.state.results.filter(h => h.slug === d.slug);
-
+            : headers.filter(d => d.slug !== "filter").map(header => {
+              if (["filter", header.slug].includes(profile)) {
+                const filterTabName = levels[profile] && levels[profile][tab] !== 'Explore' ? levels[profile][tab] : false;
+                let results = this.state.results.filter(h => h.slug === header.slug && (filterTabName===false || h.level===filterTabName) );
                 return <ExploreProfile
-                  title={t(d.title)}
-                  background={d.background}
+                  title={t(header.title)}
+                  background={header.background}
                   filterPanel={profile === "filter"}
                   results={results}
                 />;
@@ -230,7 +232,7 @@ Explore.need = [
         axios.get(`${store.env.CANON_API}/api/search?q=&dimension=Geography&limit=10`),
         axios.get(`${store.env.CANON_API}/api/search?q=&dimension=Product&limit=10`),
         axios.get(`${store.env.CANON_API}/api/search?q=&dimension=Occupation Actual Job&limit=10`),
-        axios.get(`${store.env.CANON_API}/api/search?q=&dimension=Industry&limit=10`),
+        axios.get(`${store.env.CANON_API}/api/search?q=&cube=inegi_denue&dimension=Industry&limit=10`),
         axios.get(`${store.env.CANON_API}/api/search?q=&dimension=Campus&limit=10`)
       ])
       .then(axios.spread((geoResp, univResp, occupResp, sectorResp, prodResp) => {
@@ -244,7 +246,10 @@ Explore.need = [
           key: "exploreData",
           data: results
         });
-      }));
+      }))
+      .catch(error => {
+        console.error(error.response);
+      });
     });
 
     return {
