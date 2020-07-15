@@ -2,6 +2,9 @@
   "editor.tabSize": 2,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
   "editor.trimAutoWhitespace": true,
+  "files.associations": {
+    "*.css": "scss"
+  },
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
   "python.pythonPath": "venv/bin/python3.7",
