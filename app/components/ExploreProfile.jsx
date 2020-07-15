@@ -2,12 +2,12 @@ import React from "react";
 import {Link} from "react-router";
 import {withNamespaces} from "react-i18next";
 
-import Tile from "./Tile";
+import ExploreTile from "./ExploreTile";
 import "./ExploreProfile.css";
 
 class ExploreProfile extends React.Component {
   render() {
-    const {background, filterPanel, lng, results, title, t, loading} = this.props;
+    const {filterPanel, lng, results, title, t, loading} = this.props;
 
     return <div className="ep-profile">
 
@@ -24,12 +24,12 @@ class ExploreProfile extends React.Component {
           <>
             <div className="ep-profile-results">
               {results.map(d =>
-                <Tile
+                <ExploreTile
                   title={d.name}
                   slug={d.slug}
                   id={d.id}
                   level={t(d.level)}
-                  background={background}
+                  background={d.background}
                   lng={lng}
                   key={`${d.slug}-tile-${d.id}`}
                 />

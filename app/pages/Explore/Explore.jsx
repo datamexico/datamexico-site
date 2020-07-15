@@ -110,7 +110,7 @@ class Explore extends React.Component {
           results.forEach(elements => {
             elements.forEach(profileItem => {
               if (profile === 'filter' || profileItem.memberHierarchy === profilesList[profile].levels[tab]){
-                parsed.push({id: profileItem.id, name: profileItem.name, slug: profileItem.slug, level: profileItem.memberHierarchy, background: 'red'});
+                parsed.push({id: profileItem.id, name: profileItem.name, slug: profileItem.slug, level: profileItem.memberHierarchy, background: profilesList[profileItem.slug].background });
               }
             });
           });
@@ -136,7 +136,8 @@ class Explore extends React.Component {
         }
       })
         .then(resp => {
-          this.setState({results: resp.data.results.map(profileItem => ({id: profileItem.id, name: profileItem.name, slug: profileItem.profile, level: profileItem.hierarchy, background: 'green'})), loading: false});
+          const color = profilesList[profile].background;
+          this.setState({results: resp.data.results.map(profileItem => ({id: profileItem.id, name: profileItem.name, slug: profileItem.profile, level: profileItem.hierarchy, background: color})), loading: false});
         });
     }
   }
@@ -202,8 +203,6 @@ class Explore extends React.Component {
 
         <div className="ep-profiles">
           <ExploreProfile
-            title={""}
-            background={""}
             filterPanel={profile === "filter"}
             results={results}
             loading={loading}
