@@ -85,7 +85,7 @@ module.exports = function (app) {
           return dataArray.flat();
         }))
         .catch(e => console.log(e));
-      const COVID_STATS_DATA = COVID_STATS_DATA_ALL.filter(d => d["Time ID"] <= LATEST_DATE["Time ID"]);
+      const COVID_STATS_DATA = COVID_STATS_DATA_ALL.filter(d => "20200315" <= d["Time ID"]);
 
       // Gets the most recent data from the gobmx_covid cube
       const COVID_GOBMX_DRILLDOWNS = "Covid Result,Is Dead,Patient Type,Age Range,Sex,Updated Date";
