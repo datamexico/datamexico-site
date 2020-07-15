@@ -2,12 +2,12 @@
 
 .tile-container {
   border: 1px solid var(--dark-1);
-  height: 5rem;
-  margin: var(--gutter-sm);
+  height: 6rem;
   overflow: hidden;
   position: relative;
-  width: 100%;
+  width: 96%;
   z-index: 1;
+  margin-bottom: var(--gutter-sm);
   &:hover {
     border-color: var(--white);
     & .tile-background {
@@ -18,11 +18,11 @@
 
 .tile-link {
   & .tile-content {
-    align-items: center;
+    align-items: flex-start;
     display: flex;
-    height: max-content;
     padding: var(--gutter-sm);
     position: absolute;
+    width: -moz-available;
     z-index: 2;
     & .tile-content-tag {
       max-width: var(--gutter-lg);
@@ -45,7 +45,7 @@
     }
   }
   & .tile-background {
-    background-position: center center;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
@@ -60,4 +60,7 @@
       z-index: 1;
     }
   }
+}
+
+@media (max-width: 800px) {
 }

@@ -20,6 +20,7 @@
 /* TODO: remove after removing heading class from canon stats */
 .cp-stat-value-text.heading {
   font-weight: var(--stat-value-weight);
+  letter-spacing: -1px;
   line-height: 1;
   margin-left: -0.05em; /* fudge that very thin font into place */
   margin-right: 0;

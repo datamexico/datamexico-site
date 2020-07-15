@@ -13,7 +13,8 @@ module.exports = function (app) {
     const cube = `economy_foreign_trade_${isMunLevel ? "mun" : "ent"}`;
 
     const replaces = {
-      "HS2": "HS2 2 Digit",
+      "Chapter": "Chapter 4 Digit",
+      "HS2": "HS2 4 Digit",
       "HS4": "HS4 4 Digit",
       "Year": "Date Year"
     }
@@ -28,8 +29,9 @@ module.exports = function (app) {
     }, {});
 
     const keys = Object.keys(params1).join();
-    const productLevel = drilldowns.includes("HS4") || keys.includes("HS4")
-      ? 4 : drilldowns.includes("HS6") || keys.includes("HS6") ? 6 : 2;
+    const handleDepth = depth => [drilldowns, keys].some(d => d.includes(`HS${depth}`) || d.includes(`${depth} Digit`));
+    const productLevel = handleDepth(4)
+      ? 4 : handleDepth(6) ? 6 : 2;
     const params2 = {
       cube,
       drilldowns: dds,

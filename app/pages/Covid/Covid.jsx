@@ -7,8 +7,11 @@ import {withNamespaces} from "react-i18next";
 
 import CovidCard from "components/CovidCard";
 import CovidTable from "components/CovidTable";
+import DMXButtonGroup from "components/DMXButtonGroup";
+import DMXCheckbox from "components/DMXCheckbox";
 import DMXOverlay from "components/DMXOverlay";
 import DMXSearchLocation from "components/DMXSearchLocation";
+import DMXSelect from "components/DMXSelect";
 import DMXSelectLocation from "components/DMXSelectLocation";
 import Footer from "components/Footer";
 import Loading from "components/Loading";
@@ -31,20 +34,34 @@ class Covid extends Component {
       dates: null,
       locationArray: null,
       locationBase: undefined,
-      locationSelected: []
+      locationSelected: [],
+      // Visualization Variables
+      progressStatOptions: null,
+      progressStatSelected: undefined,
+      progressScaleOptions: null,
+      progressScaleSelected: undefined,
+      progressBaseSelected: [],
+      ageRangesStatOptions: null,
+      ageRangesStatSelected: undefined
     };
     this.addNewLocation = this.addNewLocation.bind(this);
+    this.resetBaseLocation = this.resetBaseLocation.bind(this);
+    this.addBaseOption = this.addBaseOption.bind(this);
   }
 
   shouldComponentUpdate = (nextProp, nextState) => {
     const prevState = this.state;
     return prevState._dataLoaded !== nextState._dataLoaded
       || prevState.locationBase !== nextState.locationBase
-      || prevState.locationSelected !== nextState.locationSelected;
+      || prevState.locationSelected !== nextState.locationSelected
+      || prevState.progressStatSelected !== nextState.progressStatSelected
+      || prevState.progressScaleSelected !== nextState.progressScaleSelected
+      || prevState.ageRangesStatSelected !== nextState.ageRangesStatSelected;
   }
 
   fetchData = () => {
     axios.get("/api/covid/").then(resp => {
+      // Load the data from the database
       const data = resp.data;
       const dates = data.dates;
       const dataDate = data.data_date;
@@ -54,6 +71,28 @@ class Covid extends Component {
       const locationArray = data.locations.filter(d => d["Division"] !== "Municipality");
       const locationBase = locationArray[0];
       const locationSelected = [locationBase["Location ID"]];
+
+      // Create variables for the visualizations
+      const progressStatOptions = [
+        {name: "Casos Diarios", id: "Daily Cases"},
+        {name: "Casos Confirmados", id: "Accum Cases"},
+        {name: "Muertes Diarias", id: "Daily Deaths"},
+        {name: "Muertes Confirmadas", id: "Accum Deaths"}
+      ];
+      const progressStatSelected = progressStatOptions[0];
+      const progressScaleOptions = [
+        {name: "Lineal", id: "linear"},
+        {name: "Logarítmica", id: "log"}
+      ];
+      const progressScaleSelected = progressScaleOptions[0];
+      const ageRangesStatOptions = [
+        {name: "Confirmados", id: "Confirmed"},
+        {name: "Fallecidos", id: "Deceased"},
+        {name: "Hospitalizados", id: "Hospitalized"},
+        {name: "Tipo de Paciente", id: "Patient Type"}
+      ];
+      const ageRangesStatSelected = ageRangesStatOptions[0];
+
       this.setState({
         _dataLoaded: true,
         dataDate,
@@ -63,13 +102,31 @@ class Covid extends Component {
         dates,
         locationArray,
         locationBase,
-        locationSelected
+        locationSelected,
+        progressStatOptions,
+        progressStatSelected,
+        progressScaleOptions,
+        progressScaleSelected,
+        ageRangesStatOptions,
+        ageRangesStatSelected
       })
     });
   }
 
   componentDidMount = () => {
     this.fetchData();
+  }
+
+  addBaseOption = (event, value, prevArray, prevArrayID) => {
+    console.log(event, value, prevArray, prevArrayID);
+    // const array = selectedArray.slice();
+    if (event) {
+      // array.push(location["Location ID"]);
+    } else {
+      // const index = locationsArray.findIndex(d => d === location["Location ID"]);
+      // locationsArray.splice(index, index > -1 ? 1 : 0);
+    }
+    // this.setState({[id]: event ? value : null});
   }
 
   filterData = (data, selected) => {
@@ -81,27 +138,25 @@ class Covid extends Component {
     return filterData.flat();
   }
 
+  resetBaseLocation = (location) => {
+    this.setState({
+      locationBase: location,
+      locationSelected: [location["Location ID"]]
+    })
+  }
+
   addNewLocation = (location, event) => {
-    const {locationBase, locationSelected} = this.state;
+    const {locationSelected} = this.state;
     const locationsArray = locationSelected.slice();
-    const nextState = {};
-    if (event === "base") {
-      if (location !== locationBase) {
-        if (!locationSelected.includes(location["Location ID"])) locationsArray.push(location["Location ID"]);
-        nextState.locationBase = location;
-        const index = locationsArray.findIndex(d => d === locationBase["Location ID"]);
-        locationsArray.splice(index, 1);
-        nextState.locationSelected = locationsArray;
-      }
-    } else if (event === "add") {
+    if (event === "add") {
       locationsArray.push(location["Location ID"]);
-      nextState.locationSelected = locationsArray;
     } else {
       const index = locationsArray.findIndex(d => d === location["Location ID"]);
       locationsArray.splice(index, index > -1 ? 1 : 0);
-      nextState.locationSelected = locationsArray;
     }
-    this.setState(nextState);
+    this.setState({
+      locationSelected: locationsArray
+    });
   }
 
   showDate = (d) => {
@@ -161,41 +216,85 @@ class Covid extends Component {
       dates,
       locationArray,
       locationBase,
-      locationSelected
+      locationSelected,
+      progressStatOptions,
+      progressStatSelected,
+      progressScaleOptions,
+      progressScaleSelected,
+      progressBaseSelected,
+      ageRangesStatOptions,
+      ageRangesStatSelected
     } = this.state;
     const {t} = this.props;
 
     if (!_dataLoaded) return <Loading />;
-
-    // const lastWeekDates = dates.map(d => d["Time ID"]);
-    // console.log("lastWeekDates", lastWeekDates);
 
     // Date of the data
     const showDate = this.showDate(dataDate.Time);
 
     // Stats showed in the hero
     const locationBaseData = dataStatsLatest.find(d => d["Location ID"] === locationBase["Location ID"]);
-    console.log(locationBaseData);
-    const locationSelectedData = this.filterData(dataStats, locationSelected);
     const locationStats = [
       {id: "stat_new_cases", name: "Contagios", subname: "En los últimos 7 días", icon: "nuevo-caso-icon.svg", value: commas(locationBaseData["Last 7 Daily Cases"])},
       {id: "stat_new_dead", name: "Fallecidos", subname: "En los últimos 7 días", icon: "nueva-muerte-icon.svg", value: commas(locationBaseData["Last 7 Daily Deaths"])},
       {id: "stat_lastweek_cases", name: "Casos Sospechosos", subname: "A la fecha", icon: "casos-ultima-semana-icon.svg", value: commas(locationBaseData["Accum Suspect"])},
-      {id: "stat_lastweek_dead", name: "Hospitalizados", subname:"Sobre el total de contagiados", icon: "muertes-ultima-semana-icon.svg", value: percentagenumber(locationBaseData["Accum Hospitalized"]/locationBaseData["Accum Cases"])},
+      {id: "stat_lastweek_dead", name: "Hospitalizados", subname: "Sobre el total de contagiados", icon: "muertes-ultima-semana-icon.svg", value: percentagenumber(locationBaseData["Accum Hospitalized"] / locationBaseData["Accum Cases"])},
       {id: "stat_accum_cases", name: "Total Contagios Confirmados", icon: "casos-confirmados-icon.svg", value: commas(locationBaseData["Accum Cases"])},
       {id: "stat_accum_dead", name: "Total Fallecidos Confirmados", icon: "muertes-confirmadas-icon.svg", value: commas(locationBaseData["Accum Deaths"])}
     ];
 
-    // Data loader for the barchart of agerange
-    const ageRangeDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected);
-    const barChartStats = this.calculateStats(ageRangeDataLocations, locationBase.Division, ["Is Dead", "Patient Type", "Sex"]);
-    console.log(barChartStats);
-    const ageRangeDictionary = [...new Set(ageRangeDataLocations.sort((a, b) => a["Age Range ID"] - b["Age Range ID"]).map(d => d["Age Range"]))];
-    // console.log("ageRangeDataLocations", ageRangeDataLocations);
-
     // filter data elements in array by key
     const confirmedData = this.keepElementsInData(dataStats, ["Time ID", "Time", "Daily Cases", "Location ID", "Location"]);
     // console.log("Confirmed Data", confirmedData);
+
+    // Graph #1: LinePlot data for covid new daily cases stats
+    const lastWeekDates = dates.map(d => d["Time ID"]);
+    const minLastDayDate = Math.min(...lastWeekDates);
+
+    const locationSelectedData = this.filterData(dataStats, locationSelected);
+    locationSelectedData.map(d => d["Type"] = lastWeekDates.includes(d["Time ID"]) ? 1 : 0);
+
+    const lastWeekData = locationSelectedData.filter(d => lastWeekDates.includes(d["Time ID"]));
+
+    const _lastWeekData = lastWeekData.map(d => {
+      const h = Object.assign({}, d, {"Type": 2, "Daily Cases": d["Time ID"] !== minLastDayDate ? d["Daily Suspect"] : d["Daily Cases"]});
+      return h;
+    });
+    locationSelectedData.push(..._lastWeekData);
+
+    const minLastDayData = Object.assign({}, locationSelectedData.find(d => d["Time ID"] === minLastDayDate), {"Type": 0});
+    locationSelectedData.push(minLastDayData);
+
+    // console.log("DATA", locationSelectedData);
+
+    // Graph #2: Stacked BarChart with the data separated by age ranges
+    const colorsGender = {
+      1: "#1b3e60",
+      2: "#ca3534",
+    };
+
+    const colorsPatient = {
+      1: "#23A7BC",
+      2: "#3A5AD0",
+    };
+
+    let ageRangesDataLocations = null;
+    let ageRangesGroupBy = null;
+    if (ageRangesStatSelected.id === "Confirmed") {
+      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected);
+      ageRangesGroupBy = ["Sex"];
+    } else if (ageRangesStatSelected.id === "Deceased") {
+      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Is Dead ID"] === 1), locationSelected);
+      ageRangesGroupBy = ["Sex"];
+    } else if (ageRangesStatSelected.id === "Hospitalized") {
+      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Patient Type ID"] === 2), locationSelected);
+      ageRangesGroupBy = ["Sex"];
+    } else {
+      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected);
+      ageRangesGroupBy = ["Patient Type"];
+    }
+    // const barChartStats = this.calculateStats(ageRangesDataLocations, locationSelected, ["Is Dead", "Patient Type", "Sex"]);
+    // console.log(barChartStats);
 
     const overlayContent = <div className="covid-overlay-content">
       <div className="covid-overlay-card-header">
@@ -241,7 +340,7 @@ class Covid extends Component {
           <DMXSearchLocation
             locationOptions={locationArray}
             locationSelected={locationBase}
-            addNewLocation={this.addNewLocation}
+            resetBaseLocation={this.resetBaseLocation}
           />
           <div className="covid-header-info">
             <h4 className="covid-header-info-date">{`Data actualizada al ${showDate}`}</h4>
@@ -268,48 +367,6 @@ class Covid extends Component {
         <div className="covid-body container">
           <CovidCard
             cardInformation={{
-              title: "Testing"
-            }}
-            locationsSelector={null}
-            baseSelector={null}
-            scaleOptions={[
-              {name: t("Lineal"), id: "linear"},
-              {name: t("Logarítmica"), id: "log"}
-            ]}
-            indicatorVariable={"y"}
-            indicatorOptions={[
-              {name: "Casos Diarios", id: "Daily Cases"},
-              {name: "Casos Confirmados", id: "Accum Cases"},
-              {name: "Muertes Diarias", id: "Daily Deaths"},
-              {name: "Muertes Confirmadas", id: "Accum Deaths"}
-            ]}
-            visualization={{
-              data: locationSelectedData,
-              type: "LinePlot",
-              groupBy: "Location ID",
-              height: 400,
-              lineLabels: true,
-              x: "Time",
-              time: "Time",
-              timeline: false,
-              tooltipConfig: {
-                tbody: [
-                  ["Casos Diarios", d => d["Daily Cases"]],
-                  ["Casos Acumulados", d => d["Accum Cases"]],
-                  ["Muertes Diarias", d => d["Daily Deaths"]],
-                  ["Muertes Acumuladas", d => d["Accum Deaths"]],
-                  ["Date", d => d["Time"]]
-                ]
-              },
-              shapeConfig: {
-                Line: {
-                  stroke: d => colors.State[d["Location ID"]] || "#235B4E"
-                }
-              }
-            }}
-          />
-          <CovidCard
-            cardInformation={{
               title: "Nuevos casos diarios",
               description: <div className="card-description">
                 <p>
@@ -321,49 +378,73 @@ class Covid extends Component {
             }}
             locationsSelector={
               <DMXSelectLocation
-                locationBase={locationBase}
                 locationsOptions={locationArray}
                 locationsSelected={locationSelected}
                 addNewLocation={this.addNewLocation}
               />
             }
-            baseSelector={[
-              {name: "Promedio de 7 Dias", value: "AVG 7 Days", unique: true, id: "baseUnique"},
-              {name: "Per Capita", value: "Rate", unique: true, id: "baseUnique"},
-              {name: "Cambiar Eje Temporal", value: "true", unique: false, id: "baseAxis"}
-            ]}
-            scaleOptions={[
-              {name: t("Lineal"), id: "linear"},
-              {name: t("Logarítmica"), id: "log"}
-            ]}
-            indicatorVariable={"y"}
-            indicatorOptions={[
-              {name: "Casos Diarios", id: "Daily Cases"},
-              {name: "Casos Confirmados", id: "Accum Cases"},
-              {name: "Muertes Diarias", id: "Daily Deaths"},
-              {name: "Muertes Confirmadas", id: "Accum Deaths"}
-            ]}
+            /*
+            baseSelector={
+              <DMXCheckbox
+                items={[
+                  {name: "Promedio de 7 Dias", value: "AVG 7 Days", unique: true, id: "baseUnique"},
+                  {name: "Per Capita", value: "Rate", unique: true, id: "baseUnique"},
+                  {name: "Cambiar Eje Temporal", value: "true", unique: false, id: "baseAxis"}
+                ]}
+                selectedArray={progressBaseSelected}
+                selectedArrayID={"progressBaseSelected"}
+                onChange={this.addBaseOption}
+              />
+            }
+           */
+            scaleSelector={
+              <DMXButtonGroup
+                title={"Escala Eje-Y"}
+                items={progressScaleOptions}
+                selected={progressScaleSelected}
+                callback={progressScaleSelected => this.setState({progressScaleSelected})}
+              />
+            }
+            indicatorSelector={
+              <DMXSelect
+                title={"Indicador"}
+                items={progressStatOptions}
+                selectedItem={progressStatSelected}
+                callback={progressStatSelected => this.setState({progressStatSelected})}
+              />
+            }
             visualization={{
               data: locationSelectedData,
               type: "LinePlot",
-              groupBy: "Location ID",
+              groupBy: ["Location", "Type"],
               height: 400,
               lineLabels: true,
               x: "Time",
               time: "Time",
+              y: progressStatSelected.id,
+              yConfig: {
+                scale: progressScaleSelected.id
+              },
               timeline: false,
               tooltipConfig: {
-                tbody: [
-                  ["Casos Diarios", d => d["Daily Cases"]],
-                  ["Casos Acumulados", d => d["Accum Cases"]],
-                  ["Muertes Diarias", d => d["Daily Deaths"]],
-                  ["Muertes Acumuladas", d => d["Accum Deaths"]],
-                  ["Date", d => d["Time"]]
-                ]
+                title: d => d["Location"],
+                tbody: d => {
+                  const tBody = [
+                    [d["Type"] === 2 ? "Sospechas Diarias" : "Casos Diarios", d["Daily Cases"]],
+                    ["Casos Acumulados", d["Accum Cases"]],
+                    ["Muertes Diarias", d["Daily Deaths"]],
+                    ["Muertes Acumuladas", d["Accum Deaths"]],
+                    ["Date", d["Time"]]
+                  ];
+
+                  return tBody;
+                }
               },
               shapeConfig: {
+                label: d => d.Type ? d.Location : "",
                 Line: {
-                  stroke: d => colors.State[d["Location ID"]] || "#235B4E"
+                  stroke: d => d.Type * 1 === 2 ? "#DDC9A3" : colors.State[d["Location ID"]] || "#235B4E",
+                  strokeDasharray: d => d.Type ? "10" : "0"
                 }
               }
             }}
@@ -381,40 +462,53 @@ class Covid extends Component {
             }}
             locationsSelector={null}
             baseSelector={null}
-            scaleOptions={[
-              {name: t("Lineal"), id: "linear"}
-            ]}
-            indicatorVariable={"groupBy"}
-            indicatorOptions={[
-              {name: "Muertos", id: "Is Dead"},
-              {name: "Tipo de Paciente", id: "Patient Type"},
-              {name: "Sexo", id: "Sex"}
-            ]}
-            indicatorStats={barChartStats}
+            indicatorSelector={
+              <DMXSelect
+                title={"Indicador"}
+                items={ageRangesStatOptions}
+                selectedItem={ageRangesStatSelected}
+                callback={ageRangesStatSelected => this.setState({ageRangesStatSelected})}
+              />
+            }
+            // indicatorStats={barChartStats}
             visualization={{
-              data: ageRangeDataLocations,
+              data: ageRangesDataLocations,
               type: "BarChart",
+              groupBy: ageRangesGroupBy,
               height: 500,
-              x: "Age Range ID",
+              x: "Age Range",
+              xSort: (a, b) => a["Age Range ID"] - b["Age Range ID"],
               xConfig: {
-                title: "Age Range",
-                tickFormat: d => ageRangeDictionary[d - 1]
+                title: "Rango de Edad"
               },
               y: "Cases",
               yConfig: {
-                title: "Cases"
+                title: "Casos"
               },
+              label: d => commas(d["Cases"]),
               stacked: true,
+              stackOrder: "ascending",
               tooltipConfig: {
                 tbody: [
-                  ["Age Range", d => d["Age Range"]],
-                  ["Cases", d => commas(d["Cases"])]
+                  ["Casos", d => commas(d["Cases"])],
+                  ["Rango de edad", d => d["Age Range"]]
                 ]
-              }
+              },
+              shapeConfig: {
+                // CHECKEAR QUE CAMBIAN LOS VALORES DE IDS
+                fill: d => ageRangesGroupBy === "Patient Type" ? colorsPatient[d["Patient Type ID"]] : colorsGender[d["Sex ID"]] || "blue"
+              },
+              legendConfig: {
+                label: d => ageRangesGroupBy === "Patient Type" ? d["Patient Type"] : d["Sex"]
+              },
             }}
           />
         </div>
-        {/* <CovidTable /> */}
+        <CovidTable
+          data={dataStats}
+          date={dataDate}
+          locations={locationArray}
+        />
       </div>
       <Footer />
     </div>;
