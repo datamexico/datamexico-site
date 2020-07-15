@@ -12,11 +12,12 @@ class ExploreTile extends Component {
       title,        // profile name
       level,        // displayed in a tag
       background,   // tag color
-      lng           // locale
+      lng,           // locale
+      ix
     } = this.props;
 
     return (
-      <El className={`explore-tile`}>
+      <El className={`explore-tile`} key={`explore-inner-tile-${slug}-${id}-${ix}`}>
         <a className="tile-link" href={link || `/${lng}/profile/${slug}/${id}`}>
           <span className={`tile-title heading ${
             title && (title.length > 30 || title.match(/\w+/).toString().length > 25)

@@ -19,7 +19,7 @@ class TileV2 extends Component {
     } = this.props;
 
     return (
-      <Element className={classnames("tile-container", level && slugColor ? "explore-tile" : "")}>
+      <Element className={classnames("tile-v2-container")}>
         <a className="tile-link" href={link || `/${lng}/profile/${slug}/${id}`}>
           <div className="tile-content">
             <img src={`/icons/explore/${slug}-white.png`} alt="tag" className="tile-content-tag" style={{backgroundColor: `${slugColor}`}} />

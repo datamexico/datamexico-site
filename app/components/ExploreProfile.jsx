@@ -7,7 +7,7 @@ import "./ExploreProfile.css";
 
 class ExploreProfile extends React.Component {
   render() {
-    const {filterPanel, lng, results, title, t, loading} = this.props;
+    const {filterPanel, lng, results, t, loading} = this.props;
 
     return <div className="ep-profile">
 
@@ -22,20 +22,21 @@ class ExploreProfile extends React.Component {
 
         {results && results.length > 0 &&
           <>
-            <div className="ep-profile-results">
-              {results.map(d =>
+            <ul className="ep-profile-results">
+              {results.map((d,ix) =>
                 <ExploreTile
                   title={d.name}
                   slug={d.slug}
                   id={d.id}
+                  ix={ix}
                   level={t(d.level)}
                   background={d.background}
                   lng={lng}
-                  key={`${d.slug}-tile-${d.id}`}
+                  key={`explore-${d.slug}-tile-${d.id}-${ix}`}
                 />
               )}
-            </div>
-            {results.length === 100 && <p className="message">{t("Explore Profile.MaxResults")}</p>}
+            </ul>
+            {results.length > 99 && <p className="message">{t("Explore Profile.MaxResults")}</p>}
           </>
         }
     </div>;

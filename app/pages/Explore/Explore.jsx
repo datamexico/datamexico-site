@@ -6,6 +6,7 @@ import {Helmet} from "react-helmet";
 import {withNamespaces} from "react-i18next";
 import {InputGroup, Button} from "@blueprintjs/core";
 import {connect} from "react-redux";
+import {nest} from "d3-collection";
 
 import ExploreHeader from "../../components/ExploreHeader";
 import ExploreProfile from "../../components/ExploreProfile";
@@ -33,6 +34,7 @@ class Explore extends React.Component {
     profile: this.props.location.query.profile || "filter",
     tab: this.props.location.query.tab || "0",
     results: [],
+    resultsNest: new Map(),
     loading: true
   };
 
@@ -99,25 +101,47 @@ class Explore extends React.Component {
         .then(resp => {
           let results = [];
           let parsed = [];
-          if(profile === 'filter'){
-            results = resp.data.grouped;
-          } else {
-            if (resp.data.profiles[profile]){
-              results = resp.data.profiles[profile];
-            }
-          }
+          let resultsRaw = [];
 
+          Object.keys(resp.data.profiles).forEach(profileName => {
+            results = results.concat(resp.data.profiles[profileName]);
+          });
+
+          let tempObj;
           results.forEach(elements => {
             elements.forEach(profileItem => {
-              if (profile === 'filter' || profileItem.memberHierarchy === profilesList[profile].levels[tab]){
-                parsed.push({id: profileItem.id, name: profileItem.name, slug: profileItem.slug, level: profileItem.memberHierarchy, background: profilesList[profileItem.slug].background });
+              if (profilesList[profileItem.slug]){
+                tempObj = {id: profileItem.id, name: profileItem.name, slug: profileItem.slug, level: profileItem.memberHierarchy, background: profilesList[profileItem.slug].background};
+                resultsRaw.push(tempObj);
+                if (profile === 'filter' || profileItem.slug === profile && profileItem.memberHierarchy === profilesList[profile].levels[tab]){
+                  parsed.push(tempObj);
+                }
               }
             });
           });
-          this.setState({results:parsed, loading:false});
+
+          const resultsNest = nest()
+            .key(d => d.slug)
+            .rollup(function (leaves) {
+              return {"len": leaves.length,
+                "leaves": nest()
+                  .key(d => d.level)
+                  .rollup(function (leaves) {
+                    return {
+                      "len": leaves.length
+                    }
+                  })
+                  .map(leaves)
+            }})
+            .map(resultsRaw);
+
+          resultsNest.set('filter', {len: resultsRaw.length});
+
+          this.setState({results: parsed, resultsNest, loading:false});
         })
         .catch(error => {
           const result = error.response;
+          console.error(error);
           return Promise.reject(result);
         });
     }else{
@@ -138,12 +162,17 @@ class Explore extends React.Component {
         .then(resp => {
           const color = profilesList[profile].background;
           this.setState({results: resp.data.results.map(profileItem => ({id: profileItem.id, name: profileItem.name, slug: profileItem.profile, level: profileItem.hierarchy, background: color})), loading: false});
+        })
+        .catch(error => {
+          const result = error.response;
+          console.error(error);
+          return Promise.reject(result);
         });
     }
   }
 
   render() {
-    const {query, tab, profile, results, loading} = this.state;
+    const {query, tab, profile, results, resultsNest, loading} = this.state;
     const {t} = this.props;
 
     const clearButton = query !== '' ? <Button onClick={() => this.clearSearch()} minimal={true} className="ep-clear-btn" icon="cross" large={true} outlined={true}>{t('Explore Profile.Clear Filters')}</Button>:<span></span>
@@ -174,19 +203,31 @@ class Explore extends React.Component {
         </div>
 
         <div className="ep-headers">
-          {Object.keys(profilesList).map((sectionSlug, i) => <ExploreHeader
-            key={`explore_header_${i}`}
-            title={t(profilesList[sectionSlug].title)}
-            selected={profile}
-            slug={sectionSlug}
-            handleTabSelected={profile => this.handleProfile(profile)}
-          />)}
+          {Object.keys(profilesList).map((sectionSlug, i) => {
+            let len = false;
+            if (query && query !== '' && !loading){
+              len = resultsNest.get(sectionSlug);
+              len = len?len.len:"0";
+            }
+            return <ExploreHeader
+              title={t(profilesList[sectionSlug].title)}
+              len={len}
+              selected={profile}
+              slug={sectionSlug}
+              handleTabSelected={profile => this.handleProfile(profile)}
+            />
+          })}
         </div>
 
         <div className="ep-profile-tabs">
           {profilesList[profile].levels.map((levelName, ix) => {
             const levelKey = `${ix}`;
-            const len = 0;
+            let len = false;
+            if (query && query !== '' && !loading) {
+              len = resultsNest.get(profile);
+              len = len ? len.leaves.get(levelName) : false;
+              len = len ? len.len : "0";
+            }
             return <div
               className={classnames(
                 "ep-profile-tab",
@@ -196,7 +237,7 @@ class Explore extends React.Component {
               key={levelKey}
               onClick={() => this.handleTab(levelKey)}
             >
-              {`${t(levelName)}`}
+              {`${t(levelName)}`} {len?`(${len})`:''}
             </div>;
           })}
         </div>
