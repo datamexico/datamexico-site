@@ -19,7 +19,6 @@
         font-size: var(--font-xs);
         font-weight: var(--light-bold-weight);
         text-transform: uppercase;
-        margin-right: var(--gutter-xs);
       }
     }
     & .covid-header-stats {

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React, {Component} from "react";
 import * as d3plus from "d3plus-react";
 import {withNamespaces} from "react-i18next";
+import {formatAbbreviate} from "d3plus-format";
 
 import "./CovidCard.css";
 
@@ -38,6 +39,7 @@ class CovidCard extends Component {
       indicatorSelector,
       indicatorStats,
       locationsSelector,
+      overlay,
       scaleSelector,
       timeScaleSelector,
       visualization
@@ -48,7 +50,14 @@ class CovidCard extends Component {
       <div className="covid-card covid-columns">
         <div className="covid-card-information covid-column-left">
           {cardInformation.title && (
-            <h3 className="covid-card-information-title">{cardInformation.title}</h3>
+            <div className="covid-card-information-title">
+              <h3>{cardInformation.title}</h3>
+              {overlay && (
+                <div className="covid-card-information-title-overlay">
+                  {overlay}
+                </div>
+              )}
+            </div>
           )}
           {scaleSelector && (
             <div className="covid-card-information-scale-selector">
@@ -72,6 +81,12 @@ class CovidCard extends Component {
           )}
           {indicatorStats && (
             <div className="covid-card-information-stats">
+              {indicatorStats.map(d => (
+                <div className="covid-card-information-stats-stat">
+                  <span className="stat-value">{d.value}</span>
+                  <span className="stat-percentage">{`${formatAbbreviate(d.percentage) * 100}%`}</span>
+                </div>
+              ))}
             </div>
           )}
           {cardInformation.description && (
