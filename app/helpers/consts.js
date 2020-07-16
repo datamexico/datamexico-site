@@ -11,7 +11,7 @@ module.exports = {
     ]},
     // {title: "Viz Builder",        url: `/${locale}/vizbuilder`},
     // {title: "Data Cart",          url: `/${locale}/cart`},
-    {title: "Coronavirus",        url: `/${locale}/covid`},
+    {title: "Coronavirus",        url: `/${locale}/coronavirus`},
     {title: "ECI Explorer.Title",       url: `/${locale}/eci/explore`},
     {title: "About DataMexico",   url: `/${locale}/about`},
     //{title: "Data sources",       url: `/${locale}/data`}
