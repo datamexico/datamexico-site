@@ -86,7 +86,7 @@ class Home extends Component {
             </div>
           </div>
           <div className="home-hero-search">
-            <span className="home-disclaimer-search">¡Más de 2.000 perfiles para descubrir!</span>
+            <span className="home-disclaimer-search">¡Más de 9.000 perfiles para descubrir!</span>
             <HeroSearch locale={lng} router={router} />
           </div>
         </div>
@@ -105,7 +105,7 @@ class Home extends Component {
               icon={"/icons/homepage/svg/explore-profiles-icon.svg"}
               link={`${lng}/explore`}
               title={"Perfiles"}
-              text={"Atraviese México explorando datos económicos, sociales y ocupacionales mediante visualizaciones interactivas personalizables."}
+              text={"Explore México mediante datos económicos, sociales y ocupacionales a través de visualizaciones interactivas personalizables."}
             />
             <CustomTile
               icon={"/icons/homepage/svg/coronavirus-icon.svg"}
