@@ -33,7 +33,7 @@ class NavMenu extends React.Component {
         <nav className="nav-menu-nav">
           {/* logo / home page link */}
           <a className="nav-menu-logo" href="/">
-            <img className="nav-menu-logo-img" src="/icons/datamx-logo.gif" alt={t("Home")} />
+            <img className="nav-menu-logo-img" src="/icons/logo-horizontal.png" alt={t("Home")} />
           </a>
 
           {/* main list */}
@@ -62,7 +62,7 @@ class NavMenu extends React.Component {
           {/* _gotta_ have them logos, again */}
           <div className="nav-menu-footer">
             {LOGOS.map(logo =>
-              <a className="nav-menu-footer-link" href={logo.url} key={logo.title} aria-hidden tabIndex="-1">
+              <a className="nav-menu-footer-link" href={logo.url} key={logo.title} aria-hidden tabIndex="-1" target="_blank" rel="noopener noreferrer">
                 <img className="nav-menu-footer-img" src={`/icons/${logo.src}`} alt={logo.title} />
               </a>
             )}

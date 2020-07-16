@@ -100,7 +100,7 @@ class Footer extends React.Component {
           {/* _gotta_ have them logos */}
           <div className="footer-logo-list" role="contentinfo">
             {LOGOS.map(logo =>
-              <a className="footer-logo-link" href={logo.url} key={logo.title}>
+              <a className="footer-logo-link" href={logo.url} key={logo.title} target="_blank" rel="noopener noreferrer">
                 <img className="footer-logo-img" src={`/icons/${logo.src}`} alt={logo.title} />
               </a>
             )}
