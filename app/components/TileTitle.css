@@ -1,16 +1,29 @@
 .tile-title {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   & .tile-title-icon {
-    height: 1.75em;
+    height: auto;
     width: 1.75em;
-    fill: white;
+    fill: "#444c6d";
   }
 
   & .tile-title-link {
+    display: flex;
+    align-items: center;
+    margin-top: var(--gutter-xs);
     color: var(--white);
     text-transform: uppercase;
-    font-weight: var(--light-bold-weight);
+    font-size: var(--font-sm);
+    font-weight: var(--base-font-weight);
+    text-decoration: none;
+  }
+
+  & .subtitle-title-link {
+    font-size: var(--font-xs);
+    font-weight: var(--light-weight);
+    margin-bottom: var(--gutter-sm);
   }
 }
