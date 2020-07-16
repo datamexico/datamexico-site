@@ -5,11 +5,12 @@
   height: 6rem;
   overflow: hidden;
   position: relative;
-  width: 96%;
+  width: 100%;
   z-index: 1;
-  margin-bottom: var(--gutter-sm);
+  margin-bottom: 0.75rem;
   &:hover {
-    border-color: var(--white);
+    border-color: var(--dark-1);
+    transition: 0.15s ease-out;
     & .tile-background {
       transform: scale(1.05);
     }
@@ -59,8 +60,8 @@
       }
     }
   }
-}
 
+}
 
 @media (max-width: 800px) {
 }

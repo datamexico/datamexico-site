@@ -8,7 +8,8 @@ module.exports = {
       {name: "Nation", count: 1},
       {name: "State", count: 32},
       {name: "Municipality", count: 2464}
-    ]
+    ],
+    subtitle: "Más poblados"
   },
   industry: {
     dimension: "Industry",
@@ -21,7 +22,8 @@ module.exports = {
       {name: "Industry Group", count: 379},
       {name: "NAICS Industry", count: 776},
       {name: "National Industry", count: 1207},
-    ]
+    ],
+    subtitle: "Más productivas"
   },
   occupation: {
     dimension: "Occupation Actual Job",
@@ -33,18 +35,19 @@ module.exports = {
       {name: "Group", count: 53},
       {name: "Subgroup", count: 156},
       {name: "Occupation", count: 467}
-    ]
+    ],
+    subtitle: "1er semestre 2020"
   },
   product: {
     dimension: "Product",
     background: "#ea8db2",
     items: [178703, 20804, 52603, 168504, 209401],
     name: "Products",
+    subtitle: "Más exportados",
     levels: [
-      {name: "Chapter", count: 21},
-      {name: "HS2", count: 96},
-      {name: "HS4", count: 1224},
-      {name: "HS6", count: 5205}
+      {name: "Nation", count: 1},
+      {name: "State", count: 32},
+      {name: "Municipality", count: 32}
     ]
   },
   institution: {
@@ -54,6 +57,7 @@ module.exports = {
     name: "Universities",
     levels: [
       {name: "Institution", count: 3430}
-    ]
+    ],
+    subtitle: "QS Ranking"
   }
 };

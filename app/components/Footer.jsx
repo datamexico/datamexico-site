@@ -61,8 +61,10 @@ class Footer extends React.Component {
 
     return <footer className="footer container">
       <div className="columns">
+        <div className="footer-logo-head">
+          <img className="footer-logo-page" src={"/icons/homepage/png/logo-dmx-beta-horizontal.png"} alt={"DataMÉXICO"} />
+        </div>
         <div className="column">
-
           <div className="footer-links">
             <nav className="footer-columns">
               <h2 className="u-visually-hidden">Site navigation</h2>

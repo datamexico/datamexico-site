@@ -47,6 +47,7 @@
   background: var(--accent-dark);
   color: var(--white);
   transition: background 0.2s ease-out;
+  text-transform: uppercase;
 
   &:hover, &:focus {
     background: var(--accent-black);
