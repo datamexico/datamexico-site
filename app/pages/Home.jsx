@@ -12,6 +12,7 @@ import {backgroundID} from "helpers/utils";
 import TileV2 from "../components/TileV2";
 import TileTitle from "../components/TileTitle";
 import HeroSearch from "../components/HeroSearch";
+import CustomTile from "../components/CustomTile";
 
 import SearchResult from "../components/SearchResult";
 
@@ -71,7 +72,7 @@ class Home extends Component {
         <div className="home-hero" style={{backgroundImage: `url(/images/backgroundmx-${backgroundID}.jpg)`}}>
           <div className="home-hero-info">
             <h1 className="hero-info-logo">
-              <img src="/icons/logo-horizontal.png" alt="DataMexico" />
+              <img src="/icons/homepage/png/logo-dmx-beta-horizontal.png" alt="DataMexico" />
             </h1>
             <p className="hero-info-tagline u-font-md">
               {t("EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA")}
@@ -85,36 +86,72 @@ class Home extends Component {
             </div>
           </div>
           <div className="home-hero-search">
+            <span className="home-disclaimer-search">¡Más de 9.000 perfiles para descubrir!</span>
             <HeroSearch locale={lng} router={router} />
           </div>
         </div>
-        <div className="home-content container">
-          <div className="home-content-profiles">
-            {Object.keys(tiles).map((d, i) => {
-              const items = tiles[d];
-              const info = homeTiles[d];
-              return <div
-                className="profiles-tile-container"
-                key={`home-tile-title_${i}_${lng}`}
-              >
-                <TileTitle
-                  icon={d}
-                  title={t(info.name)}
-                />
-                <div className="profile-tile-container-list">
-                  {items.map(h => <TileV2
-                    id={h.id}
-                    key={`${h.id}-home-tile-${lng}`}
-                    level={t(h.hierarchy)}
-                    lng={lng}
-                    slug={d}
-                    slugColor={info.background}
-                    title={h.name}
-                  />)}
-                </div>
-              </div>;
-            })}
+        <div className="home-description container">
+          <div className="home-description-text">
+            <h2 className="intro-title">¿Qué es DataMéxico?</h2>
+            <p className="intro">
+              DataMÉXICO es un esfuerzo conjunto entre la Secretaria de Economía (SE) y Datawheel,
+              que permite la integración, visualización y análisis de datos para mejorar la toma
+              de decisiones de políticas públicas enfocadas en fomentar la innovación, inclusión y
+              diversificación de la economía mexicana.
+            </p>
           </div>
+          <div className="home-description-buttons">
+            <CustomTile
+              icon={"/icons/homepage/svg/explore-profiles-icon.svg"}
+              link={`${lng}/explore`}
+              title={"Perfiles"}
+              text={"Explore México mediante datos económicos, sociales y ocupacionales a través de visualizaciones interactivas personalizables."}
+            />
+            <CustomTile
+              icon={"/icons/homepage/svg/coronavirus-icon.svg"}
+              link={`/${lng}/covid`}
+              title={"Coronavirus"}
+              text={"Una mirada en profundidad a la propagación del COVID-19 en México a través de datos y visualizaciones actualizadas diariamente."}
+            />
+            <CustomTile
+              icon={"/icons/homepage/svg/complejidad-economica-icon.svg"}
+              link={`/${lng}/eci/explore`}
+              title={"Complejidad Económica"}
+              text={"Conozca el nivel de desarrollo industrial y económico en México, a múltiples niveles geográficos, mediante parámetros personalizables."}
+            />
+          </div>
+        </div>
+
+        <div className="home-content-profiles container">
+          {Object.keys(tiles).map((d, i) => {
+            const items = tiles[d];
+            const info = homeTiles[d];
+            return <div
+              className="profiles-tile-container"
+              key={`home-tile-title_${i}_${lng}`}
+            >
+              <TileTitle
+                icon={d}
+                title={t(info.name)}
+                subtitle={t(info.subtitle)}
+              />
+              <div className="profile-tile-container-list">
+                {items.map(h => <TileV2
+                  id={h.slug}
+                  key={`${h.id}-home-tile-${lng}`}
+                  level={t(h.hierarchy)}
+                  lng={lng}
+                  slug={d}
+                  slugColor={info.background}
+                  title={h.name}
+                />)}
+              </div>
+              <a className="profiles-tile-total" href={`/${lng}/explore?profile=${d}`}>
+                <img src="/icons/homepage/png/ver-mas-icon.png" className="profiles-tile-total-icon" />
+                <span className="profiles-tile-total-value">{info.levels.reduce((a, b) => a + b.count, 0)} más</span>
+              </a>
+            </div>;
+          })}
         </div>
         <Footer />
       </div>
