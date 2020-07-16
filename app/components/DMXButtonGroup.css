@@ -14,8 +14,8 @@
     padding: 0;
   }
   & .cp-button.is-active {
-    background: var(--gmx-yellow-2);
+    background-color: var(--gmx-red-1);
     color: var(--white);
-    border: 1px solid var(--gmx-yellow-2);
+    border: 1px solid var(--gmx-red-1);
   }
 }

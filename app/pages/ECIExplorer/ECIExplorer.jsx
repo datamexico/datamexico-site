@@ -14,6 +14,7 @@ import {Switch, Slider, InputGroup, Button, Label} from "@blueprintjs/core";
 
 import {saveAs} from "file-saver";
 import {strip} from "d3plus-text";
+import {formatAbbreviate} from "d3plus-format";
 
 import {cubes} from "helpers/complexity";
 
@@ -27,6 +28,7 @@ export function parseURL(query) {
 import "react-table/react-table.css";
 import "./ECIExplorer.css";
 import LoadingChart from "../../components/LoadingChart";
+import DMXTree from "../../components/DMXTree";
 
 const filename = str => strip(str.replace(/<[^>]+>/g, ""))
   .replace(/^\-/g, "")
@@ -84,7 +86,7 @@ class ECIExplorer extends React.Component {
     super(props);
 
     // Selects default params used on the site
-    const cubeId = "inegi_economic_census";
+    const cubeId = "inegi_denue";
     const cubeItem = cubeItems.find(d => d.id === cubeId);
     const cubeSelected = cubes[cubeId];
 
@@ -110,8 +112,8 @@ class ECIExplorer extends React.Component {
       dataPCI: [],
       dataRCA: [],
       loading: true,
-      thresholdGeo: 100,
-      thresholdIndustry: 100,
+      thresholdGeo: 300,
+      thresholdIndustry: 300,
       ...tempState,
       ...newTempState
     };
@@ -309,36 +311,17 @@ class ECIExplorer extends React.Component {
               {t("ECI Explorer.Description")}
             </p> */}
 
-            <DMXSelect
-              callback={cubeItemTemp => {
-                const cubeId = cubeItemTemp.id;
-                const cubeSelectedTemp = cubes[cubeId];
-                console.log(cubeId);
-                this.setState({
-                  cubeItemTemp,
-                  cubeSelectedTemp,
-                  geoSelectedTemp: geoLevels(this.props.lng, cubeId)[0],
-                  isAggTemp: cubeSelectedTemp.isAgg,
-                  levelSelectedTemp: cubeSelectedTemp.levels[0],
-                  measureSelectedTemp: cubeSelectedTemp.measures[0],
-                  timeSelectedTemp: cubeSelectedTemp.time[0]
-                });
-              }}
-              items={cubeItems}
-              selectedItem={this.state.cubeItemTemp}
-              title={t("Dataset")}
-            />
             <DMXButtonGroup
               items={geoLevels(lng, this.state.cubeItemTemp.id)}
               selected={geoSelectedTemp}
-              title="Geo"
+              title="Nivel geográfico"
               callback={geoSelectedTemp => this.setState({geoSelectedTemp})}
             />
             <DMXButtonGroup
               items={this.state.cubeSelectedTemp.levels}
               selected={levelSelectedTemp}
               callback={levelSelectedTemp => this.setState({levelSelectedTemp})}
-              title={t("Level")}
+              title={t("Nivel industrial")}
             />
             <DMXSelect
               callback={measureSelectedTemp => this.setState({measureSelectedTemp})}
@@ -346,50 +329,71 @@ class ECIExplorer extends React.Component {
               selectedItem={measureSelectedTemp}
               title={t("Measure")}
             />
-            <div className="dmx-slider">
-              <h4 className="title" dangerouslySetInnerHTML={{
-                __html: t("threshold_eci_explorer", {
-                  level: t(geoSelectedTemp.name),
-                  measure: t(measureSelectedTemp.title)
-                })
-              }} />
-
-              <Slider
-                min={100}
-                max={1000}
-                stepSize={10}
-                labelStepSize={100}
-                onChange={this.getChangeHandler("thresholdGeo")}
-                value={this.state.thresholdGeo}
-              />
-            </div>
-            <div className="dmx-slider">
-              <h4 className="title" dangerouslySetInnerHTML={{
-                __html: t("threshold_eci_explorer", {
-                  level: t(levelSelectedTemp.name),
-                  measure: t(measureSelectedTemp.title)
-                })
-              }} />
-              <Slider
-                min={100}
-                max={1000}
-                stepSize={10}
-                labelStepSize={100}
-                onChange={this.getChangeHandler("thresholdIndustry")}
-                value={this.state.thresholdIndustry}
-              />
-            </div>
             <DMXSelect
               items={this.state.cubeSelectedTemp.time}
               selectedItem={timeSelectedTemp}
               callback={timeSelectedTemp => this.setState({timeSelectedTemp})}
               title={t("Time")}
             />
-            <Switch
-              checked={this.state.isAggTemp}
-              label={t("Values aggregated")}
-              onChange={() => this.setState({isAggTemp: !this.state.isAggTemp})}
-            />
+            <DMXTree>
+              <DMXSelect
+                callback={cubeItemTemp => {
+                  const cubeId = cubeItemTemp.id;
+                  const cubeSelectedTemp = cubes[cubeId];
+                  this.setState({
+                    cubeItemTemp,
+                    cubeSelectedTemp,
+                    geoSelectedTemp: geoLevels(this.props.lng, cubeId)[0],
+                    isAggTemp: cubeSelectedTemp.isAgg,
+                    levelSelectedTemp: cubeSelectedTemp.levels[0],
+                    measureSelectedTemp: cubeSelectedTemp.measures[0],
+                    timeSelectedTemp: cubeSelectedTemp.time[0]
+                  });
+                }}
+                items={cubeItems}
+                selectedItem={this.state.cubeItemTemp}
+                title={t("Dataset")}
+              />
+              <div className="dmx-slider">
+                <h4 className="title" dangerouslySetInnerHTML={{
+                  __html: t("threshold_eci_explorer", {
+                    level: t(geoSelectedTemp.name),
+                    measure: t(measureSelectedTemp.title)
+                  })
+                }} />
+
+                <Slider
+                  min={100}
+                  max={1000}
+                  stepSize={10}
+                  labelStepSize={100}
+                  onChange={this.getChangeHandler("thresholdGeo")}
+                  value={this.state.thresholdGeo}
+                />
+              </div>
+              <div className="dmx-slider">
+                <h4 className="title" dangerouslySetInnerHTML={{
+                  __html: t("threshold_eci_explorer", {
+                    level: t(levelSelectedTemp.name),
+                    measure: t(measureSelectedTemp.title)
+                  })
+                }} />
+                <Slider
+                  min={100}
+                  max={1000}
+                  stepSize={10}
+                  labelStepSize={100}
+                  onChange={this.getChangeHandler("thresholdIndustry")}
+                  value={this.state.thresholdIndustry}
+                />
+              </div>
+
+              <Switch
+                checked={this.state.isAggTemp}
+                label={t("Values aggregated")}
+                onChange={() => this.setState({isAggTemp: !this.state.isAggTemp})}
+              />
+            </DMXTree>
             <button
               onClick={() => this.fetchData()}
               className="dmx-button"
@@ -417,13 +421,13 @@ class ECIExplorer extends React.Component {
                   groupBy: [geoId],
                   colorScale: eciMeasure,
                   colorScaleConfig: {
-                    color: ["#C1564C", "#FE8A7D", "#FFC2B2", "#FFD687", "#E3C84C", "#99BD16", "#0FB002"],
+                    color: ["#ffffe0", "#a5d5d8", "#73a2c6", "#4771b2", "#00429d"],
                     midpoint: 0,
                     scale: "linear"
                   },
                   tooltipConfig: {
                     tbody: d => [
-                      ["ECI", d[eciMeasure]]
+                      ["ECI", formatAbbreviate(d[eciMeasure])]
                     ]
                   },
                   tiles: true,
@@ -431,7 +435,7 @@ class ECIExplorer extends React.Component {
                   topojsonId: geoSelected.topojsonId
                 }}
               />
-            </div> : <LoadingChart message={t("Loading")} />}
+            </div> : <LoadingChart message={"Cargando visualización..."} />}
           </div>
         </div>
 
