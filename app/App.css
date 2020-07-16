@@ -71,7 +71,7 @@ p:last-of-type {
   & .cp-stat {
     flex: 1 !important;
     margin-right: 0 !important;
-    min-width: 170px !important;
+    min-width: 150px !important;
     padding: 0;
     & .cp-stat-label-text {
       display: flex;
