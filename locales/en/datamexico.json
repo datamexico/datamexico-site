@@ -210,8 +210,8 @@
   "Search locations, industries, occupations, products, and organizations": "Search locations, industries, occupations, products, and organizations",
   "Search profiles": "Search profiles",
   "share": {
-    "title": "DataMéxico",
-    "description": "Explore, visualize, compare and download mexican data.",
+    "title": "DataMexico",
+    "description": "DataMexico is a joint effort between the Ministry of Economy (SE) and Datawheel, which allows the integration, visualization and analysis of data to improve decision-making of public policies focused on promoting innovation, inclusion and diversification of the Mexican economy.",
     "covid": "covid-desc",
     "eci": "eci-desc",
     "about": "about-desc",
