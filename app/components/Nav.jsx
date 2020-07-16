@@ -104,7 +104,7 @@ class Nav extends React.Component {
         </button>
       </div>
       <div className="nav-center">
-        {(logo || className === "background") && <a className="profile-logo" href="/" data-refresh="true"><img src="/icons/logo-horizontal.svg" alt="" /></a>}
+        {(logo || className === "background") && <a className="profile-logo" href="/" data-refresh="true"><img src="/icons/logo-horizontal.png" alt="" /></a>}
         <span className="nav-subtitle">{title}</span>
       </div>
       <div className="nav-right">
