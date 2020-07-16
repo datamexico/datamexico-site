@@ -65,6 +65,9 @@
       "Search profiles": "Search profiles",
       "reset": "reset"
     },
+    "Section": {
+      "Reset visualizations": "Reset visualizations"
+    },
     "SourceGroup": {
       "Data provided by": "Data provided by",
       "and": "and"
@@ -133,6 +136,8 @@
   "Elementary and Secondary Schools": "Elementary and Secondary Schools",
   "Explore": "Explore",
   "Explore Profile": {
+    "Clear Filters": "Explore Profile.Clear Filters",
+    "MaxResults": "Explore Profile.MaxResults",
     "No data available": "Sorry, there are no results for this search. Try with another search param.",
     "Search Placeholder": "Search profiles..."
   },
@@ -180,6 +185,7 @@
     "October": "October",
     "September": "September"
   },
+  "Nivel industrial": "Nivel industrial",
   "No results found": "No results found",
   "Occupations": "Occupations",
   "Parts of Seats": "Parts of Seats",

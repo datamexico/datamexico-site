@@ -58,10 +58,13 @@
     "Search": {
       "Empty": "Por favor ingrese un término de búsqueda",
       "Loading": "Cargando resultados...",
-      "No results": "No results matching \"{{query}}\"",
+      "No results": "No se encontraron resultados \"{{query}}\"",
       "Related Profiles": "Perfiles similares",
       "Search profiles": "Buscar perfiles",
-      "reset": "reset"
+      "reset": "restablecer"
+    },
+    "Section": {
+      "Reset visualizations": "Restablecer visualizaciones"
     },
     "SourceGroup": {
       "Data provided by": "Fuente",
@@ -91,7 +94,7 @@
     "Linear": "Lineal",
     "Logarithmic": "Logaritmica",
     "Overview": "Resumen",
-    "Selector Name": "Ver Resultados Para",
+    "Selector Name": "Ver resultados para",
     "Source": "Fuente:",
     "Stat ID": "Casos reportados en",
     "Stats": {
@@ -100,7 +103,7 @@
       "Total": "Casos confirmados"
     },
     "Total": "Total",
-    "Week": "Semana Pasada"
+    "Week": "Semana pasada"
   },
   "Data": "Datos",
   "Data sources": "Fuentes de datos",
@@ -114,15 +117,15 @@
     "Title": "Complejidad económica en México"
   },
   "EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA": "EXPLORA, VISUALIZA, COMPARA, Y DESCARGA DATOS MEXICANOS",
-  "Economic Census": "Censo Económico",
-  "Economic Unit": "Unidad Económica",
+  "Economic Census": "Censo económico",
+  "Economic Unit": "Unidad económica",
   "Employees": "Empleados",
   "Explore": "Explora",
   "Explore Profile": {
-    "No data available": "Lo sentimos, no hay resultados para esta búsqueda. Intente con otros parámetros o en otras secciones.",
-    "Search Placeholder": "Buscar perfiles...",
     "Clear Filters": "Limpiar filtros",
-    "MaxResults": "La consulta supera los 100 resultados, intente ingresar filtros adicionales para refinar la búsqueda."
+    "MaxResults": "La consulta supera los 100 resultados, intente ingresar filtros adicionales para refinar la búsqueda.",
+    "No data available": "Lo sentimos, no hay resultados para esta búsqueda. Intente con otros parámetros o en otras secciones.",
+    "Search Placeholder": "Buscar perfiles..."
   },
   "Foreign Trade": "Comercio Exterior",
   "Glossary": "Glosario",
@@ -132,24 +135,23 @@
     "Search Placeholder": "Ej. Ciudad de México, Monterrey"
   },
   "In the press": "Prensa",
-  "Industrial Engineers": "Ingenieros Industriales",
   "Industries": "Industrias",
   "Industry Group": "Rama Industrial",
   "Institution": "Institución",
   "Level": "Nivel",
   "Levels": {
-    "Industry Group": "Rama Industrial",
-    "Industry Group_plural": "Ramas Industriales",
-    "Metro Area": "Zona Metropolitana",
-    "Metro Area_plural": "Zonas Metropolitanas",
+    "Industry Group": "Rama industrial",
+    "Industry Group_plural": "Ramas industriales",
+    "Metro Area": "Zona metropolitana",
+    "Metro Area_plural": "Zonas metropolitanas",
     "Municipality": "Municipio",
     "Municipality_plural": "Municipios",
     "NAICS Industry": "Industria SCIAN",
     "NAICS Industry_plural": "Industrias SCIAN",
     "Occupation": "Ocupación",
     "Occupation_plural": "Ocupaciones",
-    "State": "Entidad Federativa",
-    "State_plural": "Entidades Federativas"
+    "State": "Entidad federativa",
+    "State_plural": "Entidades federativas"
   },
   "Lineal": "Lineal",
   "Loading": {
@@ -172,11 +174,12 @@
   "Measure": "Indicador",
   "Menu": "Menú",
   "Metal Ore Mining": "Minería Metálica",
-  "Metro Area": "Zona Metropolitana",
+  "Metro Area": "Zona metropolitana",
   "Municipality": "Municipio",
   "NAICS Industry": "Industria SCIAN",
   "Nation": "País",
   "National Industry": "Industria Nacional",
+  "Nivel industrial": "Nivel industrial",
   "No Filter": "Sin Filtro",
   "No filter": "Sin filtro",
   "No results found": "No se encontraron resultados",
