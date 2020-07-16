@@ -1,0 +1,15 @@
+.dmx-tree {
+  margin-bottom: var(--gutter-md);
+  & .title {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: var(--font-sm);
+    cursor: pointer;
+    margin-bottom: var(--gutter-sm);
+  }
+
+  & .dmx-tree-content {
+    background-color: var(--light-2);
+    padding: var(--gutter-sm);
+  }
+}
