@@ -20,10 +20,6 @@
     "9": "#2A3D68",
     "10": "#466773"
   },
-  "Classification of Formal and Informal Jobs of the First Activity": {
-    "1": "#B09E80",
-    "2": "#634100"
-  },
   "Generic Investment": {
     "1": "#A0C481",
     "2": "#73BFB8",
@@ -236,23 +232,23 @@
     "6": "#6B9AC4",
     "7": "#999EBA"
   },
-  "Authorities Trust": {
+  "Confidence in Federal Police": {
     "1": "#6D597A",
     "2": "#B56576",
     "3": "#E56B6F",
     "4": "#355070"
   },
-  "Work Type": {
+  "Classification of Formal and Informal Jobs of the First Activity": {
     "1": "#E07A5F",
     "2": "#81B29A"
   },
-  "Basic Services": {
+  "type": {
     "1": "#81B2EE",
     "2": "#F7CE69",
     "3": "#3F89CB",
     "4": "#067F93"
   },
-  "Student Type": {
+  "Status": {
     "1": "#00B2CA",
     "2": "#1D4E89"
   }
