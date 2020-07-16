@@ -19,7 +19,7 @@ module.exports = {
   FOOTER_NAV: [
     {title: "Explore", items: [
       {title: "Profiles",         url: `/${locale}/explore`},
-      {title: "Coronavirus",        url: `/${locale}/covid`},
+      {title: "Coronavirus",        url: `/${locale}/coronavirus`},
       {title: "ECI Explorer.Title",     url: `/${locale}/eci/explore`}
       // {title: "Viz Builder",      url: `/${locale}/vizbuilder`},
       // {title: "Data Cart",        url: `/${locale}/cart`}
