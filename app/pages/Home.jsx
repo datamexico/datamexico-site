@@ -79,7 +79,7 @@ class Home extends Component {
             </p>
             <div className="hero-info-logo-list">
               {LOGOS.map(logo =>
-                <a className="hero-info-logo-link" href={logo.url} key={logo.title} aria-hidden tabIndex="-1">
+                <a className="hero-info-logo-link" href={logo.url} key={logo.title} aria-hidden tabIndex="-1" target="_blank" rel="noopener noreferrer">
                   <img className="hero-info-logo-img" src={`/icons/${logo.src}`} alt={logo.title} />
                 </a>
               )}
