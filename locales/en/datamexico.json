@@ -209,6 +209,14 @@
   "Search": "Search",
   "Search locations, industries, occupations, products, and organizations": "Search locations, industries, occupations, products, and organizations",
   "Search profiles": "Search profiles",
+  "share": {
+    "title": "DataMéxico",
+    "description": "Explore, visualize, compare and download mexican data.",
+    "covid": "covid-desc",
+    "eci": "covid-desc",
+    "about": "about-desc",
+    "profile": "profile-desc"
+  },
   "Sign Up": "Sign Up",
   "SignUp": {
     "Confirm Password": "Confirm Password",

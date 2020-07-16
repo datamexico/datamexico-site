@@ -209,6 +209,14 @@
   "Search locations, industries, occupations, products, and organizations": "Busca localidades, industrias, ocupaciones, productos y organizaciones",
   "Search profiles": "Buscar perfiles",
   "Self Represented City": "Ciudad Auto Representada",
+  "share": {
+    "title": "DataMéxico",
+    "description": "Explora, visualiza, compara y descarga datos mexicanos.",
+    "covid": "covid-desc",
+    "eci": "covid-desc",
+    "about": "about-desc",
+    "profile": "profile-desc"
+  },
   "Sign Up": "Sign Up",
   "SignUp": {
     "Confirm Password": "Confirm Password",
