@@ -90,7 +90,8 @@ module.exports = function (app) {
           enoeLatestQuarter,
           enoePrevQuarter,
           enoePrevYear,
-          foreignTradeLatestYear: "2019"
+          foreignTradePrevYear: 2018,
+          foreignTradeLatestYear: 2019
         });
 
       case 11:
