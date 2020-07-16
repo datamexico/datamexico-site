@@ -11,7 +11,7 @@
       & h3 {
         color: var(--gmx-red-2);
         font-size: var(--font-lg);
-        font-weight: var(--base-font-weight);
+        font-weight: var(--bold-weight);
         text-transform: uppercase;
         margin-right: var(--gutter-xs);
       }
