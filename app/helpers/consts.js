@@ -35,7 +35,7 @@ module.exports = {
       // {title: "Team",             url: `/${locale}/about/team`},
       {title: "Glossary",         url: `/${locale}/about/glossary`},
       {title: "Terms of use",     url: `/${locale}/about/legal`},
-      {title: "Contact us",       url: "mailto:alex@datawheel.us?subject=Message from DataMexico footer contact link"}
+      {title: "Contact us",       url: "mailto:datamexico@datawheel.us?subject=Contacto equipo DataMéxico"}
     ]}
   ],
   LOGOS: [
