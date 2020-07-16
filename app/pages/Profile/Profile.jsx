@@ -61,7 +61,7 @@ class Profile extends React.Component {
     const {scrolled} = this.state;
 
     const share = {
-      title: `Data México | ${t("Profiles")} ${variables.name}}`,
+      title: `Data México | ${t("Profiles")} ${variables.name}`,
       desc: `${t("share.profile")}`
     };
 

@@ -213,9 +213,10 @@
     "title": "DataMéxico",
     "description": "Explora, visualiza, compara y descarga datos mexicanos.",
     "covid": "covid-desc",
-    "eci": "covid-desc",
+    "eci": "eci-desc",
     "about": "about-desc",
-    "profile": "profile-desc"
+    "profile": "profile-desc",
+    "explore": "explore-desc"
   },
   "Sign Up": "Sign Up",
   "SignUp": {
