@@ -17,11 +17,13 @@ class TileV2 extends Component {
       lng,            //locale
       slug,           //profile type
       slugColor,      //profile type color
-      title           //profile name
+      title,           //profile name
+      ix,
+      layout         //Could be 'full-width'  or 'cols'
     } = this.props;
 
     return (
-      <Element className={classnames("tile-v2-container")}>
+      <Element className={classnames("tile-v2-container", `tile-v2-layout-${layout}`)} key={`tile-${slug}-${id}-${ix}`}>
         <a className="tile-link" href={link || `/${lng}/profile/${slug}/${id}`}>
           <div className="tile-content">
             <div className="tile-content-description">
@@ -50,7 +52,8 @@ TileV2.defaultProps = {
   icon: false,
   link: undefined,
   title: "",
-  Element: "div"
+  Element: "div",
+  layout: 'full-width'
 };
 
 export default withNamespaces()(TileV2);
