@@ -15,7 +15,7 @@ class ExploreHeader extends React.Component {
         key={`explore-header-btn-${slug}`}
       >
         <img className="ep-header-img" src={`/icons/explore/${slug}.png`} alt="" />
-        <span className="ep-header-title heading u-font-md">{t(title)}<small>{len ? `(${len})` : ''}</small></span>
+        <span className="ep-header-title heading u-font-md">{t(title)}<small>{len ? `${len}` : ''}</small></span>
       </button>
     );
   }

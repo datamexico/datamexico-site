@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router";
 import {withNamespaces} from "react-i18next";
 
-import ExploreTile from "./ExploreTile";
+import TileV2 from "./TileV2";
 import "./ExploreProfile.css";
 
 class ExploreProfile extends React.Component {
@@ -24,15 +24,17 @@ class ExploreProfile extends React.Component {
           <>
             <ul className="ep-profile-results">
               {results.map((d,ix) =>
-                <ExploreTile
+                <TileV2
                   title={d.name}
                   slug={d.slug}
+                  slugColor={d.background}
                   id={d.id}
                   ix={ix}
                   level={t(d.level)}
                   background={d.background}
                   lng={lng}
                   key={`explore-${d.slug}-tile-${d.id}-${ix}`}
+                  layout="cols"
                 />
               )}
             </ul>

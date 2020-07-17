@@ -6,9 +6,34 @@
   height: 8rem;
   overflow: hidden;
   position: relative;
-  width: 100%;
   z-index: 1;
   margin-bottom: 0.75rem;
+  &.tile-v2-layout-full-width {
+    width: 100%;
+  }
+  &.tile-v2-layout-cols {
+    margin: 0.75rem;
+    width: 23%;
+    margin: var(--gutter-xs);
+    @mixin max-xl {
+
+    }
+    @mixin max-lg  {
+      width: 30%;
+    }
+    @mixin max-md  {
+      width: 47%;
+    }
+    @mixin max-sm  {
+      width: 100%;
+    }
+    @mixin max-xs  {
+
+    }
+    @mixin max-xxs{
+
+    }
+  }
   &:hover {
     border-color: var(--dark-1);
     transition: 0.15s ease-out;

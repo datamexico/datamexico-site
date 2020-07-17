@@ -11,8 +11,6 @@ import TileTitle from "../components/TileTitle";
 import HeroSearch from "../components/HeroSearch";
 import CustomTile from "../components/CustomTile";
 
-import SearchResult from "../components/SearchResult";
-
 import "../styles/SharePanel.css";
 import tilesES from "../../static/tiles/es.json";
 import tilesEN from "../../static/tiles/es.json";
@@ -137,12 +135,13 @@ class Home extends Component {
                 subtitle={t(info.subtitle)}
               />
               <div className="profile-tile-container-list">
-                {items.map(h => <TileV2
+                {items.map((h,ix) => <TileV2
                   id={h.slug}
                   key={`${h.id}-home-tile-${lng}`}
                   level={t(h.hierarchy)}
                   lng={lng}
                   slug={d}
+                  ix={ix}
                   slugColor={info.background}
                   title={h.name}
                 />)}
