@@ -6,7 +6,9 @@ import HelmetWrapper from "../HelmetWrapper";
 import {withNamespaces} from "react-i18next";
 import {InputGroup, Button} from "@blueprintjs/core";
 import {connect} from "react-redux";
-import {nest} from "d3-collection";
+import {nest, map as D3Map} from "d3-collection";
+import homeTiles from "helpers/homeTiles";
+import {commas} from "helpers/utils";
 
 import ExploreHeader from "../../components/ExploreHeader";
 import ExploreProfile from "../../components/ExploreProfile";
@@ -27,6 +29,23 @@ const profilesList = {
   'occupation': {title: "Occupations", cube: "inegi_enoe", dimension: "Occupation Actual Job", levels: ["Group", "Subgroup", "Occupation"], background: "#68adcd"}
 }
 
+const generateTotalsMap = () => {
+  const resp = new D3Map();
+  let leavesTemp, count, bigCount=0;
+  Object.keys(homeTiles).forEach(profile => {
+    leavesTemp = new D3Map();
+    count = 0;
+    homeTiles[profile].levels.forEach(level => {
+      count += level.count;
+      bigCount += level.count;
+      leavesTemp.set(level.name,{len:level.count});
+    });
+    resp.set(profile, {len: count, leaves: leavesTemp})
+  });
+  resp.set('filter',{len:bigCount});
+  return resp;
+}
+
 class Explore extends React.Component {
 
   state = {
@@ -34,8 +53,9 @@ class Explore extends React.Component {
     profile: this.props.location.query.profile || "filter",
     tab: this.props.location.query.tab || "0",
     results: [],
-    resultsNest: new Map(),
-    loading: true
+    resultsNest: new D3Map(),
+    loading: true,
+    totalsNest: generateTotalsMap()
   };
 
   componentDidMount = () => {
@@ -172,7 +192,7 @@ class Explore extends React.Component {
   }
 
   render() {
-    const {query, tab, profile, results, resultsNest, loading} = this.state;
+    const {query, tab, profile, results, resultsNest, totalsNest, loading} = this.state;
     const {t} = this.props;
 
     const clearButton = query !== '' ? <Button onClick={() => this.clearSearch()} minimal={true} className="ep-clear-btn" icon="cross" large={true} outlined={true}>{t('Explore Profile.Clear Filters')}</Button>:<span></span>
@@ -181,6 +201,8 @@ class Explore extends React.Component {
       title: `${t("Explore")}`,
       desc: `${t("share.explore")}`
     };
+
+    const totals = (query && query !== '' && !loading) ? resultsNest : totalsNest;
 
     return <div className="explore">
       <HelmetWrapper info={share} />
@@ -207,14 +229,11 @@ class Explore extends React.Component {
 
         <div className="ep-headers">
           {Object.keys(profilesList).map((sectionSlug, i) => {
-            let len = false;
-            if (query && query !== '' && !loading){
-              len = resultsNest.get(sectionSlug);
-              len = len?len.len:"0";
-            }
+            let len = totals.get(sectionSlug);
+            len = len?len.len:0;
             return <ExploreHeader
               title={t(profilesList[sectionSlug].title)}
-              len={len}
+              len={commas(len)}
               selected={profile}
               slug={sectionSlug}
               handleTabSelected={profile => this.handleProfile(profile)}
@@ -225,12 +244,10 @@ class Explore extends React.Component {
         <div className="ep-profile-tabs">
           {profilesList[profile].levels.map((levelName, ix) => {
             const levelKey = `${ix}`;
-            let len = false;
-            if (query && query !== '' && !loading) {
-              len = resultsNest.get(profile);
-              len = len ? len.leaves.get(levelName) : false;
-              len = len ? len.len : "0";
-            }
+            let len = totals.get(profile);
+            console.log(totals.get(profile));
+            len = len ? len.leaves.get(levelName) : false;
+            len = len ? len.len : 0;
             return <div
               className={classnames(
                 "ep-profile-tab",
@@ -240,7 +257,7 @@ class Explore extends React.Component {
               key={levelKey}
               onClick={() => this.handleTab(levelKey)}
             >
-              {`${t(levelName)}`} {len?`(${len})`:''}
+              {`${t(levelName)}`} {len ? `(${commas(len)})`:''}
             </div>;
           })}
         </div>

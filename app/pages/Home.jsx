@@ -11,8 +11,6 @@ import TileTitle from "../components/TileTitle";
 import HeroSearch from "../components/HeroSearch";
 import CustomTile from "../components/CustomTile";
 
-import SearchResult from "../components/SearchResult";
-
 import "../styles/SharePanel.css";
 import tilesES from "../../static/tiles/es.json";
 import tilesEN from "../../static/tiles/es.json";
