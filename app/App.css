@@ -151,12 +151,12 @@ p:last-of-type {
   flex-wrap: wrap;
   flex: 1;
   min-width: 300px;
-  padding: 0 var(--gutter-md);
+  padding: 0 var(--gutter-sm);
   & > .cp-viz-header + .cp-viz-figure {
-    bottom: 1.5rem;
+    bottom: 3rem;
     height: auto !important;
     flex: 1;
-    top: 1.5rem;
+    top: 3rem;
     width: 100%;
   }
 }
