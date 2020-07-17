@@ -186,10 +186,8 @@ class Covid extends Component {
   }
 
   calculateStats = (dataset, divisionArray, stats) => {
-    console.log(dataset, division, stats);
     const division = divisionArray.includes("Nation") ? "Nation" : divisionArray.includes("State") ? "State" : "Municipality";
     const data = dataset.filter(d => d.Division === division);
-    console.log(data);
     const total = data.reduce((acc, element) => (acc + element.Cases), 0);
     const result = [];
     for (const statID in stats) {
