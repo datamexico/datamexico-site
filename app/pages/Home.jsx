@@ -110,7 +110,7 @@ class Home extends Component {
             />
             <CustomTile
               icon={"/icons/homepage/svg/coronavirus-icon.svg"}
-              link={`/${lng}/covid`}
+              link={`/${lng}/coronavirus`}
               title={"Coronavirus"}
               text={"Una mirada en profundidad a la propagación del COVID-19 en México a través de datos y visualizaciones actualizadas diariamente."}
             />
