@@ -30,7 +30,7 @@ export default function RouteCreate() {
       {/* stubs */}
       <Route path="/:lang/about(/:page)" component={About} />
       <Route path="/:lang/data" component={Data} />
-      <Route path="/:lang/covid" component={Covid} />
+      <Route path="/:lang/coronavirus(/:slug)" component={Covid} />
       {/* 404 */}
       <Route path="/:lang/*" component={Error} />
     </Route>

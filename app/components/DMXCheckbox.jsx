@@ -11,8 +11,7 @@ export class DMXCheckbox extends Component {
   }
 
   render() {
-    const {title, items, selectedArray, selectedArrayID, onChange} = this.props;
-    console.log("items selected", selectedArray, selectedArrayID);
+    const {title, items, variable, selected, onChange} = this.props;
     return (
       <div className="dmx-checkbox">
         {title && <div className="dmx-checkbox-title">{title}</div>}
@@ -20,9 +19,9 @@ export class DMXCheckbox extends Component {
           <div className="dmx-checkbox-item">
             <Checkbox
               label={d.name}
-              className={classnames({"disabled": d.selected && selectedArray && selectedArray !== d.value})}
-              disabled={d.selected && selectedArray && selectedArray !== d.value}
-              onChange={event => onChange(event.currentTarget.checked, d.value, selectedArray, selectedArrayID)}
+              className={classnames({"disabled": d.unique && selected && selected !== d.value})}
+              disabled={d.unique && selected && selected !== d.value}
+              onChange={event => onChange(event.currentTarget.checked, d.value, variable)}
             />
           </div>
         ))}

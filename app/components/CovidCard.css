@@ -10,6 +10,7 @@
       color: var(--gmx-red-2);
       font-size: var(--font-lg);
       font-weight: var(--base-font-weight);
+      text-transform: uppercase;
     }
     & .covid-card-information-scale-selector {
       & .dmx-button-group {
@@ -111,12 +112,22 @@
 .covid-columns {
   display: flex;
   flex-direction: row;
-  & .covid-column-30 {
+  & .covid-column-left {
     padding: var(--gutter-sm);
-    width: 30%;
+    width: 20%;
   }
-  & .covid-column-70 {
+  & .covid-column-right {
     padding: var(--gutter-sm);
-    width: 70%;
+    width: 80%;
+  }
+}
+
+.bp3-portal {
+  & .bp3-transition-container.bp3-popover-enter-done a {
+    color: var(--black);
+    text-decoration-color: var(--black);
+  }
+  & .bp3-menu-item.bp3-intent-primary.bp3-active {
+    color: var(--white);
   }
 }

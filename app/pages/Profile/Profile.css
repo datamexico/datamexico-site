@@ -125,9 +125,25 @@
 }
 
 .cp-grouping-section {
-  background: var(--dark-2);
+  background: var(--dark-4);
   & .cp-section-content {
-    margin-bottom: 0;
+    margin: 1rem auto;
+    & .cp-stat-group {
+      flex: 2 1 !important;
+    }
+    & .cp-stat-label-text {
+      color: var(--light-3);
+      font-size: var(--font-xxs);
+      max-width: 100px;
+    }
+    & .cp-stat-value-text {
+      color: var(--gmx-yellow-1);
+      font-weight: 300;
+    }
+    & .cp-stat-subtitle {
+      color: var(--light-2);
+      font-size: var(--font-xs);
+    }
   }
 }
 

@@ -67,7 +67,7 @@
 
   & .nav-menu-logo {
     display: block;
-    width: 7rem;
+    width: 9rem;
     /* account for padding in logo */
     position: relative;
     top: -6px;

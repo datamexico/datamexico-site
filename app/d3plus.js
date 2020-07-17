@@ -12,7 +12,7 @@ const fontSizeLg = 16;
 const labelPadding = 5;
 const shapeLegend = 25;
 
-const icons = ["State", "Area", "Category", "Chapter", "Continent", "Country", "Flow", "Generic Investment", "Sector", "Sex"];
+const icons = ["Affected Legal Good", "State", "Area", "Category", "Chapter", "Continent", "Country", "Flow", "Generic Investment", "Sector", "Sex", "Crime Type", "Work Mean", "Confidence in Federal Police", "Classification of Formal and Informal Jobs of the First Activity", "type", "Status"];
 
 const getTooltipTitle = (d3plusConfig, d) => {
   const len = d3plusConfig._groupBy.length;
@@ -74,6 +74,7 @@ export const findIconV2 = (key, d) => {
     return `/icons/visualizations/Country/country_${d[`${key} ID`]}.png`;
   }
   const icon = key.replace(" 4 Digit", "");
+  // console.log("HERE", key, d);
   return icons.includes(icon)
     ? `/icons/visualizations/${icon}/png/white/${d[`${key} ID`]}.png`
     : undefined;

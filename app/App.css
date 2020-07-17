@@ -71,7 +71,7 @@ p:last-of-type {
   & .cp-stat {
     flex: 1 !important;
     margin-right: 0 !important;
-    min-width: 170px !important;
+    min-width: 150px !important;
     padding: 0;
     & .cp-stat-label-text {
       display: flex;
@@ -110,7 +110,7 @@ p:last-of-type {
   }
 }
 
-.ReactTable .rt-tbody { overflow: hidden !important; }
+.ReactTable .rt-tbody { overflow-y: hidden !important; }
 
 .cp-viz-container > .cp-viz-header {
   justify-content: center;

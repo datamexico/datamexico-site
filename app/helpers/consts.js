@@ -11,31 +11,31 @@ module.exports = {
     ]},
     // {title: "Viz Builder",        url: `/${locale}/vizbuilder`},
     // {title: "Data Cart",          url: `/${locale}/cart`},
-    {title: "Coronavirus",        url: `/${locale}/covid`},
+    {title: "Coronavirus",        url: `/${locale}/coronavirus`},
     {title: "ECI Explorer.Title",       url: `/${locale}/eci/explore`},
     {title: "About DataMexico",   url: `/${locale}/about`},
-    {title: "Data sources",       url: `/${locale}/data`}
+    //{title: "Data sources",       url: `/${locale}/data`}
   ],
   FOOTER_NAV: [
     {title: "Explore", items: [
       {title: "Profiles",         url: `/${locale}/explore`},
-      {title: "Coronavirus",        url: `/${locale}/covid`},
+      {title: "Coronavirus",        url: `/${locale}/coronavirus`},
       {title: "ECI Explorer.Title",     url: `/${locale}/eci/explore`}
       // {title: "Viz Builder",      url: `/${locale}/vizbuilder`},
       // {title: "Data Cart",        url: `/${locale}/cart`}
     ]},
-    {title: "Data", items: [
+    /*{title: "Data", items: [
       {title: "Data sources",     url: `/${locale}/data`},
       {title: "API",              url: `/${locale}/data#api`},
       {title: "Classifications",  url: `/${locale}/data#classifications`}
-    ]},
+    ]},*/
     {title: "About", items: [
       // {title: "Background",       url: `/${locale}/about`},
       {title: "In the press",     url: `/${locale}/about/press`},
       // {title: "Team",             url: `/${locale}/about/team`},
       {title: "Glossary",         url: `/${locale}/about/glossary`},
       {title: "Terms of use",     url: `/${locale}/about/legal`},
-      {title: "Contact us",       url: "mailto:alex@datawheel.us?subject=Message from DataMexico footer contact link"}
+      {title: "Contact us",       url: "mailto:datamexico@datawheel.us?subject=Contacto equipo DataMéxico"}
     ]}
   ],
   LOGOS: [

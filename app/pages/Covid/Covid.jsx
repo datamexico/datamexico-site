@@ -1,8 +1,10 @@
-import PropTypes from "prop-types";
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import HelmetWrapper from "../HelmetWrapper";
+import {formatAbbreviate} from "d3plus-format";
 import {withNamespaces} from "react-i18next";
+// import classnames from "classnames";
 
 import CovidCard from "components/CovidCard";
 import CovidTable from "components/CovidTable";
@@ -39,13 +41,15 @@ class Covid extends Component {
       progressStatSelected: undefined,
       progressScaleOptions: null,
       progressScaleSelected: undefined,
-      progressBaseSelected: [],
+      progressTimeScaleOptions: null,
+      progressTimeScaleSelected: undefined,
+      progressBaseSelected: null,
       ageRangesStatOptions: null,
       ageRangesStatSelected: undefined
     };
     this.addNewLocation = this.addNewLocation.bind(this);
     this.resetBaseLocation = this.resetBaseLocation.bind(this);
-    this.addBaseOption = this.addBaseOption.bind(this);
+    this.selectBaseOption = this.selectBaseOption.bind(this);
   }
 
   shouldComponentUpdate = (nextProp, nextState) => {
@@ -55,11 +59,14 @@ class Covid extends Component {
       || prevState.locationSelected !== nextState.locationSelected
       || prevState.progressStatSelected !== nextState.progressStatSelected
       || prevState.progressScaleSelected !== nextState.progressScaleSelected
+      || prevState.progressTimeScaleSelected !== nextState.progressTimeScaleSelected
+      || prevState.progressBaseSelected !== nextState.progressBaseSelected
       || prevState.ageRangesStatSelected !== nextState.ageRangesStatSelected;
   }
 
   fetchData = () => {
     axios.get("/api/covid/").then(resp => {
+      const {slug} = this.props.params;
       // Load the data from the database
       const data = resp.data;
       const dates = data.dates;
@@ -68,7 +75,7 @@ class Covid extends Component {
       const dataStats = data.covid_stats;
       const dataStatsLatest = dataStats.filter(d => d["Time ID"] === dataDate["Time ID"]);
       const locationArray = data.locations.filter(d => d["Division"] !== "Municipality");
-      const locationBase = locationArray[0];
+      const locationBase = slug ? locationArray.find(d => d["Location ID"] * 1 === slug * 1) ? locationArray.find(d => d["Location ID"] * 1 === slug * 1) : locationArray[0] : locationArray[0];
       const locationSelected = [locationBase["Location ID"]];
 
       // Create variables for the visualizations
@@ -84,6 +91,11 @@ class Covid extends Component {
         {name: "Logarítmica", id: "log"}
       ];
       const progressScaleSelected = progressScaleOptions[0];
+      const progressTimeScaleOptions = [
+        {name: "Fecha", id: "time"},
+        {name: "Días", id: "days"}
+      ];
+      const progressTimeScaleSelected = progressTimeScaleOptions[0];
       const ageRangesStatOptions = [
         {name: "Confirmados", id: "Confirmed"},
         {name: "Fallecidos", id: "Deceased"},
@@ -106,6 +118,8 @@ class Covid extends Component {
         progressStatSelected,
         progressScaleOptions,
         progressScaleSelected,
+        progressTimeScaleOptions,
+        progressTimeScaleSelected,
         ageRangesStatOptions,
         ageRangesStatSelected
       })
@@ -116,16 +130,14 @@ class Covid extends Component {
     this.fetchData();
   }
 
-  addBaseOption = (event, value, prevArray, prevArrayID) => {
-    console.log(event, value, prevArray, prevArrayID);
-    // const array = selectedArray.slice();
+  selectBaseOption = (event, value, id) => {
+    const nextState = {};
     if (event) {
-      // array.push(location["Location ID"]);
+      nextState[id] = value;
     } else {
-      // const index = locationsArray.findIndex(d => d === location["Location ID"]);
-      // locationsArray.splice(index, index > -1 ? 1 : 0);
+      nextState[id] = null;
     }
-    // this.setState({[id]: event ? value : null});
+    this.setState(nextState);
   }
 
   filterData = (data, selected) => {
@@ -173,17 +185,6 @@ class Covid extends Component {
     return `${d}`
   }
 
-  keepElementsInData = (dataset, keepElements) => {
-    const filteredData = dataset.map(d => {
-      const row = {};
-      for (const index in keepElements) {
-        row[keepElements[index]] = d[keepElements[index]];
-      }
-      return row;
-    });
-    return filteredData;
-  }
-
   calculateStats = (dataset, division, stats) => {
     const data = dataset.filter(d => d.Division === division);
     const total = data.reduce((acc, element) => (acc + element.Cases), 0);
@@ -198,11 +199,21 @@ class Covid extends Component {
           count: count,
           percentage: count / total
         };
-        console.log(statRow);
         result.push(statRow);
       }
     }
     return result;
+  }
+
+  keepElementsInData = (dataset, keepElements) => {
+    const filteredData = dataset.map(d => {
+      const row = {};
+      for (const index in keepElements) {
+        row[keepElements[index]] = d[keepElements[index]];
+      }
+      return row;
+    });
+    return filteredData;
   }
 
   render() {
@@ -220,6 +231,8 @@ class Covid extends Component {
       progressStatSelected,
       progressScaleOptions,
       progressScaleSelected,
+      progressTimeScaleOptions,
+      progressTimeScaleSelected,
       progressBaseSelected,
       ageRangesStatOptions,
       ageRangesStatSelected
@@ -230,6 +243,7 @@ class Covid extends Component {
 
     // Date of the data
     const showDate = this.showDate(dataDate.Time);
+    const securityDate = dates[dates.length - 1];
 
     // Stats showed in the hero
     const locationBaseData = dataStatsLatest.find(d => d["Location ID"] === locationBase["Location ID"]);
@@ -242,56 +256,133 @@ class Covid extends Component {
       {id: "stat_accum_dead", name: "Total Fallecidos Confirmados", icon: "muertes-confirmadas-icon.svg", value: commas(locationBaseData["Accum Deaths"])}
     ];
 
-    // filter data elements in array by key
-    const confirmedData = this.keepElementsInData(dataStats, ["Time ID", "Time", "Daily Cases", "Location ID", "Location"]);
-    // console.log("Confirmed Data", confirmedData);
-
     // Graph #1: LinePlot data for covid new daily cases stats
-    const lastWeekDates = dates.map(d => d["Time ID"]);
-    const minLastDayDate = Math.min(...lastWeekDates);
-
-    const locationSelectedData = this.filterData(dataStats, locationSelected);
-    locationSelectedData.map(d => d["Type"] = lastWeekDates.includes(d["Time ID"]) ? 1 : 0);
-
-    const lastWeekData = locationSelectedData.filter(d => lastWeekDates.includes(d["Time ID"]));
-
-    const _lastWeekData = lastWeekData.map(d => {
-      const h = Object.assign({}, d, {"Type": 2, "Daily Cases": d["Time ID"] !== minLastDayDate ? d["Daily Suspect"] : d["Daily Cases"]});
+    // Select the data for the value selected on the stat selector
+    const progressStatDataLocations = this.filterData(dataStats, locationSelected);
+    let progressStatData = "";
+    let progressStatTooltip = {};
+    let progressStatTimeScale = {};
+    if (progressStatSelected.id === "Daily Cases" || progressStatSelected.id === "Accum Cases") {
+      const statsToKeep = ["Time ID", "Time", "Location ID", "Location", "Division", "Daily Cases", "Accum Cases", "AVG 7 Days Daily Cases", "AVG 7 Days Accum Cases", "Rate Daily Cases", "Rate Accum Cases", "Days from 50 Cases"];
+      progressStatData = this.keepElementsInData(progressStatDataLocations, statsToKeep);
+      progressStatTooltip = {
+        Daily: {name: "Contagios Diarios", value: "Daily Cases"},
+        Accum: {name: "Contagios Acumulados", value: "Accum Cases"},
+        RateDaily: {name: "Contagios Diarios por cada 100 mil habitantes", value: "Rate Daily Cases"},
+        RateAccum: {name: "Contagios Acumulados por cada 100 mil habitantes", value: "Rate Accum Cases"},
+      };
+      progressStatTimeScale = {name: "Días (eje inicia con al menos 50 contagios)", value: "Days from 50 Cases"};
+    } else if (progressStatSelected.id === "Daily Deaths" || progressStatSelected.id === "Accum Deaths") {
+      const statsToKeep = ["Time ID", "Time", "Location ID", "Location", "Division", "Daily Deaths", "Accum Deaths", "AVG 7 Days Daily Deaths", "AVG 7 Days Accum Deaths", "Rate Daily Deaths", "Rate Accum Deaths", "Days from 10 Deaths"];
+      progressStatData = this.keepElementsInData(progressStatDataLocations, statsToKeep);
+      progressStatTooltip = {
+        Daily: {name: "Defunciones Diarias", value: "Daily Deaths"},
+        Accum: {name: "Defunciones Acumuladas", value: "Accum Deaths"},
+        RateDaily: {name: "Defunciones Diarias por cada 100 mil habitantes", value: "Rate Daily Deaths"},
+        RateAccum: {name: "Defunciones Acumuladas por cada 100 mil habitantes", value: "Rate Accum Deaths"},
+      };
+      progressStatTimeScale = {name: "Días (eje inicia con al menos 10 fallecidos)", value: "Days from 10 Deaths"};
+    }
+    // Creates the dashed line for the last week values
+    progressStatData.map(d => d["Type"] = d["Time ID"] > securityDate["Time ID"] ? 1 : 0);
+    const securityDateData = progressStatData.filter(d => d["Time ID"] === securityDate["Time ID"]).map(d => {
+      const h = Object.assign({}, d, {"Type": 1});
       return h;
     });
-    locationSelectedData.push(..._lastWeekData);
-
-    const minLastDayData = Object.assign({}, locationSelectedData.find(d => d["Time ID"] === minLastDayDate), {"Type": 0});
-    locationSelectedData.push(minLastDayData);
-
-    // console.log("DATA", locationSelectedData);
+    progressStatData.push(...securityDateData);
+    // Creates the configuration of the vis
+    const progressStatVisConfig = {
+      data: progressStatData,
+      type: "LinePlot",
+      groupBy: ["Location", "Type"],
+      y: progressBaseSelected ? `${progressBaseSelected} ${progressStatSelected.id}` : progressStatSelected.id,
+      yConfig: {
+        title: progressScaleSelected.id === "linear" ? progressStatSelected.name : `${progressStatSelected.name} (Log)`,
+        scale: progressScaleSelected.id
+      },
+      label: d => d["Location"],
+      lineLabels: true,
+      legend: false,
+      height: 500,
+      tooltipConfig: {
+        title: d => {
+          const imgUrl = d["Division"] === "Nation"
+            ? "/icons/visualizations/Country/country_mex.png"
+            : `/icons/visualizations/State/png/white/${d["Location ID"]}.png`;
+          const bgColor = colors.State[d["Location ID"]] || "transparent";
+          const title = d["Location"];
+          let tooltip = "<div class='d3plus-tooltip-title-wrapper'>";
+          tooltip += `<div class="icon" style="background-color: ${bgColor}"><img src="${imgUrl}" /></div>`;
+          tooltip += `<div class="title"><span>${title}</span></div>`;
+          tooltip += "</div>";
+          return tooltip;
+        },
+        tbody: d => {
+          const tBody = [
+            ["Fecha", d["Time"]],
+            [progressStatTooltip.Daily.name, commas(d[progressStatTooltip.Daily.value])],
+            [progressStatTooltip.Accum.name, commas(d[progressStatTooltip.Accum.value])],
+            [progressStatTooltip.RateDaily.name, formatAbbreviate(d[progressStatTooltip.RateDaily.value])],
+            [progressStatTooltip.RateAccum.name, formatAbbreviate(d[progressStatTooltip.RateAccum.value])]
+          ];
+          return tBody;
+        },
+        footer: d => d["Type"] * 1 === 1 ? "Datos preliminares a la fecha" : ""
+      },
+      shapeConfig: {
+        Line: {
+          label: d => d.Type ? d.Location : "",
+          stroke: d => colors.State[d["Location ID"]] || "#235B4E",
+          strokeDasharray: d => d.Type ? "10" : "0"
+        }
+      }
+    };
+    if (progressTimeScaleSelected.id === "time") {
+      progressStatVisConfig.time = "Time";
+      progressStatVisConfig.timeline = false;
+      progressStatVisConfig.x = "Time";
+      progressStatVisConfig.xConfig = {};
+      progressStatVisConfig.xConfig.tickFormat = undefined;
+      progressStatVisConfig.xConfig.title = "Fecha";
+      delete progressStatVisConfig.xSort;
+    } else {
+      progressStatVisConfig.x = progressStatTimeScale.value;
+      progressStatVisConfig.xConfig = {};
+      progressStatVisConfig.xConfig.tickFormat = (d => d % 4 === 0 ? d : "");
+      progressStatVisConfig.xConfig.title = progressStatTimeScale.name;
+      progressStatVisConfig.xSort = ((a, b) => a[progressStatTimeScale.value] > b[progressStatTimeScale.value] ? 1 : -1);
+      delete progressStatVisConfig.time;
+      delete progressStatVisConfig.timeline;
+    };
 
     // Graph #2: Stacked BarChart with the data separated by age ranges
+    // CHANGE LOGIC
     const colorsGender = {
-      1: "#1b3e60",
-      2: "#ca3534",
+      Hombre: "#1b3e60",
+      Mujer: "#ca3534",
     };
 
     const colorsPatient = {
-      1: "#23A7BC",
-      2: "#3A5AD0",
+      Ambulatorio: "#23A7BC",
+      Hospitalizado: "#3A5AD0",
     };
 
     let ageRangesDataLocations = null;
     let ageRangesGroupBy = null;
     if (ageRangesStatSelected.id === "Confirmed") {
       ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected);
-      ageRangesGroupBy = ["Sex"];
+      ageRangesGroupBy = "Sex";
     } else if (ageRangesStatSelected.id === "Deceased") {
       ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Is Dead ID"] === 1), locationSelected);
-      ageRangesGroupBy = ["Sex"];
+      ageRangesGroupBy = "Sex";
     } else if (ageRangesStatSelected.id === "Hospitalized") {
       ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Patient Type ID"] === 2), locationSelected);
-      ageRangesGroupBy = ["Sex"];
+      ageRangesGroupBy = "Sex";
     } else {
       ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected);
-      ageRangesGroupBy = ["Patient Type"];
+      ageRangesGroupBy = "Patient Type";
     }
+    // console.log(ageRangesDataLocations);
     // const barChartStats = this.calculateStats(ageRangesDataLocations, locationSelected, ["Is Dead", "Patient Type", "Sex"]);
     // console.log(barChartStats);
 
@@ -385,26 +476,31 @@ class Covid extends Component {
                 addNewLocation={this.addNewLocation}
               />
             }
-            /*
             baseSelector={
               <DMXCheckbox
                 items={[
                   {name: "Promedio de 7 Dias", value: "AVG 7 Days", unique: true, id: "baseUnique"},
-                  {name: "Per Capita", value: "Rate", unique: true, id: "baseUnique"},
-                  {name: "Cambiar Eje Temporal", value: "true", unique: false, id: "baseAxis"}
+                  {name: "Per Capita", value: "Rate", unique: true, id: "baseUnique"}
                 ]}
-                selectedArray={progressBaseSelected}
-                selectedArrayID={"progressBaseSelected"}
-                onChange={this.addBaseOption}
+                variable={"progressBaseSelected"}
+                selected={progressBaseSelected}
+                onChange={this.selectBaseOption}
               />
             }
-           */
             scaleSelector={
               <DMXButtonGroup
                 title={"Escala Eje-Y"}
                 items={progressScaleOptions}
                 selected={progressScaleSelected}
                 callback={progressScaleSelected => this.setState({progressScaleSelected})}
+              />
+            }
+            timeScaleSelector={
+              <DMXButtonGroup
+                title={"Escala Temporal"}
+                items={progressTimeScaleOptions}
+                selected={progressTimeScaleSelected}
+                callback={progressTimeScaleSelected => this.setState({progressTimeScaleSelected})}
               />
             }
             indicatorSelector={
@@ -415,41 +511,7 @@ class Covid extends Component {
                 callback={progressStatSelected => this.setState({progressStatSelected})}
               />
             }
-            visualization={{
-              data: locationSelectedData,
-              type: "LinePlot",
-              groupBy: ["Location", "Type"],
-              height: 400,
-              lineLabels: true,
-              x: "Time",
-              time: "Time",
-              y: progressStatSelected.id,
-              yConfig: {
-                scale: progressScaleSelected.id
-              },
-              timeline: false,
-              tooltipConfig: {
-                title: d => d["Location"],
-                tbody: d => {
-                  const tBody = [
-                    [d["Type"] === 2 ? "Sospechas Diarias" : "Casos Diarios", d["Daily Cases"]],
-                    ["Casos Acumulados", d["Accum Cases"]],
-                    ["Muertes Diarias", d["Daily Deaths"]],
-                    ["Muertes Acumuladas", d["Accum Deaths"]],
-                    ["Date", d["Time"]]
-                  ];
-
-                  return tBody;
-                }
-              },
-              shapeConfig: {
-                label: d => d.Type ? d.Location : "",
-                Line: {
-                  stroke: d => d.Type * 1 === 2 ? "#DDC9A3" : colors.State[d["Location ID"]] || "#235B4E",
-                  strokeDasharray: d => d.Type ? "10" : "0"
-                }
-              }
-            }}
+            visualization={progressStatVisConfig}
           />
           <CovidCard
             cardInformation={{
@@ -483,11 +545,12 @@ class Covid extends Component {
               xConfig: {
                 title: "Rango de Edad"
               },
+              sum: "Cases",
               y: "Cases",
               yConfig: {
                 title: "Casos"
               },
-              label: d => commas(d["Cases"]),
+              label: d => formatAbbreviate(d["Cases"]),
               stacked: true,
               stackOrder: "ascending",
               tooltipConfig: {
@@ -498,7 +561,7 @@ class Covid extends Component {
               },
               shapeConfig: {
                 // CHECKEAR QUE CAMBIAN LOS VALORES DE IDS
-                fill: d => ageRangesGroupBy === "Patient Type" ? colorsPatient[d["Patient Type ID"]] : colorsGender[d["Sex ID"]] || "blue"
+                fill: d => ageRangesGroupBy === "Patient Type" ? colorsPatient[d["Patient Type"]] : colorsGender[d["Sex"]] || "blue"
               },
               legendConfig: {
                 label: d => ageRangesGroupBy === "Patient Type" ? d["Patient Type"] : d["Sex"]

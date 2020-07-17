@@ -1,0 +1,78 @@
+.custom-tile-container {
+  display: flex;
+  flex: 1 1 200px;
+  flex-grow: 1;
+  border: 1px solid var(--dark-2);
+  border-radius: 10px;
+  height: 8rem;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  margin: 0 var(--gutter-sm);
+  background: #BC955C;
+  padding: 1rem;
+  box-shadow: -4px 4px 0px 2px rgba(0,0,0,0.3);
+  &:hover {
+    background: #174442;
+    transition: 0.3s ease-out;;
+  }
+
+  & .custom-tile-link {
+    display: flex;
+    text-decoration: none;
+    flex-direction: column  ;
+
+    & .custom-tile-box {
+      color: var(--white);
+      & .custom-tile-header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        & .custom-tile-content-tag {
+          max-width: var(--gutter-md);
+          margin-right: var(--gutter-xs);
+        }
+        & .custom-tile-title {
+          font-size: var(--font-sm);
+          text-transform: uppercase;
+        }
+      }
+      & .custom-tile-content {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        margin-top: var(--gutter-xs);
+        & .custom-tile-text {
+          font-size: var(--font-xs);
+          font-weight: var(--light-weight);
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 887px) and (max-width: 1440px) {
+  .custom-tile-container {
+    & .custom-tile-link {
+      & .custom-tile-box {
+        & .custom-tile-header {
+          & .custom-tile-title {
+            font-size: var(--font-xs);
+          }
+        }
+        & .custom-tile-content {
+          & .custom-tile-text {
+            font-size: var(--font-xxs);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 886px) {
+  .custom-tile-container {
+    max-height: 110px;
+    margin-bottom: var(--gutter-xs);
+  }
+}

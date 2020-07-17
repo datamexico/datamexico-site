@@ -3,23 +3,7 @@ import React, {Component} from "react";
 import * as d3plus from "d3plus-react";
 import {withNamespaces} from "react-i18next";
 
-import DMXButtonGroup from "./DMXButtonGroup";
-import DMXCheckbox from "components/DMXCheckbox";
-import DMXSelect from "./DMXSelect";
-import LoadingChart from "./LoadingChart";
-
-import colors from "../../static/data/colors.json";
-import {commas} from "helpers/utils";
-
 import "./CovidCard.css";
-
-/*
-Props that CovidCard component accept (* if you don't wanna use it, just give a null value):
-cardInformation* => type: dictionary / properties: title, description and source
-locationsSelector => type: component / uses the locationsSelector component
-baseOptions* => type: array of dictionaries / properties: name, value, unique, id
-                 unique: true or false if
-*/
 
 class CovidCard extends Component {
   constructor(props) {
@@ -49,26 +33,31 @@ class CovidCard extends Component {
 
   render() {
     const {
-      cardInformation,
-      indicatorOptions,
-      indicatorStats,
-      indicatorSelector,
-      locationsSelector,
       baseSelector,
+      cardInformation,
+      indicatorSelector,
+      indicatorStats,
+      locationsSelector,
       scaleSelector,
+      timeScaleSelector,
       visualization
     } = this.props;
 
     const viz = this.createViz(visualization);
     return (
       <div className="covid-card covid-columns">
-        <div className="covid-card-information covid-column-30">
+        <div className="covid-card-information covid-column-left">
           {cardInformation.title && (
             <h3 className="covid-card-information-title">{cardInformation.title}</h3>
           )}
           {scaleSelector && (
             <div className="covid-card-information-scale-selector">
               {scaleSelector}
+            </div>
+          )}
+          {timeScaleSelector && (
+            <div className="covid-card-information-scale-selector">
+              {timeScaleSelector}
             </div>
           )}
           {indicatorSelector && (
@@ -101,7 +90,7 @@ class CovidCard extends Component {
             </div>
           )}
         </div>
-        <div className="covid-card-visualization covid-column-70">
+        <div className="covid-card-visualization covid-column-right">
           {locationsSelector && (
             <div className="covid-card-visualization-header">
               {locationsSelector}
@@ -123,19 +112,3 @@ CovidCard.contextTypes = {
 };
 
 export default withNamespaces()(CovidCard);
-
-/*
-   )
-           Source:
-   <div className="covid-data-source">
-           <span>{t("CovidCard.Source")}</span>
-           <h6>{description.source}</h6>
-         </div>
-   visTitle
-   <div className="covid-card-graph-box-header-text">
-             <h4>{graph.title}</h4>
-             <h3>{t("CovidCard.Graph Date")} {`${t(data_date.dateDay)}, ${t(data_date.dateMonth)} ${data_date.dateNumber} ${data_date.dateYear}`}</h3>
-           </div>
-
-           // callback={groupValue => this.setState({groupValue})}
-   */
