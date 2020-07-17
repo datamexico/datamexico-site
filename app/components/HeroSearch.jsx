@@ -172,10 +172,10 @@ class HeroSearch extends Component {
         {/* list of search results */}
         {searchActive && userQuery.length >= minQueryLength && results &&
           <ul className="hero-search-results u-font-xs">
-            {results.map(result =>
+            {results.map((result, i) =>
               <SearchResult
-                key={`search-result-${result.id}`}
-                id={result.id}
+                key={`search-result-${i}`}
+                id={result.slug}
                 slug={result.profile}
                 title={result.name}
                 level={t(result.hierarchy)}
