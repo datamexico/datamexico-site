@@ -212,6 +212,15 @@
   "Search locations, industries, occupations, products, and organizations": "Busca localidades, industrias, ocupaciones, productos y organizaciones",
   "Search profiles": "Buscar perfiles",
   "Self Represented City": "Ciudad Auto Representada",
+  "share": {
+    "title": "DataMéxico",
+    "description": "DataMéxico es un esfuerzo conjunto entre la Secretaría de Economía (SE) y Datawheel, que permite la integración, visualización y análisis de datos para mejorar la toma de decisiones de políticas públicas enfocadas en fomentar la innovación, inclusión y diversificación de la economía mexicana.",
+    "covid": "Datos y análisis sobre toda la información disponible acerca de la pandemia de Coronavirus COVID-19 en México.",
+    "eci": "Descubre y explora los índices de complejidad económica para las distintas industrias y regiones de México.",
+    "about": "Conoce la historia de DataMéxico, el esfuerzo conjunto entre la Secretaría de Economía (SE) y Datawheel. Consulta el glosario de términos clave para comprender los análisis del sitio.",
+    "profile": "profile-desc",
+    "explore": "Descubre todos los perfiles con información disponibles en DataMéxico. Perfiles sobre: ciudades y lugares, productos, industrias, ocupaciones y universidades."
+  },
   "Sign Up": "Sign Up",
   "SignUp": {
     "Confirm Password": "Confirm Password",

@@ -36,7 +36,7 @@ class TileV2 extends Component {
           </div>
           {
             !color ?
-              <div className="tile-background" style={{backgroundImage: `url(/api/image?slug=${slug}&id=${id})`}} /> :
+              <div className="tile-background" style={{backgroundImage: `url(/api/image?slug=${slug}&id=${id}&size=thumb)`}} /> :
               <div className="tile-background-color" style={{backgroundColor: color}} />
           }
         </a>

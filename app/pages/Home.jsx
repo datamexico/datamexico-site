@@ -1,10 +1,7 @@
 import React, {Component} from "react";
 import {withNamespaces} from "react-i18next";
 import {hot} from "react-hot-loader/root";
-import PropTypes from "prop-types";
 import axios from "axios";
-import {Helmet} from "react-helmet";
-import {Button, Icon, InputGroup, Popover} from "@blueprintjs/core";
 
 import {LOGOS} from "helpers/consts.js";
 import homeTiles from "helpers/homeTiles";
@@ -24,6 +21,8 @@ import tilesEN from "../../static/tiles/es.json";
 
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
+
+import HelmetWrapper from "./HelmetWrapper";
 
 import "./Home.css";
 
@@ -57,11 +56,13 @@ class Home extends Component {
     const {t, lng, router} = this.props;
     const tiles = lng === "es" ? tilesES : tilesEN;
 
+    const share = {
+      //default values, see: HelmetWrapper.jsx
+    }
+
     return (
       <div className="home">
-        <Helmet title="">
-          <meta property="og:title" content={""} />
-        </Helmet>
+        <HelmetWrapper info={share} />
         <Nav
           className={scrolled ? "background" : ""}
           logo={false}

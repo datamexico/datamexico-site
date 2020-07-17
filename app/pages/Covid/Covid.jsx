@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import {Helmet} from "react-helmet";
+import HelmetWrapper from "../HelmetWrapper";
 import {formatAbbreviate} from "d3plus-format";
 import {withNamespaces} from "react-i18next";
 // import classnames from "classnames";
@@ -414,10 +414,13 @@ class Covid extends Component {
       </div>
     </div>
 
+    const share = {
+      title: "Coronavirus data (covid-19)",
+      desc: t("share.covid")
+    };
+
     return <div className="covid-wrapper">
-      <Helmet title="Coronavirus">
-        <meta property="og:title" content={"Coronavirus"} />
-      </Helmet>
+      <HelmetWrapper info={share} />
       <Nav
         className={"background"}
         logo={false}

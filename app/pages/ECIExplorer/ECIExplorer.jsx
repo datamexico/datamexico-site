@@ -2,7 +2,7 @@ import React from "react";
 import ReactTable from "react-table";
 import {withNamespaces} from "react-i18next";
 import {hot} from "react-hot-loader/root";
-import {Helmet} from "react-helmet";
+import HelmetWrapper from "../HelmetWrapper";
 import axios from "axios";
 import {Geomap, Plot, Treemap} from "d3plus-react";
 import Nav from "../../components/Nav";
@@ -294,8 +294,13 @@ class ECIExplorer extends React.Component {
     //       maxRCA = Math.max(...rcaValues),
     //       minPCI = Math.min(...pciValues);
 
+    const share = {
+      title: `${t("ECI Explorer.Title")}`,
+      desc: t("share.eci")
+    };
+
     return <div>
-      <Helmet title={t("ECI Explorer.Title")} />
+      <HelmetWrapper info={share} />
       <Nav
         className={"background"}
         logo={false}
