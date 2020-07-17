@@ -1,6 +1,10 @@
 .dmx-overlay {
   & .bp3-icon {
+    color: var(--dark-3);
     cursor: pointer;
+  }
+  & .bp3-popover-target {
+    display: flex;
   }
 }
 

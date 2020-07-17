@@ -185,8 +185,11 @@ class Covid extends Component {
     return `${d}`
   }
 
-  calculateStats = (dataset, division, stats) => {
+  calculateStats = (dataset, divisionArray, stats) => {
+    console.log(dataset, division, stats);
+    const division = divisionArray.includes("Nation") ? "Nation" : divisionArray.includes("State") ? "State" : "Municipality";
     const data = dataset.filter(d => d.Division === division);
+    console.log(data);
     const total = data.reduce((acc, element) => (acc + element.Cases), 0);
     const result = [];
     for (const statID in stats) {
@@ -367,49 +370,80 @@ class Covid extends Component {
       Hospitalizado: "#3A5AD0",
     };
 
+    const ageRangesLocationsArray = locationArray.filter(d => locationSelected.includes(d["Location ID"]));
+    const ageRangesDivisions = [...new Set(ageRangesLocationsArray.map(d => d["Division"]))];
     let ageRangesDataLocations = null;
+    let ageRangesStats = null;
     let ageRangesGroupBy = null;
     if (ageRangesStatSelected.id === "Confirmed") {
       ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected);
+      ageRangesStats = this.calculateStats(ageRangesDataLocations, ageRangesDivisions, ["Sex"]);
       ageRangesGroupBy = "Sex";
     } else if (ageRangesStatSelected.id === "Deceased") {
       ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Is Dead ID"] === 1), locationSelected);
+      ageRangesStats = this.calculateStats(ageRangesDataLocations, ageRangesDivisions, ["Sex"]);
       ageRangesGroupBy = "Sex";
     } else if (ageRangesStatSelected.id === "Hospitalized") {
       ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Patient Type ID"] === 2), locationSelected);
+      ageRangesStats = this.calculateStats(ageRangesDataLocations, ageRangesDivisions, ["Sex"]);
       ageRangesGroupBy = "Sex";
     } else {
       ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected);
+      ageRangesStats = this.calculateStats(ageRangesDataLocations, ageRangesDivisions, ["Patient Type"]);
       ageRangesGroupBy = "Patient Type";
     }
-    // console.log(ageRangesDataLocations);
-    // const barChartStats = this.calculateStats(ageRangesDataLocations, locationSelected, ["Is Dead", "Patient Type", "Sex"]);
-    // console.log(barChartStats);
+    const ageRangesVisConfig = {
+      data: ageRangesDataLocations,
+      type: "BarChart",
+      groupBy: ageRangesGroupBy,
+      height: 500,
+      x: "Age Range",
+      xSort: (a, b) => a["Age Range ID"] - b["Age Range ID"],
+      xConfig: {
+        title: "Rango de Edad"
+      },
+      sum: "Cases",
+      y: "Cases",
+      yConfig: {
+        title: "Casos"
+      },
+      label: d => formatAbbreviate(d["Cases"]),
+      stacked: true,
+      stackOrder: "ascending",
+      tooltipConfig: {
+        tbody: [
+          ["Casos", d => commas(d["Cases"])],
+          ["Rango de edad", d => d["Age Range"]]
+        ]
+      },
+      shapeConfig: {
+        // CHECKEAR QUE CAMBIAN LOS VALORES DE IDS
+        fill: d => ageRangesGroupBy === "Patient Type" ? colorsPatient[d["Patient Type"]] : colorsGender[d["Sex"]] || "blue"
+      },
+      legendConfig: {
+        label: d => ageRangesGroupBy === "Patient Type" ? d["Patient Type"] : d["Sex"]
+      },
+    };
 
     const overlayContent = <div className="covid-overlay-content">
       <div className="covid-overlay-card-header">
         <h3>Nota Metodológica</h3>
       </div>
       <div className="covid-overlay-card-body">
-        <p>Para definir el número de los casos activos y los casos recuperados de COVID-19 en México se utiliza la base de datos abiertos de COVID-19 más reciente.</p>
-        <h4>Casos activos:</h4>
-        <p>Los casos activos son todos aquellos positivos a SARS-CoV-2 con fecha de inicio de síntomas en los últimos 14 días. Las defunciones de casos activos se consideran parte de los casos activos, porque, desde una perspectiva poblacional, contribuyeron a la transmisión del virus. La forma de calcular los casos activos es la siguiente:</p>
+        <p>Los datos presentados para la evolución de COVID-19 en México utilizan la <a href="https://www.gob.mx/salud/documentos/datos-abiertos-152127">base de datos de COVID-19</a> más reciente.</p>
+        <h4>Casos positivos:</h4>
+        <p>Los casos positivos son todos aquellos positivos a SARS-CoV-2.</p>
         <ul>
           <li>Se filtran todos los casos positivos (RESULTADO valor “1”) registrados en la base de datos.</li>
-          <li>Se cuentan los casos según fecha de inicio de síntomas (FECHA_SINTOMAS) y se consideran solo aquellos con menos de 14 días.</li>
+          <li>Las series temporales consideran la fecha de ingreso (FECHA_INGRESO) como fecha en que se contabiliza un nuevo caso positivo.</li>
+          <li>Los casos se contabilizan en el lugar de residencia de los pacientes reportados (ENTIDAD_RES y MUNICIPIO_RES).</li>
         </ul>
-        <h4>Casos recuperados:</h4>
-        <p>Los casos recuperados son todos aquellos positivos a SARS-CoV-2 no hospitalizados, con fecha de inicio de síntomas con más de 14 días y sin fecha de defunción. La forma de calcular los casos activos es la siguiente:</p>
+        <h4>Defunciones:</h4>
+        <p>Las defunciones corresponden a todos aquellos positivos a SARS-CoV-2 y que registran fecha de defunción.</p>
         <ul>
-          <li>Se filtran todos los casos positivos (RESULTADO valor “1”), ambulatorios (TIPO_PACIENTE valor “1”), sin fecha de defunción (FECHA_DEF valor “99-99-9999”) registrados en la base de datos.</li>
-          <li>Se cuentan los casos según fecha de inicio de síntomas (FECHA_SINTOMAS) y según fecha de defunción (FECHA_DEF).</li>
-          <li>Al total de casos registrados se restan todos los casos con fecha de inicio de síntomas anterior a los últimos 14 días y los casos con fecha de defunción establecida.</li>
-        </ul>
-        <h5>Adicionalmente, para la representación de la información, se considera lo siguiente:</h5>
-        <ul>
-          <li>Las vistas georreferenciadas consideran el lugar de residencia de los pacientes reportados (ENTIDAD_RES y MUNICIPIO_RES).</li>
-          <li>Las series temporales consideran la fecha de ingreso (FECHA_INGRESO) para los casos <span className="highlighted">Confirmados</span>, <span className="highlighted">Sospechosos</span> y <span className="highlighted">Negativos</span>.</li>
-          <li>Las series temporales consideran la fecha de defunción (FECHA_DEF) para los casos de <span className="highlighted">Defunciones</span>.</li>
+          <li>Se filtran todos los casos positivos (RESULTADO valor “1”) registrados en la base de datos y que tengan fecha de defunción notificada (FECHA_DEF distinta de “99-99-9999”).</li>
+          <li>Las series temporales consideran la fecha de defunción (FECHA_DEF) como fecha en que se contabiliza un nuevo fallecido.</li>
+          <li>Los casos se contabilizan en el lugar de residencia de fallecidos (ENTIDAD_RES y MUNICIPIO_RES)</li>
         </ul>
       </div>
     </div>
@@ -436,6 +470,7 @@ class Covid extends Component {
             resetBaseLocation={this.resetBaseLocation}
           />
           <div className="covid-header-info">
+
             <h4 className="covid-header-info-date">{`Datos actualizados al ${showDate}`}</h4>
             <DMXOverlay
               content={overlayContent}
@@ -443,6 +478,7 @@ class Covid extends Component {
               tooltip={"Nota metodológica"}
               buttonToClose={"Entendido"}
             />
+
           </div>
           <div className="covid-header-stats">
             {locationStats.map(d => (
@@ -469,6 +505,14 @@ class Covid extends Component {
               </div>,
               source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
             }}
+            overlay={
+              <DMXOverlay
+                content={overlayContent}
+                icon={"info-sign"}
+                tooltip={"Nota Metodológica"}
+                buttonToClose={"Entendido"}
+              />
+            }
             locationsSelector={
               <DMXSelectLocation
                 locationsOptions={locationArray}
@@ -517,15 +561,18 @@ class Covid extends Component {
             cardInformation={{
               title: "Rangos de edad",
               description: <div className="card-description">
-                <p>
-                  Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
-                </p>
-                <p className="italic">Los datos poseen un desfase de 7 días.</p>
+                
               </div>,
               source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
             }}
-            locationsSelector={null}
-            baseSelector={null}
+            overlay={
+              <DMXOverlay
+                content={overlayContent}
+                icon={"info-sign"}
+                tooltip={"Nota Metodológica"}
+                buttonToClose={"Entendido"}
+              />
+            }
             indicatorSelector={
               <DMXSelect
                 title={"Indicador"}
@@ -534,39 +581,8 @@ class Covid extends Component {
                 callback={ageRangesStatSelected => this.setState({ageRangesStatSelected})}
               />
             }
-            // indicatorStats={barChartStats}
-            visualization={{
-              data: ageRangesDataLocations,
-              type: "BarChart",
-              groupBy: ageRangesGroupBy,
-              height: 500,
-              x: "Age Range",
-              xSort: (a, b) => a["Age Range ID"] - b["Age Range ID"],
-              xConfig: {
-                title: "Rango de Edad"
-              },
-              sum: "Cases",
-              y: "Cases",
-              yConfig: {
-                title: "Casos"
-              },
-              label: d => formatAbbreviate(d["Cases"]),
-              stacked: true,
-              stackOrder: "ascending",
-              tooltipConfig: {
-                tbody: [
-                  ["Casos", d => commas(d["Cases"])],
-                  ["Rango de edad", d => d["Age Range"]]
-                ]
-              },
-              shapeConfig: {
-                // CHECKEAR QUE CAMBIAN LOS VALORES DE IDS
-                fill: d => ageRangesGroupBy === "Patient Type" ? colorsPatient[d["Patient Type"]] : colorsGender[d["Sex"]] || "blue"
-              },
-              legendConfig: {
-                label: d => ageRangesGroupBy === "Patient Type" ? d["Patient Type"] : d["Sex"]
-              },
-            }}
+            indicatorStats={ageRangesStats}
+            visualization={ageRangesVisConfig}
           />
         </div>
         <CovidTable
