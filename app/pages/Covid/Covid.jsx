@@ -172,7 +172,7 @@ class Covid extends Component {
 
   showDate = (d) => {
     const {t} = this.props;
-    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const months = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
     const days = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
     const fullDate = new Date(d);
     const day = fullDate.getDay();
@@ -182,7 +182,7 @@ class Covid extends Component {
     const hour = fullDate.getHours();
     // console.log("Date:", d, "Fulldate:", fullDate);
     // return `${t(days[day])} ${date} ${t(months[month])} ${year} ${hour}:00`
-    return `${date} de ${months[month]} del ${year}`;
+    return `${date} de ${months[month]} de ${year}`;
   }
 
   calculateStats = (dataset, divisionArray, stats) => {
@@ -238,13 +238,15 @@ class Covid extends Component {
       ageRangesStatOptions,
       ageRangesStatSelected
     } = this.state;
-    const {t} = this.props;
+    const {t, lng} = this.props;
 
     if (!_dataLoaded) return <Loading />;
 
     // Date of the data
     const showDate = this.showDate(dataDate.Time);
     const securityDate = dates[dates.length - 1];
+    const locationSelectedArray = locationArray.filter(d => locationSelected.includes(d["Location ID"]));
+    const locationDivisions = [...new Set(locationSelectedArray.map(d => d["Division"]))];
 
     // Stats showed in the hero
     const locationBaseData = dataStatsLatest.find(d => d["Location ID"] === locationBase["Location ID"]);
@@ -368,26 +370,24 @@ class Covid extends Component {
       Hospitalizado: "#3A5AD0",
     };
 
-    const ageRangesLocationsArray = locationArray.filter(d => locationSelected.includes(d["Location ID"]));
-    const ageRangesDivisions = [...new Set(ageRangesLocationsArray.map(d => d["Division"]))];
     let ageRangesDataLocations = null;
     let ageRangesStats = null;
     let ageRangesGroupBy = null;
     if (ageRangesStatSelected.id === "Confirmed") {
       ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected);
-      ageRangesStats = this.calculateStats(ageRangesDataLocations, ageRangesDivisions, ["Sex"]);
+      ageRangesStats = this.calculateStats(ageRangesDataLocations, locationDivisions, ["Sex"]);
       ageRangesGroupBy = "Sex";
     } else if (ageRangesStatSelected.id === "Deceased") {
       ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Is Dead ID"] === 1), locationSelected);
-      ageRangesStats = this.calculateStats(ageRangesDataLocations, ageRangesDivisions, ["Sex"]);
+      ageRangesStats = this.calculateStats(ageRangesDataLocations, locationDivisions, ["Sex"]);
       ageRangesGroupBy = "Sex";
     } else if (ageRangesStatSelected.id === "Hospitalized") {
       ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Patient Type ID"] === 2), locationSelected);
-      ageRangesStats = this.calculateStats(ageRangesDataLocations, ageRangesDivisions, ["Sex"]);
+      ageRangesStats = this.calculateStats(ageRangesDataLocations, locationDivisions, ["Sex"]);
       ageRangesGroupBy = "Sex";
     } else {
       ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected);
-      ageRangesStats = this.calculateStats(ageRangesDataLocations, ageRangesDivisions, ["Patient Type"]);
+      ageRangesStats = this.calculateStats(ageRangesDataLocations, locationDivisions, ["Patient Type"]);
       ageRangesGroupBy = "Patient Type";
     }
     const ageRangesVisConfig = {
@@ -550,6 +550,17 @@ class Covid extends Component {
               title: "Rangos de edad",
               description: <div className="card-description">
                 <p>Los gráficos muestran el número de casos según la edad de los y las pacientes, acumulados hasta {showDate}.</p>
+                {locationDivisions.includes("Nation")
+                  ? <p>Las estadísticas representan los datos del total del <a href={`${lng}/profile/geo/mex`}>país.</a></p>
+                  : locationDivisions.includes("State")
+                    ? <p>Las estadísticas representan los datos de
+                      {locationSelectedArray.map((d, k, array) => (
+                      <a href={`/${lng}/profile/geo/${d["Location ID"]}`}>
+                        {` ${array.length - k > 1 ? `${d.Location},` : `${d.Location}.`}`}
+                      </a>
+                    ))}</p>
+                    : <p> </p>
+                }
               </div>,
               source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
             }}
@@ -559,6 +570,13 @@ class Covid extends Component {
                 icon={"info-sign"}
                 tooltip={"Nota Metodológica"}
                 buttonToClose={"Entendido"}
+              />
+            }
+            locationsSelector={
+              <DMXSelectLocation
+                locationsOptions={locationArray}
+                locationsSelected={locationSelected}
+                addNewLocation={this.addNewLocation}
               />
             }
             indicatorSelector={
