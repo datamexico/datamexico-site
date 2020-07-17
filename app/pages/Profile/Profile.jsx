@@ -62,7 +62,7 @@ class Profile extends React.Component {
 
     let slug = "", title = "", desc = "";
 
-    if(profile.meta){
+    if (profile.meta) {
       slug = profile.meta.map(d => d.slug).join("_");
     }
 
@@ -70,7 +70,7 @@ class Profile extends React.Component {
       case "occupation":
         title = `${variables.name}: Salarios, diversidad, industrias e informalidad laboral`;
         desc = `Explore las estadísticas sobre salario, diversidad, industrias e informalidad laboral para la ocupación: ${variables.name}`;
-      break;
+        break;
       case "geo":
         title = `${variables.name}: Economía, empleo, equidad, calidad de vida, educación, salud y seguridad pública`;
         desc = `Explore las estadísticas sobre economía, empleo, equidad, calidad de vida, educación, salud y seguridad pública en ${variables.name}`;
