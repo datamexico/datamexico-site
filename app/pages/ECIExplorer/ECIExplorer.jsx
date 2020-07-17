@@ -295,7 +295,7 @@ class ECIExplorer extends React.Component {
     //       minPCI = Math.min(...pciValues);
 
     const share = {
-      title: `Data México | ${t("ECI Explorer.Title")}`,
+      title: `${t("ECI Explorer.Title")}`,
       desc: t("share.eci")
     };
 

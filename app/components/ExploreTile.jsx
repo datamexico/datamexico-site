@@ -30,7 +30,7 @@ class ExploreTile extends Component {
             <img className="tile-tag-img" src={`/icons/explore/${slug}-white.png`} alt=""/>
             <span className="tile-tag-text display u-font-xxs">{level}</span>
           </div>
-          <div className="tile-cover-img" style={{backgroundImage: `url(/api/image?slug=${slug}&id=${id})`}} />
+          <div className="tile-cover-img" style={{backgroundImage: `url(/api/image?slug=${slug}&id=${id}&size=thumb)`}} />
         </a>
       </El>
     );

@@ -324,7 +324,7 @@ class Covid extends Component {
     </div>
 
     const share = {
-      title: "Data México | Coronavirus data (covid-19)",
+      title: "Coronavirus data (covid-19)",
       desc: t("share.covid")
     };
 

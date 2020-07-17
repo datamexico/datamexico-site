@@ -3,6 +3,8 @@ import {Helmet} from "react-helmet";
 import {withNamespaces} from "react-i18next";
 import {connect} from "react-redux";
 
+Helmet.defaultProps.encodeSpecialCharacters = false;
+
 class HelmetWrapper extends Component {
 
   render() {
@@ -19,16 +21,14 @@ class HelmetWrapper extends Component {
     return (
       <Helmet title={defaults.title}>
 
-        <title>{defaults.title}</title>
-
-        <meta name="title" content={defaults.title} />
+        <meta name="title" content={`${defaults.title} | Data México`} />
         <meta name="description" content={defaults.desc} />
 
-        <meta name="twitter:title" content={defaults.title} />
+        <meta name="twitter:title" content={`${defaults.title} | Data México`} />
         <meta name="twitter:description" content={defaults.desc} />
         <meta name="twitter:image" content={defaults.img} />
 
-        <meta property="og:title" content={defaults.title} />
+        <meta property="og:title" content={`${defaults.title} | Data México`} />
         <meta property="og:description" content={defaults.desc} />
         <meta property="og:locale" content={defaults.locale} />
         <meta property="og:url" content={defaults.url} />

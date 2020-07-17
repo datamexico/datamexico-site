@@ -28,7 +28,7 @@ class TileV2 extends Component {
               <span className="tile-content-description-level">{level}</span>
             </div>
           </div>
-          <div className="tile-background" style={{backgroundImage: `url(/api/image?slug=${slug}&id=${id})`}} />
+          <div className="tile-background" style={{backgroundImage: `url(/api/image?slug=${slug}&id=${id}&size=thumb)`}} />
         </a>
       </Element>
     );

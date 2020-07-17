@@ -178,7 +178,7 @@ class Explore extends React.Component {
     const clearButton = query !== '' ? <Button onClick={() => this.clearSearch()} minimal={true} className="ep-clear-btn" icon="cross" large={true} outlined={true}>{t('Explore Profile.Clear Filters')}</Button>:<span></span>
 
     const share = {
-      title: `Data México | ${t("Explore")}`,
+      title: `${t("Explore")}`,
       desc: `${t("share.explore")}`
     };
 
