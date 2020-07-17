@@ -551,7 +551,7 @@ class Covid extends Component {
               description: <div className="card-description">
                 <p>Los gráficos muestran el número de casos según la edad de los y las pacientes, acumulados hasta {showDate}.</p>
                 {locationDivisions.includes("Nation")
-                  ? <p>Las estadísticas representan los datos del total del <a href={`${lng}/profile/geo/mex`}>país.</a></p>
+                  ? <p>Las estadísticas representan los datos del <a href={`${lng}/profile/geo/mex`}>país.</a></p>
                   : locationDivisions.includes("State")
                     ? <p>Las estadísticas representan los datos de
                       {locationSelectedArray.map((d, k, array) => (

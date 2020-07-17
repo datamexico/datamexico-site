@@ -65,12 +65,12 @@ class DMXSelectLocation extends Component {
     return (
       <div className="dmx-select-location">
         <Popover
+          captureDismiss={true}
+          content={locationOptions}
           defaultIsOpen={false}
+          enforceFocus={false}
           isOpen={isOpen}
           position={PopoverPosition.LEFT}
-          content={locationOptions}
-          captureDismiss={true}
-          enforceFocus={false}
         >
           <Button
             className={"dmx-select-location-button"}

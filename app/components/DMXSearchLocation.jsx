@@ -83,17 +83,16 @@ class DMXSearchLocation extends Component {
     return (
       <div className="dmx-search-display">
         <Popover
-          autoFocus={true}
           captureDismiss={true}
           content={filterLocationResults}
           defaultIsOpen={false}
-          enforceFocus={true}
+          enforceFocus={false}
           isOpen={isOpen}
           position={PopoverPosition.BOTTOM}
         >
           <div className="dmx-search-display-location">
             <img src={isOpen ? "/icons/visualizations/covid/search-active-icon.svg" : "/icons/visualizations/covid/search-01-icon.svg"} alt="" className="dmx-search-display-location-icon" />
-            <h2 className="dmx-search-display-location-name" onClick={() => this.setState({isOpen: true})} >
+            <h2 className="dmx-search-display-location-name" onClick={() => this.setState({isOpen: !isOpen})} >
               {locationSelected["Location"]}
             </h2>
           </div>
