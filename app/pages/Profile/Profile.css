@@ -160,6 +160,12 @@
   font-family: var(--base-font-stack-condensed);
   font-weight: 600;
   font-size: var(--font-md);
+  margin: 0 var(--gutter-sm);
+  text-align: center;
+  & .dmx-click2select {
+    color: var(--gmx-red-1);
+    font-size: var(--font-sm);
+  }
 }
 
 .options-button-group {
