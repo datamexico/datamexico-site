@@ -12,7 +12,7 @@ const fontSizeLg = 16;
 const labelPadding = 5;
 const shapeLegend = 25;
 
-const icons = ["Affected Legal Good", "State", "Area", "Category", "Chapter", "Continent", "Country", "Flow", "Generic Investment", "Sector", "Sex"];
+const icons = ["Affected Legal Good", "State", "Area", "Category", "Chapter", "Continent", "Country", "Flow", "Generic Investment", "Sector", "Sex", "Crime Type", "Work Mean", "Confidence in Federal Police", "Classification of Formal and Informal Jobs of the First Activity", "Status", "Basic Services", "Poverty", "Social Deficiencies"];
 
 const getTooltipTitle = (d3plusConfig, d) => {
   const len = d3plusConfig._groupBy.length;
@@ -52,6 +52,7 @@ export const findColorV2 = (key, d) => {
     else return colors.Continent[d["Continent ID"]];
   }
   const id = key === "SITC Section" ? d["Section ID"] : d[`${key} ID`];
+  // console.log("here", key, d);
   const palette = colors[key];
   return palette ? colors[key][id] || colors[key][d[key]] || styles["gmx-green-1"] : styles["gmx-green-1"];
 };

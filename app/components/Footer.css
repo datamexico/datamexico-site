@@ -128,6 +128,15 @@
   }
 
   /* logos */
+  & .footer-logo-head {
+    display: flex;
+    justify-content: center;
+    margin: var(--gutter-md);
+    & .footer-logo-page {
+      height: var(--gutter-xl);
+    }
+  }
+
   & .footer-logo-list {
     @mixin min-xs {
       display: flex;

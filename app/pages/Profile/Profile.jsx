@@ -1,5 +1,5 @@
 import React from "react";
-import {Helmet} from "react-helmet";
+import HelmetWrapper from "../HelmetWrapper";
 import PropTypes from "prop-types";
 import {withNamespaces} from "react-i18next";
 import {fetchData} from "@datawheel/canon-core";
@@ -55,14 +55,50 @@ class Profile extends React.Component {
 
 
   render() {
-    const {profile, t} = this.props;
+    const {profile, t, baseUrl} = this.props;
 
     const {variables} = profile;
     const {scrolled} = this.state;
+
+    let slug = "", title = "", desc = "";
+
+    if(profile.meta){
+      slug = profile.meta.map(d => d.slug).join("_");
+    }
+
+    switch (slug) {
+      case "occupation":
+        title = `${variables.name}: Salarios, diversidad, industrias e informalidad laboral`;
+        desc = `Explore las estadísticas sobre salario, diversidad, industrias e informalidad laboral para la ocupación: ${variables.name}`;
+      break;
+      case "geo":
+        title = `${variables.name}: Economía, empleo, equidad, calidad de vida, educación, salud y seguridad pública`;
+        desc = `Explore las estadísticas sobre economía, empleo, equidad, calidad de vida, educación, salud y seguridad pública en ${variables.name}`;
+        break;
+      case "product":
+        title = `${variables.name}: Intercambio comercial, compras y ventas internacionales, mercado y especialización`;
+        desc = `Explore las estadísticas sobre intercambio comercial, compras y ventas internacionales, mercado y especialización para ${variables.name}`;
+        break;
+      case "industry":
+        title = `${variables.name}: Salarios, producción, inversión, oportunidades y complejidad`;
+        desc = `Explore las estadísticas sobre salarios, producción, inversión, oportunidades y complejidad en la industria ${variables.name}`;
+        break;
+      case "institution":
+        title = `${variables.name}: Situación estudiantil, matrículas y graduaciones`;
+        desc = `Explore las estadísticas sobre situación estudiantil, matrículas y graduaciones de la institución: ${variables.name}`;
+        break;
+      default:
+        break;
+    }
+
+    const share = {
+      title: title,
+      desc: desc,
+      img: `${baseUrl}/api/image?slug=${slug}&id=${variables.id}&size=thumb`
+    };
+
     return <div id="Profile" onScroll={this.handleScroll}>
-      <Helmet title={variables.name}>
-        <meta property="og:title" content={variables.name} />
-      </Helmet>
+      <HelmetWrapper info={share} />
 
       <Nav
         className={scrolled ? "background" : ""}
@@ -92,6 +128,7 @@ Profile.childContextTypes = {
 
 export default withNamespaces()(
   connect(state => ({
+    baseUrl: state.env.CANON_API,
     formatters: state.data.formatters,
     locale: state.i18n.locale,
     profile: state.data.profile

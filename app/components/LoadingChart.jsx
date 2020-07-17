@@ -12,7 +12,7 @@ import "./Loading.css";
 */
 class Loading extends Component {
   render() {
-    const {progress, t, total} = this.props;
+    const {message, progress, t, total} = this.props;
     return <div className="loading">
       <div className="loading-chart">
         {/* <div className="brand">
@@ -29,7 +29,7 @@ class Loading extends Component {
           <Spinner size={Spinner.SIZE_LARGE} value={null} />
         </div>
         <div className="loading-description">
-          <h4>Loading chart...</h4>
+      <h4>{message}</h4>
         </div>
       </div>
 

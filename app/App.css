@@ -110,7 +110,7 @@ p:last-of-type {
   }
 }
 
-.ReactTable .rt-tbody { overflow: hidden !important; }
+.ReactTable .rt-tbody { overflow-y: hidden !important; }
 
 .cp-viz-container > .cp-viz-header {
   justify-content: center;
@@ -151,12 +151,12 @@ p:last-of-type {
   flex-wrap: wrap;
   flex: 1;
   min-width: 300px;
-  padding: 0 var(--gutter-md);
+  padding: 0 var(--gutter-sm);
   & > .cp-viz-header + .cp-viz-figure {
-    bottom: 1.5rem;
+    bottom: 3rem;
     height: auto !important;
     flex: 1;
-    top: 1.5rem;
+    top: 3rem;
     width: 100%;
   }
 }
@@ -316,6 +316,10 @@ p:last-of-type {
       color: var(--white);
     }
   }
+}
+.bp3-popover.bp3-select-popover .bp3-popover-content {
+  border-radius: 0px;
+  padding: 0px;
 }
 
 .bp3-dialog.options-dialog {
@@ -482,6 +486,7 @@ p:last-of-type {
 .bp3-select-popover {
   & .bp3-menu {
     padding: 0px !important;
+    border-radius: 0px;
     & .bp3-menu-item {
       &.bp3-active {
         border-radius: 0;

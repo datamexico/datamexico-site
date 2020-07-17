@@ -95,7 +95,6 @@ class CovidCard extends Component {
           {cardInformation.source && (
             <div className="covid-card-information-sources">
               <span className="covid-card-information-sources-title">{"Fuente:"}</span>
-              <span className="covid-card-information-sources-text">{"Datos generados por"}</span>
               {cardInformation.source.map((d, k, {length}) => {
                 return <div className="covid-card-information-sources-source">
                   <a href={d.link} target="_blank" rel="noopener noreferrer">{d.name}</a>

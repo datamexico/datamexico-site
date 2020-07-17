@@ -115,10 +115,11 @@
   }
 
   & .cp-hero-credits {
+    margin-bottom: 4rem;
     z-index: 12; /* in front of overlay */
 
     &.is-open {
-      margin-bottom: 0;
+      margin-bottom: 4rem;
     }
   }
 

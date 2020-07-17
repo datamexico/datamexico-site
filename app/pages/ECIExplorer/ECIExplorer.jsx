@@ -2,7 +2,7 @@ import React from "react";
 import ReactTable from "react-table";
 import {withNamespaces} from "react-i18next";
 import {hot} from "react-hot-loader/root";
-import {Helmet} from "react-helmet";
+import HelmetWrapper from "../HelmetWrapper";
 import axios from "axios";
 import {Geomap, Plot, Treemap} from "d3plus-react";
 import Nav from "../../components/Nav";
@@ -95,7 +95,7 @@ class ECIExplorer extends React.Component {
       cubeSelected,
       geoSelected: geoLevels(props.lng, cubeId)[0],
       isAgg: cubeSelected.isAgg,
-      measureSelected: cubeSelected.measures[0],
+      measureSelected: cubeSelected.measures[1],
       timeSelected: cubeSelected.time[0],
       levelSelected: cubeSelected.levels[0]
     };
@@ -203,7 +203,7 @@ class ECIExplorer extends React.Component {
     ]).then(axios.spread((...resp) => {
       const data = resp[0].data.data;
       const dataPCI = resp[1].data.data;
-      this.fetchRCAData();
+      // this.fetchRCAData();
       this.setState({
         data,
         dataPCI,
@@ -220,32 +220,32 @@ class ECIExplorer extends React.Component {
     }));
   }
 
-  fetchRCAData = (geoId = 1, level = undefined) => {
-    const year = 2019;
-    const yearList = [year];
-    const years = yearList.join();
-    const {geoSelectedTemp, measureSelectedTemp, thresholdGeo, thresholdIndustry} = this.state;
+  // fetchRCAData = (geoId = 1, level = undefined) => {
+  //   const year = 2019;
+  //   const yearList = [year];
+  //   const years = yearList.join();
+  //   const {geoSelectedTemp, measureSelectedTemp, thresholdGeo, thresholdIndustry} = this.state;
 
-    const industryLevel = "Industry Group"; // "Industry Group", "NAICS Industry", "National Industry"
-    const geoLevel = level || geoSelectedTemp.id; // "State", "Municipality", "Metro Area"
-    const measure = measureSelectedTemp.id; // "Number of Employees Midpoint", "Number of Employees LCI", "Number of Employees UCI", "Companies"
-    const geoThreshold = thresholdGeo;
-    const industryThreshold = thresholdIndustry;
+  //   const industryLevel = "Industry Group"; // "Industry Group", "NAICS Industry", "National Industry"
+  //   const geoLevel = level || geoSelectedTemp.id; // "State", "Municipality", "Metro Area"
+  //   const measure = measureSelectedTemp.id; // "Number of Employees Midpoint", "Number of Employees LCI", "Number of Employees UCI", "Companies"
+  //   const geoThreshold = thresholdGeo;
+  //   const industryThreshold = thresholdIndustry;
 
-    const params = {
-      cube: "inegi_denue",
-      Year: years,
-      rca: [geoLevel, industryLevel, measure].join(),
-      threshold: [`${industryLevel}:${industryThreshold}`, `${geoLevel}:${geoThreshold}`].join(),
-      parents: true,
-      [`filter_${geoLevel}`]: geoId,
-      locale: this.props.lng
-    };
-    axios.get("/api/stats/rca", {params}).then(resp => {
-      const dataRCA = resp.data.data;
-      this.setState({dataRCA});
-    });
-  }
+  //   const params = {
+  //     cube: "inegi_denue",
+  //     Year: years,
+  //     rca: [geoLevel, industryLevel, measure].join(),
+  //     threshold: [`${industryLevel}:${industryThreshold}`, `${geoLevel}:${geoThreshold}`].join(),
+  //     parents: true,
+  //     [`filter_${geoLevel}`]: geoId,
+  //     locale: this.props.lng
+  //   };
+  //   axios.get("/api/stats/rca", {params}).then(resp => {
+  //     const dataRCA = resp.data.data;
+  //     this.setState({dataRCA});
+  //   });
+  // }
 
   render() {
     const {
@@ -274,13 +274,13 @@ class ECIExplorer extends React.Component {
     const industryId = `${levelSelected.id} ID`;
     const columns = [
       {id: geoId, accessor: geoId, Header: `${t(geoSelected.id)} ID`, width: 200},
-      {id: geoName, accessor: d => <a href="" onClick={() => this.fetchRCAData(d[geoId], geoName)}>{d[geoName]}</a>, Header: t(geoName)},
-      {id: eciMeasure, accessor: eciMeasure, Header: "ECI"}
+      {id: geoName, accessor: d => <a href={`/${lng}/profile/geo/${d[geoId]}`}>{d[geoName]}</a>, Header: t(geoName)},
+      {id: eciMeasure, accessor: eciMeasure, Header: "ECI", Cell: d => d.original[`${measureSelected.id} ECI`].toString().slice(0, 4)}
     ];
     const columnsPCI = [
       {id: industryId, accessor: industryId, Header: `${t(levelSelected.name)} ID`, width: 200},
-      {id: levelSelected.id, accessor: levelSelected.id, Header: t(levelSelected.name)},
-      {id: pciMeasure, accessor: pciMeasure, Header: "PCI"}
+      {id: levelSelected.id, accessor: d => <a href={`/${lng}/profile/industry/${d[industryId]}`}>{d[levelSelected.name]}</a>, Header: t(levelSelected.name)},
+      {id: pciMeasure, accessor: pciMeasure, Header: "PCI", Cell: d => d.original[`${measureSelected.id} PCI`].toString().slice(0, 4)}
     ];
 
     // const dataScatter = dataPCI.map(d => {
@@ -294,8 +294,13 @@ class ECIExplorer extends React.Component {
     //       maxRCA = Math.max(...rcaValues),
     //       minPCI = Math.min(...pciValues);
 
+    const share = {
+      title: `${t("ECI Explorer.Title")}`,
+      desc: t("share.eci")
+    };
+
     return <div>
-      <Helmet title={t("ECI Explorer.Title")} />
+      <HelmetWrapper info={share} />
       <Nav
         className={"background"}
         logo={false}
@@ -304,7 +309,7 @@ class ECIExplorer extends React.Component {
         title={""}
       />
       <div className="container eci-container">
-        <div className="columns">
+        <div className="columns eci-panel">
           <div className="column is-300">
             <h1 className="title">{t("ECI Explorer.Title")}</h1>
             {/* <p className="eci-explore">
@@ -440,8 +445,17 @@ class ECIExplorer extends React.Component {
         </div>
 
         {/* Table section */}
-        <div className="columns">
-          <div className="column">
+        <div className="columns eci-tables">
+          <div className="column eci-table">
+            <div className="eci-description">
+              <h2 className="eci-description-title">¿Qué es el Índice de Complejidad Económica (ECI)?</h2>
+              <p className="eci-description-text">
+                El Índice de Complejidad Económica, o ECI, es una medida de las capacidades existentes en una economía,
+                inferida a partir de la conexión entre las localidades y las actividades desarrolladas en cada
+                una de ellas. Este índice ha sido utilizado para predecir resultados macroeconómicos importantes, tales como
+                nivel de ingreso, crecimiento económico, desigualdad social y emisiones de gases de efecto invernadero.
+              </p>
+            </div>
             {!loading ? <div>
               <Label>API
                 <InputGroup
@@ -466,9 +480,18 @@ class ECIExplorer extends React.Component {
               >
                 {t("ECI Explorer.Download ECI dataset")}
               </button>
-            </div> : <LoadingChart message={t("Loading")} />}
+            </div> : <LoadingChart message={"Cargando visualización..."} />}
           </div>
-          <div className="column">
+          <div className="column eci-table">
+            <div className="eci-description">
+              <h2 className="eci-description-title">¿Qué es el Índice de Complejidad de Producto (PCI)?</h2>
+              <p className="eci-description-text">
+                El Índice de Complejidad de Producto, o PCI, es una medida de la complejidad requerida para desarrollar
+                una actividad económica o industria. Su valor está correlacionado con la concentración espacial de actividades
+                económicas desarrolladas a múltiples niveles geográficos. Un alto valor de PCI puede significar un mayor
+                requerimiento de capacidades para el desarrollo de una actividad económica, industria o producto.
+              </p>
+            </div>
             {!loading ? <div>
               <Label>API
                 <InputGroup
@@ -493,7 +516,7 @@ class ECIExplorer extends React.Component {
               >
                 {t("ECI Explorer.Download PCI dataset")}
               </button>
-            </div> : <LoadingChart message={t("Loading")} />}
+            </div> : <LoadingChart message={"Cargando visualización..."} />}
           </div>
         </div>
         {/* <div className="columns">

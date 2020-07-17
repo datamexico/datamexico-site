@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import classnames from "classnames";
-import {Helmet} from "react-helmet";
+import HelmetWrapper from "../HelmetWrapper";
 import {hot} from "react-hot-loader/root";
 import {withNamespaces} from "react-i18next";
 
@@ -11,6 +11,7 @@ import Error from "../Error/Error";
 import Footer from "components/Footer";
 import Glossary from "./Glossary";
 import Legal from "./Legal";
+// import Methodology from "./Methodology";
 import Nav from "components/Nav";
 import Press from "./Press";
 
@@ -52,17 +53,25 @@ class About extends Component {
         case "legal":
           childComponent = <Legal terms={data.terms} />;
           break;
+        /*
+      case "methodology":
+        childComponent = <Methodology />;
+        break;
+        */
         default:
           childComponent = <Background background={data.background} />;
           break;
       }
     }
 
+    const share = {
+      title: `Data México | ${t("About")}`,
+      desc: t("share.about")
+    };
+
     return (
       <div className="about-wrapper">
-        <Helmet title="About">
-          <meta property="og:title" content="About" />
-        </Helmet>
+        <HelmetWrapper info={share} />
         <Nav
           className="background"
           logo={false}

@@ -27,10 +27,12 @@
       justify-content: space-around;
       & .covid-header-stats-stat {
         align-items: center;
-        border-right: var(--field-border-radius) solid var(--light-3);
+        border: none;
         display: flex;
-        flex-grow: 1;
+        flex: 1;
         justify-content: center;
+        min-width: 180px;
+        padding: var(--gutter-sm);
         & .covid-header-stats-stat-icon {
           height: calc(var(--gutter-lg) * 1.8);
           margin-right: var(--gutter-xs);
@@ -38,7 +40,7 @@
         & .covid-header-stats-stat-text {
           display: flex;
           flex-direction: column;
-          width: 60%;
+          width: fit-content;
           & .covid-header-stats-stat-value {
             color: var(--gmx-red-1);
             font-size: var(--font-xl);

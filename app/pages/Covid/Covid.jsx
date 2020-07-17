@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import {Helmet} from "react-helmet";
+import HelmetWrapper from "../HelmetWrapper";
 import {formatAbbreviate} from "d3plus-format";
 import {withNamespaces} from "react-i18next";
 // import classnames from "classnames";
@@ -295,7 +295,7 @@ class Covid extends Component {
     progressStatData.push(...securityDateData);
     // Creates the configuration of the vis
     const progressStatVisConfig = {
-      data: progressStatData,
+      data: progressStatData.filter(d => d["Time ID"] > 20200315),
       type: "LinePlot",
       groupBy: ["Location", "Type"],
       y: progressBaseSelected ? `${progressBaseSelected} ${progressStatSelected.id}` : progressStatSelected.id,
@@ -448,10 +448,13 @@ class Covid extends Component {
       </div>
     </div>
 
+    const share = {
+      title: "Coronavirus en México (covid-19)",
+      desc: t("share.covid")
+    };
+
     return <div className="covid-wrapper">
-      <Helmet title="Coronavirus">
-        <meta property="og:title" content={"Coronavirus"} />
-      </Helmet>
+      <HelmetWrapper info={share} />
       <Nav
         className={"background"}
         logo={false}
@@ -467,7 +470,15 @@ class Covid extends Component {
             resetBaseLocation={this.resetBaseLocation}
           />
           <div className="covid-header-info">
-            <h4 className="covid-header-info-date">{`Data actualizada al ${showDate}`}</h4>
+
+            <h4 className="covid-header-info-date">{`Datos actualizados al ${showDate}`}</h4>
+            <DMXOverlay
+              content={overlayContent}
+              icon={"info-sign"}
+              tooltip={"Nota metodológica"}
+              buttonToClose={"Entendido"}
+            />
+
           </div>
           <div className="covid-header-stats">
             {locationStats.map(d => (
@@ -490,7 +501,7 @@ class Covid extends Component {
                 <p>
                   Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
                 </p>
-                <p className="italic">La data posee un desfase de 7 días.</p>
+                <p className="italic">Los datos poseen un desfase de 7 días.</p>
               </div>,
               source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
             }}
@@ -550,6 +561,7 @@ class Covid extends Component {
             cardInformation={{
               title: "Rangos de edad",
               description: <div className="card-description">
+                
               </div>,
               source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
             }}
