@@ -73,7 +73,7 @@ export default function RouteCreate() {
       <Route path="/:lang/data" component={Data} />
       <Route path="/:lang/coronavirus(/:slug)" component={Covid} />
       {/* 404 */}
-      <Route path="/:lang/*" component={Error} />
+      <Route path="*" component={Error} />
     </Route>
   );
 }

@@ -9,6 +9,7 @@ import libs from "@datawheel/canon-cms/src/utils/libs";
 
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
+import Error from "../Error/Error";
 
 import "./Profile.css";
 
@@ -61,6 +62,7 @@ class Profile extends React.Component {
     const {scrolled} = this.state;
 
     let slug = "", title = "", desc = "";
+    if (profile && profile.errorCode && profile.errorCode === 404) return <Error />;
 
     if (profile.meta) {
       slug = profile.meta.map(d => d.slug).join("_");

@@ -12,10 +12,10 @@ class Error extends Component {
   render() {
     const {errorType, locale} = this.props;
 
-    let text = "Our apologies, but this page doesn’t exist.";
-    if (errorType === "stub") {
-      text = "This page is currently under construction.";
-    }
+    let text = "Lo sentimos, esta página no existe.";
+    // if (errorType === "stub") {
+    //   text = "This page is currently under construction.";
+    // }
 
     return (
       <div className="error">
@@ -35,7 +35,7 @@ class Error extends Component {
         </div>
         <div className="error-container container">
           <p className="u-font-lg">{text}</p>
-          <p className="u-font-lg"><a href={`/${locale}/explore`}>Explore profiles</a> or go back to the <a href="/">home page</a>?</p>
+          <p className="u-font-lg"><a href={`/${locale}/explore`}>Explora perfiles</a> o vuelve al <a href="/">inicio</a>.</p>
         </div>
         <Footer />
       </div>
