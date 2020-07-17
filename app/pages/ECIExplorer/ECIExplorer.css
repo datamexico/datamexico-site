@@ -1,5 +1,10 @@
 .eci-container {
   margin-top: var(--nav-height);
+  & .ReactTable {
+    & .rt-tbody {
+      overflow-y: scroll !important;
+    }
+  }
   & h1.title {
     color: var(--gmx-red-2);
     font-size: var(--font-lg);

@@ -203,7 +203,7 @@ class ECIExplorer extends React.Component {
     ]).then(axios.spread((...resp) => {
       const data = resp[0].data.data;
       const dataPCI = resp[1].data.data;
-      this.fetchRCAData();
+      // this.fetchRCAData();
       this.setState({
         data,
         dataPCI,
@@ -220,32 +220,32 @@ class ECIExplorer extends React.Component {
     }));
   }
 
-  fetchRCAData = (geoId = 1, level = undefined) => {
-    const year = 2019;
-    const yearList = [year];
-    const years = yearList.join();
-    const {geoSelectedTemp, measureSelectedTemp, thresholdGeo, thresholdIndustry} = this.state;
+  // fetchRCAData = (geoId = 1, level = undefined) => {
+  //   const year = 2019;
+  //   const yearList = [year];
+  //   const years = yearList.join();
+  //   const {geoSelectedTemp, measureSelectedTemp, thresholdGeo, thresholdIndustry} = this.state;
 
-    const industryLevel = "Industry Group"; // "Industry Group", "NAICS Industry", "National Industry"
-    const geoLevel = level || geoSelectedTemp.id; // "State", "Municipality", "Metro Area"
-    const measure = measureSelectedTemp.id; // "Number of Employees Midpoint", "Number of Employees LCI", "Number of Employees UCI", "Companies"
-    const geoThreshold = thresholdGeo;
-    const industryThreshold = thresholdIndustry;
+  //   const industryLevel = "Industry Group"; // "Industry Group", "NAICS Industry", "National Industry"
+  //   const geoLevel = level || geoSelectedTemp.id; // "State", "Municipality", "Metro Area"
+  //   const measure = measureSelectedTemp.id; // "Number of Employees Midpoint", "Number of Employees LCI", "Number of Employees UCI", "Companies"
+  //   const geoThreshold = thresholdGeo;
+  //   const industryThreshold = thresholdIndustry;
 
-    const params = {
-      cube: "inegi_denue",
-      Year: years,
-      rca: [geoLevel, industryLevel, measure].join(),
-      threshold: [`${industryLevel}:${industryThreshold}`, `${geoLevel}:${geoThreshold}`].join(),
-      parents: true,
-      [`filter_${geoLevel}`]: geoId,
-      locale: this.props.lng
-    };
-    axios.get("/api/stats/rca", {params}).then(resp => {
-      const dataRCA = resp.data.data;
-      this.setState({dataRCA});
-    });
-  }
+  //   const params = {
+  //     cube: "inegi_denue",
+  //     Year: years,
+  //     rca: [geoLevel, industryLevel, measure].join(),
+  //     threshold: [`${industryLevel}:${industryThreshold}`, `${geoLevel}:${geoThreshold}`].join(),
+  //     parents: true,
+  //     [`filter_${geoLevel}`]: geoId,
+  //     locale: this.props.lng
+  //   };
+  //   axios.get("/api/stats/rca", {params}).then(resp => {
+  //     const dataRCA = resp.data.data;
+  //     this.setState({dataRCA});
+  //   });
+  // }
 
   render() {
     const {
@@ -274,12 +274,12 @@ class ECIExplorer extends React.Component {
     const industryId = `${levelSelected.id} ID`;
     const columns = [
       {id: geoId, accessor: geoId, Header: `${t(geoSelected.id)} ID`, width: 200},
-      {id: geoName, accessor: d => <a href="" onClick={() => this.fetchRCAData(d[geoId], geoName)}>{d[geoName]}</a>, Header: t(geoName)},
+      {id: geoName, accessor: d => <a href={`/${lng}/profile/geo/${d[geoId]}`}>{d[geoName]}</a>, Header: t(geoName)},
       {id: eciMeasure, accessor: eciMeasure, Header: "ECI", Cell: d => d.original[`${measureSelected.id} ECI`].toString().slice(0, 4)}
     ];
     const columnsPCI = [
       {id: industryId, accessor: industryId, Header: `${t(levelSelected.name)} ID`, width: 200},
-      {id: levelSelected.id, accessor: levelSelected.id, Header: t(levelSelected.name)},
+      {id: levelSelected.id, accessor: d => <a href={`/${lng}/profile/industry/${d[industryId]}`}>{d[levelSelected.name]}</a>, Header: t(levelSelected.name)},
       {id: pciMeasure, accessor: pciMeasure, Header: "PCI", Cell: d => d.original[`${measureSelected.id} PCI`].toString().slice(0, 4)}
     ];
 
