@@ -1,4 +1,4 @@
-import {Component} from "react";
+import React, {Component} from "react";
 import {Helmet} from "react-helmet";
 import {withNamespaces} from "react-i18next";
 import {connect} from "react-redux";
@@ -8,10 +8,10 @@ Helmet.defaultProps.encodeSpecialCharacters = false;
 class HelmetWrapper extends Component {
 
   render() {
-    const {t, info, lang, baseUrl, path } = this.props;
+    const {t, info, lang, baseUrl, path} = this.props;
 
     const defaults = {
-      title: info && info.title ? info.title: t("share.title"),
+      title: info && info.title ? info.title : t("share.title"),
       desc: info && info.desc ? info.desc : t("share.description"),
       img: info && info.img ? info.img : `${baseUrl}/images/share/share-${lang}.jpg`,
       url: `${baseUrl}${path}`,
@@ -43,7 +43,7 @@ export default withNamespaces()(
   connect(state => {
     return {
       baseUrl: state.env.CANON_API,
-      lang: state.i18n.locale === 'en'?'en':'es',
+      lang: state.i18n.locale === 'en' ? 'en' : 'es',
       path: state.location.pathname
     }
   })(HelmetWrapper)
