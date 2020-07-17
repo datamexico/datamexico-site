@@ -116,6 +116,7 @@
   & .covid-column-left {
     padding: var(--gutter-sm);
     min-width: 300px;
+    max-width: 300px;
   }
   & .covid-column-right {
     padding: var(--gutter-sm);
