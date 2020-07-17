@@ -172,8 +172,8 @@ class Covid extends Component {
 
   showDate = (d) => {
     const {t} = this.props;
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const days = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
     const fullDate = new Date(d);
     const day = fullDate.getDay();
     const date = fullDate.getDate() + 1;
@@ -182,14 +182,12 @@ class Covid extends Component {
     const hour = fullDate.getHours();
     // console.log("Date:", d, "Fulldate:", fullDate);
     // return `${t(days[day])} ${date} ${t(months[month])} ${year} ${hour}:00`
-    return `${d}`
+    return `${date} de ${months[month]} del ${year}`;
   }
 
   calculateStats = (dataset, divisionArray, stats) => {
-    console.log(dataset, division, stats);
     const division = divisionArray.includes("Nation") ? "Nation" : divisionArray.includes("State") ? "State" : "Municipality";
     const data = dataset.filter(d => d.Division === division);
-    console.log(data);
     const total = data.reduce((acc, element) => (acc + element.Cases), 0);
     const result = [];
     for (const statID in stats) {
@@ -200,7 +198,7 @@ class Covid extends Component {
           stat: stats[statID],
           value: statValues[statValueID],
           count: count,
-          percentage: count / total
+          percentage: (count / total) * 100
         };
         result.push(statRow);
       }
@@ -470,15 +468,7 @@ class Covid extends Component {
             resetBaseLocation={this.resetBaseLocation}
           />
           <div className="covid-header-info">
-
             <h4 className="covid-header-info-date">{`Datos actualizados al ${showDate}`}</h4>
-            <DMXOverlay
-              content={overlayContent}
-              icon={"info-sign"}
-              tooltip={"Nota metodológica"}
-              buttonToClose={"Entendido"}
-            />
-
           </div>
           <div className="covid-header-stats">
             {locationStats.map(d => (
@@ -498,10 +488,8 @@ class Covid extends Component {
             cardInformation={{
               title: "Nuevos casos diarios",
               description: <div className="card-description">
-                <p>
-                  Las pruebas y los desafíos limitados en la atribución de la causa de la muerte signifca que el número de muertes confrmadas puede no ser un recuento exacto del número verdadero de muertes por COVID-19.
-                </p>
-                <p className="italic">Los datos poseen un desfase de 7 días.</p>
+                <p>La fecha a la que son asignados los casos corresponde al día en que fue tomado el test.</p>
+                <p className="italic">La línea punteada indica datos preliminares que serán confirmados durante los próximos 7 días.</p>
               </div>,
               source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
             }}
@@ -561,7 +549,7 @@ class Covid extends Component {
             cardInformation={{
               title: "Rangos de edad",
               description: <div className="card-description">
-                
+                <p>Los gráficos muestran el número de casos según la edad de los y las pacientes, acumulados hasta {showDate}.</p>
               </div>,
               source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
             }}

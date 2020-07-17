@@ -84,7 +84,7 @@ class CovidCard extends Component {
               {indicatorStats.map(d => (
                 <div className="covid-card-information-stats-stat">
                   <span className="stat-value">{d.value}</span>
-                  <span className="stat-percentage">{`${formatAbbreviate(d.percentage) * 100}%`}</span>
+                  <span className="stat-percentage">{`${formatAbbreviate(d.percentage)}%`}</span>
                 </div>
               ))}
             </div>

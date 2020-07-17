@@ -58,7 +58,7 @@ class Nav extends React.Component {
       })
         .then(resp => {
           const data = resp.data.results;
-          const results = data.map(d => ({id: d.id, name: d.name, slug: d.profile, level: d.hierarchy}));
+          const results = data.map(d => ({id: d.slug, name: d.name, slug: d.profile, level: d.hierarchy}));
           this.setState({results, resultsFilter: results, isOpenSearchResults: true});
         })
         .catch(error => {

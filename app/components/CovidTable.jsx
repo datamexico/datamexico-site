@@ -22,25 +22,22 @@ class CovidTable extends React.Component {
     const today = new Date(date.Time);
     const lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 14).getTime();
     const dataFiltered = data.filter(d => new Date(d.Time).getTime() >= lastWeek);
-    const nestedData = nest()
-      .key(d => d["Location ID"])
-      .entries(dataFiltered)
 
-    const tableData = nestedData.map(d => {
-      const {values} = d;
-      const trend = values.map(h => h["AVG 7 Days Daily Cases"]);
-      const diff = trend.reduce((all, d, i) => {
-        if (i > 0) {
-          const delta = 1 - trend[i - 1] / d;
-          all.push(delta);
-        };
-        return all;
-      }, []);
-      values.sort((a, b) => b["Time ID"] - a["Time ID"]);
-      const latest = values[0];
-      const location = locations.find(h => h["Location ID"] === latest["Location ID"])
-      const item = Object.assign({}, latest, {"Trend": trend, "Growth": mean(diff)}, location)
-      return item;
+    const tableData = locations.map(d => {
+      const locationData = dataFiltered.filter(m => m["Location ID"] === d["Location ID"]);
+      const aditionalData = locationData.reduce((acc, item) => {
+        acc["Last 14 Daily Cases"] = (acc["Last 14 Daily Cases"] || 0) + item["Daily Cases"];
+        acc["Last 14 Daily Deaths"] = (acc["Last 14 Daily Deaths"] || 0) + item["Daily Deaths"];
+        acc["Last 14 Daily Hospitalized"] = (acc["Last 14 Daily Hospitalized"] || 0) + item["Daily Hospitalized"];
+        acc["Last 14 Daily Suspect"] = (acc["Last 14 Daily Suspect"] || 0) + item["Daily Suspect"];
+        return acc;
+      }, {});
+      aditionalData["Location"] = d["Location"];
+      aditionalData["Location ID"] = d["Location ID"];
+      aditionalData["Icon"] = d["Icon"];
+
+      const dateData = locationData.find(m => m["Time ID"] === date["Time ID"]);
+      return Object.assign({}, dateData, aditionalData);
     });
 
     this.setState({tableData});
@@ -64,28 +61,34 @@ class CovidTable extends React.Component {
         width: 200
       },
       {
-        id: "Last 7 Daily Cases",
-        accessor: d => d["Last 7 Daily Cases"],
-        Cell: d => commas(d.original["Last 7 Daily Cases"]),
-        Header: "Total contagios 7 días"
+        id: "Last 14 Daily Cases",
+        accessor: d => d["Last 14 Daily Cases"],
+        Cell: d => commas(d.original["Last 14 Daily Cases"]),
+        Header: "Contagios confirmados 14 días"
       },
       {
-        id: "Last 7 Daily Deaths",
-        accessor: d => d["Last 7 Daily Deaths"],
-        Cell: d => commas(d.original["Last 7 Daily Deaths"]),
-        Header: "Total fallecidos 7 días"
+        id: "Last 14 Daily Deaths",
+        accessor: d => d["Last 14 Daily Deaths"],
+        Cell: d => commas(d.original["Last 14 Daily Deaths"]),
+        Header: "Fallecídos confirmados 14 días"
       },
       {
         id: "Accum Cases",
         accessor: d => d["Accum Cases"],
         Cell: d => commas(d.original["Accum Cases"]),
-        Header: "Total contagios"
+        Header: "Contagios totales confirmados"
       },
       {
         id: "Accum Deaths",
         accessor: d => d["Accum Deaths"],
         Cell: d => commas(d.original["Accum Deaths"]),
-        Header: "Total fallecidos"
+        Header: "Fallecidos totales confirmados"
+      },
+      {
+        id: "Accum Suspect",
+        accessor: d => d["Accum Suspect"],
+        Cell: d => commas(d.original["Accum Suspect"]),
+        Header: "Total test realizados"
       }
     ]
 
