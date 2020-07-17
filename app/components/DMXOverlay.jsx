@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Icon, Tooltip, Overlay, Button} from "@blueprintjs/core";
+import {Icon, Tooltip, Overlay, Button, Position} from "@blueprintjs/core";
 
 import "./DMXOverlay.css";
 
@@ -28,6 +28,7 @@ export class DMXOverlay extends Component {
           onClose={this.handleOverlay}
           transitionDuration={0}
           useTallContent={true}
+          position={Position.RIGHT}
         >
           <div className="dmx-overlay-card">
             {content}
