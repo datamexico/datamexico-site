@@ -44,6 +44,7 @@
 
     &.nav-center {
       justify-content: center;
+      align-items: center;
       & .nav-subtitle {
         color: var(--accent-dark);
         font-family: "Fira Sans Extra Condensed", sans-serif;
