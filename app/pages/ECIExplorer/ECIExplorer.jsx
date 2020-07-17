@@ -95,7 +95,7 @@ class ECIExplorer extends React.Component {
       cubeSelected,
       geoSelected: geoLevels(props.lng, cubeId)[0],
       isAgg: cubeSelected.isAgg,
-      measureSelected: cubeSelected.measures[0],
+      measureSelected: cubeSelected.measures[1],
       timeSelected: cubeSelected.time[0],
       levelSelected: cubeSelected.levels[0]
     };
@@ -275,12 +275,12 @@ class ECIExplorer extends React.Component {
     const columns = [
       {id: geoId, accessor: geoId, Header: `${t(geoSelected.id)} ID`, width: 200},
       {id: geoName, accessor: d => <a href="" onClick={() => this.fetchRCAData(d[geoId], geoName)}>{d[geoName]}</a>, Header: t(geoName)},
-      {id: eciMeasure, accessor: eciMeasure, Header: "ECI"}
+      {id: eciMeasure, accessor: eciMeasure, Header: "ECI", Cell: d => d.original[`${measureSelected.id} ECI`].toString().slice(0, 4)}
     ];
     const columnsPCI = [
       {id: industryId, accessor: industryId, Header: `${t(levelSelected.name)} ID`, width: 200},
       {id: levelSelected.id, accessor: levelSelected.id, Header: t(levelSelected.name)},
-      {id: pciMeasure, accessor: pciMeasure, Header: "PCI"}
+      {id: pciMeasure, accessor: pciMeasure, Header: "PCI", Cell: d => d.original[`${measureSelected.id} PCI`].toString().slice(0, 4)}
     ];
 
     // const dataScatter = dataPCI.map(d => {
@@ -309,7 +309,7 @@ class ECIExplorer extends React.Component {
         title={""}
       />
       <div className="container eci-container">
-        <div className="columns">
+        <div className="columns eci-panel">
           <div className="column is-300">
             <h1 className="title">{t("ECI Explorer.Title")}</h1>
             {/* <p className="eci-explore">
@@ -445,8 +445,17 @@ class ECIExplorer extends React.Component {
         </div>
 
         {/* Table section */}
-        <div className="columns">
-          <div className="column">
+        <div className="columns eci-tables">
+          <div className="column eci-table">
+            <div className="eci-description">
+              <h2 className="eci-description-title">¿Qué es el Índice de Complejidad Económica (ECI)?</h2>
+              <p className="eci-description-text">
+                El Índice de Complejidad Económica, o ECI, es una medida de las capacidades existentes en una economía,
+                inferida a partir de la conexión entre las localidades y las actividades desarrolladas en cada
+                una de ellas. Este índice ha sido utilizado para predecir resultados macroeconómicos importantes, tales como
+                nivel de ingreso, crecimiento económico, desigualdad social y emisiones de gases de efecto invernadero.
+              </p>
+            </div>
             {!loading ? <div>
               <Label>API
                 <InputGroup
@@ -471,9 +480,18 @@ class ECIExplorer extends React.Component {
               >
                 {t("ECI Explorer.Download ECI dataset")}
               </button>
-            </div> : <LoadingChart message={t("Loading")} />}
+            </div> : <LoadingChart message={"Cargando visualización..."} />}
           </div>
-          <div className="column">
+          <div className="column eci-table">
+            <div className="eci-description">
+              <h2 className="eci-description-title">¿Qué es el Índice de Complejidad de Producto (PCI)?</h2>
+              <p className="eci-description-text">
+                El Índice de Complejidad de Producto, o PCI, es una medida de la complejidad requerida para desarrollar
+                una actividad económica o industria. Su valor está correlacionado con la concentración espacial de actividades
+                económicas desarrolladas a múltiples niveles geográficos. Un alto valor de PCI puede significar un mayor
+                requerimiento de capacidades para el desarrollo de una actividad económica, industria o producto.
+              </p>
+            </div>
             {!loading ? <div>
               <Label>API
                 <InputGroup
@@ -498,7 +516,7 @@ class ECIExplorer extends React.Component {
               >
                 {t("ECI Explorer.Download PCI dataset")}
               </button>
-            </div> : <LoadingChart message={t("Loading")} />}
+            </div> : <LoadingChart message={"Cargando visualización..."} />}
           </div>
         </div>
         {/* <div className="columns">
