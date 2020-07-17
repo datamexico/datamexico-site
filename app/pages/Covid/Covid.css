@@ -16,7 +16,7 @@
       padding-bottom: var(--gutter-md);
       & .covid-header-info-date {
         color: var(--light-gray);
-        font-size: var(--font-xs);
+        font-size: var(--font-sm);
         font-weight: var(--light-bold-weight);
         text-transform: uppercase;
       }
