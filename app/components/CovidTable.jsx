@@ -50,14 +50,61 @@ class CovidTable extends React.Component {
     const {lng} = this.props;
     const {tableData} = this.state;
 
+    const columns = [
+      {
+        id: "Location",
+        accessor: d => d["Location ID"],
+        Cell: d => <div className="geo-wrapper">
+          <div className="icon" style={{backgroundColor: colors.State[d.original["Location ID"]]}}>
+            <img src={d.original.Icon} alt="" />
+          </div>
+          <a href={`/${lng}/profile/geo/${d.original["Location ID"]}`} className="title">{d.original.Location}</a>
+        </div>,
+        Header: "Entidad federativa",
+        width: 200
+      },
+      {
+        id: "Last 7 Daily Cases",
+        accessor: d => d["Last 7 Daily Cases"],
+        Cell: d => commas(d.original["Last 7 Daily Cases"]),
+        Header: "Total contagios 7 días"
+      },
+      {
+        id: "Last 7 Daily Deaths",
+        accessor: d => d["Last 7 Daily Deaths"],
+        Cell: d => commas(d.original["Last 7 Daily Deaths"]),
+        Header: "Total fallecidos 7 días"
+      },
+      {
+        id: "Accum Cases",
+        accessor: d => d["Accum Cases"],
+        Cell: d => commas(d.original["Accum Cases"]),
+        Header: "Total contagios"
+      },
+      {
+        id: "Accum Deaths",
+        accessor: d => d["Accum Deaths"],
+        Cell: d => commas(d.original["Accum Deaths"]),
+        Header: "Total fallecidos"
+      }
+    ]
+
     return <div className="container">
       <div className="columns">
         <div className="column">
-          <table className="covid19-table">
+          {tableData.length && <ReactTable
+            className="covid19-table"
+            columns={columns}
+            data={tableData}
+            minRows={tableData.length}
+            pageSize={tableData.length}
+            showPagination={false}
+            defaultPageSize={tableData.length}
+          />}
+          {/* <table className="covid19-table">
             <thead>
               <tr>
                 <th>Entidad federativa</th>
-                <th>Tendencia de nuevos casos 14 días</th>
                 <th>Contagios 7 días</th>
                 <th>Fallecidos 7 días</th>
                 <th>Total contagios</th>
@@ -70,38 +117,17 @@ class CovidTable extends React.Component {
                   ? "#A70512"
                   : d.Growth < -0.1 ? "#008874" : "gray";
                 return <tr>
+
                   <td>
-                    <div className="geo-wrapper">
-                      <div className="icon" style={{backgroundColor: colors.State[d["Location ID"]]}}>
-                        <img src={d.Icon} alt="" />
-                      </div>
-                      <a href={`/${lng}/profile/geo/${d["Location ID"]}`} className="title">{d.Location}</a>
-                    </div>
-                  </td>
-                  <td style={{width: 200, height: 50}}>
-                    <div className="trend-wrapper">
-                      <Sparklines data={d.Trend}>
-                        <SparklinesLine color={color} style={{fill: "none", strokeWidth: 3}} />
-                      </Sparklines>
-                      <span style={{color}} className="trend-value">{formatAbbreviate(d.Growth * 100)}%</span>
-                    </div>
+                    {commas(d[""])}
                   </td>
                   <td>
-                    {commas(d["Last 7 Daily Cases"])}
-                  </td>
-                  <td>
-                    {commas(d["Last 7 Daily Deaths"])}
-                  </td>
-                  <td>
-                    {commas(d["Accum Cases"])}
-                  </td>
-                  <td>
-                    {commas(d["Accum Deaths"])}
+                    {commas(d["Accum "])}
                   </td>
                 </tr>
               })}
             </tbody>
-          </table>
+          </table> */}
         </div>
       </div>
     </div>

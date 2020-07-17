@@ -317,6 +317,10 @@ p:last-of-type {
     }
   }
 }
+.bp3-popover.bp3-select-popover .bp3-popover-content {
+  border-radius: 0px;
+  padding: 0px;
+}
 
 .bp3-dialog.options-dialog {
   /* border: 1px solid var(--accent);*/
@@ -482,6 +486,7 @@ p:last-of-type {
 .bp3-select-popover {
   & .bp3-menu {
     padding: 0px !important;
+    border-radius: 0px;
     & .bp3-menu-item {
       &.bp3-active {
         border-radius: 0;

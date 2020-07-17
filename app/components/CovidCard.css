@@ -2,6 +2,7 @@
 
 .covid-card {
   margin-top: var(--gutter-lg);
+  flex-wrap: wrap;
   & .covid-card-information > * {
     margin-bottom: var(--gutter-sm);
   }
@@ -114,11 +115,12 @@
   flex-direction: row;
   & .covid-column-left {
     padding: var(--gutter-sm);
-    width: 20%;
+    min-width: 300px;
   }
   & .covid-column-right {
     padding: var(--gutter-sm);
-    width: 80%;
+    flex: 1;
+    min-width: 300px;
   }
 }
 
