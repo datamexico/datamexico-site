@@ -14,9 +14,9 @@ class Legal extends Component {
         {terms.length > 0 && terms.map(d => (
           <div>
             <h4>{d.Title}</h4>
-            {d.Description.split("\n").map((m, i) => {
+            {d.Description ? d.Description.split("\n").map((m, i) => {
               return <p key={i}>{m}</p>
-            })}
+            }) : ""}
           </div>
         ))}
       </div>
