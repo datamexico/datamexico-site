@@ -28,6 +28,27 @@ module.exports = function (app) {
       return {enoeLatestQuarter, enoePrevQuarter, enoePrevYear};
     }
 
+    const FDI_DATASET = async(hierarchy, id) => {
+      // Latest Quarter
+      const params = {
+        cube: "economy_fdi",
+        drilldowns: "Quarter",
+        measures: "Investment (Million)",
+        parents: true,
+        [hierarchy]: id
+      };
+      const data = await axios.get(BASE_API, {params})
+        .then(resp => resp.data.data)
+        .catch(catcher);
+
+      data.sort((a, b) => b["Quarter ID"] - a["Quarter ID"]);
+      const fdiLatestQuarter = data[0] ? data[0]["Quarter ID"] : undefined;
+      const fdiLatestYear = data[0] ? data[0]["Year"] : undefined;
+      const fdiPrevQuarter = data[1] ? data[1]["Quarter ID"] : undefined;
+      const fdiPrevQuarterYear = data[4] ? data[4]["Quarter ID"] : undefined;
+      return {fdiLatestQuarter, fdiLatestYear, fdiPrevQuarter, fdiPrevQuarterYear};
+    }
+
     let enoeLatestQuarter, enoePrevQuarter, enoePrevYear;
 
     switch (pid) {
@@ -123,6 +144,8 @@ module.exports = function (app) {
       // Industry profile
       case 33:
         const ENOE_INDUSTRY = await ENOE_DATASET(hierarchy1, id1);
+        const FDI_INDUSTRY = await FDI_DATASET(hierarchy1, id1);
+        const {fdiLatestQuarter, fdiLatestYear, fdiPrevQuarter, fdiPrevQuarterYear} = FDI_INDUSTRY;
         enoeLatestQuarter = ENOE_INDUSTRY.enoeLatestQuarter;
         enoePrevQuarter = ENOE_INDUSTRY.enoePrevQuarter;
         enoePrevYear = ENOE_INDUSTRY.enoePrevYear;
@@ -138,8 +161,10 @@ module.exports = function (app) {
           enoeLatestQuarter,
           enoePrevQuarter,
           enoePrevYear,
-          fdiLatestQuarter: 20201,
-          fdiLatestYear: 2019,
+          fdiLatestQuarter,
+          fdiLatestYear,
+          fdiPrevQuarter,
+          fdiPrevQuarterYear,
           isDeepestLevel
         });
 
