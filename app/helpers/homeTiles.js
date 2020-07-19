@@ -3,7 +3,7 @@ module.exports = {
     name: "Cities & Places",
     dimension: "Geography",
     background: "#8b9f65",
-    items: [9, 19039, 14039, 17, 17007],
+    items: ["mex", 9, 19039, 14039, 17],
     levels: [
       {name: "Nation", count: 1},
       {name: "State", count: 32},
