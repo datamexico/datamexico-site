@@ -12,6 +12,7 @@
     width: 100%;
   }
   &.tile-v2-layout-cols {
+    text-align: left;
     margin: 0.75rem;
     width: 23%;
     margin: var(--gutter-xs);

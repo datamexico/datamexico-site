@@ -9,12 +9,13 @@
 .about-hero {
   align-content: center;
   background: url(/images/about.jpg);
-  background-position: center center;
+  background-position: center 40%;
   background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 50vh;
+  height: 200px;
+  min-height: 0;
   position: relative;
   z-index: 1;
   &::before {
@@ -109,6 +110,22 @@
   & img {
     border-bottom: calc(var(--button-border-width) * 5) solid var(--primary-2);
     margin-bottom: var(--gutter-md);
+  }
+
+  & iframe {
+    display: block;
+    height: 300px;
+    margin: 0 auto;
+    max-width: 533px;
+    width: 100%;
+  }
+
+  & sub {
+    color: var(--light-3);
+    display: block;
+    font-size: var(--font-xxs);
+    margin: var(--gutter-sm) 0 var(--gutter-lg);
+    text-align: center;
   }
 }
 

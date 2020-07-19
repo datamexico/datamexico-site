@@ -98,6 +98,11 @@
       & p {
         font-size: var(--font-xs);
       }
+      & a {
+        color: var(--gmx-red-2);
+        font-weight: var(--light-bold-weight);
+        text-decoration: underline;
+      }
     }
     & .covid-card-information-sources {
       color: var(--light-gray);
