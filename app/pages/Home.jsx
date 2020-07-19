@@ -135,7 +135,7 @@ class Home extends Component {
                 subtitle={t(info.subtitle)}
               />
               <div className="profile-tile-container-list">
-                {items.map((h,ix) => <TileV2
+                {items.map((h, ix) => <TileV2
                   id={h.slug}
                   key={`${h.id}-home-tile-${lng}`}
                   level={t(h.hierarchy)}

@@ -54,7 +54,7 @@ module.exports = {
   institution: {
     dimension: "Campus",
     background: "#e7d98c",
-    items: [317, 248, 14039, 1101, 82],
+    items: [317, 248, 725, 1101, 82],
     name: "Universities",
     levels: [
       {name: "Institution", count: 3430}
