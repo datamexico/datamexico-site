@@ -91,7 +91,9 @@ module.exports = function (app) {
           enoePrevQuarter,
           enoePrevYear,
           foreignTradePrevYear: 2018,
-          foreignTradeLatestYear: 2019
+          foreignTradeLatestYear: 2019,
+          fdiLatestQuarter: 20201,
+          fdiLatestYear: 2019
         });
 
       case 11:
@@ -136,8 +138,8 @@ module.exports = function (app) {
           enoeLatestQuarter,
           enoePrevQuarter,
           enoePrevYear,
-          fdiLatestQuarter: 20192,
-          fdiLatestYear: 2018,
+          fdiLatestQuarter: 20201,
+          fdiLatestYear: 2019,
           isDeepestLevel
         });
 
