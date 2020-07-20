@@ -85,7 +85,7 @@ class Home extends Component {
             </div>
           </div>
           <div className="home-hero-search">
-            <span className="home-disclaimer-search">¡Más de 9.000 perfiles para descubrir!</span>
+            <span className="home-disclaimer-search">¡Más de 12.000 perfiles para descubrir!</span>
             <HeroSearch locale={lng} router={router} />
           </div>
         </div>
@@ -93,10 +93,8 @@ class Home extends Component {
           <div className="home-description-text">
             <h2 className="intro-title">¿Qué es DataMéxico?</h2>
             <p className="intro">
-              DataMÉXICO es un esfuerzo conjunto entre la Secretaria de Economía (SE) y Datawheel,
-              que permite la integración, visualización y análisis de datos para mejorar la toma
-              de decisiones de políticas públicas enfocadas en fomentar la innovación, inclusión y
-              diversificación de la economía mexicana.
+            DataMÉXICO permite la integración, visualización y análisis de datos públicos para fomentar
+            la innovación, inclusión y diversificación de la economía mexicana.
             </p>
           </div>
           <div className="home-description-buttons">
