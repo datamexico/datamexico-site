@@ -408,7 +408,8 @@ export default {
     },
     title(d) {
       const {item, itemId, parent, parentId} = getTooltipTitle(this, d);
-      const title = Array.isArray(item[1]) ? `Otros ${parent[1] || "Valores"}` : item[1];
+      const aggregated = Array.isArray(parent[1]) ? "Valores" : parent[1];
+      const title = Array.isArray(item[1]) ? `Otros ${aggregated || "Valores"}` : item[1];
       const itemBgImg = ["Country", "Organization"].includes(itemId) ? itemId : parentId;
       let bgColor = findColorV2(itemBgImg, d);
       let imgUrl = findIconV2(itemBgImg, d);
