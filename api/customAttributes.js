@@ -112,6 +112,7 @@ module.exports = function (app) {
           enoePrevQuarter,
           enoePrevYear,
           foreignTradePrevYear: 2018,
+          foreignTradeLatestMonth: 202005,
           foreignTradeLatestYear: 2019,
           fdiLatestQuarter: 20201,
           fdiLatestYear: 2019
