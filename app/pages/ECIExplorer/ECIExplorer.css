@@ -138,7 +138,7 @@
       & .column.eci-table {
         margin-bottom: var(--gutter-md);
         & .eci-description {
-          text-align: center;
+          text-align: left;
           & .eci-description-text {
             font-size: var(--font-sm);
           }

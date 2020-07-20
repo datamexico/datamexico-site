@@ -450,10 +450,12 @@ class ECIExplorer extends React.Component {
             <div className="eci-description">
               <h2 className="eci-description-title">¿Qué es el Índice de Complejidad Económica (ECI)?</h2>
               <p className="eci-description-text">
-                El Índice de Complejidad Económica, o ECI, es una medida de las capacidades existentes en una economía,
-                inferida a partir de la conexión entre las localidades y las actividades desarrolladas en cada
-                una de ellas. Este índice ha sido utilizado para predecir resultados macroeconómicos importantes, tales como
-                nivel de ingreso, crecimiento económico, desigualdad social y emisiones de gases de efecto invernadero.
+                El Índice de Complejidad Económica (ECI) mide las capacidades productivas de una localidad
+                (e.g. estado o municipalidad) a partir de la presencia de actividades (e.g. empleo, industrias o exportaciones)
+                en esa y otras localidades. La complejidad económica de una localidad predice su nivel de ingreso, crecimiento
+                económico, desigualdad, y emisiones de gases de efecto invernadero. El ECI puede estimarse usando datos de
+                exportaciones, empleo, patentes, etc., por lo que las estimaciones difieren de acuerdo a los datos y los umbrales
+                utilizados. Este explorador de complejidad económica permite calcular el ECI con distintas fuentes de datos y umbrales.
               </p>
             </div>
             {!loading ? <div>
@@ -486,10 +488,11 @@ class ECIExplorer extends React.Component {
             <div className="eci-description">
               <h2 className="eci-description-title">¿Qué es el Índice de Complejidad de Producto (PCI)?</h2>
               <p className="eci-description-text">
-                El Índice de Complejidad de Producto, o PCI, es una medida de la complejidad requerida para desarrollar
-                una actividad económica o industria. Su valor está correlacionado con la concentración espacial de actividades
-                económicas desarrolladas a múltiples niveles geográficos. Un alto valor de PCI puede significar un mayor
-                requerimiento de capacidades para el desarrollo de una actividad económica, industria o producto.
+              El Índice de Complejidad de Producto (PCI) es una medida de la complejidad requerida para desarrollar
+              una actividad económica (e.g. industria, producto o ocupacion). Su valor correlaciona con la concentración
+              espacial y los ingresos de las actividades económicas. El PCI puede estimarse con datos de exportaciones,
+              empleo, patentes, etc. por lo que sus valores difieren de acuerdo a los datos y umbrales utilizados.
+              Este explorador permite calcular PCI con distintos umbrales y fuentes de datos.
               </p>
             </div>
             {!loading ? <div>
