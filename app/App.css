@@ -564,3 +564,10 @@ p:last-of-type {
   min-width: 200px;
 }
 
+.cp-button.internal-link.cp-fill {
+  width: 100%;
+  background-color: var(--gmx-yellow-2);
+  color: var(--white);
+  text-decoration: none;
+}
+
