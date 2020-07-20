@@ -1,7 +1,10 @@
 const axios = require("axios");
 const BASE_API = "https://api.datamexico.org/tesseract/data";
 
-const catcher = error => console.error("Custom Attribute Error:", error);
+const catcher = error => {
+  console.error("Custom Attribute Error:", error);
+  return []
+};
 module.exports = function (app) {
 
   app.post("/api/cms/customAttributes/:pid", async(req, res) => {
@@ -69,12 +72,15 @@ module.exports = function (app) {
           }
           const data = await axios.get(BASE_API, {params})
             .then(resp => resp.data.data[0])
-            .catch(catcher);
+            .catch(error => {});
+
           const levels = ["Nation", "State", "Municipality"];
           const i = levels.findIndex(d => d === hierarchy1);
           const level = levels[i - 1];
-          customId = data[`${level} ID`];
-          customName = data[level];
+          if (data) {
+            customId = data[`${level} ID`];
+            customName = data[level];
+          }
         }
 
         const customHierarchy = isMunicipality ? "State" : hierarchy1;
