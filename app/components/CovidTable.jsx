@@ -57,8 +57,7 @@ class CovidTable extends React.Component {
           </div>
           <a href={`/${lng}/profile/geo/${d.original["Location ID"]}`} className="title">{d.original.Location}</a>
         </div>,
-        Header: "Entidad federativa",
-        width: 200
+        Header: "Entidad federativa"
       },
       {
         id: "Last 14 Daily Cases",
@@ -92,7 +91,7 @@ class CovidTable extends React.Component {
       }
     ]
 
-    return <div className="container">
+    return <div className="covid-table container">
       <div className="columns">
         <div className="column">
           {tableData.length && <ReactTable
