@@ -77,8 +77,9 @@ export const findIconV2 = (key, d) => {
     return `/icons/visualizations/Country/country_${icon}.png`;
   }
   const icon = key.replace(" 4 Digit", "");
+  const iconID = ("_isAggregation" in d && key === "State") ? "other" : d[`${key} ID`];
   return icons.includes(icon)
-    ? `/icons/visualizations/${icon}/png/white/${d[`${key} ID`]}.png`
+    ? `/icons/visualizations/${icon}/png/white/${iconID}.png`
     : undefined;
 };
 
