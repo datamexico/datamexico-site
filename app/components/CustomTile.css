@@ -9,11 +9,11 @@
   position: relative;
   z-index: 1;
   margin: 0 var(--gutter-sm);
-  background: #BC955C;
+  background: #174442;
   padding: 1rem;
   box-shadow: -4px 4px 0px 2px rgba(0,0,0,0.3);
   &:hover {
-    background: #174442;
+    background: #BC955C;
     transition: 0.3s ease-out;;
   }
 
