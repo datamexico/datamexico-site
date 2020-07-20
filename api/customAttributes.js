@@ -67,12 +67,14 @@ module.exports = function (app) {
             cube: "inegi_population",
             drilldowns: hierarchy1,
             measures: "Population",
-            [hierarchy1]: id1,
+            // [hierarchy1]: id1,
             parents: true
           }
-          const data = await axios.get(BASE_API, {params})
-            .then(resp => resp.data.data[0])
-            .catch(error => {});
+          const allData = await axios.get(BASE_API, {params})
+            .then(resp => resp.data.data)
+            .catch(error => []);
+
+          const data = allData.find(d => d["Municipality ID"] === id1 * 1) || {};
 
           const levels = ["Nation", "State", "Municipality"];
           const i = levels.findIndex(d => d === hierarchy1);
