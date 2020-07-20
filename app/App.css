@@ -571,3 +571,7 @@ p:last-of-type {
   text-decoration: none;
 }
 
+.cp-viz-spinner {
+  fill: var(--gmx-red-1);
+}
+
