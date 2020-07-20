@@ -1,5 +1,5 @@
 const axios = require("axios");
-const BASE_API = "https://api.datamexico.org/tesseract/data";
+const BASE_API = `${CANON_CMS_CUBES}data`;
 
 const catcher = error => {
   console.error("Custom Attribute Error:", error);
@@ -9,6 +9,7 @@ module.exports = function (app) {
 
   app.post("/api/cms/customAttributes/:pid", async(req, res) => {
     const pid = req.params.pid * 1;
+    const {cache} = app.settings;
     const {variables, locale} = req.body;
     const {id1, dimension1, hierarchy1, slug1, name1, cubeName1, parents1} = variables;
 
@@ -63,16 +64,7 @@ module.exports = function (app) {
         const isState = ["Nation", "State"].includes(hierarchy1);
 
         if (isMunicipality) {
-          const params = {
-            cube: "inegi_population",
-            drilldowns: hierarchy1,
-            measures: "Population",
-            // [hierarchy1]: id1,
-            parents: true
-          }
-          const allData = await axios.get(BASE_API, {params})
-            .then(resp => resp.data.data)
-            .catch(error => []);
+          const allData = cache.geoData;
 
           const data = allData.find(d => d["Municipality ID"] === id1 * 1) || {};
 
