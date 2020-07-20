@@ -70,11 +70,14 @@ module.exports = function (app) {
           const data = await axios.get(BASE_API, {params})
             .then(resp => resp.data.data[0])
             .catch(catcher);
+
           const levels = ["Nation", "State", "Municipality"];
           const i = levels.findIndex(d => d === hierarchy1);
           const level = levels[i - 1];
-          customId = data[`${level} ID`];
-          customName = data[level];
+          if (data) {
+            customId = data[`${level} ID`];
+            customName = data[level];
+          }
         }
 
         const customHierarchy = isMunicipality ? "State" : hierarchy1;
