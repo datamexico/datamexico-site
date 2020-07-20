@@ -24,7 +24,7 @@ const profilesList = {
   'filter': {title: "Explore", dimension: false, levels: []},
   'geo': {title: "Cities & Places", cube: "inegi_population", dimension: "Geography", levels: ["Nation", "State", "Municipality"], background: "#8b9f65"},
   'product': {title: "Products", cube: "economy_foreign_trade_ent", dimension: "Product", levels: ["Chapter", "HS2", "HS4", "HS6"], background: "#ea8db2"},
-  'industry': {title: "Industries", cube: "inegi_economic_census", dimension: "Industry", levels: ["Sector", "Subsector", "Industry Group", "NAICS Industry", "National Industry"], background: "#f5c094"},
+  'industry': {title: "Industries", cube: "inegi_economic_census", dimension: "Industry", levels: ["Sector", "Subsector", "Industry Group"/*,, "NAICS Industry", "National Industry"*/], background: "#f5c094"},
   'institution': {title: "Universities", cube: "anuies_status", dimension: "Campus", levels: ["Institution"], background: "#e7d98c"},
   'occupation': {title: "Occupations", cube: "inegi_enoe", dimension: "Occupation Actual Job", levels: ["Group", "Subgroup", "Occupation"], background: "#68adcd"}
 }
@@ -131,7 +131,7 @@ class Explore extends React.Component {
           results.forEach(elements => {
             elements.forEach(profileItem => {
               if (profilesList[profileItem.slug]) {
-                tempObj = {id: profileItem.id, name: profileItem.name, slug: profileItem.slug, level: profileItem.memberHierarchy, background: profilesList[profileItem.slug].background};
+                tempObj = {id: profileItem.id, name: profileItem.name, slug: profileItem.slug, level: profileItem.memberHierarchy, background: profilesList[profileItem.slug].background, ranking: profileItem.ranking};
                 resultsRaw.push(tempObj);
                 if (profile === 'filter' || profileItem.slug === profile && profileItem.memberHierarchy === profilesList[profile].levels[tab]) {
                   parsed.push(tempObj);
@@ -139,6 +139,8 @@ class Explore extends React.Component {
               }
             });
           });
+
+          parsed = parsed.sort((a,b)=> a.ranking>b.ranking?-1:1);
 
           const resultsNest = nest()
             .key(d => d.slug)

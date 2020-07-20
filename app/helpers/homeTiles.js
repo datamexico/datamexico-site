@@ -19,9 +19,9 @@ module.exports = {
     levels: [
       {name: "Sector", count: 22},
       {name: "Subsector", count: 107},
-      {name: "Industry Group", count: 379},
+      {name: "Industry Group", count: 379}/*,
       {name: "NAICS Industry", count: 776},
-      {name: "National Industry", count: 1207},
+      {name: "National Industry", count: 1207},*/
     ],
     subtitle: "Principales industrias"
   },
