@@ -66,5 +66,5 @@
 }
 
 .covid-table {
-  overflow-x: scroll;
+  overflow-x: auto;
 }
