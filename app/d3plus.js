@@ -71,8 +71,10 @@ export const tooltipTitle = (bgColor, imgUrl, title) => {
 
 export const findIconV2 = (key, d) => {
   // const options = {2: "export", 1: "import"};
+  // console.log(key, d);
   if (key === "Country" || key === "ISO 3") {
-    return `/icons/visualizations/Country/country_${d[`${key} ID`]}.png`;
+    const icon = (key === "Country" && Array.isArray(d["Country ID"])) ? d["Continent ID"] : d[`${key} ID`];
+    return `/icons/visualizations/Country/country_${icon}.png`;
   }
   const icon = key.replace(" 4 Digit", "");
   return icons.includes(icon)
