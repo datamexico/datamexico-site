@@ -31,18 +31,18 @@ const profilesList = {
 
 const generateTotalsMap = () => {
   const resp = new D3Map();
-  let leavesTemp, count, bigCount=0;
+  let leavesTemp, count, bigCount = 0;
   Object.keys(homeTiles).forEach(profile => {
     leavesTemp = new D3Map();
     count = 0;
     homeTiles[profile].levels.forEach(level => {
       count += level.count;
       bigCount += level.count;
-      leavesTemp.set(level.name,{len:level.count});
+      leavesTemp.set(level.name, {len: level.count});
     });
     resp.set(profile, {len: count, leaves: leavesTemp})
   });
-  resp.set('filter',{len:bigCount});
+  resp.set('filter', {len: bigCount});
   return resp;
 }
 
@@ -78,11 +78,11 @@ class Explore extends React.Component {
 
   handleTab = tab => {
     const {query, profile} = this.state;
-    this.updateUrl(query,profile,tab);
+    this.updateUrl(query, profile, tab);
     this.setState({tab}, () => this.requestApi());
   }
 
-  updateUrl = (q,profile,tab) => {
+  updateUrl = (q, profile, tab) => {
     const searchParams = new URLSearchParams();
     if (q && q.length > 0) searchParams.set("q", q);
     searchParams.set("profile", profile);
@@ -91,7 +91,7 @@ class Explore extends React.Component {
   }
 
   clearSearch = () => {
-    this.setState({query: '', profile: 'filter', tab: '0', results:[]}, () => this.requestApi());
+    this.setState({query: '', profile: 'filter', tab: '0', results: []}, () => this.requestApi());
     this.updateUrl('', 'filter', '0');
   }
 
@@ -99,14 +99,14 @@ class Explore extends React.Component {
 
     const {query, tab, profile} = this.state;
 
-    this.setState({loading:true, results: []});
+    this.setState({loading: true, results: []});
 
     if (cancel !== undefined) {
       cancel();
     }
 
     //Search actual query
-    if (profile === 'filter' || query && query!=='' && query.length>2){
+    if (profile === 'filter' || query && query !== '' && query.length > 2) {
       axios.get("/api/profilesearch", {
         cancelToken: new CancelToken(c => {
           // An executor function receives a cancel function as a parameter
@@ -130,10 +130,10 @@ class Explore extends React.Component {
           let tempObj;
           results.forEach(elements => {
             elements.forEach(profileItem => {
-              if (profilesList[profileItem.slug]){
+              if (profilesList[profileItem.slug]) {
                 tempObj = {id: profileItem.id, name: profileItem.name, slug: profileItem.slug, level: profileItem.memberHierarchy, background: profilesList[profileItem.slug].background};
                 resultsRaw.push(tempObj);
-                if (profile === 'filter' || profileItem.slug === profile && profileItem.memberHierarchy === profilesList[profile].levels[tab]){
+                if (profile === 'filter' || profileItem.slug === profile && profileItem.memberHierarchy === profilesList[profile].levels[tab]) {
                   parsed.push(tempObj);
                 }
               }
@@ -143,7 +143,8 @@ class Explore extends React.Component {
           const resultsNest = nest()
             .key(d => d.slug)
             .rollup(function (leaves) {
-              return {"len": leaves.length,
+              return {
+                "len": leaves.length,
                 "leaves": nest()
                   .key(d => d.level)
                   .rollup(function (leaves) {
@@ -152,19 +153,20 @@ class Explore extends React.Component {
                     }
                   })
                   .map(leaves)
-            }})
+              }
+            })
             .map(resultsRaw);
 
           resultsNest.set('filter', {len: resultsRaw.length});
 
-          this.setState({results: parsed, resultsNest, loading:false});
+          this.setState({results: parsed, resultsNest, loading: false});
         })
         .catch(error => {
           const result = error.response;
           console.error(error);
           return Promise.reject(result);
         });
-    }else{
+    } else {
       axios.get("/api/search", {
         cancelToken: new CancelToken(c => {
           // An executor function receives a cancel function as a parameter
@@ -174,7 +176,7 @@ class Explore extends React.Component {
           limit: 100,
           locale: this.props.lng,
           dimension: profilesList[profile].dimension,
-          cubeName: profilesList[profile].cube ? profilesList[profile].cube:'',
+          cubeName: profilesList[profile].cube ? profilesList[profile].cube : '',
           levels: profilesList[profile].levels[tab],
           pslug: profile
         }
@@ -195,7 +197,7 @@ class Explore extends React.Component {
     const {query, tab, profile, results, resultsNest, totalsNest, loading} = this.state;
     const {t} = this.props;
 
-    const clearButton = query !== '' ? <Button onClick={() => this.clearSearch()} minimal={true} className="ep-clear-btn" icon="cross" large={true} outlined={true}>{t('Explore Profile.Clear Filters')}</Button>:<span></span>
+    const clearButton = query !== '' ? <Button onClick={() => this.clearSearch()} minimal={true} className="ep-clear-btn" icon="cross" large={true} outlined={true}>{t('Explore Profile.Clear Filters')}</Button> : <span></span>
 
     const share = {
       title: `${t("Explore")}`,
@@ -215,7 +217,7 @@ class Explore extends React.Component {
       />
       <div className="ep-container container">
 
-        <div className={`ep-loading-splash ${loading?'show':''}`}></div>
+        <div className={`ep-loading-splash ${loading ? 'show' : ''}`}></div>
 
         <div className="ep-search">
           <InputGroup
@@ -230,7 +232,7 @@ class Explore extends React.Component {
         <div className="ep-headers">
           {Object.keys(profilesList).map((sectionSlug, i) => {
             let len = totals.get(sectionSlug);
-            len = len?len.len:0;
+            len = len ? len.len : 0;
             return <ExploreHeader
               title={t(profilesList[sectionSlug].title)}
               len={commas(len)}
@@ -245,7 +247,6 @@ class Explore extends React.Component {
           {profilesList[profile].levels.map((levelName, ix) => {
             const levelKey = `${ix}`;
             let len = totals.get(profile);
-            console.log(totals.get(profile));
             len = len ? len.leaves.get(levelName) : false;
             len = len ? len.len : 0;
             return <div
@@ -257,7 +258,7 @@ class Explore extends React.Component {
               key={levelKey}
               onClick={() => this.handleTab(levelKey)}
             >
-              {`${t(levelName)}`} {len ? `(${commas(len)})`:''}
+              {`${t(levelName)}`} {len ? `(${commas(len)})` : ''}
             </div>;
           })}
         </div>
