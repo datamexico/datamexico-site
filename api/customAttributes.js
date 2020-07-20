@@ -1,4 +1,5 @@
 const axios = require("axios");
+const {CANON_CMS_CUBES} = process.env;
 const BASE_API = `${CANON_CMS_CUBES}data`;
 
 const catcher = error => {
