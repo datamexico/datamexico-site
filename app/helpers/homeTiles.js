@@ -9,7 +9,7 @@ module.exports = {
       {name: "State", count: 32},
       {name: "Municipality", count: 2464}
     ],
-    subtitle: "Más importantes"
+    subtitle: "Principales localidades"
   },
   industry: {
     dimension: "Industry",
@@ -23,7 +23,7 @@ module.exports = {
       {name: "NAICS Industry", count: 776},
       {name: "National Industry", count: 1207},
     ],
-    subtitle: "Más buscadas"
+    subtitle: "Principales industrias"
   },
   occupation: {
     dimension: "Occupation Actual Job",
@@ -36,14 +36,14 @@ module.exports = {
       {name: "Subgroup", count: 156},
       {name: "Occupation", count: 467}
     ],
-    subtitle: "1er semestre 2020"
+    subtitle: "Principales ocupaciones"
   },
   product: {
     dimension: "Product",
     background: "#ea8db2",
     items: [527, 1787, 1685, 1471, 1890],
     name: "Products",
-    subtitle: "Más exportados",
+    subtitle: "Principales productos",
     levels: [
       {name: "Chapter", count:21},
       {name: "HS2", count:96},
@@ -59,6 +59,6 @@ module.exports = {
     levels: [
       {name: "Institution", count: 3430}
     ],
-    subtitle: "Más populares"
+    subtitle: "Principales instituciones"
   }
 };
