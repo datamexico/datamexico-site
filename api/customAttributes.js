@@ -1,7 +1,7 @@
 const axios = require("axios");
 const BASE_API = "https://api.datamexico.org/tesseract/data";
 
-const catcher = error => (console.error("Custom Attribute Error:", error), {data: []});
+const catcher = error => console.error("Custom Attribute Error:", error);
 module.exports = function (app) {
 
   app.post("/api/cms/customAttributes/:pid", async(req, res) => {
@@ -56,6 +56,9 @@ module.exports = function (app) {
       case 1:
         let customId = id1;
         let customName = name1;
+        const isMunicipality = ["Metro Area", "Municipality"].includes(hierarchy1);
+        const isState = ["Nation", "State"].includes(hierarchy1);
+
         if (isMunicipality) {
           const params = {
             cube: "inegi_population",
@@ -74,10 +77,7 @@ module.exports = function (app) {
           customName = data[level];
         }
 
-        const isMunicipality = ["Metro Area", "Municipality"].includes(hierarchy1);
-        const isState = ["Nation", "State"].includes(hierarchy1);
-
-        const customHierarchy = isMunicipality ? "State" : hierarchy1
+        const customHierarchy = isMunicipality ? "State" : hierarchy1;
 
         const ENOE_GEO = await ENOE_DATASET(customHierarchy, customId);
         enoeLatestQuarter = ENOE_GEO.enoeLatestQuarter;
