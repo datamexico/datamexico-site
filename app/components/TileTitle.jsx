@@ -10,7 +10,7 @@ class TileTitle extends React.Component {
         {icon && <img className="tile-title-icon" src={`/icons/homepage/png/${icon}-icon.png`} alt="" />}
         {title}
       </a>
-      <span className="subtitle-title-link">{subtitle}</span>
+      {/*<span className="subtitle-title-link">{subtitle}</span>*/}
     </h3>;
   }
 }
