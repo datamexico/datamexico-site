@@ -273,14 +273,14 @@ class ECIExplorer extends React.Component {
     const geoName = geoSelected.id;
     const industryId = `${levelSelected.id} ID`;
     const columns = [
-      {id: geoId, accessor: geoId, Header: `${t(geoSelected.id)} ID`, width: 200},
+      {id: geoId, accessor: geoId, Header: `${t(geoSelected.id)} ID`},
       {id: geoName, accessor: d => <a href={`/${lng}/profile/geo/${d[geoId]}`}>{d[geoName]}</a>, Header: t(geoName)},
-      {id: eciMeasure, accessor: eciMeasure, Header: "ECI", Cell: d => d.original[`${measureSelected.id} ECI`].toString().slice(0, 4)}
+      {id: eciMeasure, accessor: eciMeasure, Header: "ECI", Cell: d => formatAbbreviate(d.original[`${measureSelected.id} ECI`])}
     ];
     const columnsPCI = [
-      {id: industryId, accessor: industryId, Header: `${t(levelSelected.name)} ID`, width: 200},
+      {id: industryId, accessor: industryId, Header: `${t(levelSelected.name)} ID`},
       {id: levelSelected.id, accessor: d => <a href={`/${lng}/profile/industry/${d[industryId]}`}>{d[levelSelected.name]}</a>, Header: t(levelSelected.name)},
-      {id: pciMeasure, accessor: pciMeasure, Header: "PCI", Cell: d => d.original[`${measureSelected.id} PCI`].toString().slice(0, 4)}
+      {id: pciMeasure, accessor: pciMeasure, Header: "PCI", Cell: d => formatAbbreviate(d.original[`${measureSelected.id} PCI`])}
     ];
 
     // const dataScatter = dataPCI.map(d => {
