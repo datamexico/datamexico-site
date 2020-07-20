@@ -180,7 +180,6 @@ class Covid extends Component {
     const month = fullDate.getMonth();
     const year = fullDate.getFullYear();
     const hour = fullDate.getHours();
-    // console.log("Date:", d, "Fulldate:", fullDate);
     // return `${t(days[day])} ${date} ${t(months[month])} ${year} ${hour}:00`
     return `${date} de ${months[month]} de ${year}`;
   }
@@ -347,11 +346,13 @@ class Covid extends Component {
       progressStatVisConfig.xConfig = {};
       progressStatVisConfig.xConfig.tickFormat = undefined;
       progressStatVisConfig.xConfig.title = "Fecha";
+      delete progressStatVisConfig.discrete;
       delete progressStatVisConfig.xSort;
     } else {
+      progressStatVisConfig.discrete = "x";
       progressStatVisConfig.x = progressStatTimeScale.value;
       progressStatVisConfig.xConfig = {};
-      progressStatVisConfig.xConfig.tickFormat = (d => d % 4 === 0 ? d : "");
+      progressStatVisConfig.xConfig.tickFormat = (d => d % 12 === 0 ? d : "");
       progressStatVisConfig.xConfig.title = progressStatTimeScale.name;
       progressStatVisConfig.xSort = ((a, b) => a[progressStatTimeScale.value] > b[progressStatTimeScale.value] ? 1 : -1);
       delete progressStatVisConfig.time;

@@ -27,6 +27,7 @@ class CovidCard extends Component {
     const Visualization = d3VizTypes[type];
     const viz = <Visualization
       config={vizConfig}
+      key={`${vizConfig.x}_${vizConfig.y}`}
       forceUpdate={true}
     />;
     return viz;
