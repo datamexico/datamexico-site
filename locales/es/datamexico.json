@@ -220,7 +220,7 @@
     "eci": "Descubre y explora los índices de complejidad económica para las distintas industrias y regiones de México.",
     "about": "Conoce la historia de DataMéxico, el esfuerzo conjunto entre la Secretaría de Economía (SE) y Datawheel. Consulta el glosario de términos clave para comprender los análisis del sitio.",
     "profile": "profile-desc",
-    "explore": "Descubre todos los perfiles con información disponibles en DataMéxico. Perfiles sobre: ciudades y lugares, productos, industrias, ocupaciones y universidades."
+    "explore": "Descubre todos los perfiles con información disponibles en DataMéxico. Perfiles sobre: ciudades y lugares, productos, industrias, ocupaciones e instituciones."
   },
   "Sign Up": "Sign Up",
   "SignUp": {
@@ -248,7 +248,7 @@
   "Time": "Temporalidad",
   "Total Gross Production": "Producción bruta",
   "Trade Value": "Valor comercial",
-  "Universities": "Universidades",
+  "Universities": "Instituciones",
   "User": "User",
   "Username": "Username",
   "Values aggregated": "Valores agregados",
