@@ -1,7 +1,7 @@
 const axios = require("axios");
 const BASE_API = "https://api.datamexico.org/tesseract/data";
 
-const catcher = error => console.error("Custom Attribute Error:", error);
+const catcher = error => (console.error("Custom Attribute Error:", error), {data: []});
 module.exports = function (app) {
 
   app.post("/api/cms/customAttributes/:pid", async(req, res) => {
@@ -54,14 +54,6 @@ module.exports = function (app) {
     switch (pid) {
       // Geo profile
       case 1:
-        const ENOE_GEO = await ENOE_DATASET(hierarchy1, id1);
-        enoeLatestQuarter = ENOE_GEO.enoeLatestQuarter;
-        enoePrevQuarter = ENOE_GEO.enoePrevQuarter;
-        enoePrevYear = ENOE_GEO.enoePrevYear;
-
-        const isMunicipality = ["Metro Area", "Municipality"].includes(hierarchy1);
-        const isState = ["Nation", "State"].includes(hierarchy1);
-
         let customId = id1;
         let customName = name1;
         if (isMunicipality) {
@@ -81,6 +73,16 @@ module.exports = function (app) {
           customId = data[`${level} ID`];
           customName = data[level];
         }
+
+        const isMunicipality = ["Metro Area", "Municipality"].includes(hierarchy1);
+        const isState = ["Nation", "State"].includes(hierarchy1);
+
+        const customHierarchy = isMunicipality ? "State" : hierarchy1
+
+        const ENOE_GEO = await ENOE_DATASET(customHierarchy, customId);
+        enoeLatestQuarter = ENOE_GEO.enoeLatestQuarter;
+        enoePrevQuarter = ENOE_GEO.enoePrevQuarter;
+        enoePrevYear = ENOE_GEO.enoePrevYear;
 
         const covidParams = {
           cube: "gobmx_covid",
@@ -105,13 +107,14 @@ module.exports = function (app) {
           customSocialLagCube: `coneval_social_lag_${isState ? "ent" : "mun"}`,
           customGiniCube,
           customForeignTradeCube: isState ? "economy_foreign_trade_ent" : "economy_foreign_trade_mun",
-          customHierarchy: isMunicipality ? "State" : hierarchy1,
+          customHierarchy,
           customId,
           customName,
           enoeLatestQuarter,
           enoePrevQuarter,
           enoePrevYear,
           foreignTradePrevYear: 2018,
+          foreignTradeLatestMonth: 202005,
           foreignTradeLatestYear: 2019,
           fdiLatestQuarter: 20201,
           fdiLatestYear: 2019

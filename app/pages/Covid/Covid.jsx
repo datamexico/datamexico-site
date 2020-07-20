@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
+import {hot} from "react-hot-loader/root";
 import axios from "axios";
 import HelmetWrapper from "../HelmetWrapper";
 import {formatAbbreviate} from "d3plus-format";
@@ -296,7 +297,7 @@ class Covid extends Component {
     const progressStatVisConfig = {
       data: progressStatData.filter(d => d["Time ID"] > 20200315),
       type: "LinePlot",
-      groupBy: ["Location", "Type"],
+      groupBy: ["Location ID", "Type"],
       y: progressBaseSelected ? `${progressBaseSelected} ${progressStatSelected.id}` : progressStatSelected.id,
       yConfig: {
         title: progressScaleSelected.id === "linear" ? progressStatSelected.name : `${progressStatSelected.name} (Log)`,
@@ -607,4 +608,4 @@ Covid.contextTypes = {
   router: PropTypes.object
 };
 
-export default withNamespaces()(Covid);
+export default withNamespaces()(hot(Covid));
