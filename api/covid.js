@@ -5,14 +5,14 @@ let {CANON_CMS_CUBES} = process.env;
 if (CANON_CMS_CUBES.substr(-1) === "/") CANON_CMS_CUBES = CANON_CMS_CUBES.substr(0, CANON_CMS_CUBES.length - 1);
 
 const BASE_URL = "/api/covid/";
-/*
+
 const headers = {
   headers: {
     "Cache-Control": "no-cache",
     "Pragma": "no-cache"
   }
 };
-*/
+
 module.exports = function (app) {
   app.get(BASE_URL, async (req, res) => {
     try {
@@ -71,7 +71,7 @@ module.exports = function (app) {
       const COVID_STATS_NATION = CANON_CMS_CUBES + `/data.jsonrecords?cube=gobmx_covid_stats_nation&drilldowns=Nation,Time&measures=${COVID_STATS_MEASURES}&parents=false&sparse=false&locale=${locale}`;
       const COVID_STATS_STATES = CANON_CMS_CUBES + `/data.jsonrecords?cube=gobmx_covid_stats_state&drilldowns=State,Time&measures=${COVID_STATS_MEASURES}&parents=false&sparse=false&locale=${locale}`;
       const COVID_STATS_DATA_ALL = await axios
-        .all([axios.get(COVID_STATS_NATION), axios.get(COVID_STATS_STATES)])
+        .all([axios.get(COVID_STATS_NATION, headers), axios.get(COVID_STATS_STATES, headers)])
         .then(axios.spread((...resp) => {
           resp[0].data.data.forEach(d => {
             d["Location ID"] = d["Nation ID"];
@@ -98,7 +98,7 @@ module.exports = function (app) {
       const COVID_GOBMX_NATION = CANON_CMS_CUBES + `/data.jsonrecords?Updated+Date=${LATEST_DATE["Time ID"]}&cube=gobmx_covid&drilldowns=${`${COVID_GOBMX_DRILLDOWNS},Nation`}&measures=Cases&parents=false&sparse=false&locale=${locale}`;
       const COVID_GOBMX_STATES = CANON_CMS_CUBES + `/data.jsonrecords?Updated+Date=${LATEST_DATE["Time ID"]}&cube=gobmx_covid&drilldowns=${`${COVID_GOBMX_DRILLDOWNS},State`}&measures=Cases&parents=false&sparse=false&locale=${locale}`;
       const COVID_GOBMX_DATA = await axios
-        .all([axios.get(COVID_GOBMX_NATION), axios.get(COVID_GOBMX_STATES)])
+        .all([axios.get(COVID_GOBMX_NATION, headers), axios.get(COVID_GOBMX_STATES, headers)])
         .then(axios.spread((...resp) => {
           resp[0].data.data.forEach(d => {
             d["Location ID"] = d["Nation ID"];
