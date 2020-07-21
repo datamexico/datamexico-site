@@ -14,7 +14,9 @@ const datasets = {
   "Subgroup": occupation3DigitSimilar
 };
 
-const API = "https://api.datamexico.org/tesseract/data";
+let {CANON_CMS_CUBES} = process.env;
+if (CANON_CMS_CUBES.substr(-1) === "/") CANON_CMS_CUBES = CANON_CMS_CUBES.substr(0, CANON_CMS_CUBES.length - 1);
+const API = CANON_CMS_CUBES + "/data";
 
 module.exports = function(app) {
 

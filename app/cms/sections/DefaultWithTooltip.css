@@ -1,0 +1,29 @@
+.heading-title-tooltip {
+  cursor: help;
+  display: flex;
+  & .bp3-icon {
+    color: var(--gmx-yellow-2);
+    margin-left: 2px;
+    width: var(--font-sm);
+  }
+}
+
+.bp3-transition-container {
+  width: 450px;
+}
+
+.bp3-transition-container.bp3-popover-enter-done {
+  width: 450px;
+  z-index: 100;
+  & p {
+    font-size: var(--font-sm);
+  }
+  & a {
+    color: var(--gmx-yellow-1);
+    text-decoration-color: var(--gmx-yellow-1);
+  }
+}
+
+.bp3-tooltip {
+  z-index: 100;
+}

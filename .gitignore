@@ -1,5 +1,8 @@
 npm-debug.log*
 .DS_Store
+.gitconfig
+
+audit/
 
 # node modules should never be synced with git
 node_modules/

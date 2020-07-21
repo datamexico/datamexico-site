@@ -1,0 +1,78 @@
+.covid19-table {
+  & .is-center {text-align: center;}
+  border-spacing: 0;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid var(--gmx-yellow-2);
+  & tr:nth-child(even) {background: #f4f4f4}
+  & tr:nth-child(odd) {background: #FFF}
+  & td {border: 0px solid;}
+  & th, & td {
+    padding: calc(var(--gutter-xs) / 2) var(--gutter-xs);
+  }
+  & .rt-thead {
+    text-align: left;
+    color: var(--white);
+    background-color: var(--gmx-red-1);
+    font-size: var(--font-sm);
+    font-family: var(--base-font-stack-condensed);
+    text-transform: uppercase;
+  }
+
+  font-size: var(--font-xs);
+  & .geo-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    & .icon {
+      min-width: 30px;
+      min-height: 30px;
+      max-width: 30px;
+      max-height: 30px;
+      & img {
+        width: inherit;
+      }
+    }
+    & .title {
+      color: var(--black);
+      margin-left: var(--gutter-xs);
+      &:hover {
+        color: var(--gmx-red-1);
+      }
+    }
+  }
+
+  & .trend-wrapper {
+    display: flex;
+    width: inherit;
+    height: inherit;
+    flex-direction: row;
+    align-items: center;
+    & svg {
+      width: inherit;
+      height: inherit;
+    }
+    & .trend-value {
+      color: blue;
+      font-weight: 700;
+    }
+  }
+}
+
+.ReactTable.covid19-table {
+  & .rt-tbody {
+    max-height: none !important;
+  }
+}
+
+.covid-table {
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .covid19-table {
+    & .rt-thead {
+      font-size: var(--font-xxxs);
+    }
+  }
+}

@@ -1,4 +1,5 @@
+json
 numpy
 pandas
 requests
-ps_calcs
+simplejson

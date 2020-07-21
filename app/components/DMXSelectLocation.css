@@ -1,0 +1,77 @@
+.dmx-select-location {
+  & .bp3-popover-wrapper {
+    & .dmx-select-location-button {
+      background: var(--gmx-red-1);
+      border-radius: var(--button-border-radius);
+      padding: var(--gutter-xs);
+      & .dmx-select-location-button-content {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        & .dmx-select-location-button-content-img {
+          color: var(--white);
+          margin-right: calc(var(--gutter-xs) / 2);
+          width: var(--font-lg);
+        }
+        & .dmx-select-location-button-content-text {
+          color: var(--white);
+          font-size: var(--font-xxs);
+          font-weight: var(--bold-weight);
+          text-transform: uppercase;
+        }
+      }
+    }
+    & .dmx-select-location-button:hover {
+      background-color: var(--gmx-red-1);
+      opacity: 0.9;
+    }
+  }
+}
+
+.dmx-select-results {
+  background-color: var(--beige);
+  & .dmx-select-results-result {
+    padding-bottom: 0;
+    padding: var(--gutter-xs) var(--gutter-sm);
+    & .dmx-select-results-result-division {
+      color: var(--light-gray);
+      font-size: var(--font-sm);
+      font-weight: var(--light-bold-weight);
+      text-transform: uppercase;
+    }
+    & .dmx-select-results-result-options {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: var(--gutter-xs);
+      & .dmx-select-results-result-options-location {
+        align-items: center;
+        display: flex;
+        margin-bottom: calc(var(--gutter-xs) / 2);
+        width: 50%;
+        & .dmx-select-results-result-options-location-label {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          & .dmx-select-results-result-options-location-label-icon {
+            height: var(--gutter-md);
+            margin-right: calc(var(--gutter-xs) / 2);
+          }
+          & .dmx-select-results-result-options-location-label-name {
+            color: var(--light-gray);
+            font-size: var(--font-xs);
+            font-weight: var(--base-font-weight);
+          }
+        }
+      }
+      & .dmx-select-results-result-options-location:hover {
+        text-decoration: underline;
+      }
+      & .bp3-disabled:hover {
+        text-decoration: none;
+      }
+      & .bp3-control-indicator {
+        border-radius: 0;
+      }
+    }
+  }
+}

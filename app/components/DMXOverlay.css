@@ -1,0 +1,28 @@
+.dmx-overlay {
+  & .bp3-icon {
+    color: var(--dark-3);
+    cursor: pointer;
+  }
+  & .bp3-popover-target {
+    display: flex;
+  }
+}
+
+.bp3-overlay {
+  display: flex;
+  justify-content: center;
+  & .bp3-tooltip {
+    width: max-content;
+  }
+}
+
+.dmx-overlay-card {
+  background-color: var(--white);
+  border-radius: var(--infocard-border-radius);
+  margin-top: calc(var(--nav-height) + var(--gutter-md));
+  padding: var(--gutter-md);
+  width: 50%;
+  & .dmx-overlay-card-button {
+    float: right;
+  }
+}

@@ -1,37 +1,41 @@
-const locale = "en";
+const locale = "es";
 
 module.exports = {
   SIDEBAR_NAV: [
     {title: "Explore", url: `/${locale}/explore`, items: [
-      {title: "Locations",        url: `/${locale}/explore?profile=geo`},
+      {title: "Cities & Places",  url: `/${locale}/explore?profile=geo`},
       {title: "Products",         url: `/${locale}/explore?profile=product`},
       {title: "Industries",       url: `/${locale}/explore?profile=industry`},
       {title: "Occupations",      url: `/${locale}/explore?profile=occupation`},
-      {title: "Institutions",     url: `/${locale}/explore?profile=institution`}
+      {title: "Universities",     url: `/${locale}/explore?profile=institution`}
     ]},
-    {title: "Viz Builder",        url: `/${locale}/vizbuilder`},
-    {title: "Data Cart",          url: `/${locale}/cart`},
+    // {title: "Viz Builder",        url: `/${locale}/vizbuilder`},
+    // {title: "Data Cart",          url: `/${locale}/cart`},
+    {title: "Coronavirus",        url: `/${locale}/coronavirus`},
+    {title: "ECI Explorer.Title",       url: `/${locale}/eci/explore`},
     {title: "About DataMexico",   url: `/${locale}/about`},
-    {title: "Data Sources",       url: `/${locale}/data`}
+    //{title: "Data sources",       url: `/${locale}/data`}
   ],
   FOOTER_NAV: [
     {title: "Explore", items: [
       {title: "Profiles",         url: `/${locale}/explore`},
-      {title: "Viz Builder",      url: `/${locale}/vizbuilder`},
-      {title: "Data Cart",        url: `/${locale}/cart`}
+      {title: "Coronavirus",        url: `/${locale}/coronavirus`},
+      {title: "ECI Explorer.Title",     url: `/${locale}/eci/explore`}
+      // {title: "Viz Builder",      url: `/${locale}/vizbuilder`},
+      // {title: "Data Cart",        url: `/${locale}/cart`}
     ]},
-    {title: "Data", items: [
+    /*{title: "Data", items: [
       {title: "Data sources",     url: `/${locale}/data`},
       {title: "API",              url: `/${locale}/data#api`},
       {title: "Classifications",  url: `/${locale}/data#classifications`}
-    ]},
+    ]},*/
     {title: "About", items: [
-      {title: "Background",       url: `/${locale}/about`},
-      {title: "In the press",     url: `/${locale}/about#press`},
-      {title: "Team",             url: `/${locale}/about#team`},
-      {title: "Glossary",         url: `/${locale}/about#glossary`},
-      {title: "Terms of use",     url: `/${locale}/about#legal`},
-      {title: "Contact us",       url: "mailto:alex@datawheel.us?subject=Message from DataMexico footer contact link"}
+      // {title: "Background",       url: `/${locale}/about`},
+      {title: "In the press",     url: `/${locale}/about/press`},
+      // {title: "Team",             url: `/${locale}/about/team`},
+      {title: "Glossary",         url: `/${locale}/about/glossary`},
+      {title: "Terms of use",     url: `/${locale}/about/legal`},
+      {title: "Contact us",       url: "mailto:datamexico@datawheel.us?subject=Contacto equipo DataMéxico"}
     ]}
   ],
   LOGOS: [

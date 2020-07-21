@@ -1,0 +1,95 @@
+@import "helpers/mixins.css";
+
+.covid-site {
+  background: var(--cream);
+  color: var(--dark-3);
+  padding-top: var(--nav-height);
+  & .covid-header {
+    background: url("/images/covid-header.png") no-repeat fixed center;
+    display: flex;
+    flex-direction: column;
+    padding: var(--gutter-md);
+    & .covid-header-info {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      padding-bottom: var(--gutter-md);
+      & .covid-header-info-date {
+        color: var(--light-gray);
+        font-size: var(--font-sm);
+        font-weight: var(--light-bold-weight);
+        text-transform: uppercase;
+      }
+    }
+    & .covid-header-stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      & .covid-header-stats-stat {
+        align-items: center;
+        border: none;
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        min-width: 180px;
+        padding: var(--gutter-sm);
+        & .covid-header-stats-stat-icon {
+          height: calc(var(--gutter-lg) * 1.8);
+          margin-right: var(--gutter-xs);
+        }
+        & .covid-header-stats-stat-text {
+          display: flex;
+          flex-direction: column;
+          width: fit-content;
+          & .covid-header-stats-stat-value {
+            color: var(--gmx-red-1);
+            font-size: var(--font-xl);
+            font-weight: var(--light-weight);
+          }
+          & .covid-header-stats-stat-name {
+            color: var(--light-gray);
+            font-size: var(--font-sm);
+            font-weight: var(--light-bold-weight);
+            text-transform: uppercase;
+          }
+          & .covid-header-stats-stat-subname {
+            color: var(--light-gray);
+            font-size: var(--font-xs);
+            font-weight: var(--light-weight);
+            text-transform: uppercase;
+          }
+        }
+      }
+      & .covid-header-stats-stat:last-child {
+        border: 0;
+      }
+    }
+  }
+}
+
+.covid-overlay-content {
+  color: var(--light-gray);
+  & h4,
+  & h5 {
+    font-size: var(--font-sm);
+  }
+  & h4 {
+    font-weight: var(--light-bold-weight);
+    margin-bottom: var(--gutter-xs);
+  }
+  & p,
+  & li {
+    font-size: var(--font-xs);
+    font-weight: var(--base-font-weight);
+  }
+  & .highlighted {
+    font-weight: var(--bold-weight);
+  }
+  & .covid-overlay-card-header {
+    border-bottom: 1px solid var(--dark-3);
+    padding-bottom: var(--gutter-sm);
+  }
+  & .covid-overlay-card-body {
+    padding-top: var(--gutter-sm);
+  }
+}

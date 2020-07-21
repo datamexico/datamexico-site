@@ -3,6 +3,10 @@ const axios = require("axios");
 const loadJSON = require("../utils/loadJSON");
 const selfCity = loadJSON("/static/json/self_city.json");
 
+let {CANON_CMS_CUBES} = process.env;
+if (CANON_CMS_CUBES.substr(-1) === "/") CANON_CMS_CUBES = CANON_CMS_CUBES.substr(0, CANON_CMS_CUBES.length - 1);
+const BASE_API = CANON_CMS_CUBES + "/data";
+
 
 module.exports = function(app) {
 
@@ -29,7 +33,7 @@ module.exports = function(app) {
 
     const _query = Object.keys(query).map(d => `${d}=${query[d]}`).join("&");
 
-    const api = `https://api.datamexico.org/tesseract/data?cube=inegi_enoe&${_query}`;
+    const api = `${BASE_API}?cube=inegi_enoe&${_query}`;
     axios.get(api).then(resp => {
       res.json(resp.data).end();
     });

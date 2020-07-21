@@ -1,0 +1,153 @@
+.eci-container {
+  margin-top: var(--nav-height);
+  & .ReactTable {
+    & .rt-tbody {
+      overflow-y: scroll !important;
+    }
+  }
+  & h1.title {
+    color: var(--gmx-red-2);
+    font-size: var(--font-lg);
+    font-weight: var(--light-bold-weight);
+    margin-bottom: var(--gutter-sm);
+    text-transform: uppercase;
+  }
+  & .columns {
+    margin-bottom: var(--gutter-md);
+    & .column {
+      & .dmx-button-group {
+        & .dmx-button-group-title {
+          color: var(--light-gray);
+          font-weight: var(--light-bold-weight);
+        }
+        & .dmx-button-group-items {
+          & .cp-button {
+            & .cp-button-text {
+              font-size: var(--font-xxs);
+              padding: 0.3rem;
+            }
+          }
+        }
+      }
+
+      & .dmx-selector {
+        & .dmx-selector-header {
+          & .title {
+            color: var(--light-gray);
+            font-weight: var(--light-bold-weight);
+          }
+        }
+      }
+
+      & .dmx-tree {
+        margin-bottom: var(--gutter-sm);
+        & .title {
+          color: var(--light-gray);
+          display: flex;
+          align-items: center;
+          font-weight: var(--light-bold-weight);
+        }
+        & .dmx-tree-content {
+          padding: var(--gutter-sm) 1.25rem;
+          & .dmx-slider {
+            & .title {
+              display: -webkit-box;
+            }
+          }
+          & .bp3-switch {
+            margin-bottom: 0;
+          }
+        }
+      }
+      & .dmx-button {
+        &:hover {
+          background-color: var(--gmx-yellow-2);
+          transition: 0.3s ease-out;
+        }
+      }
+      & .bp3-input-group {
+        & .bp3-input {
+          border-radius: 0;
+        }
+        & .bp3-input-action {
+          background: var(--gmx-red-1);
+          & .bp3-button {
+            background-color: var(--gmx-red-1);
+            background-image: unset;
+            box-shadow: unset;
+            color: #fff;
+          }
+        }
+      }
+      & .eci-description {
+        margin-bottom: var(--gutter-md);
+        text-align: left;
+        & .eci-description-title {
+          color: var(--gmx-red-2);
+          font-size: var(--font-md);
+          font-weight: var(--light-bold-weight);
+          margin-bottom: var(--gutter-sm);
+        }
+        & .eci-description-text {
+          color: var(--dark-4);
+          font-size: var(--font-xs);
+        }
+      }
+    }
+  }
+  & .eci-geo-viz {
+    color: var(--light-gray);
+    height: 100%;
+    text-align: center;
+    & .title {
+      font-weight: var(--bold-weight);
+    }
+    & .subtitle {
+      font-weight: var(--light-bold-weight);
+      margin: calc(var(--gutter-xs) / 2);
+    }
+  }
+  & .loading {
+    position: relative;
+    background-color: inherit;
+    z-index: 20;
+    height: 100%;
+    & .loading-wrapper {
+      margin-top: 0px;
+    }
+  }
+  & .eci-explore {
+    margin-bottom: var(--gutter-sm);
+    line-height: var(--font-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .eci-container {
+    & .columns.eci-panel {
+      display: flex;
+      flex-direction: column-reverse;
+      & .column.is-300 {
+        margin-top: var(--gutter-xl);
+        max-width: 100%;
+        text-align: center;
+      }
+    }
+
+    & .columns.eci-tables {
+      & .column.eci-table {
+        margin-bottom: var(--gutter-md);
+        & .eci-description {
+          text-align: left;
+          & .eci-description-text {
+            font-size: var(--font-sm);
+          }
+        }
+      }
+    }
+
+    & .eci-geo-viz {
+      height: 400px;
+    }
+  }
+}

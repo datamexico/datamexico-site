@@ -19,7 +19,7 @@
   }
 
   & [class$="-tab"] {
-    font-family: "Barlow Condensed", sans-serif;
+    font-family: "Fira Sans Extra Condensed", sans-serif;
     font-weight: 400;
     text-transform: uppercase;
     color: var(--white);
@@ -86,6 +86,13 @@
 
     &:hover, &:focus {
       opacity: 0.9;
+    }
+  }
+
+  & .view-table .table {
+    max-height: calc(100vh - 475px);
+    & .rt-tbody {
+      max-height: none;
     }
   }
 }

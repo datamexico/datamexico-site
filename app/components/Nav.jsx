@@ -58,7 +58,7 @@ class Nav extends React.Component {
       })
         .then(resp => {
           const data = resp.data.results;
-          const results = data.map(d => ({id: d.id, name: d.name, slug: d.profile, level: d.hierarchy}));
+          const results = data.map(d => ({id: d.slug, name: d.name, slug: d.profile, level: d.hierarchy}));
           this.setState({results, resultsFilter: results, isOpenSearchResults: true});
         })
         .catch(error => {
@@ -103,16 +103,16 @@ class Nav extends React.Component {
           <span className="menu">{t("Menu")}</span>
         </button>
       </div>
-      <div className="nav-center">
-        {(logo || className === "background") && <a className="profile-logo" href="/" data-refresh="true"><img src="/icons/logo-horizontal.svg" alt=""/></a>}
+      <div className={classnames("nav-center", {"active-searchbar": isSearchOpen})}>
+        {(logo || className === "background") && <a className="profile-logo" href="/" data-refresh="true"><img src="/icons/logo-horizontal.png" alt="" /></a>}
         <span className="nav-subtitle">{title}</span>
       </div>
       <div className="nav-right">
-        <ul className="langs">
+        {/* <ul className="langs">
           <li><a data-refresh="true" href={pathParser({...params, ":lang": "es"}, routePath)}>ES</a></li>
           <li><a data-refresh="true" href={pathParser({...params, ":lang": "en"}, routePath)}>EN</a></li>
-        </ul>
-        <div className={classnames("search-button", {active: isSearchOpen})}>
+        </ul> */}
+        <div className={classnames("search-button", "search-nav", {active: isSearchOpen})}>
           <Icon icon="search" className="click" onClick={() => this.setState({isSearchOpen: !isSearchOpen})} />
           <InputGroup
             placeholder={t("Search profiles")}

@@ -39,7 +39,7 @@ black:        "#181A21"
 # accent colors
 accent:       "#84F0EE"
 accent-light: "#A8FFFE"
-accent-dark:  "#3F908E"
+accent-dark:  "var(--gmx-red-1)"
 accent-black: "#174442"
 
 viz-positive: "#3F908E"
@@ -101,13 +101,15 @@ font-xs:                    "0.75rem"  # 12px
 font-sm:                    "0.875rem" # 14px
 font-md:                    "1rem"     # 16px
 font-lg:                    "1.25rem"  # 20px
-font-xl:                    "1.75rem"  # 30px
+font-xl:                    "1.5rem"   # 30px
 font-xxl:                   "2.75rem"  # 48px - use sparingly
 
 # base (p, li, etc.)
-base-font-stack:            "'Barlow', 'Trebuchet MS', sans-serif" # Remember to import custom fonts & only the necessary weights via Helmet.js
+base-font-stack:            "'Fira Sans', 'Trebuchet MS', sans-serif" # Remember to import custom fonts & only the necessary weights via Helmet.js
+base-font-stack-condensed:  "'Fira Sans Extra Condensed', 'Trebuchet MS', sans-serif"
 base-font-weight:           "400"
 base-letter-spacing:        "0"
+light-bold-weight:          "500"
 bold-weight:                "600"
 light-weight:               "200"
 
@@ -153,10 +155,10 @@ sticky-section-bg-color:    "var(--white)"
 sticky-section-shadow:      "0 1px 0.375rem color(var(--black) a(0.125))"
 # handle grouped SingleColumn sections with flex-basis
 singlecolumn-column-count:  "3"
-singlecolumn-min-width:     "20rem"
+singlecolumn-min-width:     "15rem"
 # handle MultiColumn section with css multicolumn
 multicolumn-column-count:   "3"
-multicolumn-column-width:   "20rem"
+multicolumn-column-width:   "15rem"
 multicolumn-column-gap:     "var(--gutter-xl)"
 # InfoCard
 infocard-viz-min-width:     "10rem"
@@ -177,7 +179,7 @@ grouping-subhead-color:     "var(--accent-black)"
 grouping-subhead-font-size: "var(--font-xl)"
 grouping-heading-color:     "var(--dark-4)"
 grouping-heading-font-size: "var(--font-xl)"
-grouping-stat-value-color:  "var(--white)"
+grouping-stat-value-color:  "var(--accent-dark)"
 
 # buttons
 button-border-radius:       "2px"
@@ -240,3 +242,21 @@ stat-value-weight:          "var(--light-weight)"
 stat-subtitle-font-size:    "var(--font-xs)"
 stat-subtitle-color:        "var(--dark-2)"
 stat-group-stat-width:      "9rem"
+
+# mexico colors
+primary-1: "#00AAA9"
+primary-2: "#2EBEA5"
+primary-3: "#3F908E"
+
+gmx-green-1:        "#235B4E"
+gmx-green-2:        "#10312B"
+gmx-yellow-1:       "#DDC9A3"
+gmx-yellow-2:       "#BC955C"
+gmx-red-1:          "#9F2241"
+gmx-red-2:          "#691C32"
+
+#aditional colors
+beige:        "#F8F4EF"
+cream:        "#F2F2F2"
+light-gray:   "#6F7271"
+

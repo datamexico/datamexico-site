@@ -1,0 +1,20 @@
+.dmx-selector {
+  margin-bottom: var(--gutter-sm);
+  & .dmx-selector-header {
+    display: flex;
+    flex-direction: row;
+    & .dmx-selector-icon {
+      margin-right: 10px;
+    }
+  }
+  & .bp3-popover-target {
+    width: 100%;
+  }
+  & .bp3-button.dmx-selector-button {
+    width: 100%;
+    justify-content: space-between;
+    border: 1px solid var(--gray);
+    border-radius: 0;
+  }
+}
+

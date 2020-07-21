@@ -1,0 +1,162 @@
+@import "helpers/mixins.css";
+
+.covid-card {
+  margin-top: var(--gutter-lg);
+  flex-wrap: wrap;
+  & .covid-card-information > * {
+    margin-bottom: var(--gutter-sm);
+  }
+  & .covid-card-information {
+    & .covid-card-information-title {
+      display: flex;
+      & h3 {
+        color: var(--gmx-red-2);
+        font-size: var(--font-lg);
+        font-weight: var(--bold-weight);
+        text-transform: uppercase;
+        margin-right: var(--gutter-xs);
+      }
+    }
+    & .covid-card-information-scale-selector {
+      & .dmx-button-group {
+        & .dmx-button-group-title {
+          color: var(--light-gray);
+        }
+        & .dmx-button-group-items {
+          height: var(--gutter-md);
+          margin: 0;
+          & .cp-button {
+            border: var(--field-border-radius) solid var(--gmx-red-1);
+            cursor: pointer;
+          }
+          & .is-inactive {
+            color: var(--gmx-red-1);
+          }
+          & .is-active {
+            color: var(--white) !important;
+            background-color: var(--gmx-red-1);
+          }
+          & .cp-button:hover {
+            opacity: 0.9;
+          }
+        }
+      }
+    }
+    & .covid-card-information-stat-selector {
+      & .dmx-selector {
+        & .dmx-selector-header {
+          color: var(--light-gray);
+        }
+        & .filter-selector {
+          & .bp3-button-text {
+            color: var(--light-gray);
+            font-weight: var(--bold-weight);
+          }
+        }
+      }
+    }
+    & .covid-card-information-base-selector {
+      & .dmx-checkbox {
+        & .bp3-control {
+          color: var(--gmx-red-1);
+          & .bp3-control-indicator {
+            box-shadow: inset 0 0 0 1px var(--gmx-red-1), inset 0 -1px 0 var(--gmx-red-1);
+          }
+        }
+        & .bp3-control.disabled {
+          color: var(--gray);
+          font-weight: var(--base-font-weight);
+          & .bp3-control-indicator {
+            box-shadow: inset 0 0 0 1px var(--gray), inset 0 -1px 0 var(--gray);
+          }
+        }
+        & .bp3-control input:checked ~ .bp3-control-indicator {
+          background-color: var(--gmx-red-1);
+        }
+      }
+    }
+    & .covid-card-information-stats {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      & .covid-card-information-stats-stat {
+        display: flex;
+        flex-direction: column;
+        color: var(--gmx-red-1);
+        margin: 0 auto;
+        & .stat-value {
+          font-size: var(--font-sm);
+          font-weight: var(--base-font-weight);
+        }
+        & .stat-percentage {
+          font-size: var(--font-xl);
+          font-weight: var(--light-bold-weight);
+        }
+      }
+    }
+    & .covid-card-information-description {
+      & p {
+        font-size: var(--font-xs);
+      }
+      & a {
+        color: var(--gmx-red-2);
+        font-weight: var(--light-bold-weight);
+        text-decoration: underline;
+      }
+    }
+    & .covid-card-information-sources {
+      color: var(--light-gray);
+      display: flex;
+      & .covid-card-information-sources-source {
+        & a {
+          color: var(--gmx-red-2);
+          font-weight: var(--bold-weight);
+          text-decoration: underline;
+        }
+      }
+    }
+    & .covid-card-information-sources > * {
+      margin-right: calc(var(--gutter-sm) / 4);
+    }
+  }
+  & .covid-card-visualization {
+    background-color: var(--white);
+    border: var(--field-border-radius) solid var(--light-3);
+    & .covid-card-visualization-header {
+      & .dmx-select-location {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 var(--gutter-md);
+      }
+    }
+    & .covid-card-visualization-viz {
+
+    }
+  }
+}
+.covid-card:first-child {
+  margin-top: 0;
+}
+
+.covid-columns {
+  display: flex;
+  flex-direction: row;
+  & .covid-column-left {
+    padding: var(--gutter-sm);
+    flex: 1 0 20%;
+  }
+  & .covid-column-right {
+    padding: var(--gutter-sm);
+    flex: 1 0 80%;
+  }
+}
+
+.bp3-portal {
+  & .bp3-transition-container.bp3-popover-enter-done a {
+    color: var(--black);
+    text-decoration-color: var(--black);
+  }
+  & .bp3-menu-item.bp3-intent-primary.bp3-active {
+    color: var(--white);
+  }
+}

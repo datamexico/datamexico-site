@@ -17,6 +17,7 @@
 
     &:focus {
       box-shadow: none;
+      outline-color: var(--dark-1);
     }
 
     &.bp3-active {
@@ -37,6 +38,17 @@
 
   & .bp3-input-group .bp3-input:not(:first-child) {
     padding-left: 60px;
+  }
+
+  & .bp3-input-group .bp3-input-action .ep-clear-btn{
+    height: 48px;
+    border: 1px solid var(--white);
+    & .bp3-button-text{
+      color: var(--white);
+    }
+    & .bp3-icon svg path{
+      fill: var(--white);
+    }
   }
 
   & .ep-headers {
@@ -88,6 +100,22 @@
     @mixin min-xs {
       @mixin vertical-overflow-container;
       height: calc(100vh - var(--nav-height) - 260px);
+    }
+  }
+
+  & .ep-loading-splash{
+    position: absolute;
+    display: none;
+    background-color: rgba(22,28,44,0.6);
+    top: 0;
+    bottom:0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    &.show{
+      display:flex;
     }
   }
 }

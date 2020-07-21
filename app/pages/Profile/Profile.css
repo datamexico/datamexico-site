@@ -20,9 +20,16 @@
 /* TODO: remove after removing heading class from canon stats */
 .cp-stat-value-text.heading {
   font-weight: var(--stat-value-weight);
+  letter-spacing: -1px;
+  line-height: 1;
   margin-left: -0.05em; /* fudge that very thin font into place */
   margin-right: 0;
 }
+
+/* scale down fonts for long stats */
+.cp-stat-value-text.length-lg           { font-size: var(--font-lg); }
+.cp-stat-value-text[class*="length-x"]  { font-size: var(--font-md); }
+.cp-stat-subtitle[class*="length-x"]    { font-size: var(--font-xxs); }
 
 .cp-stat-subtitle {
   @mixin display;
@@ -39,11 +46,21 @@
   margin-right: 0; /* override canon */
 
   & .cp-stat-label-text {
-    @mixin font-smoothing;
-    font-size: inherit;
+    font-size: var(--base-font-stack);
   }
 }
 
+.cp-hero .cp-hero-heading {
+  font-family: var(--base-font-stack-condensed);
+}
+
+.cp-section-heading {
+  font-family: var(--base-font-stack-condensed);
+}
+
+.cp-grouping > .cp-section:last-child {
+  padding-bottom: 6rem;
+}
 
 .cp-main {
   /* about section overrides */
@@ -62,6 +79,7 @@
       font-weight: var(--base-font-weight);
       line-height: 1.5;
       color: var(--light-2);
+      display: block;
 
       /* space out adjacent paragraphs */
       &:not(:last-of-type) {
@@ -101,26 +119,84 @@
   color: var(--dark-2);
 
   /* strip out rich text styles */
-  & > span[style] {
+  & [style] {
     background: inherit !important;
-    color: inherit !important;
-    font-weight: inherit !important;
+  }
+}
+
+.cp-grouping-section {
+  background: var(--dark-4);
+  & .cp-section-content {
+    margin: 1rem auto;
+    & .cp-stat-group {
+      flex: 2 1 !important;
+    }
+    & .cp-stat-label-text {
+      color: var(--light-3);
+      font-size: var(--font-xxs);
+      max-width: 100px;
+    }
+    & .cp-stat-value-text {
+      color: var(--gmx-yellow-1);
+      font-weight: 300;
+    }
+    & .cp-stat-subtitle {
+      color: var(--light-2);
+      font-size: var(--font-xs);
+    }
   }
 }
 
 /* grouping headings */
 .cp-grouping-section-heading {
   @mixin display;
-  margin-bottom: 1em;
+  color: var(--white);
+  font-size: 2.25rem;
+  margin-bottom: 0 !important;
+  font-family: var(--base-font-stack-condensed);
+}
+
+.cp-viz-title {
+  font-family: var(--base-font-stack-condensed);
+  font-weight: 600;
+  font-size: var(--font-md);
+  margin: 0 var(--gutter-sm);
+  text-align: center;
+  & .dmx-click2select {
+    color: var(--gmx-red-1);
+    font-size: var(--font-sm);
+  }
+}
+
+.options-button-group {
+  & .cp-button-text {
+    display: none;
+  }
+}
+
+.dmx-disclaimer {
+  color: var(--gmx-yellow-2);
+  font-weight: 700;
+  font-size: var(--font-xs);
+}
+
+.cp-hero-stat {
+  & .cp-stat-subtitle {
+    font-weight: 500;
+    font-size: var(--font-xxs);
+    text-transform: none;
+  }
+  & .cp-stat-label .cp-stat-label-text {
+    text-transform: uppercase;
+  }
 }
 
 /* default section overrides */
-.cp-default-section-paragraph,
+.cp-section-paragraph,
 .cp-tabs-section-paragraph,
 .cp-single-column-section-paragraph,
 .cp-multi-column-section-paragraph {
   @mixin font-xs;
-  font-weight: var(--light-weight);
   margin-top: 0.5em;
 
   &:not(:last-of-type) {
@@ -128,28 +204,31 @@
   }
 }
 
+.cp-hero {
+  min-height: calc(100vh - 300px);
+}
+.cp-hero-inner {
+  padding-bottom: 3rem;
+}
+
 .cp-single-column-section-caption .cp-viz-container { margin-top: auto; }
 
-.d3plus-tooltip {
-  box-shadow: color(var(--black) a(0.25)) 0 1px 3px;
-  padding: 0 !important;
+/* inverted section link styles */
+.cp-about-section-inner p > a {
+  font-weight: var(--bold-weight);
+  color: var(--gmx-yellow-1);
+  text-decoration-color: var(--gmx-yellow-1);
 
-  & .d3plus-tooltip-table {
-    border-collapse: collapse;
-  }
-
-  & td {
-    text-align: right;
-    padding: 5px 10px;
-    &:first-child {
-      text-align: left;
-    }
-    &:last-child {
-      text-transform: uppercase;
-    }
-  }
-
-  & .d3plus-tooltip-footer {
-    text-align: center;
+  &:hover, &:focus {
+    color: var(--white);
+    text-decoration-color: currentColor;
   }
 }
+
+/* style underlined text like italic */
+.cp-section-paragraph u {
+  text-decoration: none;
+  font-style: italic;
+}
+
+

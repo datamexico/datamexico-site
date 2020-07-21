@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {withNamespaces} from "react-i18next";
-import {ProgressBar} from "@blueprintjs/core";
+import {Intent, Spinner} from "@blueprintjs/core";
 import {Link} from "react-router";
 
 import "./Loading.css";
@@ -17,14 +17,17 @@ class Loading extends Component {
       <div className="loading-wrapper">
         <div className="brand">
           <Link to="/">
-            <img src={"/icons/datamx-logo.gif"} alt="" />
+            <img src={"/icons/logo-horizontal.png"} alt="" />
           </Link>
         </div>
-        <div className="progress-bar">
+        {/* <div className="progress-bar">
           <ProgressBar value={progress / total} />
-        </div>
+        </div> */}
 
-        <div>{t("Loading.description", {progress, total})}</div>
+        {/* <div>{t("Loading.description", {progress, total})}</div> */}
+        <div className="loading-spinner">
+          <Spinner size={Spinner.SIZE_STANDARD} value={null} />
+        </div>
         <div className="collaborator-icons">
           <div>
             <span className="text">{t("Built and Developed by")}</span>

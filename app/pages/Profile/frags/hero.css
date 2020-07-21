@@ -9,10 +9,88 @@
   /* set text shadow for all children based on font size */
   & .cp-hero-caption {
     @mixin text-shadow;
+    display: flex;
+    flex-wrap: wrap;
+    & .cp-hero-heading-wrapper, & .cp-hero-stat-group-wrapper {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    & .cp-hero-heading-wrapper {
+      margin-bottom: var(--gutter-md);
+      padding-right: var(--gutter-md);
+      & .cp-hero-heading {
+        margin-bottom: 10px;
+        /*display: flex;*/
+        & img {
+          height: 60px;
+          margin-bottom: 7px;
+          margin-right: 0px;
+          vertical-align: middle;
+          width: 60px;
+        }
+      }
+      & .cp-hero-heading-dimension {
+        padding: 0px 5px;
+        box-shadow: 0 2px 0 var(--white);
+        text-decoration: none;
+        font-weight: 300;
+        margin-bottom: 10px;
+      }
+
+      @mixin min-sm {
+        max-width: 100%;
+      }
+      & .cp-hero-heading {
+        text-align: left;
+      }
+      & .cp-hero-subhead {
+        text-align: left;
+        background-color: var(--gmx-red-2);
+        width: fit-content;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+    }
+
+    & .cp-hero-stat-group-wrapper {
+      & .cp-hero-stat {
+        text-align: left;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        & .cp-stat-subtitle {
+          font-size: var(--font-xs);
+          text-transform: uppercase;
+          margin: 5px auto 2px 0;
+          max-width: 160px;
+          line-height: var(--font-md);
+        }
+        & .cp-stat-label {
+          & .cp-stat-label-text {
+            font-weight: 700;
+            justify-content: left;
+            margin: 0;
+            padding-left: 0px;
+          }
+        }
+        &:first-child {
+          padding-left: 0rem;
+        }
+        & .cp-stat-label {
+          background-color: var(--gmx-red-2);
+          width: fit-content;
+          padding: 4px 8px;
+          border-radius: 5px;
+          & .cp-stat-label-text {
+            font-size: var(--font-xxs);
+          }
+        }
+      }
+    }
   }
 
   & .cp-hero-heading {
-    @mixin display;
     @mixin font-xxl;
     line-height: 1.25;
   }
@@ -28,6 +106,7 @@
   & .cp-hero-stat-group-wrapper {
     width: calc((var(--stat-group-stat-width) + var(--gutter-sm)) * 3);
     max-width: 100%;
+    margin-top: 0px;
 
     @mixin min-sm {
       margin-left: auto;
@@ -36,10 +115,11 @@
   }
 
   & .cp-hero-credits {
+    margin-bottom: 4rem;
     z-index: 12; /* in front of overlay */
 
     &.is-open {
-      margin-bottom: 0;
+      margin-bottom: 4rem;
     }
   }
 

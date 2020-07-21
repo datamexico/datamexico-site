@@ -1,0 +1,21 @@
+.dmx-checkbox {
+  display: flex;
+  flex-direction: column;
+  & .dmx-checkbox-title {
+    font-size: var(--font-sm);
+    font-weight: var(--bold-weight);
+    margin-bottom: calc(var(--gutter-xs) / 2);
+    text-transform: uppercase;
+  }
+  & .dmx-checkbox-item {
+    width: max-content;
+    & .bp3-control {
+      font-size: var(--font-xs);
+      font-weight: var(--bold-weight);
+      margin-bottom: calc(var(--gutter-xs) / 2);
+      & .bp3-control-indicator {
+        border-radius: 0;
+      }
+    }
+  }
+}

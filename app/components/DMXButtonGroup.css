@@ -1,0 +1,21 @@
+.dmx-button-group {
+  flex-direction: column;
+  margin-bottom: var(--gutter-sm);
+}
+.dmx-button-group-items {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: var(--gutter-md);
+  & .cp-button {
+    font-size: var(--font-xs);
+    flex: 1;
+    min-width: 1px;
+    padding: 0;
+  }
+  & .cp-button.is-active {
+    background-color: var(--gmx-red-1);
+    color: var(--white);
+    border: 1px solid var(--gmx-red-1);
+  }
+}

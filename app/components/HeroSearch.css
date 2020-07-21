@@ -1,0 +1,107 @@
+@import "helpers/mixins.css";
+
+.hero-search {
+  /* sizing */
+  display: block; /* it's a span */
+  width: 34rem;
+  max-width: 100%;
+  /* positioning */
+  position: relative; /* containe results */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 🔎 */
+.hero-search-icon {
+  /* positioning */
+  @mixin absolute-vertical-center;
+  z-index: 1;
+  left: var(--gutter-sm);
+  /* sizing */
+  width: 1rem;
+  height: 1rem;
+  /* theming */
+  color: var(--accent-dark);
+  pointer-events: none;
+  transform-origin: top center;
+  transition:
+    color 0.15s ease-out,
+    transform 0.15s ease-out;
+
+  & svg {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.hero-search-label {
+  display: flex;
+}
+
+.hero-search-link {
+  /* sizing */
+  margin: 0;
+  padding: 0.5em 1.5em;
+  line-height: 2rem; /* defines height of entire search box */
+  /* theming */
+  background: var(--accent-dark);
+  color: var(--white);
+  transition: background 0.2s ease-out;
+  text-transform: uppercase;
+
+  &:hover, &:focus {
+    background: var(--accent-black);
+    color: var(--white);
+    text-decoration: none;
+  }
+}
+
+.hero-search-label:hover .hero-search-icon,
+.hero-search-input:focus + .hero-search-icon {
+  transform: scale(1.2) translateY(-50%);
+}
+
+/* main search input */
+.hero-search-input {
+  /* sizing */
+  width: 100%;
+  padding-left: 2.375rem; /* make room for search icon */
+  /* theming */
+  border: none;
+  background-color: var(--white);
+  color: var(--dark-3);
+  /* transitions */
+  transition:
+    0.2s ease-out box-shadow,
+    0.3s ease-out border-color;
+
+  &::placeholder {
+    color: var(--dark-1);
+  }
+}
+
+/* search results */
+.hero-search-results {
+  @mixin list-reset;
+  text-align: left;
+  text-shadow: none; /* override .home-hero */
+  /* positioning */
+  position: absolute;
+  width: 100%;
+  /* theming */
+  background-color: var(--light-1);
+  color: var(--white);
+  /* handle overflow */
+  @mixin vertical-overflow-container;
+  max-height: 14.75rem;
+}
+
+/* shared style between actual search results and "no results" message */
+.hero-search-result-item,
+.hero-search-result-message {
+  padding: var(--gutter-xs) var(--gutter-md);
+
+  /* space out first & last results */
+  &:first-child { margin-top: var(--gutter-xs);    }
+  &:last-child  { margin-bottom: var(--gutter-xs); }
+}
