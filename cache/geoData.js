@@ -19,7 +19,7 @@ module.exports = async function() {
       }, {});
       return geoData;
     })
-    .catch(error => []);
+    .catch(error => {});
 
   return allData;
 
