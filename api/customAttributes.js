@@ -1,9 +1,11 @@
 const axios = require("axios");
+const yn = require("yn");
 const {CANON_CMS_CUBES} = process.env;
+const verbose = yn(process.env.CANON_CMS_LOGGING);
 const BASE_API = `${CANON_CMS_CUBES}data`;
 
 const catcher = error => {
-  console.error("Custom Attribute Error:", error);
+  if (verbose) console.error("Custom Attribute Error:", error);
   return []
 };
 module.exports = function (app) {
@@ -66,15 +68,10 @@ module.exports = function (app) {
 
         if (isMunicipality) {
           const allData = cache.geoData;
-
-          const data = allData.find(d => d["Municipality ID"] === id1 * 1) || {};
-
-          const levels = ["Nation", "State", "Municipality"];
-          const i = levels.findIndex(d => d === hierarchy1);
-          const level = levels[i - 1];
-          if (data) {
-            customId = data[`${level} ID`];
-            customName = data[level];
+          const parent = allData[id1];
+          if (parent) {
+            customId = parent["State ID"];
+            customName = parent["State"];
           }
         }
 

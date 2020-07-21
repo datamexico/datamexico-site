@@ -12,7 +12,13 @@ module.exports = async function() {
     parents: true
   }
   const allData = await axios.get(BASE_API, {params})
-    .then(resp => resp.data.data)
+    .then(resp => {
+      const geoData = resp.data.data.reduce((acc, d) => {
+        acc[d["Municipality ID"]] = {"State ID": d["State ID"], "State": d["State"]}
+        return acc;
+      }, {});
+      return geoData;
+    })
     .catch(error => []);
 
   return allData;
