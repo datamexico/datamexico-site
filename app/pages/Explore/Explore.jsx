@@ -131,7 +131,7 @@ class Explore extends React.Component {
           results.forEach(elements => {
             elements.forEach(profileItem => {
               if (profilesList[profileItem.slug]) {
-                tempObj = {id: profileItem.id, name: profileItem.name, slug: profileItem.slug, level: profileItem.memberHierarchy, background: profilesList[profileItem.slug].background, ranking: profileItem.ranking};
+                tempObj = {id: profileItem.memberSlug, name: profileItem.name, slug: profileItem.slug, level: profileItem.memberHierarchy, background: profilesList[profileItem.slug].background, ranking: profileItem.ranking};
                 resultsRaw.push(tempObj);
                 if (profile === 'filter' || profileItem.slug === profile && profileItem.memberHierarchy === profilesList[profile].levels[tab]) {
                   parsed.push(tempObj);
@@ -185,7 +185,7 @@ class Explore extends React.Component {
       })
         .then(resp => {
           const color = profilesList[profile].background;
-          this.setState({results: resp.data.results.map(profileItem => ({id: profileItem.id, name: profileItem.name, slug: profileItem.profile, level: profileItem.hierarchy, background: color})), loading: false});
+          this.setState({results: resp.data.results.map(profileItem => ({id: profileItem.slug, name: profileItem.name, slug: profileItem.profile, level: profileItem.hierarchy, background: color})), loading: false});
         })
         .catch(error => {
           const result = error.response;
@@ -237,7 +237,7 @@ class Explore extends React.Component {
             len = len ? len.len : 0;
             return <ExploreHeader
               title={t(profilesList[sectionSlug].title)}
-              len={commas(len)}
+              len={loading?"...":commas(len)}
               selected={profile}
               slug={sectionSlug}
               handleTabSelected={profile => this.handleProfile(profile)}
@@ -260,7 +260,7 @@ class Explore extends React.Component {
               key={levelKey}
               onClick={() => this.handleTab(levelKey)}
             >
-              {`${t(levelName)}`} {len ? `(${commas(len)})` : ''}
+              {`${t(levelName)}`} {len ? loading ? "(...)" :`(${commas(len)})` : '(0)'}
             </div>;
           })}
         </div>

@@ -14,7 +14,8 @@ import "./CovidTable.css";
 
 class CovidTable extends React.Component {
   state = {
-    tableData: []
+    tableData: [],
+    width: 0
   }
 
   componentDidMount = () => {
@@ -40,14 +41,17 @@ class CovidTable extends React.Component {
       return Object.assign({}, dateData, aditionalData);
     });
 
-    this.setState({tableData});
+    this.setState({
+      tableData,
+      width: window.innerWidth
+    });
   }
 
   render() {
     const {lng} = this.props;
-    const {tableData} = this.state;
+    const {tableData, width} = this.state;
 
-    const columns = [
+    const columns = width > 768 ? [
       {
         id: "Location",
         accessor: d => d["Location ID"],
@@ -89,7 +93,31 @@ class CovidTable extends React.Component {
         Cell: d => commas(d.original["Accum Suspect"]),
         Header: "Total test realizados"
       }
-    ]
+    ] : [
+      {
+        id: "Location",
+        accessor: d => d["Location ID"],
+        Cell: d => <div className="geo-wrapper">
+          <div className="icon" style={{backgroundColor: colors.State[d.original["Location ID"]]}}>
+            <img src={d.original.Icon} alt="" />
+          </div>
+          <a href={`/${lng}/profile/geo/${d.original["Location ID"]}`} className="title">{d.original.Location}</a>
+        </div>,
+        Header: "Entidad federativa"
+      },
+      {
+        id: "Last 14 Daily Cases",
+        accessor: d => d["Last 14 Daily Cases"],
+        Cell: d => commas(d.original["Last 14 Daily Cases"]),
+        Header: "Contagios confirmados 14 días"
+      },
+      {
+        id: "Accum Cases",
+        accessor: d => d["Accum Cases"],
+        Cell: d => commas(d.original["Accum Cases"]),
+        Header: "Contagios totales confirmados"
+      }
+    ];
 
     return <div className="covid-table container">
       <div className="columns">

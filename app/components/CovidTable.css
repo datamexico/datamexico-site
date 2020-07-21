@@ -68,3 +68,11 @@
 .covid-table {
   overflow-x: auto;
 }
+
+@media (max-width: 768px) {
+  .covid19-table {
+    & .rt-thead {
+      font-size: var(--font-xxxs);
+    }
+  }
+}
