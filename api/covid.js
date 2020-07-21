@@ -17,7 +17,7 @@ module.exports = function (app) {
   app.get(BASE_URL, async (req, res) => {
     try {
       // Gets the dates from the last 7 days
-      const DATASET_DATES = "https://api.datamexico.org/tesseract/members?cube=gobmx_covid&level=Updated%20Date";
+      const DATASET_DATES = CANON_CMS_CUBES + "/members?cube=gobmx_covid&level=Updated%20Date";
       const LATEST_WEEK = await axios.get(DATASET_DATES).then(resp => {
         const dateArray = resp.data.data.sort((a, b) => b.ID - a.ID).slice(0, 8);
         dateArray.forEach(d => {
@@ -67,7 +67,7 @@ module.exports = function (app) {
         .catch(e => console.log(e));
 
       // Gets all the data from the gobmx_covid_stats cube
-      const COVID_STATS_MEASURES = "Daily Cases,Daily Deaths,Daily Hospitalized,Daily Suspect,Accum Cases,Accum Deaths,Accum Hospitalized,Accum Suspect,Days Between Ingress and Death,New Cases Report,New Deaths Report,New Hospitalized Report,New Suspect Report,Accum Cases Report,Accum Deaths Report,Accum Hospitalized Report,Accum Suspect Report,AVG 7 Days Daily Cases,AVG 7 Days Accum Cases,AVG 7 Days Daily Deaths,AVG 7 Days Accum Deaths,AVG 7 New Cases Report,AVG 7 Accum Cases Report,AVG 7 New Deaths Report,AVG 7 Accum Deaths Report,Last 7 Daily Cases,Last 7 Daily Deaths,Last 7 Accum Cases,Last 7 Accum Deaths,Last 7 New Cases Report,Last 7 Accum Cases Report,Last 7 New Deaths Report,Last 7 Accum Deaths Report,Rate Daily Cases,Rate Accum Cases,Rate Daily Deaths,Rate Accum Deaths,Rate New Cases Report,Rate Accum Cases Report,Rate New Deaths Report,Rate Accum Deaths Report,Days from 50 Cases,Days from 10 Deaths";
+      const COVID_STATS_MEASURES = "Daily%20Cases,Daily%20Deaths,Daily%20Hospitalized,Daily%20Suspect,Accum%20Cases,Accum%20Deaths,Accum%20Hospitalized,Accum%20Suspect,Days%20Between%20Ingress%20and%20Death,New%20Cases%20Report,New%20Deaths%20Report,New%20Hospitalized%20Report,New%20Suspect%20Report,Accum%20Cases%20Report,Accum%20Deaths%20Report,Accum%20Hospitalized%20Report,Accum%20Suspect%20Report,AVG%207%20Days%20Daily%20Cases,AVG%207%20Days%20Accum%20Cases,AVG%207%20Days%20Daily%20Deaths,AVG%207%20Days%20Accum%20Deaths,AVG%207%20New%20Cases%20Report,AVG%207%20Accum%20Cases%20Report,AVG%207%20New%20Deaths%20Report,AVG%207%20Accum%20Deaths%20Report,Last%207%20Daily%20Cases,Last%207%20Daily%20Deaths,Last%207%20Accum%20Cases,Last%207%20Accum%20Deaths,Last%207%20New%20Cases%20Report,Last%207%20Accum%20Cases%20Report,Last%207%20New%20Deaths%20Report,Last%207%20Accum%20Deaths%20Report,Rate%20Daily%20Cases,Rate%20Accum%20Cases,Rate%20Daily%20Deaths,Rate%20Accum%20Deaths,Rate%20New%20Cases%20Report,Rate%20Accum%20Cases%20Report,Rate%20New%20Deaths%20Report,Rate%20Accum%20Deaths%20Report,Days%20from%2050%20Cases,Days%20from%2010%20Deaths";
       const COVID_STATS_NATION = CANON_CMS_CUBES + `/data.jsonrecords?cube=gobmx_covid_stats_nation&drilldowns=Nation,Time&measures=${COVID_STATS_MEASURES}&parents=false&sparse=false&locale=${locale}`;
       const COVID_STATS_STATES = CANON_CMS_CUBES + `/data.jsonrecords?cube=gobmx_covid_stats_state&drilldowns=State,Time&measures=${COVID_STATS_MEASURES}&parents=false&sparse=false&locale=${locale}`;
       const COVID_STATS_DATA_ALL = await axios
@@ -94,7 +94,7 @@ module.exports = function (app) {
       const COVID_STATS_DATA = COVID_STATS_DATA_ALL.filter(d => 20200315 * 1 <= d["Time ID"] * 1);
 
       // Gets the most recent data from the gobmx_covid cube
-      const COVID_GOBMX_DRILLDOWNS = "Covid Result,Is Dead,Patient Type,Age Range,Sex,Updated Date";
+      const COVID_GOBMX_DRILLDOWNS = "Covid%20Result,Is%20Dead,Patient%20Type,Age%20Range,Sex,Updated%20Date";
       const COVID_GOBMX_NATION = CANON_CMS_CUBES + `/data.jsonrecords?Updated+Date=${LATEST_DATE["Time ID"]}&cube=gobmx_covid&drilldowns=${`${COVID_GOBMX_DRILLDOWNS},Nation`}&measures=Cases&parents=false&sparse=false&locale=${locale}`;
       const COVID_GOBMX_STATES = CANON_CMS_CUBES + `/data.jsonrecords?Updated+Date=${LATEST_DATE["Time ID"]}&cube=gobmx_covid&drilldowns=${`${COVID_GOBMX_DRILLDOWNS},State`}&measures=Cases&parents=false&sparse=false&locale=${locale}`;
       const COVID_GOBMX_DATA = await axios
