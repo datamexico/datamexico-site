@@ -103,7 +103,7 @@ class Nav extends React.Component {
           <span className="menu">{t("Menu")}</span>
         </button>
       </div>
-      <div className="nav-center">
+      <div className={classnames("nav-center", {"active-searchbar": isSearchOpen})}>
         {(logo || className === "background") && <a className="profile-logo" href="/" data-refresh="true"><img src="/icons/logo-horizontal.png" alt="" /></a>}
         <span className="nav-subtitle">{title}</span>
       </div>

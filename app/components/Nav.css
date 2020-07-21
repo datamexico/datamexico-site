@@ -240,6 +240,12 @@
 }
 
 @media (max-width: 767px) {
+  .active-searchbar {
+    display: none !important;
+  }
+  .menu {
+    display: none !important;
+  }
   .cp-subnav {
     background-color: var(--dark-4) !important;
     display: flex;
