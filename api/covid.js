@@ -18,7 +18,7 @@ module.exports = function (app) {
     try {
       // Gets the dates from the last 7 days
       const DATASET_DATES = CANON_CMS_CUBES + "/members?cube=gobmx_covid&level=Updated%20Date";
-      const LATEST_WEEK = await axios.get(DATASET_DATES).then(resp => {
+      const LATEST_WEEK = await axios.get(DATASET_DATES, headers).then(resp => {
         const dateArray = resp.data.data.sort((a, b) => b.ID - a.ID).slice(0, 8);
         dateArray.forEach(d => {
           d["Time ID"] = d["ID"];
@@ -35,7 +35,7 @@ module.exports = function (app) {
       const MEXICO_STATES = CANON_CMS_CUBES + "/members?cube=gobmx_covid&level=State";
       const MEXICO_MUNICIPALITIES = CANON_CMS_CUBES + "/members?cube=gobmx_covid&level=Municipality";
       const LOCATIONS = await axios
-        .all([axios.get(MEXICO_NATION), axios.get(MEXICO_STATES), axios.get(MEXICO_MUNICIPALITIES)])
+        .all([axios.get(MEXICO_NATION, headers), axios.get(MEXICO_STATES, headers), axios.get(MEXICO_MUNICIPALITIES, headers)])
         .then(axios.spread((...resp) => {
           resp[0].data.data.forEach(d => {
             d["Location ID"] = d["ID"];
