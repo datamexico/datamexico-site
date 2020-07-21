@@ -13,6 +13,13 @@ const headers = {
   }
 };
 
+const yn = require("yn");
+const verbose = yn(process.env.CANON_CMS_LOGGING);
+const catcher = error => {
+  if (verbose) console.error("COVID API Error:", error);
+  return [];
+};
+
 module.exports = function (app) {
   app.get(BASE_URL, async (req, res) => {
     try {
@@ -64,7 +71,7 @@ module.exports = function (app) {
           const locationArray = resp.map(d => d.data.data.filter(d => d["Location"] !== "No Informado"));
           return locationArray.flat();
         }))
-        .catch(e => console.log(e));
+        .catch(catcher);
 
       // Gets all the data from the gobmx_covid_stats cube
       const COVID_STATS_MEASURES = "Daily%20Cases,Daily%20Deaths,Daily%20Hospitalized,Daily%20Suspect,Accum%20Cases,Accum%20Deaths,Accum%20Hospitalized,Accum%20Suspect,Days%20Between%20Ingress%20and%20Death,New%20Cases%20Report,New%20Deaths%20Report,New%20Hospitalized%20Report,New%20Suspect%20Report,Accum%20Cases%20Report,Accum%20Deaths%20Report,Accum%20Hospitalized%20Report,Accum%20Suspect%20Report,AVG%207%20Days%20Daily%20Cases,AVG%207%20Days%20Accum%20Cases,AVG%207%20Days%20Daily%20Deaths,AVG%207%20Days%20Accum%20Deaths,AVG%207%20New%20Cases%20Report,AVG%207%20Accum%20Cases%20Report,AVG%207%20New%20Deaths%20Report,AVG%207%20Accum%20Deaths%20Report,Last%207%20Daily%20Cases,Last%207%20Daily%20Deaths,Last%207%20Accum%20Cases,Last%207%20Accum%20Deaths,Last%207%20New%20Cases%20Report,Last%207%20Accum%20Cases%20Report,Last%207%20New%20Deaths%20Report,Last%207%20Accum%20Deaths%20Report,Rate%20Daily%20Cases,Rate%20Accum%20Cases,Rate%20Daily%20Deaths,Rate%20Accum%20Deaths,Rate%20New%20Cases%20Report,Rate%20Accum%20Cases%20Report,Rate%20New%20Deaths%20Report,Rate%20Accum%20Deaths%20Report,Days%20from%2050%20Cases,Days%20from%2010%20Deaths";
@@ -90,7 +97,7 @@ module.exports = function (app) {
           const dataArray = resp.map(d => d.data.data);
           return dataArray.flat();
         }))
-        .catch(e => console.log(e));
+        .catch(catcher);
       const COVID_STATS_DATA = COVID_STATS_DATA_ALL.filter(d => 20200315 * 1 <= d["Time ID"] * 1);
 
       // Gets the most recent data from the gobmx_covid cube
@@ -117,7 +124,7 @@ module.exports = function (app) {
           const dataArray = resp.map(d => d.data.data);
           return dataArray.flat();
         }))
-        .catch(e => console.log(e));
+        .catch(catcher);
 
       res.json({
         dates: LATEST_WEEK,
