@@ -2,7 +2,7 @@ const axios = require("axios");
 const yn = require("yn");
 const {CANON_CMS_CUBES} = process.env;
 const verbose = yn(process.env.CANON_CMS_LOGGING);
-const BASE_API = `${CANON_CMS_CUBES}data`;
+const BASE_API = `${CANON_CMS_CUBES}data.jsonrecords`;
 
 const catcher = error => {
   if (verbose) console.error("Custom Attribute Error:", error);
