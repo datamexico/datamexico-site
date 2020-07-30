@@ -141,13 +141,14 @@ class Covid extends Component {
     this.setState(nextState);
   }
 
-  filterData = (data, selected) => {
+  filterData = (data, selected, division = null) => {
     const filterData = [];
     selected.map(d => {
       const locationData = data.filter(f => f["Location ID"] === d);
       filterData.push(locationData);
     });
-    return filterData.flat();
+    const returnData = division ? filterData.flat().filter(d => d.Division === division) : filterData.flat();
+    return returnData;
   }
 
   resetBaseLocation = (location) => {
@@ -375,20 +376,21 @@ class Covid extends Component {
     let ageRangesDataLocations = null;
     let ageRangesStats = null;
     let ageRangesGroupBy = null;
+    const ageRangesDivision = locationDivisions.includes("Nation") ? "Nation" : locationDivisions.includes("State") ? "State" : "Municipality";
     if (ageRangesStatSelected.id === "Confirmed") {
-      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected);
+      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected, ageRangesDivision);
       ageRangesStats = this.calculateStats(ageRangesDataLocations, locationDivisions, ["Sex"]);
       ageRangesGroupBy = "Sex";
     } else if (ageRangesStatSelected.id === "Deceased") {
-      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Is Dead ID"] === 1), locationSelected);
+      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Is Dead ID"] === 1), locationSelected, ageRangesDivision);
       ageRangesStats = this.calculateStats(ageRangesDataLocations, locationDivisions, ["Sex"]);
       ageRangesGroupBy = "Sex";
     } else if (ageRangesStatSelected.id === "Hospitalized") {
-      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Patient Type ID"] === 2), locationSelected);
+      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Patient Type ID"] === 2), locationSelected, ageRangesDivision);
       ageRangesStats = this.calculateStats(ageRangesDataLocations, locationDivisions, ["Sex"]);
       ageRangesGroupBy = "Sex";
     } else {
-      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected);
+      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected, ageRangesDivision);
       ageRangesStats = this.calculateStats(ageRangesDataLocations, locationDivisions, ["Patient Type"]);
       ageRangesGroupBy = "Patient Type";
     }
