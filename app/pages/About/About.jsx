@@ -6,14 +6,15 @@ import HelmetWrapper from "../HelmetWrapper";
 import {hot} from "react-hot-loader/root";
 import {withNamespaces} from "react-i18next";
 
+// import Methodology from "./Methodology";
 import Background from "./Background";
 import Error from "../Error/Error";
 import Footer from "components/Footer";
 import Glossary from "./Glossary";
 import Legal from "./Legal";
-// import Methodology from "./Methodology";
 import Nav from "components/Nav";
 import Press from "./Press";
+import Versions from "./Versions";
 
 import "./About.css";
 
@@ -33,7 +34,7 @@ class About extends Component {
     const {lang, page} = this.props.params;
     const {data} = this.state;
     const site = page ? page : "background";
-    const validPages = ["background", "press", "glossary", "legal"];
+    const validPages = ["background", "press", "glossary", "legal", "versions"];
 
     const valid = validPages.includes(site);
     if (!valid) {return <Error />;}
@@ -52,6 +53,9 @@ class About extends Component {
           break;
         case "legal":
           childComponent = <Legal terms={data.terms} />;
+          break;
+        case "versions":
+          childComponent = <Versions versions={data.version} />;
           break;
         /*
       case "methodology":
