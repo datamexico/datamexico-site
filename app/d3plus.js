@@ -12,7 +12,7 @@ const fontSizeLg = 16;
 const labelPadding = 5;
 const shapeLegend = 25;
 
-const icons = ["Affected Legal Good", "State", "Area", "Category", "Chapter", "Continent", "Country", "Flow", "Generic Investment", "Sector", "Sex", "Crime Type", "Work Mean", "Confidence", "Classification of Formal and Informal Jobs of the First Activity", "Status", "Basic Services", "Poverty", "Social Deficiencies"];
+const icons = ["Affected Legal Good", "State", "Area", "Category", "Chapter", "Continent", "Country", "Flow", "Generic Investment", "Sector", "Sex", "Crime Type", "Work Mean", "Confidence", "Classification of Formal and Informal Jobs of the First Activity", "Status", "Basic Services", "Poverty", "Social Deficiencies", "Patient Type"];
 
 const getTooltipTitle = (d3plusConfig, d) => {
   const len = d3plusConfig._groupBy.length;
