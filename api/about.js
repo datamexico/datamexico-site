@@ -4,23 +4,24 @@ const TSV_BACKGROUND = "https://docs.google.com/spreadsheets/u/1/d/1al8qMBhGOjRU
 const TSV_PRESS = "	https://docs.google.com/spreadsheets/u/1/d/1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs/export?format=tsv&id=1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs&gid=1846034667";
 const TSV_GLOSSARY = "https://docs.google.com/spreadsheets/u/1/d/1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs/export?format=tsv&id=1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs&gid=1714281129";
 const TSV_LEGAL = "https://docs.google.com/spreadsheets/u/1/d/1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs/export?format=tsv&id=1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs&gid=1918198501";
-
+const TSV_VERSIONS = "https://docs.google.com/spreadsheets/u/1/d/1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs/export?format=tsv&id=1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs&gid=257728479";
 const BASE_URL = "/api/about";
 
 module.exports = function (app) {
   app.get(BASE_URL, async (req, res) => {
     try {
       await axios
-        .all([axios.get(TSV_BACKGROUND), axios.get(TSV_PRESS), axios.get(TSV_GLOSSARY), axios.get(TSV_LEGAL)])
+        .all([axios.get(TSV_BACKGROUND), axios.get(TSV_PRESS), axios.get(TSV_GLOSSARY), axios.get(TSV_LEGAL), axios.get(TSV_VERSIONS)])
         .then(axios.spread((...resp) => {
           const dictionary = {
             0: {Texto: "Text"},
             1: {Titular: "Title", Texto: "Text", Fotografía: "Picture"},
             2: {Concepto: "Concept", Descripción: "Description"},
-            3: {Título: "Title", Descripción: "Description"}
+            3: {Título: "Title", Descripción: "Description"},
+            4: {Versión: "Version", Caracteristicas: "Features", Descripción: "Description"}
           }
           const respData = resp.map(d => d.data);
-          const cvsData = respData.map((respItem, respIndex) => {
+          const csvData = respData.map((respItem, respIndex) => {
             const csv = respItem.split("\r\n").map(d => d.split("\t"));
             const csvHeader = csv[0];
             const csvDictionary = dictionary[respIndex];
@@ -37,14 +38,16 @@ module.exports = function (app) {
           });
 
           res.json({
-            background: cvsData[0],
-            press: cvsData[1],
-            glossary: cvsData[2],
-            terms: cvsData[3]
+            background: csvData[0],
+            press: csvData[1],
+            glossary: csvData[2],
+            terms: csvData[3],
+            version: csvData[4]
           });
         }));
     } catch (e) {
       console.log(e);
+      return [];
     }
   });
 
