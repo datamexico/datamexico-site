@@ -16,8 +16,8 @@ module.exports = function (app) {
     const {variables, locale} = req.body;
     const {id1, dimension1, hierarchy1, slug1, name1, cubeName1, parents1} = variables;
 
+    // ENOE: Shared customAttribute
     const ENOE_DATASET = async(hierarchy, id) => {
-      // Latest Quarter
       const params = {
         cube: "inegi_enoe",
         drilldowns: "Quarter",
@@ -35,8 +35,8 @@ module.exports = function (app) {
       return {enoeLatestQuarter, enoePrevQuarter, enoePrevYear};
     }
 
+    // FDI: Shared customAttribute
     const FDI_DATASET = async(hierarchy, id) => {
-      // Latest Quarter
       const params = {
         cube: "economy_fdi",
         drilldowns: "Quarter",
@@ -56,8 +56,10 @@ module.exports = function (app) {
       return {fdiLatestQuarter, fdiLatestYear, fdiPrevQuarter, fdiPrevQuarterYear};
     }
 
+    // Creates empty variables.
     let enoeLatestQuarter, enoePrevQuarter, enoePrevYear;
 
+    // Verifies profile.
     switch (pid) {
       // Geo profile
       case 1:
@@ -118,18 +120,21 @@ module.exports = function (app) {
           fdiLatestYear: 2019
         });
 
+      // Product profile
       case 11:
         return res.json({
           foreignTradeLatestYear: 2019,
           foreignTradePrevYear: 2018
         });
 
+      // Institution profile
       case 22:
         return res.json({
           anuiesLatestYear: 2019,
           anuiesPrevYear: 2018
         });
 
+      // Occupation profile
       case 28:
         const ENOE_OCCUPATION = await ENOE_DATASET(hierarchy1, id1);
         enoeLatestQuarter = ENOE_OCCUPATION.enoeLatestQuarter;
@@ -171,7 +176,6 @@ module.exports = function (app) {
 
       default:
         return res.json({});
-
       }
     });
 
