@@ -470,7 +470,7 @@ class Covid extends Component {
           </div>
           <div className="covid-header-stats">
             {locationStats.map((d, i) => (
-              <div className="covid-header-stats-stat" key={`${i}`}>
+              <div className="covid-header-stats-stat" key={i}>
                 <img src={`/icons/visualizations/covid/${d.icon}`} alt="" className="covid-header-stats-stat-icon" />
                 <div className="covid-header-stats-stat-text">
                   <span className="covid-header-stats-stat-value">{d.value}</span>
@@ -553,7 +553,7 @@ class Covid extends Component {
                   : locationDivisions.includes("State")
                     ? <p>Las estadísticas representan los datos de
                       {locationSelectedArray.map((d, k, array) => (
-                      <a href={`/${lng}/profile/geo/${d["Location ID"]}`}>
+                      <a href={`/${lng}/profile/geo/${d["Location ID"]}`} key={k}>
                         {` ${array.length - k > 1 ? `${d.Location},` : `${d.Location}.`}`}
                       </a>
                     ))}</p>
