@@ -170,6 +170,8 @@ class ECIExplorer extends React.Component {
     const geoThreshold = thresholdGeo * n;
     const industryThreshold = thresholdIndustry * n;
 
+    console.log(cubeSelectedTemp);
+
     let params = {
       cube: cubeSelectedTemp.cube,
       [timeDrilldown]: timeIds,
@@ -179,7 +181,21 @@ class ECIExplorer extends React.Component {
       locale: this.props.lng
     };
 
+    // Foreign Trade Data
     if (cubeSelectedTemp.cube === "economy_foreign_trade_mun") {
+      const isMun = ["Municipality", "Metro Area"].includes(geoLevel);
+      const geoLevelsCut = {
+        "Metro Area": 2,
+        "Municipality": 2,
+        "State": 1
+      }
+      const customCubeParams = {
+        cube: `economy_foreign_trade_${isMun ? "mun" : "ent"}`,
+        "Product Level": 6,
+        "Level": geoLevelsCut[geoLevel],
+        "Flow": 2
+      };
+
       const rightParams = {
         cubeRight: "trade_i_baci_a_12",
         rcaRight: `Exporter Country,${levelSelectedTemp.name},Trade Value`,
@@ -187,7 +203,7 @@ class ECIExplorer extends React.Component {
         method: "subnational",
         aliasRight: `Country,${levelSelectedTemp.name}`
       };
-      params = Object.assign(params, rightParams);
+      params = Object.assign(params, customCubeParams, rightParams);
     }
 
     const origin = window.location.origin;
@@ -488,11 +504,11 @@ class ECIExplorer extends React.Component {
             <div className="eci-description">
               <h2 className="eci-description-title">¿Qué es el Índice de Complejidad de Producto (PCI)?</h2>
               <p className="eci-description-text">
-              El Índice de Complejidad de Producto (PCI) es una medida de la complejidad requerida para desarrollar
-              una actividad económica (e.g. industria, producto o ocupacion). Su valor correlaciona con la concentración
-              espacial y los ingresos de las actividades económicas. El PCI puede estimarse con datos de exportaciones,
-              empleo, patentes, etc. por lo que sus valores difieren de acuerdo a los datos y umbrales utilizados.
-              Este explorador permite calcular PCI con distintos umbrales y fuentes de datos.
+                El Índice de Complejidad de Producto (PCI) es una medida de la complejidad requerida para desarrollar
+                una actividad económica (e.g. industria, producto o ocupacion). Su valor correlaciona con la concentración
+                espacial y los ingresos de las actividades económicas. El PCI puede estimarse con datos de exportaciones,
+                empleo, patentes, etc. por lo que sus valores difieren de acuerdo a los datos y umbrales utilizados.
+                Este explorador permite calcular PCI con distintos umbrales y fuentes de datos.
               </p>
             </div>
             {!loading ? <div>
