@@ -191,7 +191,7 @@ class ECIExplorer extends React.Component {
       }
       const customCubeParams = {
         cube: `economy_foreign_trade_${isMun ? "mun" : "ent"}`,
-        "Product Level": 6,
+        "Product Level": industryLevel === "HS6" ? 6 : 4,
         "Level": geoLevelsCut[geoLevel],
         "Flow": 2
       };

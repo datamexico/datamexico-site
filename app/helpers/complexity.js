@@ -5,7 +5,7 @@ const industryLevels = [
 ];
 
 const productLevels = [
-  {name: "HS4", id: "HS4"},
+  {name: "HS4", id: "HS4 4 Digit"},
   {name: "HS6", id: "HS6"}
 ];
 
