@@ -150,13 +150,3 @@
     flex: 1 0 80%;
   }
 }
-
-.bp3-portal {
-  & .bp3-transition-container.bp3-popover-enter-done a {
-    color: var(--black);
-    text-decoration-color: var(--black);
-  }
-  & .bp3-menu-item.bp3-intent-primary.bp3-active {
-    color: var(--white);
-  }
-}

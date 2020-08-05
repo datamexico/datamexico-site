@@ -13,7 +13,7 @@ import CovidCard from "components/CovidCard";
 import CovidTable from "components/CovidTable";
 import DMXButtonGroup from "components/DMXButtonGroup";
 import DMXCheckbox from "components/DMXCheckbox";
-import DMXOverlay from "components/DMXOverlay";
+import DMXMethodologicalNote from "components/DMXMethodologicalNote";
 import DMXSearchLocation from "components/DMXSearchLocation";
 import DMXSelect from "components/DMXSelect";
 import DMXSelectLocation from "components/DMXSelectLocation";
@@ -492,11 +492,8 @@ class Covid extends Component {
               source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
             }}
             overlay={
-              <DMXOverlay
+              <DMXMethodologicalNote
                 content={overlayContent}
-                icon={"info-sign"}
-                tooltip={"Nota Metodológica"}
-                buttonToClose={"Entendido"}
               />
             }
             locationsSelector={
@@ -563,11 +560,8 @@ class Covid extends Component {
               source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
             }}
             overlay={
-              <DMXOverlay
+              <DMXMethodologicalNote
                 content={overlayContent}
-                icon={"info-sign"}
-                tooltip={"Nota Metodológica"}
-                buttonToClose={"Entendido"}
               />
             }
             locationsSelector={
