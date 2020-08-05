@@ -79,7 +79,7 @@ module.exports = function (app) {
 
         const customHierarchy = isMunicipality ? "State" : hierarchy1;
 
-        const ENOE_GEO = await ENOE_DATASET(customHierarchy, customId);
+        const ENOE_GEO = await ENOE_DATASET(customHierarchy, customId).catch(() => {});
         enoeLatestQuarter = ENOE_GEO.enoeLatestQuarter;
         enoePrevQuarter = ENOE_GEO.enoePrevQuarter;
         enoePrevYear = ENOE_GEO.enoePrevYear;
@@ -88,12 +88,13 @@ module.exports = function (app) {
           cube: "gobmx_covid",
           drilldowns: "Updated Date",
           measures: "Cases"
+          // [hierarchy1]: id1
         };
         const covidUpdated = await axios.get(BASE_API, {params: covidParams})
           .then(resp => resp.data.data)
           .catch(catcher);
         covidUpdated.sort((a, b) => b["Updated Date ID"] - a["Updated Date ID"]);
-        const covidLatestUpdated = covidUpdated[0]["Updated Date ID"];
+        const covidLatestUpdated = covidUpdated[0] ? covidUpdated[0]["Updated Date ID"] : undefined;
         const customGiniCube = hierarchy1 === "Nation"
           ? "coneval_gini_nat"
           : hierarchy1 === "State" ? "coneval_gini_ent" : "coneval_gini_mun";
@@ -136,7 +137,7 @@ module.exports = function (app) {
 
       // Occupation profile
       case 28:
-        const ENOE_OCCUPATION = await ENOE_DATASET(hierarchy1, id1);
+        const ENOE_OCCUPATION = await ENOE_DATASET(hierarchy1, id1).catch(() => {});
         enoeLatestQuarter = ENOE_OCCUPATION.enoeLatestQuarter;
         enoePrevQuarter = ENOE_OCCUPATION.enoePrevQuarter;
         enoePrevYear = ENOE_OCCUPATION.enoePrevYear;
@@ -149,8 +150,8 @@ module.exports = function (app) {
 
       // Industry profile
       case 33:
-        const ENOE_INDUSTRY = await ENOE_DATASET(hierarchy1, id1);
-        const FDI_INDUSTRY = await FDI_DATASET(hierarchy1, id1);
+        const ENOE_INDUSTRY = await ENOE_DATASET(hierarchy1, id1).catch(() => {});
+        const FDI_INDUSTRY = await FDI_DATASET(hierarchy1, id1).catch(() => {});
         const {fdiLatestQuarter, fdiLatestYear, fdiPrevQuarter, fdiPrevQuarterYear} = FDI_INDUSTRY;
         enoeLatestQuarter = ENOE_INDUSTRY.enoeLatestQuarter;
         enoePrevQuarter = ENOE_INDUSTRY.enoePrevQuarter;
