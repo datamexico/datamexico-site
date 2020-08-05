@@ -68,14 +68,20 @@
 }
 
 .covid-overlay-content {
-  color: var(--light-gray);
-  & h4,
+  & h4 {
+    font-size: var(--font-xs);
+    font-weight: var(--light-bold-weight);
+    margin-bottom: var(--gutter-xs);
+  }
   & h5 {
     font-size: var(--font-sm);
   }
-  & h4 {
-    font-weight: var(--light-bold-weight);
-    margin-bottom: var(--gutter-xs);
+  & p {
+    font-size: var(--font-xs) !important;
+    & a {
+      color: var(--primary-2) !important;
+      text-decoration-color: var(--primary-2) !important;
+    }
   }
   & p,
   & li {
@@ -86,10 +92,10 @@
     font-weight: var(--bold-weight);
   }
   & .covid-overlay-card-header {
-    border-bottom: 1px solid var(--dark-3);
-    padding-bottom: var(--gutter-sm);
+    border-bottom: 1px solid var(--gray);
+    padding-bottom: var(--gutter-xs);
   }
   & .covid-overlay-card-body {
-    padding-top: var(--gutter-sm);
+    padding-top: var(--gutter-xs);
   }
 }
