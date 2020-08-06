@@ -30,7 +30,7 @@ class TileV2 extends Component {
               <div className="image-content">
                 <img src={!icon ? `/icons/explore/${slug}-white.png` : icon} alt="tag" className="tile-content-tag" style={{backgroundColor: `${slugColor}`}} />
                 <div className="description-content">
-                  <h3 className={classnames("tile-content-description-title", title && (stringNormalizer(title).length > 30 || stringNormalizer(title).match(/\w+/).toString().length > 25) ? "u-font-xs" : "u-font-sm")}>{title}</h3>
+                  <h3 title={title} className={classnames("tile-content-description-title", title && (stringNormalizer(title).length > 30 || stringNormalizer(title).match(/\w+/).toString().length > 25) ? "u-font-xs" : "u-font-sm")}>{title}</h3>
                   <span className="tile-content-description-level">{level}</span>
                 </div>
               </div>
