@@ -290,7 +290,7 @@ class ECIExplorer extends React.Component {
     const industryId = `${levelSelected.id} ID`;
     const columns = [
       {id: geoId, accessor: geoId, Header: `${t(geoSelected.id)} ID`},
-      {id: geoName, accessor: d => <a href={`/${lng}/profile/geo/${d[geoId]}`}>{d[geoName]}</a>, Header: t(geoName)},
+      {id: geoName, accessor: d => geoId === "Metro Area ID" ? d[geoName] : <a href={`/${lng}/profile/geo/${d[geoId]}`}>{d[geoName]}</a>, Header: t(geoName)},
       {id: eciMeasure, accessor: eciMeasure, Header: "ECI", Cell: d => formatAbbreviate(d.original[`${measureSelected.id} ECI`])}
     ];
     const columnsPCI = [
@@ -538,74 +538,6 @@ class ECIExplorer extends React.Component {
             </div> : <LoadingChart message={"Cargando visualización..."} />}
           </div>
         </div>
-        {/* <div className="columns">
-          <div className="column">
-            <h2 className="title">
-              Complejidad Económica de X
-            </h2>
-          </div>
-        </div> */}
-
-        {/* <div className="columns">
-          <div className="column">
-            <Treemap
-              config={{
-                data: dataScatter,
-                height: 500,
-                sum: "Companies",
-                groupBy: ["Sector", "Industry Group"]
-              }}
-            />
-          </div>
-          <div className="column">
-            <Plot
-              config={{
-                data: dataScatter,
-                height: 500,
-                x: rcaMeasure,
-                annotations: [
-                  {
-                    data: [
-                      {"Sector": null, "Industry Group": null, "x": 1, "y": maxPCI},
-                      {"Sector": null, "Industry Group": null, "x": 1, "y": minPCI},
-                      {"Sector": null, "Industry Group": null, "x": 0, "y": 0},
-                      {"Sector": null, "Industry Group": null, "x": maxRCA, "y": 0}
-                    ],
-                    shape: "Line",
-                    stroke(d) {
-                      return d["Industry Group"] === "A" ? "green" : "blue";
-                    },
-                    strokeDasharray: "10",
-                    strokeWidth: 2
-                  }
-                  // {
-                  //   data: [
-                  //     {"Industry Group": "B", "x": 1, "y": maxPCI},
-                  //     {"Industry Group": "B", "x": 1, "y": minPCI}
-                  //   ],
-                  //   shape: "Line",
-                  //   stroke(d) {
-                  //     return "blue";
-                  //   },
-                  //   strokeDasharray: "10",
-                  //   strokeWidth: 2
-                  // }
-                ],
-                size: "Companies",
-                xConfig: {
-                  scale: "linear",
-                  title: "RCA"
-                },
-                y: pciMeasure,
-                yConfig: {
-                  scale: "linear",
-                  title: "PCI"
-                },
-                groupBy: ["Sector", "Industry Group"]
-              }}
-            />
-          </div>
-        </div> */}
 
       </div> {/** End of .eci-container */}
       <Footer />
