@@ -74,8 +74,13 @@
 
         & .description-content {
           & .tile-content-description-title {
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+            display: -webkit-box;
             margin-bottom: calc(var(--gutter-xs) / 2);
+            overflow: hidden;
             text-align: left;
+            text-overflow: ellipsis;
           }
 
           & .tile-content-description-level {
