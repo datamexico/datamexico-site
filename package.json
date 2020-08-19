@@ -25,7 +25,7 @@
   "dependencies": {
     "@blueprintjs/core": "^3.28.1",
     "@blueprintjs/select": "^3.13.2",
-    "@datawheel/canon-cms": "^0.13.32",
+    "@datawheel/canon-cms": "^0.13.39",
     "@datawheel/canon-core": "^0.18.28",
     "@datawheel/canon-stats": "git+https://x-oauth-basic@github.com/Datawheel/canon-stats.git",
     "mondrian-rest-client": "^1.1.3",
