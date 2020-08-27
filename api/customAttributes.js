@@ -10,14 +10,14 @@ const catcher = error => {
 };
 module.exports = function (app) {
 
-  app.post("/api/cms/customAttributes/:pid", async(req, res) => {
+  app.post("/api/cms/customAttributes/:pid", async (req, res) => {
     const pid = req.params.pid * 1;
     const {cache} = app.settings;
     const {variables, locale} = req.body;
     const {id1, dimension1, hierarchy1, slug1, name1, cubeName1, parents1} = variables;
 
     // ENOE: Shared customAttribute
-    const ENOE_DATASET = async(hierarchy, id) => {
+    const ENOE_DATASET = async (hierarchy, id) => {
       const params = {
         cube: "inegi_enoe",
         drilldowns: "Quarter",
@@ -36,7 +36,7 @@ module.exports = function (app) {
     }
 
     // FDI: Shared customAttribute
-    const FDI_DATASET = async(hierarchy, id) => {
+    const FDI_DATASET = async (hierarchy, id) => {
       const params = {
         cube: "economy_fdi",
         drilldowns: "Quarter",
@@ -123,9 +123,30 @@ module.exports = function (app) {
 
       // Product profile
       case 11:
+        const productParams = {
+          cube: "economy_foreign_trade_ent",
+          drilldowns: "Quarter",
+          measures: "Trade Value",
+          parents: "true"
+        };
+
+        const productQuaters = await axios.get(BASE_API, {params: productParams})
+          .then(resp => resp.data.data)
+          .catch(catcher);
+
+        const yearsInData = [...new Set(productQuaters.map(m => m.Year))];
+        yearsInData.sort((a, b) => b - a);
+
+        let tradeLatestYear = undefined;
+
+        for (const year of yearsInData) {
+          const quetersPerYear = productQuaters.filter(d => d.Year === year).length;
+          if (quetersPerYear === 4 && !tradeLatestYear) tradeLatestYear = year;
+        }
+
         return res.json({
-          foreignTradeLatestYear: 2019,
-          foreignTradePrevYear: 2018
+          foreignTradeLatestYear: tradeLatestYear,
+          foreignTradePrevYear: tradeLatestYear - 1
         });
 
       // Institution profile
@@ -177,7 +198,7 @@ module.exports = function (app) {
 
       default:
         return res.json({});
-      }
-    });
+    }
+  });
 
 }
