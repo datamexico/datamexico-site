@@ -79,9 +79,7 @@ module.exports = function (app) {
       case 1:
         let customId = id1;
         let customName = name1;
-        const isMunicipality = ["Metro Area", "Municipality"].includes(
-          hierarchy1
-        );
+        const isMunicipality = ["Municipality"].includes(hierarchy1);
         const isState = ["Nation", "State"].includes(hierarchy1);
 
         if (isMunicipality) {
