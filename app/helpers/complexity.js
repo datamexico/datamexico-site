@@ -5,7 +5,7 @@ const industryLevels = [
 ];
 
 const productLevels = [
-  {name: "HS4", id: "HS4"},
+  {name: "HS4", id: "HS4 4 Digit"},
   {name: "HS6", id: "HS6"}
 ];
 
@@ -74,9 +74,12 @@ export const cubes = {
     levels: productLevels,
     timeDrilldown: "Date Year",
     time: [
+      {name: "2019", id: 2019},
       {name: "2018", id: 2018},
       {name: "2017", id: 2017},
-      {name: "2016", id: 2016}
+      {name: "2016", id: 2016},
+      {name: "2015", id: 2015},
+      {name: "2014", id: 2014}
     ]
   }
 };

@@ -36,6 +36,11 @@
         text-decoration: none;
         font-weight: 300;
         margin-bottom: 10px;
+        /*overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        -webkit-box-orient: vertical;*/
       }
 
       @mixin min-sm {

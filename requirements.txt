@@ -1,5 +1,7 @@
 json
 numpy
 pandas
+pyarrow
+redis
 requests
 simplejson

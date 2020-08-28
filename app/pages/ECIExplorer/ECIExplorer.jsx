@@ -170,6 +170,8 @@ class ECIExplorer extends React.Component {
     const geoThreshold = thresholdGeo * n;
     const industryThreshold = thresholdIndustry * n;
 
+    console.log(cubeSelectedTemp);
+
     let params = {
       cube: cubeSelectedTemp.cube,
       [timeDrilldown]: timeIds,
@@ -179,7 +181,21 @@ class ECIExplorer extends React.Component {
       locale: this.props.lng
     };
 
+    // Foreign Trade Data
     if (cubeSelectedTemp.cube === "economy_foreign_trade_mun") {
+      const isMun = ["Municipality", "Metro Area"].includes(geoLevel);
+      const geoLevelsCut = {
+        "Metro Area": 2,
+        "Municipality": 2,
+        "State": 1
+      }
+      const customCubeParams = {
+        cube: `economy_foreign_trade_${isMun ? "mun" : "ent"}`,
+        "Product Level": industryLevel === "HS6" ? 6 : 4,
+        "Level": geoLevelsCut[geoLevel],
+        "Flow": 2
+      };
+
       const rightParams = {
         cubeRight: "trade_i_baci_a_12",
         rcaRight: `Exporter Country,${levelSelectedTemp.name},Trade Value`,
@@ -187,7 +203,7 @@ class ECIExplorer extends React.Component {
         method: "subnational",
         aliasRight: `Country,${levelSelectedTemp.name}`
       };
-      params = Object.assign(params, rightParams);
+      params = Object.assign(params, customCubeParams, rightParams);
     }
 
     const origin = window.location.origin;
@@ -274,7 +290,7 @@ class ECIExplorer extends React.Component {
     const industryId = `${levelSelected.id} ID`;
     const columns = [
       {id: geoId, accessor: geoId, Header: `${t(geoSelected.id)} ID`},
-      {id: geoName, accessor: d => <a href={`/${lng}/profile/geo/${d[geoId]}`}>{d[geoName]}</a>, Header: t(geoName)},
+      {id: geoName, accessor: d => geoId === "Metro Area ID" ? d[geoName] : <a href={`/${lng}/profile/geo/${d[geoId]}`}>{d[geoName]}</a>, Header: t(geoName)},
       {id: eciMeasure, accessor: eciMeasure, Header: "ECI", Cell: d => formatAbbreviate(d.original[`${measureSelected.id} ECI`])}
     ];
     const columnsPCI = [
@@ -488,11 +504,11 @@ class ECIExplorer extends React.Component {
             <div className="eci-description">
               <h2 className="eci-description-title">¿Qué es el Índice de Complejidad de Producto (PCI)?</h2>
               <p className="eci-description-text">
-              El Índice de Complejidad de Producto (PCI) es una medida de la complejidad requerida para desarrollar
-              una actividad económica (e.g. industria, producto o ocupacion). Su valor correlaciona con la concentración
-              espacial y los ingresos de las actividades económicas. El PCI puede estimarse con datos de exportaciones,
-              empleo, patentes, etc. por lo que sus valores difieren de acuerdo a los datos y umbrales utilizados.
-              Este explorador permite calcular PCI con distintos umbrales y fuentes de datos.
+                El Índice de Complejidad de Producto (PCI) es una medida de la complejidad requerida para desarrollar
+                una actividad económica (e.g. industria, producto o ocupacion). Su valor correlaciona con la concentración
+                espacial y los ingresos de las actividades económicas. El PCI puede estimarse con datos de exportaciones,
+                empleo, patentes, etc. por lo que sus valores difieren de acuerdo a los datos y umbrales utilizados.
+                Este explorador permite calcular PCI con distintos umbrales y fuentes de datos.
               </p>
             </div>
             {!loading ? <div>
@@ -522,74 +538,6 @@ class ECIExplorer extends React.Component {
             </div> : <LoadingChart message={"Cargando visualización..."} />}
           </div>
         </div>
-        {/* <div className="columns">
-          <div className="column">
-            <h2 className="title">
-              Complejidad Económica de X
-            </h2>
-          </div>
-        </div> */}
-
-        {/* <div className="columns">
-          <div className="column">
-            <Treemap
-              config={{
-                data: dataScatter,
-                height: 500,
-                sum: "Companies",
-                groupBy: ["Sector", "Industry Group"]
-              }}
-            />
-          </div>
-          <div className="column">
-            <Plot
-              config={{
-                data: dataScatter,
-                height: 500,
-                x: rcaMeasure,
-                annotations: [
-                  {
-                    data: [
-                      {"Sector": null, "Industry Group": null, "x": 1, "y": maxPCI},
-                      {"Sector": null, "Industry Group": null, "x": 1, "y": minPCI},
-                      {"Sector": null, "Industry Group": null, "x": 0, "y": 0},
-                      {"Sector": null, "Industry Group": null, "x": maxRCA, "y": 0}
-                    ],
-                    shape: "Line",
-                    stroke(d) {
-                      return d["Industry Group"] === "A" ? "green" : "blue";
-                    },
-                    strokeDasharray: "10",
-                    strokeWidth: 2
-                  }
-                  // {
-                  //   data: [
-                  //     {"Industry Group": "B", "x": 1, "y": maxPCI},
-                  //     {"Industry Group": "B", "x": 1, "y": minPCI}
-                  //   ],
-                  //   shape: "Line",
-                  //   stroke(d) {
-                  //     return "blue";
-                  //   },
-                  //   strokeDasharray: "10",
-                  //   strokeWidth: 2
-                  // }
-                ],
-                size: "Companies",
-                xConfig: {
-                  scale: "linear",
-                  title: "RCA"
-                },
-                y: pciMeasure,
-                yConfig: {
-                  scale: "linear",
-                  title: "PCI"
-                },
-                groupBy: ["Sector", "Industry Group"]
-              }}
-            />
-          </div>
-        </div> */}
 
       </div> {/** End of .eci-container */}
       <Footer />

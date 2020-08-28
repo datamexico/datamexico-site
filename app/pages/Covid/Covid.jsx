@@ -1,17 +1,19 @@
 import React, {Component} from "react";
-import PropTypes from "prop-types";
-import {hot} from "react-hot-loader/root";
-import axios from "axios";
 import HelmetWrapper from "../HelmetWrapper";
+import PropTypes from "prop-types";
+import axios from "axios";
+import {connect} from "react-redux";
 import {formatAbbreviate} from "d3plus-format";
+// import {hot} from "react-hot-loader/root";
 import {withNamespaces} from "react-i18next";
 // import classnames from "classnames";
+import {mean} from "d3-array";
 
 import CovidCard from "components/CovidCard";
 import CovidTable from "components/CovidTable";
 import DMXButtonGroup from "components/DMXButtonGroup";
 import DMXCheckbox from "components/DMXCheckbox";
-import DMXOverlay from "components/DMXOverlay";
+import DMXMethodologicalNote from "components/DMXMethodologicalNote";
 import DMXSearchLocation from "components/DMXSearchLocation";
 import DMXSelect from "components/DMXSelect";
 import DMXSelectLocation from "components/DMXSelectLocation";
@@ -141,13 +143,14 @@ class Covid extends Component {
     this.setState(nextState);
   }
 
-  filterData = (data, selected) => {
+  filterData = (data, selected, division = null) => {
     const filterData = [];
     selected.map(d => {
       const locationData = data.filter(f => f["Location ID"] === d);
       filterData.push(locationData);
     });
-    return filterData.flat();
+    const returnData = division ? filterData.flat().filter(d => d.Division === division) : filterData.flat();
+    return returnData;
   }
 
   resetBaseLocation = (location) => {
@@ -361,34 +364,24 @@ class Covid extends Component {
     };
 
     // Graph #2: Stacked BarChart with the data separated by age ranges
-    // CHANGE LOGIC
-    const colorsGender = {
-      Hombre: "#1b3e60",
-      Mujer: "#ca3534",
-    };
-
-    const colorsPatient = {
-      Ambulatorio: "#23A7BC",
-      Hospitalizado: "#3A5AD0",
-    };
-
     let ageRangesDataLocations = null;
     let ageRangesStats = null;
     let ageRangesGroupBy = null;
+    const ageRangesDivision = locationDivisions.includes("Nation") ? "Nation" : locationDivisions.includes("State") ? "State" : "Municipality";
     if (ageRangesStatSelected.id === "Confirmed") {
-      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected);
+      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected, ageRangesDivision);
       ageRangesStats = this.calculateStats(ageRangesDataLocations, locationDivisions, ["Sex"]);
       ageRangesGroupBy = "Sex";
     } else if (ageRangesStatSelected.id === "Deceased") {
-      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Is Dead ID"] === 1), locationSelected);
+      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Is Dead ID"] === 1), locationSelected, ageRangesDivision);
       ageRangesStats = this.calculateStats(ageRangesDataLocations, locationDivisions, ["Sex"]);
       ageRangesGroupBy = "Sex";
     } else if (ageRangesStatSelected.id === "Hospitalized") {
-      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Patient Type ID"] === 2), locationSelected);
+      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1 && d["Patient Type ID"] === 2), locationSelected, ageRangesDivision);
       ageRangesStats = this.calculateStats(ageRangesDataLocations, locationDivisions, ["Sex"]);
       ageRangesGroupBy = "Sex";
     } else {
-      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected);
+      ageRangesDataLocations = this.filterData(dataGobmxLatest.filter(d => d["Covid Result ID"] === 1), locationSelected, ageRangesDivision);
       ageRangesStats = this.calculateStats(ageRangesDataLocations, locationDivisions, ["Patient Type"]);
       ageRangesGroupBy = "Patient Type";
     }
@@ -407,6 +400,13 @@ class Covid extends Component {
       yConfig: {
         title: "Casos"
       },
+      aggs: {
+        "Age Range ID": mean,
+        "Covid Result ID": mean,
+        "Is Dead ID": mean,
+        "Patient Type ID": mean,
+        "Sex ID": mean
+      },
       label: d => formatAbbreviate(d["Cases"]),
       stacked: true,
       stackOrder: "ascending",
@@ -416,12 +416,8 @@ class Covid extends Component {
           ["Rango de edad", d => d["Age Range"]]
         ]
       },
-      shapeConfig: {
-        // CHECKEAR QUE CAMBIAN LOS VALORES DE IDS
-        fill: d => ageRangesGroupBy === "Patient Type" ? colorsPatient[d["Patient Type"]] : colorsGender[d["Sex"]] || "blue"
-      },
       legendConfig: {
-        label: d => ageRangesGroupBy === "Patient Type" ? d["Patient Type"] : d["Sex"]
+        label: d => d[ageRangesGroupBy]
       },
     };
 
@@ -473,8 +469,8 @@ class Covid extends Component {
             <h4 className="covid-header-info-date">{`Datos actualizados al ${showDate}`}</h4>
           </div>
           <div className="covid-header-stats">
-            {locationStats.map(d => (
-              <div className="covid-header-stats-stat">
+            {locationStats.map((d, i) => (
+              <div className="covid-header-stats-stat" key={`covid_stat_header_${i}`}>
                 <img src={`/icons/visualizations/covid/${d.icon}`} alt="" className="covid-header-stats-stat-icon" />
                 <div className="covid-header-stats-stat-text">
                   <span className="covid-header-stats-stat-value">{d.value}</span>
@@ -496,11 +492,8 @@ class Covid extends Component {
               source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
             }}
             overlay={
-              <DMXOverlay
+              <DMXMethodologicalNote
                 content={overlayContent}
-                icon={"info-sign"}
-                tooltip={"Nota Metodológica"}
-                buttonToClose={"Entendido"}
               />
             }
             locationsSelector={
@@ -557,7 +550,7 @@ class Covid extends Component {
                   : locationDivisions.includes("State")
                     ? <p>Las estadísticas representan los datos de
                       {locationSelectedArray.map((d, k, array) => (
-                      <a href={`/${lng}/profile/geo/${d["Location ID"]}`}>
+                      <a href={`/${lng}/profile/geo/${d["Location ID"]}`} key={`card_statistic_geo_${k}`}>
                         {` ${array.length - k > 1 ? `${d.Location},` : `${d.Location}.`}`}
                       </a>
                     ))}</p>
@@ -567,11 +560,8 @@ class Covid extends Component {
               source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
             }}
             overlay={
-              <DMXOverlay
+              <DMXMethodologicalNote
                 content={overlayContent}
-                icon={"info-sign"}
-                tooltip={"Nota Metodológica"}
-                buttonToClose={"Entendido"}
               />
             }
             locationsSelector={
@@ -608,4 +598,8 @@ Covid.contextTypes = {
   router: PropTypes.object
 };
 
-export default withNamespaces()(hot(Covid));
+export default withNamespaces()(
+  connect(state => ({
+    baseUrl: state.env.BASE
+  }))(Covid)
+);
