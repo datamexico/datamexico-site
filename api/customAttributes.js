@@ -151,9 +151,28 @@ module.exports = function (app) {
 
       // Institution profile
       case 22:
+        const anuiesParams = {
+          cube: "anuies_enrollment",
+          drilldowns: "Year",
+          measures: "Students",
+          [hierarchy1]: id1
+        };
+        const anuiesUpdated = await axios
+          .get(BASE_API, {params: anuiesParams})
+          .then(resp => resp.data.data)
+          .catch(catcher);
+        anuiesUpdated.sort((a, b) => b.Year - a.Year);
+        const anuiesLatestYear = anuiesUpdated[0]
+          ? anuiesUpdated[0].Year
+          : undefined;
+
+        const anuiesPrevYear = anuiesUpdated[1]
+          ? anuiesUpdated[1].Year
+          : undefined;
+
         return res.json({
-          anuiesLatestYear: 2019,
-          anuiesPrevYear: 2018
+          anuiesLatestYear,
+          anuiesPrevYear
         });
 
       // Occupation profile
