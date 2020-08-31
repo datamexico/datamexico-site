@@ -22,7 +22,7 @@ let cancel;
 
 const profilesList = {
   'filter': {title: "Explore", dimension: false, levels: []},
-  'geo': {title: "Cities & Places", cube: "inegi_population", dimension: "Geography", levels: ["Nation", "State", "Municipality"], background: "#8b9f65"},
+  'geo': {title: "Cities & Places", cube: "inegi_population", dimension: "Geography", levels: ["Nation", "State", "Metro Area", "Municipality"], background: "#8b9f65"},
   'product': {title: "Products", cube: "economy_foreign_trade_ent", dimension: "Product", levels: ["Chapter", "HS2", "HS4", "HS6"], background: "#ea8db2"},
   'industry': {title: "Industries", cube: "inegi_economic_census", dimension: "Industry", levels: ["Sector", "Subsector", "Industry Group"/*,, "NAICS Industry", "National Industry"*/], background: "#f5c094"},
   'institution': {title: "Universities", cube: "anuies_status", dimension: "Campus", levels: ["Institution"], background: "#e7d98c"},

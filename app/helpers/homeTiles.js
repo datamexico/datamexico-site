@@ -7,6 +7,7 @@ module.exports = {
     levels: [
       {name: "Nation", count: 1},
       {name: "State", count: 32},
+      {name: "Metro Area", count: 74},
       {name: "Municipality", count: 2464}
     ],
     subtitle: "Principales localidades"
