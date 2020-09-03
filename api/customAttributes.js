@@ -8,8 +8,8 @@ const catcher = error => {
   if (verbose) console.error("Custom Attribute Error:", error);
   return [];
 };
-module.exports = function (app) {
-  app.post("/api/cms/customAttributes/:pid", async (req, res) => {
+module.exports = function(app) {
+  app.post("/api/cms/customAttributes/:pid", async(req, res) => {
     const pid = req.params.pid * 1;
     const {cache} = app.settings;
     const {variables} = req.body;
@@ -24,7 +24,7 @@ module.exports = function (app) {
     } = variables;
 
     // ENOE: Shared customAttribute
-    const ENOE_DATASET = async (hierarchy, id) => {
+    const ENOE_DATASET = async(hierarchy, id) => {
       const params = {
         cube: "inegi_enoe",
         drilldowns: "Quarter",
@@ -44,7 +44,7 @@ module.exports = function (app) {
     };
 
     // FDI: Shared customAttribute
-    const FDI_DATASET = async (hierarchy, id) => {
+    const FDI_DATASET = async(hierarchy, id) => {
       const params = {
         cube: "economy_fdi",
         drilldowns: "Quarter",
@@ -218,6 +218,21 @@ module.exports = function (app) {
 
       // Industry profile
       case 33:
+        const censusParams = {
+          cube: "inegi_economic_census",
+          drilldowns: "National Industry",
+          measures: "Economic Unit",
+          parents: "true",
+          [hierarchy1]: id1
+        };
+        const censusIdSector = await axios
+          .get(BASE_API, {params: censusParams})
+          .then(resp => resp.data.data)
+          .catch(catcher);
+
+        const sectorId = censusIdSector[0]["Sector ID"];
+        const sectorName = censusIdSector[0].Sector;
+
         const ENOE_INDUSTRY = await ENOE_DATASET(hierarchy1, id1).catch(
           () => {}
         );
@@ -241,6 +256,8 @@ module.exports = function (app) {
           denuePrevMonth: 20191114,
           economicCensusLatestYear: 2014,
           economicCensusPrevYear: 2009,
+          sectorId,
+          sectorName,
           enoeLatestQuarter,
           enoePrevQuarter,
           enoePrevYear,
