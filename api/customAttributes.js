@@ -22,7 +22,6 @@ module.exports = function(app) {
       cubeName1,
       parents1
     } = variables;
-    console.log("props", locale);
 
     // ENOE: Shared customAttribute
     const ENOE_DATASET = async(hierarchy, id) => {
