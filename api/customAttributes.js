@@ -12,7 +12,7 @@ module.exports = function(app) {
   app.post("/api/cms/customAttributes/:pid", async(req, res) => {
     const pid = req.params.pid * 1;
     const {cache} = app.settings;
-    const {variables} = req.body;
+    const {variables, locale} = req.body;
     const {
       id1,
       dimension1,
@@ -22,6 +22,7 @@ module.exports = function(app) {
       cubeName1,
       parents1
     } = variables;
+    console.log("props", locale);
 
     // ENOE: Shared customAttribute
     const ENOE_DATASET = async(hierarchy, id) => {
@@ -223,6 +224,7 @@ module.exports = function(app) {
           drilldowns: "National Industry",
           measures: "Economic Unit",
           parents: "true",
+          locale: locale,
           [hierarchy1]: id1
         };
         const censusIdSector = await axios
