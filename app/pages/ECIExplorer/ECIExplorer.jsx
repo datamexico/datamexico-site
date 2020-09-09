@@ -115,7 +115,8 @@ class ECIExplorer extends React.Component {
       thresholdGeo: 300,
       thresholdIndustry: 300,
       ...tempState,
-      ...newTempState
+      ...newTempState,
+      availableIndustryProfiles: []
     };
   }
 
@@ -209,16 +210,20 @@ class ECIExplorer extends React.Component {
     const origin = window.location.origin;
     const ECIApiBase = "/api/stats/eci";
     const PCIApiBase = "/api/stats/pci";
+    const apiBase = "https://api.datamexico.org";
 
     const ECIApi = `${origin}${ECIApiBase}?${parseURL(params)}`;
     const PCIApi = `${origin}${PCIApiBase}?${parseURL(params)}`;
+    const availableIndustries = `${apiBase}/tesseract/data.jsonrecords?cube=inegi_economic_census&drilldowns=Industry+Group&measures=Economic+Unit&parents=false&sparse=false`
 
     axios.all([
       axios.get(ECIApiBase, {params}),
-      axios.get(PCIApiBase, {params})
+      axios.get(PCIApiBase, {params}),
+      axios.get(availableIndustries)
     ]).then(axios.spread((...resp) => {
       const data = resp[0].data.data;
       const dataPCI = resp[1].data.data;
+      const availableIndustryProfiles = [...new Set(resp[2].data.data.map(m => m["Industry Group ID"]))];
       // this.fetchRCAData();
       this.setState({
         data,
@@ -231,7 +236,8 @@ class ECIExplorer extends React.Component {
         isAgg: isAggTemp,
         timeSelected: timeSelectedTemp,
         levelSelected: levelSelectedTemp,
-        measureSelected: measureSelectedTemp
+        measureSelected: measureSelectedTemp,
+        availableIndustryProfiles
       });
     }));
   }
@@ -265,6 +271,7 @@ class ECIExplorer extends React.Component {
 
   render() {
     const {
+      availableIndustryProfiles,
       cubeSelected,
       data,
       dataPCI,
@@ -277,7 +284,7 @@ class ECIExplorer extends React.Component {
       levelSelectedTemp,
       levelSelected,
       timeSelectedTemp,
-      timeSelected
+      timeSelected,
     } = this.state;
 
     const {lng, t} = this.props;
@@ -288,14 +295,19 @@ class ECIExplorer extends React.Component {
     const geoId = `${geoSelected.id} ID`;
     const geoName = geoSelected.id;
     const industryId = `${levelSelected.id} ID`;
+
     const columns = [
       {id: geoId, accessor: geoId, Header: `${t(geoSelected.id)} ID`},
-      {id: geoName, accessor: d => geoId === "Metro Area ID" ? d[geoName] : <a href={`/${lng}/profile/geo/${d[geoId]}`}>{d[geoName]}</a>, Header: t(geoName)},
+      {id: geoName, accessor: d => <a href={`/${lng}/profile/geo/${d[geoId]}`}>{d[geoName]}</a>, Header: t(geoName)},
       {id: eciMeasure, accessor: eciMeasure, Header: "ECI", Cell: d => formatAbbreviate(d.original[`${measureSelected.id} ECI`])}
     ];
     const columnsPCI = [
       {id: industryId, accessor: industryId, Header: `${t(levelSelected.name)} ID`},
-      {id: levelSelected.id, accessor: d => <a href={`/${lng}/profile/industry/${d[industryId]}`}>{d[levelSelected.name]}</a>, Header: t(levelSelected.name)},
+      {
+        id: levelSelected.id,
+        accessor: d => industryId !== "Industry Group ID" ? d[levelSelected.name] : availableIndustryProfiles.includes(d[industryId]) ? <a href={`/${lng}/profile/industry/${d[industryId]}`}>{d[levelSelected.name]}</a> : d[levelSelected.name] ,
+        Header: t(levelSelected.name)
+      },
       {id: pciMeasure, accessor: pciMeasure, Header: "PCI", Cell: d => formatAbbreviate(d.original[`${measureSelected.id} PCI`])}
     ];
 
