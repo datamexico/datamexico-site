@@ -250,6 +250,10 @@ module.exports = function(app) {
         const isDeepestLevel = ["NAICS Industry", "National Industry"].includes(
           hierarchy1
         );
+
+        const fdiYearCube = hierarchy1 === "Sector" ? "fdi_7_sector" : hierarchy1 === "Subsector" ? "fdi_7_subsector" : "fdi_7_industry_group";
+        const fdiQuaterCube = hierarchy1 === "Sector" ? "fdi_8_sector" : hierarchy1 === "Subsector" ? "fdi_8_subsector" : "fdi_8_industry_group";
+
         return res.json({
           customId: isDeepestLevel ? id1.toString().slice(0, 4) : id1,
           customHierarchy: isDeepestLevel ? "Industry Group" : hierarchy1,
@@ -266,6 +270,8 @@ module.exports = function(app) {
           fdiLatestYear,
           fdiPrevQuarter,
           fdiPrevQuarterYear,
+          fdiYearCube,
+          fdiQuaterCube,
           isDeepestLevel
         });
 
