@@ -252,7 +252,7 @@ module.exports = function(app) {
         );
 
         const fdiYearCube = hierarchy1 === "Sector" ? "fdi_7_sector" : hierarchy1 === "Subsector" ? "fdi_7_subsector" : "fdi_7_industry_group";
-        const fdiQuaterCube = hierarchy1 === "Sector" ? "fdi_8_sector" : hierarchy1 === "Subsector" ? "fdi_8_subsector" : "fdi_8_industry_group";
+        const fdiQuaterCube = hierarchy1 === "Sector" ? "fdi_8_sector_investment" : hierarchy1 === "Subsector" ? "fdi_8_subsector_investment" : "fdi_8_industry_group_investment";
 
         return res.json({
           customId: isDeepestLevel ? id1.toString().slice(0, 4) : id1,
