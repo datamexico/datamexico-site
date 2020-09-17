@@ -131,7 +131,7 @@ export default {
     "Chapter 4 Digit ID": mean,
     "Chapter ID": mean,
     "Flow ID": mean,
-    "Generic Investment ID": mean,
+    "Investment Type ID": mean,
     "Sex ID": mean,
     "State ID": mean,
     "Year": mean
