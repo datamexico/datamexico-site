@@ -231,4 +231,7 @@
   font-style: italic;
 }
 
+.cms-profilesearch .cp-input-label .cp-input {
+  padding: 0.25em 3em 0.375em 2em;
+}
 

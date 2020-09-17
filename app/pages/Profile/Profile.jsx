@@ -11,6 +11,8 @@ import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
 import Error from "../Error/Error";
 
+import {spanishLabels} from "helpers/spanishLabels";
+
 import "./Profile.css";
 
 class Profile extends React.Component {
@@ -99,6 +101,11 @@ class Profile extends React.Component {
       img: `${baseUrl}/api/image?slug=${slug}&id=${variables.id}&size=thumb`
     };
 
+    const searchProps = {
+      placeholder: "Buscar perfiles...",
+      subtitleFormat: d => spanishLabels[d.memberHierarchy]
+    }
+
     return <div id="Profile" onScroll={this.handleScroll}>
       <HelmetWrapper info={share} />
 
@@ -108,12 +115,11 @@ class Profile extends React.Component {
         routePath={this.props.route.path}
         routeParams={this.props.router.params}
       />
-      <CMSProfile {...this.props} />
+      <CMSProfile {...this.props} searchProps={searchProps} />
       <Footer />
     </div>;
   }
 }
-
 
 Profile.need = [
   fetchData("profile", "/api/profile/?slug=<slug>&id=<id>&slug2=<slug2>&id2=<id2>&slug3=<slug3>&id3=<id3>&locale=<i18n.locale>"),
