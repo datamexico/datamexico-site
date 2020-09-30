@@ -9,22 +9,6 @@ general hacks
   fill: var(--dark-3);
 }
 
-/* make room for the 1px axis bar */
-.d3plus-Bar-group {
-  transform: translateX(0.5px);
-}
-
-/* offset added stroke width */
-.d3plus-Line-shape {
-  transform: translate(1px, -1px) scale(0.995);
-}
-
-/* rounded legends */
-.d3plus-Legend rect {
-  /* rx: 50%;
-  ry: 50%; */
-}
-
 /* -----------------------------------
 loading in
 ----------------------------------- */
@@ -49,20 +33,6 @@ loading in
 }
 .d3plus-no-data {
   color: var(--gray);
-}
-
-/* -----------------------------------
-color scale
------------------------------------ */
-
-.d3plus-ColorScale-Rect {
-  transform: translateY(2px); /* fudge into place */
-
-  /* rounded corners */
-  & .d3plus-Shape {
-    rx: 0;
-    ry: 0;
-  }
 }
 
 

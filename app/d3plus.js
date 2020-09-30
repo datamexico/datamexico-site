@@ -73,11 +73,11 @@ export const findIconV2 = (key, d) => {
   // const options = {2: "export", 1: "import"};
   // console.log(key, d);
   if (key === "Country" || key === "ISO 3") {
-    const icon = (key === "Country" && Array.isArray(d["Country ID"])) ? d["Continent ID"] : d[`${key} ID`];
+    const icon = key === "Country" && Array.isArray(d["Country ID"]) ? d["Continent ID"] : d[`${key} ID`];
     return `/icons/visualizations/Country/country_${icon}.png`;
   }
   const icon = key.replace(" 4 Digit", "");
-  const iconID = ("_isAggregation" in d && key === "State") ? "other" : d[`${key} ID`];
+  const iconID = "_isAggregation" in d && key === "State" ? "other" : d[`${key} ID`];
   return icons.includes(icon)
     ? `/icons/visualizations/${icon}/png/white/${iconID}.png`
     : undefined;
@@ -180,26 +180,22 @@ export default {
       labelOffset: true,
       labelRotation: false,
       locale: "es-MX",
+      padding: 1,
       shapeConfig: {
-        height: 50,
         labelConfig: {
-          fontSize: () => fontSizeLg,
+          fontSize: () => fontSizeMd,
           fontColor: headingFontColor,
           fontFamily: () => typeface
-        }
+        },
+        stroke: styles.gray
       },
       titleConfig: {
         fontFamily: () => typeface,
         fontColor: headingFontColor
       },
-      // death to ticks
-      tickSize: 0,
       tickFormat: d => formatAbbreviate(d),
       barConfig: {
-        stroke: "transparent"
-      },
-      rectConfig: {
-        stroke: "transparent"
+        stroke: styles.gray
       }
     },
     color: [
@@ -220,7 +216,7 @@ export default {
       rx: 0,
       ry: 0,
       borderRadius: 0,
-      stroke: "transparent"
+      stroke: styles.gray
     }
   },
   legendTooltip: {
