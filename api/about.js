@@ -15,7 +15,7 @@ module.exports = function (app) {
         .then(axios.spread((...resp) => {
           const dictionary = {
             0: {Texto: "Text"},
-            1: {Titular: "Title", Texto: "Text", Fotografía: "Picture"},
+            1: {Fecha: "Date", Plataforma: "Platform", Medio: "Media", Titular: "Title", Descripción: "Text", Fotografía: "Picture", URL: "URL"},
             2: {Concepto: "Concept", Descripción: "Description"},
             3: {Título: "Title", Descripción: "Description"},
             4: {Versión: "Version", Caracteristicas: "Features", Descripción: "Description"}
@@ -36,6 +36,12 @@ module.exports = function (app) {
             }, []);
             return data;
           });
+
+          csvData[1].forEach(d => {
+            const date = d.Date.split("-");
+            const dateID = date[2]+date[1]+date[0];
+            return d["Date ID"] = dateID
+          })
 
           res.json({
             background: csvData[0],

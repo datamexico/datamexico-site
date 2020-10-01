@@ -133,6 +133,22 @@
   & .press-news {
     margin-bottom: var(--gutter-xl);
   }
+
+  & .press-media {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: var(--gutter-xs);
+    & h6 {
+      font-size: calc(var(--font-sm));
+      font-weight: var(--base-font-weight);
+    }
+    & a{
+      color: var(--primary-3);
+      font-size: calc(var(--font-sm));
+      font-weight: var(--base-font-weight);
+      margin-right: calc(var(--gutter-xs)/3);
+    }
+  }
 }
 
 .about-legal {

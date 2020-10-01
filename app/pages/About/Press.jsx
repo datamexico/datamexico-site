@@ -8,12 +8,18 @@ import "./About.css";
 class Press extends Component {
   render() {
     const {t, press} = this.props;
+    press.sort((a, b) => b["Date ID"] - a["Date ID"]);
     return (
       <div className="about-press">
         <h3>{t("AboutSite.press")}</h3>
         {press.map((d, i) => (
           <div className="press-news" key={i}>
-            <img src={d.Picture} alt="Picture" className="news-picture" />
+            <h4>{d.Date}</h4>
+            {d.Picture && (<img src={d.Picture} alt="Picture" className="news-picture" />)}
+            <div className="press-media">
+              <a href={d.URL} target="_blank" rel="noopener noreferrer">{d.Media}</a>
+              <h6>{`sobre ${d.Platform}`}</h6>
+            </div>
             <h4>{d.Title}</h4>
             <p>{d.Text}</p>
           </div>
