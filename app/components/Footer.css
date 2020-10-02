@@ -130,10 +130,23 @@
   /* logos */
   & .footer-logo-head {
     display: flex;
-    justify-content: center;
-    margin: var(--gutter-md);
+    flex-direction: column;
+    align-items: center;
+    margin: 0 var(--gutter-md);
     & .footer-logo-page {
       height: var(--gutter-xl);
+    }
+    & .footer-social-media {
+      display: flex;
+      align-items: center;
+      & .footer-social-media-logo {
+        height: var(--gutter-md);
+        margin: calc(var(--gutter-xs)/2) var(--gutter-xs);
+        opacity: 0.7;
+        &:hover {
+          opacity: 1;
+        }
+      }
     }
   }
 

@@ -2,7 +2,7 @@ import React from "react";
 import {withNamespaces} from "react-i18next";
 import {Icon, InputGroup} from "@blueprintjs/core";
 
-import {FOOTER_NAV, LOGOS} from "helpers/consts.js";
+import {FOOTER_NAV, LOGOS, SOCIAL_MEDIA} from "helpers/consts.js";
 import {Toaster, Intent, Position} from "@blueprintjs/core";
 import axios from "axios";
 
@@ -63,6 +63,15 @@ class Footer extends React.Component {
       <div className="columns">
         <div className="footer-logo-head">
           <img className="footer-logo-page" src={"/icons/homepage/png/logo-dmx-beta-horizontal.png"} alt={"DataMÉXICO"} />
+          <div className="footer-social-media">
+            {SOCIAL_MEDIA.map(d => (
+              <div>
+                <a href={d.url} target="_blank" rel="noopener noreferrer" alt={d.title}>
+                  <img className="footer-social-media-logo" src={`/icons/social_media/${d.src}`} />
+                </a>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="column">
           <div className="footer-links">
