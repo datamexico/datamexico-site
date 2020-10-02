@@ -2,7 +2,7 @@ import React from "react";
 import {withNamespaces} from "react-i18next";
 import {Dialog, Icon} from "@blueprintjs/core";
 
-import {SIDEBAR_NAV, LOGOS} from "helpers/consts.js";
+import {SIDEBAR_NAV, LOGOS, SOCIAL_MEDIA} from "helpers/consts.js";
 import "./NavMenu.css";
 
 class NavMenu extends React.Component {
@@ -66,6 +66,17 @@ class NavMenu extends React.Component {
                 <img className="nav-menu-footer-img" src={`/icons/${logo.src}`} alt={logo.title} />
               </a>
             )}
+          </div>
+
+          {/* social media logos*/}
+          <div className="nav-social-media">
+            {SOCIAL_MEDIA.map(d => (
+              <div>
+                <a href={d.url} target="_blank" rel="noopener noreferrer" alt={d.title}>
+                  <img className="nav-social-media-logo" src={`/icons/social_media/${d.src}`} />
+                </a>
+              </div>
+            ))}
           </div>
         </nav>
       </div>

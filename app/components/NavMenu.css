@@ -118,4 +118,17 @@
   & .nav-menu-footer-img {
     height: 2.25rem;
   }
+  & .nav-social-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & .nav-social-media-logo {
+      height: var(--gutter-md);
+      margin: calc(var(--gutter-xs)/2) var(--gutter-xs);
+      opacity: 0.7;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
 }
