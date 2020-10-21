@@ -11,7 +11,7 @@ class Press extends Component {
     press.sort((a, b) => b["Date ID"] - a["Date ID"]);
     return (
       <div className="about-press">
-        <h3>{t("AboutSite.press")}</h3>
+        <h3>{t("About.In the press")}</h3>
         {press.map((d, i) => (
           <div className="press-news" key={i}>
             <h4>{d.Date}</h4>

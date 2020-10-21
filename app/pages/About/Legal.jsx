@@ -10,7 +10,7 @@ class Legal extends Component {
     const {t, terms} = this.props;
     return (
       <div className="about-legal">
-        <h3>{t("AboutSite.legal")}</h3>
+        <h3>{t("About.Terms of use")}</h3>
         {terms.length > 0 && terms.map(d => (
           <div>
             <h4>{d.Title}</h4>

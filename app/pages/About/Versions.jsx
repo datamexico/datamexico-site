@@ -10,7 +10,7 @@ class Versions extends Component {
     const {t, versions} = this.props;
     return (
       <div className="about-versions">
-        <h3>{t("AboutSite.versions")}</h3>
+        <h3>{t("About.Versions")}</h3>
         {versions.length > 0 && versions.map(d => (
           <div>
             {d.Version && <h5>{d.Version}</h5>}

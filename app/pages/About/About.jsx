@@ -1,8 +1,8 @@
 import React, {Component} from "react";
+import HelmetWrapper from "../HelmetWrapper";
 import PropTypes from "prop-types";
 import axios from "axios";
 import classnames from "classnames";
-import HelmetWrapper from "../HelmetWrapper";
 import {hot} from "react-hot-loader/root";
 import {withNamespaces} from "react-i18next";
 
@@ -34,9 +34,15 @@ class About extends Component {
     const {lang, page} = this.props.params;
     const {data} = this.state;
     const site = page ? page : "background";
-    const validPages = ["background", "press", "glossary", "legal", "versions"];
+    const pages = {
+      "background": "Background",
+      "press": "In the press",
+      "glossary": "Glossary",
+      "legal": "Terms of use",
+      "versions": "Versions"
+    };
 
-    const valid = validPages.includes(site);
+    const valid = Object.keys(pages).includes(site);
     if (!valid) {return <Error />;}
 
     let childComponent = null;
@@ -76,6 +82,7 @@ class About extends Component {
     return (
       <div className="about-wrapper">
         <HelmetWrapper info={share} />
+
         <Nav
           className="background"
           logo={false}
@@ -83,20 +90,22 @@ class About extends Component {
           routePath="/:lang"
           title=""
         />
+
         <div className="about-content">
           <div className="about-hero">
             <h2 className="about-hero-title">{t("About")}</h2>
             <div className="about-hero-buttons">
-              {validPages.map((d, i) => (
+              {Object.keys(pages).map((d, i) => (
                 <a href={`/${lang}/about/${d}`} className={classnames("about-hero-button", {"is-active": d === site})} key={i}>
                   <img src="" alt="" className="about-hero-button-icon" />
-                  <span className="about-hero-button-name">{t(`AboutSite.${d}`)}</span>
+                  <span className="about-hero-button-name">{t(`About.${pages[d]}`)}</span>
                 </a>
               ))}
             </div>
           </div>
           <div className="about-body about-section">{data && childComponent}</div>
         </div>
+
         <Footer />
       </div>
     );

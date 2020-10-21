@@ -10,7 +10,7 @@ class Methodology extends Component {
     const {t, press} = this.props;
     return (
       <div className="about-methodology">
-        <h3>{t("AboutSite.methodology")}</h3>
+        <h3>{t("About.methodology")}</h3>
 
       </div>
     )

@@ -10,7 +10,7 @@ class Background extends Component {
     const {t, background} = this.props;
     return (
       <div className="about-background">
-        <h3>{t("About DataMexico")}</h3>
+        <h3>{t("About.Background")}</h3>
         <iframe className="about-video" src="https://www.youtube.com/embed/12N7aBzzGDc" frameBorder="0" allowFullScreen></iframe>
         <sub>
           Está permitida la reproducción total o parcial de este video, por cualquier medio electrónico, para la difusión de DataMéxico

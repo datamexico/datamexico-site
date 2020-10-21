@@ -12,7 +12,7 @@ class Glossary extends Component {
     const initials = [...new Set(glossary.map(m => m.Initial))].sort((a, b) => a.localeCompare(b));
     return (
       <div className="about-glossary">
-        <h3>{t("AboutSite.glossary")}</h3>
+        <h3>{t("About.Glossary")}</h3>
         {glossary.length > 0 && initials.map(d => (
           <div className="glossary-initial">
             <h4>{d}</h4>
