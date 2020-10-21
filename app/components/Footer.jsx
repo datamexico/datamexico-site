@@ -94,15 +94,15 @@ class Footer extends React.Component {
 
         </div>
         <div className="column footer-contact">
-          <h3 className="u-font-sm">{t("Receive updates on news, datasets, and features?")}</h3>
+          <h3 className="u-font-sm">{t("Footer.MailTitle")}</h3>
           <form action="" onSubmit={this.handleUser}>
             <InputGroup
               leftIcon="envelope"
               className="footer-email"
               type="email"
-              placeholder={t("Your email address")}
+              placeholder={t("Footer.Mail")}
               onChange={evt => this.setState({email: evt.target.value})}
-              rightElement={<button className="submit-button">{t("Subscribe me")}<Icon icon="arrow-right" /></button>}
+              rightElement={<button className="submit-button">{t("Footer.MailSubscribe")}<Icon icon="arrow-right" /></button>}
             />
           </form>
 
