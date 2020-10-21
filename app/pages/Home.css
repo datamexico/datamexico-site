@@ -27,7 +27,7 @@
   }
 
   & .home-hero-info {
-    align-items: flex-start;
+    align-items: center;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
@@ -226,8 +226,21 @@
     flex-grow: 1;
     flex: 1 1 250px;
     margin-bottom: var(--gutter-md);
-    & .tile-title {
+
+    & .tile-title-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: var(--font-sm);
+      font-weight: var(--base-font-weight);
+      text-transform: uppercase;
+      color: var(--white);
       margin: var(--gutter-xs) auto;
+
+      & .tile-title-icon {
+        width: 1.75em;
+      }
     }
 
     & .profile-tile-container-list {

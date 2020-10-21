@@ -1,27 +1,22 @@
 import React, {Component} from "react";
-import {withNamespaces} from "react-i18next";
-import {hot} from "react-hot-loader/root";
 import axios from "axios";
+import {hot} from "react-hot-loader/root";
+import {withNamespaces} from "react-i18next";
 
-import {LOGOS} from "helpers/consts.js";
-import homeTiles from "helpers/homeTiles";
-import {backgroundID} from "helpers/utils";
-import TileV2 from "../components/TileV2";
-import TileTitle from "../components/TileTitle";
-import HeroSearch from "../components/HeroSearch";
 import CustomTile from "../components/CustomTile";
+import Footer from "../components/Footer";
+import HelmetWrapper from "./HelmetWrapper";
+import HeroSearch from "../components/HeroSearch";
+import Nav from "../components/Nav";
+import TileV2 from "../components/TileV2";
+
+import homeTiles from "helpers/homeTiles";
+import tilesEN from "../../static/tiles/es.json";
+import tilesES from "../../static/tiles/es.json";
+import {LOGOS, HOME_NAV} from "helpers/consts.js";
+import {backgroundID} from "helpers/utils";
 
 import "../styles/SharePanel.css";
-import tilesES from "../../static/tiles/es.json";
-import tilesEN from "../../static/tiles/es.json";
-
-// NewHome Used Things
-
-import Footer from "../components/Footer";
-import Nav from "../components/Nav";
-
-import HelmetWrapper from "./HelmetWrapper";
-
 import "./Home.css";
 
 const CancelToken = axios.CancelToken;
@@ -61,6 +56,7 @@ class Home extends Component {
     return (
       <div className="home">
         <HelmetWrapper info={share} />
+
         <Nav
           className={scrolled ? "background" : ""}
           logo={false}
@@ -68,13 +64,14 @@ class Home extends Component {
           routePath={"/:lang"}
           title={""}
         />
+
         <div className="home-hero" style={{backgroundImage: `url(/images/backgroundmx-${backgroundID}.jpg)`}}>
           <div className="home-hero-info">
             <h1 className="hero-info-logo">
               <img src="/icons/homepage/png/logo-dmx-beta-horizontal.png" alt="DataMexico" />
             </h1>
             <p className="hero-info-tagline u-font-md">
-              {t("EXPLORE, VISUALIZE, COMPARE, Y DOWNLOAD MEXICAN DATA")}
+              {t("Home.Tagline")}
             </p>
             <div className="hero-info-logo-list">
               {LOGOS.map(logo =>
@@ -85,69 +82,59 @@ class Home extends Component {
             </div>
           </div>
           <div className="home-hero-search">
-            <span className="home-disclaimer-search">¡Más de 12.000 perfiles para descubrir!</span>
+            <span className="home-disclaimer-search">{t("Home.SearchDisclaimer")}</span>
             <HeroSearch locale={lng} router={router} />
           </div>
         </div>
         <div className="home-description container">
           <div className="home-description-text">
-            <h2 className="intro-title">¿Qué es DataMéxico?</h2>
-            <p className="intro">
-            DataMÉXICO permite la integración, visualización y análisis de datos públicos para fomentar
-            la innovación, inclusión y diversificación de la economía mexicana.
-            </p>
+            <h2 className="intro-title">{t("Home.Title")}</h2>
+            <p className="intro">{t("Home.Intro")}</p>
           </div>
           <div className="home-description-buttons">
-            <CustomTile
-              icon={"/icons/homepage/svg/explore-profiles-icon.svg"}
-              link={`${lng}/explore`}
-              title={"Perfiles"}
-              text={"Explore México mediante datos económicos, sociales y ocupacionales a través de visualizaciones interactivas personalizables."}
-            />
-            <CustomTile
-              icon={"/icons/homepage/svg/coronavirus-icon.svg"}
-              link={`/${lng}/coronavirus`}
-              title={"Coronavirus"}
-              text={"Una mirada en profundidad a la propagación del COVID-19 en México a través de datos y visualizaciones actualizadas diariamente."}
-            />
-            <CustomTile
-              icon={"/icons/homepage/svg/complejidad-economica-icon.svg"}
-              link={`/${lng}/eci/explore`}
-              title={"Complejidad Económica"}
-              text={"Conozca el nivel de desarrollo industrial y económico en México, a múltiples niveles geográficos, mediante parámetros personalizables."}
-            />
+            {HOME_NAV.map(d => (
+              <CustomTile
+                icon={d.icon}
+                link={`${lng}/${d.link}`}
+                title={t(d.title)}
+                text={t(d.text)}
+              />
+            ))}
           </div>
         </div>
 
         <div className="home-content-profiles container">
           {Object.keys(tiles).map((d, i) => {
-            const items = tiles[d];
             const info = homeTiles[d];
-            return <div
-              className="profiles-tile-container"
-              key={`home-tile-title_${i}_${lng}`}
-            >
-              <TileTitle
-                icon={d}
-                title={t(info.name)}
-                subtitle={t(info.subtitle)}
-              />
-              <div className="profile-tile-container-list">
-                {items.map((h, ix) => <TileV2
-                  id={h.slug}
-                  key={`${h.id}-home-tile-${lng}`}
-                  level={t(h.hierarchy)}
-                  lng={lng}
-                  slug={d}
-                  ix={ix}
-                  slugColor={info.background}
-                  title={h.name}
-                />)}
+            const items = tiles[d];
+            const total = info.levels.reduce((a, b) => a + b.count, 0);
+            return <div className="profiles-tile-container" key={`home-tile-title_${i}_${lng}`}>
+              <div className="profile-tile-container-title">
+                <a className="tile-title-link" href={d ? `/${lng}/explore?profile=${d}` : "#"}>
+                  <img className="tile-title-icon" src={`/icons/homepage/png/${d}-icon.png`} alt="" />
+                  {t(info.name)}
+                </a>
               </div>
-              <a className="profiles-tile-total" href={`/${lng}/explore?profile=${d}`}>
-                <img src="/icons/homepage/png/ver-mas-icon.png" className="profiles-tile-total-icon" />
-                <span className="profiles-tile-total-value">{info.levels.reduce((a, b) => a + b.count, 0)} más</span>
-              </a>
+              <div className="profile-tile-container-list">
+                {items.map((h, ix) =>
+                  <TileV2
+                    id={h.slug}
+                    key={`${h.id}-home-tile-${lng}`}
+                    level={t(h.hierarchy)}
+                    lng={lng}
+                    slug={d}
+                    ix={ix}
+                    slugColor={info.background}
+                    title={h.name}
+                  />
+                )}
+              </div>
+              <div className="profile-tile-container-total">
+                <a className="profiles-tile-total" href={`/${lng}/explore?profile=${d}`}>
+                  <img src="/icons/homepage/png/ver-mas-icon.png" className="profiles-tile-total-icon" />
+                  <span className="profiles-tile-total-value">{t("{{total}} more", {total: total})}</span>
+                </a>
+              </div>
             </div>;
           })}
         </div>
