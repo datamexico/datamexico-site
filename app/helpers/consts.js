@@ -11,11 +11,11 @@ module.exports = {
         {title: "Universities", url: `/${locale}/explore?profile=institution`}
       ]
     },
-    // {title: "Viz Builder",        url: `/${locale}/vizbuilder`},
-    // {title: "Data Cart",          url: `/${locale}/cart`},
     {title: "Coronavirus", url: `/${locale}/coronavirus`},
     {title: "ECI Explorer.Title", url: `/${locale}/eci/explore`},
-    {title: "About DataMexico", url: `/${locale}/about`},
+    {title: "About.Background", url: `/${locale}/about`},
+    // {title: "Viz Builder",        url: `/${locale}/vizbuilder`},
+    // {title: "Data Cart",          url: `/${locale}/cart`},
     //{title: "Data sources",       url: `/${locale}/data`}
   ],
   FOOTER_NAV: [
@@ -34,13 +34,12 @@ module.exports = {
       {title: "Classifications",  url: `/${locale}/data#classifications`}
     ]},*/
     {
-      title: "About", items: [
+      title: "About.Title", items: [
         // {title: "Background",       url: `/${locale}/about`},
-        {title: "In the press", url: `/${locale}/about/press`},
-        // {title: "Team",             url: `/${locale}/about/team`},
-        {title: "Glossary", url: `/${locale}/about/glossary`},
-        {title: "Terms of use", url: `/${locale}/about/legal`},
-        {title: "Contact us", url: "mailto:datamexico@datawheel.us?subject=Contacto equipo DataMéxico"}
+        {title: "About.In the press", url: `/${locale}/about/press`},
+        {title: "About.Glossary", url: `/${locale}/about/glossary`},
+        {title: "About.Terms of use", url: `/${locale}/about/legal`},
+        {title: "About.Contact us", url: "mailto:datamexico@datawheel.us?subject=Contacto equipo DataMéxico"}
       ]
     }
   ],
@@ -81,6 +80,26 @@ module.exports = {
       title: "YouTube",
       url: "https://www.youtube.com/channel/UCsNIaF3LijPsSiILPq_H6kw",
       src: "youtube.svg"
+    }
+  ],
+  HOME_NAV: [
+    {
+      icon: "/icons/homepage/svg/explore-profiles-icon.svg",
+      link: "explore",
+      title: "Profiles",
+      text: "Home.ProfileText"
+    },
+    {
+      icon: "/icons/homepage/svg/coronavirus-icon.svg",
+      link: "coronavirus",
+      title: "Coronavirus",
+      text: "Home.CoronavirusText"
+    },
+    {
+      icon: "/icons/homepage/svg/complejidad-economica-icon.svg",
+      link: "eci/explore",
+      title: "Complexity",
+      text: "Home.ComplexityText"
     }
   ]
 };
