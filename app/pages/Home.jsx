@@ -71,7 +71,7 @@ class Home extends Component {
               <img src="/icons/homepage/png/logo-dmx-beta-horizontal.png" alt="DataMexico" />
             </h1>
             <p className="hero-info-tagline u-font-md">
-              {t("Home.Tagline")}
+              {t("Homepage.Tagline")}
             </p>
             <div className="hero-info-logo-list">
               {LOGOS.map(logo =>
@@ -82,14 +82,14 @@ class Home extends Component {
             </div>
           </div>
           <div className="home-hero-search">
-            <span className="home-disclaimer-search">{t("Home.SearchDisclaimer")}</span>
+            <span className="home-disclaimer-search">{t("Homepage.SearchDisclaimer")}</span>
             <HeroSearch locale={lng} router={router} />
           </div>
         </div>
         <div className="home-description container">
           <div className="home-description-text">
-            <h2 className="intro-title">{t("Home.Title")}</h2>
-            <p className="intro">{t("Home.Intro")}</p>
+            <h2 className="intro-title">{t("Homepage.Title")}</h2>
+            <p className="intro">{t("Homepage.Intro")}</p>
           </div>
           <div className="home-description-buttons">
             {HOME_NAV.map(d => (

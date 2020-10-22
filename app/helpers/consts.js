@@ -87,19 +87,19 @@ module.exports = {
       icon: "/icons/homepage/svg/explore-profiles-icon.svg",
       link: "explore",
       title: "Profiles",
-      text: "Home.ProfileText"
+      text: "Homepage.ProfileText"
     },
     {
       icon: "/icons/homepage/svg/coronavirus-icon.svg",
       link: "coronavirus",
       title: "Coronavirus",
-      text: "Home.CoronavirusText"
+      text: "Homepage.CoronavirusText"
     },
     {
       icon: "/icons/homepage/svg/complejidad-economica-icon.svg",
       link: "eci/explore",
       title: "Complexity",
-      text: "Home.ComplexityText"
+      text: "Homepage.ComplexityText"
     }
   ]
 };
