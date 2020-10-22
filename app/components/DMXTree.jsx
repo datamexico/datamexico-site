@@ -9,10 +9,10 @@ export default class DMXTree extends React.Component {
   }
   render() {
     const {isOpen} = this.state;
-    const {children} = this.props;
+    const {t, children} = this.props;
     return <div className="dmx-tree">
       <h6 className="title is-6" onClick={() => this.setState({isOpen: !isOpen})}>
-        <Icon icon={`chevron-${isOpen ? "down" : "right"}`} /> Opciones avanzadas
+        <Icon icon={`chevron-${isOpen ? "down" : "right"}`} /> {t("Advanced options")}
       </h6>
       {isOpen && <div className="dmx-tree-content">{children}</div>}
     </div>

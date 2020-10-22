@@ -1,22 +1,27 @@
 import React from "react";
-import ReactTable from "react-table";
-import {withNamespaces} from "react-i18next";
-import {hot} from "react-hot-loader/root";
 import HelmetWrapper from "../HelmetWrapper";
+import ReactTable from "react-table";
 import axios from "axios";
 import {Geomap, Plot, Treemap} from "d3plus-react";
-import Nav from "../../components/Nav";
-import Footer from "../../components/Footer";
-import Loading from "../../components/Loading";
-import DMXSelect from "../../components/DMXSelect";
-import DMXButtonGroup from "../../components/DMXButtonGroup";
 import {Switch, Slider, InputGroup, Button, Label} from "@blueprintjs/core";
-
+import {formatAbbreviate} from "d3plus-format";
+import {hot} from "react-hot-loader/root";
 import {saveAs} from "file-saver";
 import {strip} from "d3plus-text";
-import {formatAbbreviate} from "d3plus-format";
+import {withNamespaces} from "react-i18next";
+
+import DMXButtonGroup from "../../components/DMXButtonGroup";
+import DMXSelect from "../../components/DMXSelect";
+import DMXTree from "../../components/DMXTree";
+import Footer from "../../components/Footer";
+import Loading from "../../components/Loading";
+import LoadingChart from "../../components/LoadingChart";
+import Nav from "../../components/Nav";
 
 import {cubes} from "helpers/complexity";
+
+import "react-table/react-table.css";
+import "./ECIExplorer.css";
 
 /** */
 export function parseURL(query) {
@@ -24,11 +29,6 @@ export function parseURL(query) {
     .map(([key, val]) => `${key}=${val}`)
     .join("&");
 }
-
-import "react-table/react-table.css";
-import "./ECIExplorer.css";
-import LoadingChart from "../../components/LoadingChart";
-import DMXTree from "../../components/DMXTree";
 
 const filename = str => strip(str.replace(/<[^>]+>/g, ""))
   .replace(/^\-/g, "")
@@ -171,8 +171,6 @@ class ECIExplorer extends React.Component {
     const geoThreshold = thresholdGeo * n;
     const industryThreshold = thresholdIndustry * n;
 
-    console.log(cubeSelectedTemp);
-
     let params = {
       cube: cubeSelectedTemp.cube,
       [timeDrilldown]: timeIds,
@@ -305,7 +303,7 @@ class ECIExplorer extends React.Component {
       {id: industryId, accessor: industryId, Header: `${t(levelSelected.name)} ID`},
       {
         id: levelSelected.id,
-        accessor: d => industryId !== "Industry Group ID" ? d[levelSelected.name] : availableIndustryProfiles.includes(d[industryId]) ? <a href={`/${lng}/profile/industry/${d[industryId]}`}>{d[levelSelected.name]}</a> : d[levelSelected.name] ,
+        accessor: d => industryId !== "Industry Group ID" ? d[levelSelected.name] : availableIndustryProfiles.includes(d[industryId]) ? <a href={`/${lng}/profile/industry/${d[industryId]}`}>{d[levelSelected.name]}</a> : d[levelSelected.name],
         Header: t(levelSelected.name)
       },
       {id: pciMeasure, accessor: pciMeasure, Header: "PCI", Cell: d => formatAbbreviate(d.original[`${measureSelected.id} PCI`])}
@@ -324,7 +322,7 @@ class ECIExplorer extends React.Component {
 
     const share = {
       title: `${t("ECI Explorer.Title")}`,
-      desc: t("share.eci")
+      desc: t("Share.ECI Explorer")
     };
 
     return <div>
@@ -347,14 +345,14 @@ class ECIExplorer extends React.Component {
             <DMXButtonGroup
               items={geoLevels(lng, this.state.cubeItemTemp.id)}
               selected={geoSelectedTemp}
-              title="Nivel geográfico"
+              title={t("Geographic Level")}
               callback={geoSelectedTemp => this.setState({geoSelectedTemp})}
             />
             <DMXButtonGroup
               items={this.state.cubeSelectedTemp.levels}
               selected={levelSelectedTemp}
               callback={levelSelectedTemp => this.setState({levelSelectedTemp})}
-              title={t("Nivel industrial")}
+              title={t("Industry Level")}
             />
             <DMXSelect
               callback={measureSelectedTemp => this.setState({measureSelectedTemp})}
@@ -368,7 +366,8 @@ class ECIExplorer extends React.Component {
               callback={timeSelectedTemp => this.setState({timeSelectedTemp})}
               title={t("Time")}
             />
-            <DMXTree>
+
+            <DMXTree t={t}>
               <DMXSelect
                 callback={cubeItemTemp => {
                   const cubeId = cubeItemTemp.id;
@@ -387,9 +386,10 @@ class ECIExplorer extends React.Component {
                 selectedItem={this.state.cubeItemTemp}
                 title={t("Dataset")}
               />
+
               <div className="dmx-slider">
                 <h4 className="title" dangerouslySetInnerHTML={{
-                  __html: t("threshold_eci_explorer", {
+                  __html: t("ECI Explorer.Threshold", {
                     level: t(geoSelectedTemp.name),
                     measure: t(measureSelectedTemp.title)
                   })
@@ -404,9 +404,10 @@ class ECIExplorer extends React.Component {
                   value={this.state.thresholdGeo}
                 />
               </div>
+
               <div className="dmx-slider">
                 <h4 className="title" dangerouslySetInnerHTML={{
-                  __html: t("threshold_eci_explorer", {
+                  __html: t("ECI Explorer.Threshold", {
                     level: t(levelSelectedTemp.name),
                     measure: t(measureSelectedTemp.title)
                   })
@@ -437,12 +438,12 @@ class ECIExplorer extends React.Component {
           <div className="column">
             {!loading ? <div className="eci-geo-viz">
               <h2 className="title">
-                {t("ECI Explorer.ECI Title", {
+                {t("ECI Explorer.Graphic Title", {
                   time: timeSelected.name
                 })}
               </h2>
               <h4 className="subtitle">
-                {t("{{cube}}, {{geo}}, {{level}}", {
+                {t("ECI Explorer.Graphic Subtitle", {
                   cube: t(cubeSelected.name),
                   geo: t(geoSelected.name),
                   level: t(levelSelected.name)
@@ -468,7 +469,7 @@ class ECIExplorer extends React.Component {
                   topojsonId: geoSelected.topojsonId
                 }}
               />
-            </div> : <LoadingChart message={"Cargando visualización..."} />}
+            </div> : <LoadingChart message={t("Loading visualization")} />}
           </div>
         </div>
 
@@ -476,15 +477,8 @@ class ECIExplorer extends React.Component {
         <div className="columns eci-tables">
           <div className="column eci-table">
             <div className="eci-description">
-              <h2 className="eci-description-title">¿Qué es el Índice de Complejidad Económica (ECI)?</h2>
-              <p className="eci-description-text">
-                El Índice de Complejidad Económica (ECI) mide las capacidades productivas de una localidad
-                (e.g. estado o municipalidad) a partir de la presencia de actividades (e.g. empleo, industrias o exportaciones)
-                en esa y otras localidades. La complejidad económica de una localidad predice su nivel de ingreso, crecimiento
-                económico, desigualdad, y emisiones de gases de efecto invernadero. El ECI puede estimarse usando datos de
-                exportaciones, empleo, patentes, etc., por lo que las estimaciones difieren de acuerdo a los datos y los umbrales
-                utilizados. Este explorador de complejidad económica permite calcular el ECI con distintas fuentes de datos y umbrales.
-              </p>
+              <h2 className="eci-description-title">{t("ECI Explorer.ECI Title")}</h2>
+              <p className="eci-description-text">{t("ECI Explorer.ECI Subtitle")}</p>
             </div>
             {!loading ? <div>
               <Label>API
@@ -510,18 +504,12 @@ class ECIExplorer extends React.Component {
               >
                 {t("ECI Explorer.Download ECI dataset")}
               </button>
-            </div> : <LoadingChart message={"Cargando visualización..."} />}
+            </div> : <LoadingChart message={t("Loading visualization")} />}
           </div>
           <div className="column eci-table">
             <div className="eci-description">
-              <h2 className="eci-description-title">¿Qué es el Índice de Complejidad de Producto (PCI)?</h2>
-              <p className="eci-description-text">
-                El Índice de Complejidad de Producto (PCI) es una medida de la complejidad requerida para desarrollar
-                una actividad económica (e.g. industria, producto o ocupacion). Su valor correlaciona con la concentración
-                espacial y los ingresos de las actividades económicas. El PCI puede estimarse con datos de exportaciones,
-                empleo, patentes, etc. por lo que sus valores difieren de acuerdo a los datos y umbrales utilizados.
-                Este explorador permite calcular PCI con distintos umbrales y fuentes de datos.
-              </p>
+              <h2 className="eci-description-title">{t("ECI Explorer.PCI Title")}</h2>
+              <p className="eci-description-text">{t("ECI Explorer.PCI Subtitle")}</p>
             </div>
             {!loading ? <div>
               <Label>API
@@ -547,7 +535,7 @@ class ECIExplorer extends React.Component {
               >
                 {t("ECI Explorer.Download PCI dataset")}
               </button>
-            </div> : <LoadingChart message={"Cargando visualización..."} />}
+            </div> : <LoadingChart message={t("Loading visualization")} />}
           </div>
         </div>
 
