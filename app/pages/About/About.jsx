@@ -75,8 +75,8 @@ class About extends Component {
     }
 
     const share = {
-      title: `Data México | ${t("About")}`,
-      desc: t("share.about")
+      title: `Data México | ${t("About.Title")}`,
+      desc: t("Share.About")
     };
 
     return (
@@ -93,7 +93,7 @@ class About extends Component {
 
         <div className="about-content">
           <div className="about-hero">
-            <h2 className="about-hero-title">{t("About")}</h2>
+            <h2 className="about-hero-title">{t("About.Title")}</h2>
             <div className="about-hero-buttons">
               {Object.keys(pages).map((d, i) => (
                 <a href={`/${lang}/about/${d}`} className={classnames("about-hero-button", {"is-active": d === site})} key={i}>
