@@ -21,7 +21,7 @@ const CancelToken = axios.CancelToken;
 let cancel;
 
 const profilesList = {
-  'filter': {title: "Explore", dimension: false, levels: []},
+  'filter': {title: "Explore.Title", dimension: false, levels: []},
   'geo': {title: "Cities & Places", cube: "inegi_population", dimension: "Geography", levels: ["Nation", "State", "Metro Area", "Municipality"], background: "#8b9f65"},
   'product': {title: "Products", cube: "economy_foreign_trade_ent", dimension: "Product", levels: ["Chapter", "HS2", "HS4", "HS6"], background: "#ea8db2"},
   'industry': {title: "Industries", cube: "inegi_economic_census", dimension: "Industry", levels: ["Sector", "Subsector", "Industry Group"/*,, "NAICS Industry", "National Industry"*/], background: "#f5c094"},
@@ -140,7 +140,7 @@ class Explore extends React.Component {
             });
           });
 
-          parsed = parsed.sort((a,b)=> a.ranking>b.ranking?-1:1);
+          parsed = parsed.sort((a, b) => a.ranking > b.ranking ? -1 : 1);
 
           const resultsNest = nest()
             .key(d => d.slug)
@@ -199,10 +199,10 @@ class Explore extends React.Component {
     const {query, tab, profile, results, resultsNest, totalsNest, loading} = this.state;
     const {t} = this.props;
 
-    const clearButton = query !== '' ? <Button onClick={() => this.clearSearch()} minimal={true} className="ep-clear-btn" icon="cross" large={true} outlined={true}>{t('Explore Profile.Clear Filters')}</Button> : <span></span>
+    const clearButton = query !== '' ? <Button onClick={() => this.clearSearch()} minimal={true} className="ep-clear-btn" icon="cross" large={true} outlined={true}>{t('Explore.Clear Filters')}</Button> : <span></span>
 
     const share = {
-      title: `${t("Explore")}`,
+      title: `${t("Explore.Title")}`,
       desc: `${t("share.explore")}`
     };
 
@@ -210,6 +210,7 @@ class Explore extends React.Component {
 
     return <div className="explore">
       <HelmetWrapper info={share} />
+
       <Nav
         className={"background"}
         logo={false}
@@ -217,6 +218,7 @@ class Explore extends React.Component {
         routePath={"/:lang"}
         title={""}
       />
+
       <div className="ep-container container">
 
         <div className={`ep-loading-splash ${loading ? 'show' : ''}`}></div>
@@ -224,7 +226,7 @@ class Explore extends React.Component {
         <div className="ep-search">
           <InputGroup
             leftIcon="search"
-            placeholder={t("Explore Profile.Search Placeholder")}
+            placeholder={t("Explore.Search Placeholder")}
             onChange={this.handleSearch}
             value={query}
             rightElement={clearButton}
@@ -237,7 +239,7 @@ class Explore extends React.Component {
             len = len ? len.len : 0;
             return <ExploreHeader
               title={t(profilesList[sectionSlug].title)}
-              len={loading?"...":commas(len)}
+              len={loading ? "..." : commas(len)}
               selected={profile}
               slug={sectionSlug}
               handleTabSelected={profile => this.handleProfile(profile)}
@@ -260,7 +262,7 @@ class Explore extends React.Component {
               key={levelKey}
               onClick={() => this.handleTab(levelKey)}
             >
-              {`${t(levelName)}`} {len ? loading ? "(...)" :`(${commas(len)})` : '(0)'}
+              {`${t(levelName)}`} {len ? loading ? "(...)" : `(${commas(len)})` : '(0)'}
             </div>;
           })}
         </div>
@@ -273,6 +275,7 @@ class Explore extends React.Component {
           />
         </div>
       </div>
+
       <Footer />
     </div>;
   }

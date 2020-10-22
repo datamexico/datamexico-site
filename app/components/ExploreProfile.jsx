@@ -15,7 +15,7 @@ class ExploreProfile extends React.Component {
           <div className="ep-profile-no-results">
             <img className="icon" src="/icons/no-results.png" alt=""/>
             <p className="message">
-              {!loading ? t("Explore Profile.No data available") : t("CMS.Options.Loading Data")}
+              {!loading ? t("Explore.No data available") : t("CMS.Options.Loading Data")}
             </p>
           </div>
         }
@@ -38,7 +38,7 @@ class ExploreProfile extends React.Component {
                 />
               )}
             </ul>
-            {results.length > 99 && <p className="message">{t("Explore Profile.MaxResults")}</p>}
+            {results.length > 99 && <p className="message">{t("Explore.MaxResults")}</p>}
           </>
         }
     </div>;

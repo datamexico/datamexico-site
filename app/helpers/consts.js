@@ -3,7 +3,7 @@ const locale = "es";
 module.exports = {
   SIDEBAR_NAV: [
     {
-      title: "Explore", url: `/${locale}/explore`, items: [
+      title: "Explore.Title", url: `/${locale}/explore`, items: [
         {title: "Cities & Places", url: `/${locale}/explore?profile=geo`},
         {title: "Products", url: `/${locale}/explore?profile=product`},
         {title: "Industries", url: `/${locale}/explore?profile=industry`},
@@ -20,7 +20,7 @@ module.exports = {
   ],
   FOOTER_NAV: [
     {
-      title: "Explore", items: [
+      title: "Explore.Title", items: [
         {title: "Profiles", url: `/${locale}/explore`},
         {title: "Coronavirus", url: `/${locale}/coronavirus`},
         {title: "ECI Explorer.Title", url: `/${locale}/eci/explore`}
