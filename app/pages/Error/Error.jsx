@@ -10,9 +10,8 @@ import "./Error.css";
 
 class Error extends Component {
   render() {
-    const {errorType, locale} = this.props;
+    const {t, errorType, locale} = this.props;
 
-    let text = "Lo sentimos, esta página no existe.";
     // if (errorType === "stub") {
     //   text = "This page is currently under construction.";
     // }
@@ -34,8 +33,8 @@ class Error extends Component {
           <div className="error-header-img" />
         </div>
         <div className="error-container container">
-          <p className="u-font-lg">{text}</p>
-          <p className="u-font-lg"><a href={`/${locale}/explore`}>Explora perfiles</a> o vuelve al <a href="/">inicio</a>.</p>
+          <p className="u-font-lg">{t("Error.Text")}</p>
+          <p className="u-font-lg" dangerouslySetInnerHTML={{__html: t("Error.Redirection", {locale: locale}) }}></p>
         </div>
         <Footer />
       </div>
