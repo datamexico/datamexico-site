@@ -1,13 +1,13 @@
 import React from "react";
-import {withNamespaces} from "react-i18next";
-import {Icon, InputGroup} from "@blueprintjs/core";
-import NavMenu from "./NavMenu";
-import classnames from "classnames";
 import axios from "axios";
+import classnames from "classnames";
+import {Icon, InputGroup} from "@blueprintjs/core";
+import {withNamespaces} from "react-i18next";
 
+import NavMenu from "./NavMenu";
+import SearchResult from "./SearchResult";
 
 import "./Nav.css";
-import SearchResult from "./SearchResult";
 
 const CancelToken = axios.CancelToken;
 let cancel;
@@ -19,14 +19,13 @@ const pathParser = (params, path) => {
   return path;
 };
 
-
 class Nav extends React.Component {
   state = {
     isOpen: false,
+    isOpenSearchResults: false,
     isSearchOpen: false,
     results: [],
-    resultsFilter: [],
-    isOpenSearchResults: false
+    resultsFilter: []
   }
 
   shouldComponentUpdate = (nextProps, nextState) => {
@@ -35,7 +34,6 @@ class Nav extends React.Component {
 
     return nextProps.className !== className || nextState.isOpen !== isOpen || nextState.isSearchOpen !== isSearchOpen || nextState.isOpenSearchResults !== isOpenSearchResults;
   }
-
 
   handleSearch = e => {
     const {results} = this.state;
