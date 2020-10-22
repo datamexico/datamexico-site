@@ -203,7 +203,7 @@ class Explore extends React.Component {
 
     const share = {
       title: `${t("Explore.Title")}`,
-      desc: `${t("share.explore")}`
+      desc: `${t("Share.Explore")}`
     };
 
     const totals = (query && query !== '' && !loading) ? resultsNest : totalsNest;
