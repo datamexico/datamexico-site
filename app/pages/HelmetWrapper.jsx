@@ -11,8 +11,8 @@ class HelmetWrapper extends Component {
     const {t, info, lang, baseUrl, path} = this.props;
 
     const defaults = {
-      title: info && info.title ? info.title : t("share.title"),
-      desc: info && info.desc ? info.desc : t("share.description"),
+      title: info && info.title ? info.title : t("Share.Title"),
+      desc: info && info.desc ? info.desc : t("Share.Description"),
       img: info && info.img ? info.img : `${baseUrl}/images/share/share-${lang}.jpg`,
       url: `${baseUrl}${path}`,
       locale: lang
