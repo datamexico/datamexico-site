@@ -1,15 +1,15 @@
 import React from "react";
 import HelmetWrapper from "../HelmetWrapper";
 import PropTypes from "prop-types";
-import {withNamespaces} from "react-i18next";
-import {fetchData} from "@datawheel/canon-core";
-import {connect} from "react-redux";
-import {Profile as CMSProfile} from "@datawheel/canon-cms";
 import libs from "@datawheel/canon-cms/src/utils/libs";
+import {Profile as CMSProfile} from "@datawheel/canon-cms";
+import {connect} from "react-redux";
+import {fetchData} from "@datawheel/canon-core";
+import {withNamespaces} from "react-i18next";
 
-import Nav from "../../components/Nav";
-import Footer from "../../components/Footer";
 import Error from "../Error/Error";
+import Footer from "../../components/Footer";
+import Nav from "../../components/Nav";
 
 import {spanishLabels} from "helpers/spanishLabels";
 
@@ -55,8 +55,6 @@ class Profile extends React.Component {
 
   };
 
-
-
   render() {
     const {profile, t, baseUrl} = this.props;
 
@@ -72,24 +70,24 @@ class Profile extends React.Component {
 
     switch (slug) {
       case "occupation":
-        title = `${variables.name}: Salarios, diversidad, industrias e informalidad laboral`;
-        desc = `Explore las estadísticas sobre salario, diversidad, industrias e informalidad laboral para la ocupación: ${variables.name}`;
+        title = t("Profile.Occupation Title", {name: variables.name});
+        desc = t("Profile.Occupation Description", {name: variables.name});
         break;
       case "geo":
-        title = `${variables.name}: Economía, empleo, equidad, calidad de vida, educación, salud y seguridad pública`;
-        desc = `Explore las estadísticas sobre economía, empleo, equidad, calidad de vida, educación, salud y seguridad pública en ${variables.name}`;
+        title = t("Profile.Geo Title", {name: variables.name});
+        desc = t("Profile.Geo Description", {name: variables.name});
         break;
       case "product":
-        title = `${variables.name}: Intercambio comercial, compras y ventas internacionales, mercado y especialización`;
-        desc = `Explore las estadísticas sobre intercambio comercial, compras y ventas internacionales, mercado y especialización para ${variables.name}`;
+        title = t("Profile.Product Title", {name: variables.name});
+        desc = t("Profile.Product Description", {name: variables.name});
         break;
       case "industry":
-        title = `${variables.name}: Salarios, producción, inversión, oportunidades y complejidad`;
-        desc = `Explore las estadísticas sobre salarios, producción, inversión, oportunidades y complejidad en la industria ${variables.name}`;
+        title = t("Profile.Industry Title", {name: variables.name});
+        desc = t("Profile.Industry Description", {name: variables.name});
         break;
       case "institution":
-        title = `${variables.name}: Situación estudiantil, matrículas y graduaciones`;
-        desc = `Explore las estadísticas sobre situación estudiantil, matrículas y graduaciones de la institución: ${variables.name}`;
+        title = t("Profile.Institution Title", {name: variables.name});
+        desc = t("Profile.Institution Description", {name: variables.name});
         break;
       default:
         break;
@@ -102,7 +100,7 @@ class Profile extends React.Component {
     };
 
     const searchProps = {
-      placeholder: "Buscar perfiles...",
+      placeholder: t("Profile.Search Placeholder"),
       subtitleFormat: d => spanishLabels[d.memberHierarchy]
     }
 
@@ -115,7 +113,9 @@ class Profile extends React.Component {
         routePath={this.props.route.path}
         routeParams={this.props.router.params}
       />
+
       <CMSProfile {...this.props} searchProps={searchProps} />
+
       <Footer />
     </div>;
   }
@@ -132,7 +132,6 @@ Profile.childContextTypes = {
   router: PropTypes.object,
   variables: PropTypes.object
 };
-
 
 export default withNamespaces()(
   connect(state => ({
