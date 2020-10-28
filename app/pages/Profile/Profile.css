@@ -66,7 +66,7 @@
   /* about section overrides */
   & .cp-grouping:first-child {
     @mixin text-shadow;
-    background-color: var(--dark-4);
+    background-color: var(--dark-4) !important;
 
     /* bring about section closer to hero */
     & .cp-section {
@@ -125,24 +125,22 @@
 }
 
 .cp-grouping-section {
-  background: var(--dark-4);
   & .cp-section-content {
     margin: 1rem auto;
     & .cp-stat-group {
       flex: 2 1 !important;
     }
     & .cp-stat-label-text {
-      color: var(--light-3);
-      font-size: var(--font-xxs);
-      max-width: 100px;
+      color: var(--light-3) !important;
+      font-size: var(--font-xxs) !important;
+      max-width: 100px !important;
     }
     & .cp-stat-value-text {
-      color: var(--gmx-yellow-1);
-      font-weight: 300;
+      font-weight: 300 !important;
     }
     & .cp-stat-subtitle {
-      color: var(--light-2);
-      font-size: var(--font-xs);
+      color: var(--light-2) !important;
+      font-size: var(--font-xs) !important;
     }
   }
 }
@@ -150,21 +148,20 @@
 /* grouping headings */
 .cp-grouping-section-heading {
   @mixin display;
-  color: var(--white);
-  font-size: 2.25rem;
-  margin-bottom: 0 !important;
+  color: var(--white) !important;
+  margin-bottom: 0;
   font-family: var(--base-font-stack-condensed);
 }
 
 .cp-viz-title {
-  font-family: var(--base-font-stack-condensed);
-  font-weight: 600;
-  font-size: var(--font-md);
-  margin: 0 var(--gutter-sm);
-  text-align: center;
+  font-family: var(--base-font-stack-condensed) !important;
+  font-size: var(--font-md) !important;
+  margin: 0 var(--gutter-sm) !important;
+  text-align: center !important;
+  width: 100%;
   & .dmx-click2select {
-    color: var(--gmx-red-1);
-    font-size: var(--font-sm);
+    color: var(--gmx-red-1) !important;
+    font-size: var(--font-sm) !important;
   }
 }
 
@@ -205,10 +202,10 @@
 }
 
 .cp-hero {
-  min-height: calc(100vh - 300px);
+  min-height: calc(100vh - 300px) !important;
 }
 .cp-hero-inner {
-  padding-bottom: 3rem;
+  padding-bottom: 3rem !important;
 }
 
 .cp-single-column-section-caption .cp-viz-container { margin-top: auto; }

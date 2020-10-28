@@ -52,7 +52,7 @@ p:last-of-type {
 }
 
 .cp-main > *:nth-child(even) {
-  background-color: #eeeeee;
+  background-color: #eeeeee !important;
 }
 
 .cp-stat-group-wrapper .cp-stat:not(:only-child) {
@@ -64,7 +64,7 @@ p:last-of-type {
 }
 
 .cp-main > *:nth-child(odd):not(.cp-grouping-section) {
-  background-color: var(--white);
+  background-color: var(--white) !important;
 }
 
 .cp-stat-group-wrapper {
@@ -97,9 +97,9 @@ p:last-of-type {
 }
 
 .cp-subnav-link.is-active {
-  color: var(--gmx-yellow-1);
+  color: var(--gmx-yellow-1) !important;
   &::after {
-    background-color: var(--gmx-yellow-1);
+    background-color: var(--gmx-yellow-1) !important;
     height: 3px;
   }
 }
@@ -163,7 +163,7 @@ p:last-of-type {
 
 @media (min-width: 768px) {
   .cp-default-section-figure {
-    width: calc(100% - 17rem - 1.5rem);
+    width: calc(100% - 17rem - 1.5rem) !important;
   }
 
   .cp-multicolumn-default-section-figure {

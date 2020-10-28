@@ -187,7 +187,7 @@
 }
 
 .cp-subnav.is-fixed {
-  background-color: var(--dark-3);
+  background-color: var(--dark-3) !important;
 }
 
 .bp3-dialog-container {

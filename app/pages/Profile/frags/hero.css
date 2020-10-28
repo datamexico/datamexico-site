@@ -3,7 +3,7 @@
 .cp-hero {
   background-color: var(--dark-3);
   position: relative;
-  padding-bottom: 0; /* bring closer to about section */
+  padding-bottom: 0 !important; /* bring closer to about section */
   z-index: 1;
 
   /* set text shadow for all children based on font size */
@@ -111,7 +111,7 @@
   & .cp-hero-stat-group-wrapper {
     width: calc((var(--stat-group-stat-width) + var(--gutter-sm)) * 3);
     max-width: 100%;
-    margin-top: 0px;
+    margin-top: 0px !important;
 
     @mixin min-sm {
       margin-left: auto;
