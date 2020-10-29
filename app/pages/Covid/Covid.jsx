@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import {connect} from "react-redux";
 import {formatAbbreviate} from "d3plus-format";
-// import {hot} from "react-hot-loader/root";
-import {withNamespaces} from "react-i18next";
-// import classnames from "classnames";
 import {mean} from "d3-array";
+import {withNamespaces} from "react-i18next";
+// import {hot} from "react-hot-loader/root";
+// import classnames from "classnames";
 
 import CovidCard from "components/CovidCard";
 import CovidTable from "components/CovidTable";
@@ -39,7 +39,6 @@ class Covid extends Component {
       locationArray: null,
       locationBase: undefined,
       locationSelected: [],
-      // Visualization Variables
       progressStatOptions: null,
       progressStatSelected: undefined,
       progressScaleOptions: null,
@@ -445,12 +444,13 @@ class Covid extends Component {
     </div>
 
     const share = {
-      title: "Coronavirus en México (covid-19)",
-      desc: t("share.covid")
+      title: t("Share.Coronavirus Title"),
+      desc: t("Share.Coronavirus")
     };
 
     return <div className="covid-wrapper">
       <HelmetWrapper info={share} />
+
       <Nav
         className={"background"}
         logo={false}
@@ -458,6 +458,7 @@ class Covid extends Component {
         routePath={"/:lang"}
         title={""}
       />
+
       <div className="covid-site">
         <div className="covid-header">
           <DMXSearchLocation
@@ -583,12 +584,14 @@ class Covid extends Component {
             visualization={ageRangesVisConfig}
           />
         </div>
+
         <CovidTable
           data={dataStats}
           date={dataDate}
           locations={locationArray}
         />
       </div>
+
       <Footer />
     </div>;
   }

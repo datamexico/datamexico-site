@@ -6,6 +6,7 @@ import "./SearchResult.css";
 class SearchResult extends React.Component {
   render() {
     const {id, lng, slug, title, level, t} = this.props;
+    console.log(level);
 
     return <li className="search-result">
       <a className="search-result-link" href={`/${lng}/profile/${slug}/${id}`}>
