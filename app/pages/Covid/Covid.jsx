@@ -185,7 +185,7 @@ class Covid extends Component {
     const year = fullDate.getFullYear();
     const hour = fullDate.getHours();
     // return `${t(days[day])} ${date} ${t(months[month])} ${year} ${hour}:00`
-    return `${date}/${months[month]}/${year}`;
+    return `${date} de ${months[month]} de ${year}`;
   }
 
   calculateStats = (dataset, divisionArray, stats) => {

@@ -48,7 +48,7 @@ class CovidTable extends React.Component {
   }
 
   render() {
-    const {lng} = this.props;
+    const {t, lng} = this.props;
     const {tableData, width} = this.state;
 
     const columns = width > 768 ? [
@@ -61,37 +61,37 @@ class CovidTable extends React.Component {
           </div>
           <a href={`/${lng}/profile/geo/${d.original["Location ID"]}`} className="title">{d.original.Location}</a>
         </div>,
-        Header: "Entidad federativa"
+        Header: t("State")
       },
       {
         id: "Last 14 Daily Cases",
         accessor: d => d["Last 14 Daily Cases"],
         Cell: d => commas(d.original["Last 14 Daily Cases"]),
-        Header: "Contagios confirmados 14 días"
+        Header: t("Last 14 Daily Cases")
       },
       {
         id: "Last 14 Daily Deaths",
         accessor: d => d["Last 14 Daily Deaths"],
         Cell: d => commas(d.original["Last 14 Daily Deaths"]),
-        Header: "Fallecídos confirmados 14 días"
+        Header: t("Last 14 Daily Deaths")
       },
       {
         id: "Accum Cases",
         accessor: d => d["Accum Cases"],
         Cell: d => commas(d.original["Accum Cases"]),
-        Header: "Contagios totales confirmados"
+        Header: t("Accum Cases")
       },
       {
         id: "Accum Deaths",
         accessor: d => d["Accum Deaths"],
         Cell: d => commas(d.original["Accum Deaths"]),
-        Header: "Fallecidos totales confirmados"
+        Header: t("Accum Deaths")
       },
       {
         id: "Accum Suspect",
         accessor: d => d["Accum Suspect"],
         Cell: d => commas(d.original["Accum Suspect"]),
-        Header: "Total test realizados"
+        Header: t("Accum Suspect")
       }
     ] : [
       {
@@ -103,19 +103,19 @@ class CovidTable extends React.Component {
           </div>
           <a href={`/${lng}/profile/geo/${d.original["Location ID"]}`} className="title">{d.original.Location}</a>
         </div>,
-        Header: "Entidad federativa"
+        Header: t("State")
       },
       {
         id: "Last 14 Daily Cases",
         accessor: d => d["Last 14 Daily Cases"],
         Cell: d => commas(d.original["Last 14 Daily Cases"]),
-        Header: "Contagios confirmados 14 días"
+        Header: t("Last 14 Daily Cases")
       },
       {
         id: "Accum Cases",
         accessor: d => d["Accum Cases"],
         Cell: d => commas(d.original["Accum Cases"]),
-        Header: "Contagios totales confirmados"
+        Header: t("Accum Cases")
       }
     ];
 
