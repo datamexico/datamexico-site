@@ -97,6 +97,10 @@
     & .covid-card-information-description {
       & p {
         font-size: var(--font-xs);
+        margin-bottom: var(--gutter-xs);
+        & .italic {
+          font-style: italic;
+        }
       }
       & a {
         color: var(--gmx-red-2);
@@ -128,9 +132,6 @@
         justify-content: flex-end;
         padding: 0 var(--gutter-md);
       }
-    }
-    & .covid-card-visualization-viz {
-
     }
   }
 }

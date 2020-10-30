@@ -54,12 +54,13 @@ class DMXSelectLocation extends Component {
   }
 
   render() {
+    const {t} = this.props;
     const {isOpen} = this.state;
     const locationOptions = this.createLocationOptions();
 
     const buttonContent = <div className="dmx-select-location-button-content">
       <img src="/icons/visualizations/covid/agregar-ubicacion-icon.svg" alt="" className="dmx-select-location-button-content-img" />
-      <span className="dmx-select-location-button-content-text">{"Añadir Localidad"}</span>
+      <span className="dmx-select-location-button-content-text">{t("Add Location")}</span>
     </div>
 
     return (

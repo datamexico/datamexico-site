@@ -68,6 +68,7 @@ class Covid extends Component {
 
   fetchData = () => {
     axios.get("/api/covid/").then(resp => {
+      const {t} = this.props;
       const {slug} = this.props.params;
       // Load the data from the database
       const data = resp.data;
@@ -82,27 +83,27 @@ class Covid extends Component {
 
       // Create variables for the visualizations
       const progressStatOptions = [
-        {name: "Casos Diarios", id: "Daily Cases"},
-        {name: "Casos Confirmados", id: "Accum Cases"},
-        {name: "Muertes Diarias", id: "Daily Deaths"},
-        {name: "Muertes Confirmadas", id: "Accum Deaths"}
+        {name: t("Daily Cases"), id: "Daily Cases"},
+        {name: t("Accum Cases"), id: "Accum Cases"},
+        {name: t("Daily Deaths"), id: "Daily Deaths"},
+        {name: t("Accum Deaths"), id: "Accum Deaths"}
       ];
       const progressStatSelected = progressStatOptions[0];
       const progressScaleOptions = [
-        {name: "Lineal", id: "linear"},
-        {name: "Logarítmica", id: "log"}
+        {name: t("Linear"), id: "linear"},
+        {name: t("Logarithmic"), id: "log"}
       ];
       const progressScaleSelected = progressScaleOptions[0];
       const progressTimeScaleOptions = [
-        {name: "Fecha", id: "time"},
-        {name: "Días", id: "days"}
+        {name: t("Date"), id: "time"},
+        {name: t("Days"), id: "days"}
       ];
       const progressTimeScaleSelected = progressTimeScaleOptions[0];
       const ageRangesStatOptions = [
-        {name: "Confirmados", id: "Confirmed"},
-        {name: "Fallecidos", id: "Deceased"},
-        {name: "Hospitalizados", id: "Hospitalized"},
-        {name: "Tipo de Paciente", id: "Patient Type"}
+        {name: t("Confirmed"), id: "Confirmed"},
+        {name: t("Deceased"), id: "Deceased"},
+        {name: t("Hospitalized"), id: "Hospitalized"},
+        {name: t("Patient Type"), id: "Patient Type"}
       ];
       const ageRangesStatSelected = ageRangesStatOptions[0];
 
@@ -184,7 +185,7 @@ class Covid extends Component {
     const year = fullDate.getFullYear();
     const hour = fullDate.getHours();
     // return `${t(days[day])} ${date} ${t(months[month])} ${year} ${hour}:00`
-    return `${date} de ${months[month]} de ${year}`;
+    return `${date}/${months[month]}/${year}`;
   }
 
   calculateStats = (dataset, divisionArray, stats) => {
@@ -253,12 +254,12 @@ class Covid extends Component {
     // Stats showed in the hero
     const locationBaseData = dataStatsLatest.find(d => d["Location ID"] === locationBase["Location ID"]);
     const locationStats = [
-      {id: "stat_new_cases", name: "Contagios", subname: "Confirmados en los últimos 7 días", icon: "nuevo-caso-icon.svg", value: commas(locationBaseData["Last 7 Daily Cases"])},
-      {id: "stat_new_dead", name: "Fallecidos", subname: "Confirmados en los últimos 7 días", icon: "nueva-muerte-icon.svg", value: commas(locationBaseData["Last 7 Daily Deaths"])},
-      {id: "stat_lastweek_cases", name: "Casos Sospechosos", subname: "A la fecha", icon: "casos-ultima-semana-icon.svg", value: commas(locationBaseData["Accum Suspect"])},
-      {id: "stat_lastweek_dead", name: "Hospitalizados", subname: "Sobre el total de contagiados", icon: "muertes-ultima-semana-icon.svg", value: percentagenumber(locationBaseData["Accum Hospitalized"] / locationBaseData["Accum Cases"])},
-      {id: "stat_accum_cases", name: "Total Contagios Confirmados", icon: "casos-confirmados-icon.svg", value: commas(locationBaseData["Accum Cases"])},
-      {id: "stat_accum_dead", name: "Total Fallecidos Confirmados", icon: "muertes-confirmadas-icon.svg", value: commas(locationBaseData["Accum Deaths"])}
+      {id: "stat_new_cases", name: t("Covid Profile.Stats.Daily Cases"), subname: t("Covid Profile.Stats.Daily Cases Subtitle"), icon: "nuevo-caso-icon.svg", value: commas(locationBaseData["Last 7 Daily Cases"])},
+      {id: "stat_new_dead", name: t("Covid Profile.Stats.Daily Deaths"), subname: t("Covid Profile.Stats.Daily Deaths Subtitle"), icon: "nueva-muerte-icon.svg", value: commas(locationBaseData["Last 7 Daily Deaths"])},
+      {id: "stat_lastweek_cases", name: t("Covid Profile.Stats.Accum Suspect"), subname: t("Covid Profile.Stats.Accum Suspect Subtitle"), icon: "casos-ultima-semana-icon.svg", value: commas(locationBaseData["Accum Suspect"])},
+      {id: "stat_lastweek_dead", name: t("Covid Profile.Stats.Accum Suspect Hospitalized"), subname: t("Covid Profile.Stats.Accum Suspect Hospitalized Subtitle"), icon: "muertes-ultima-semana-icon.svg", value: percentagenumber(locationBaseData["Accum Hospitalized"] / locationBaseData["Accum Cases"])},
+      {id: "stat_accum_cases", name: t("Covid Profile.Stats.Accum Cases"), icon: "casos-confirmados-icon.svg", value: commas(locationBaseData["Accum Cases"])},
+      {id: "stat_accum_dead", name: t("Covid Profile.Stats.Accum Deaths"), icon: "muertes-confirmadas-icon.svg", value: commas(locationBaseData["Accum Deaths"])}
     ];
 
     // Graph #1: LinePlot data for covid new daily cases stats
@@ -271,20 +272,20 @@ class Covid extends Component {
       const statsToKeep = ["Time ID", "Time", "Location ID", "Location", "Division", "Daily Cases", "Accum Cases", "AVG 7 Days Daily Cases", "AVG 7 Days Accum Cases", "Rate Daily Cases", "Rate Accum Cases", "Days from 50 Cases"];
       progressStatData = this.keepElementsInData(progressStatDataLocations, statsToKeep);
       progressStatTooltip = {
-        Daily: {name: "Contagios Diarios", value: "Daily Cases"},
-        Accum: {name: "Contagios Acumulados", value: "Accum Cases"},
-        RateDaily: {name: "Contagios Diarios por cada 100 mil habitantes", value: "Rate Daily Cases"},
-        RateAccum: {name: "Contagios Acumulados por cada 100 mil habitantes", value: "Rate Accum Cases"},
+        Daily: {name: t("Daily Cases"), value: "Daily Cases"},
+        Accum: {name: t("Accum Cases"), value: "Accum Cases"},
+        RateDaily: {name: t("Rate Daily Cases"), value: "Rate Daily Cases"},
+        RateAccum: {name: t("Rate Accum Cases"), value: "Rate Accum Cases"},
       };
       progressStatTimeScale = {name: "Días (eje inicia con al menos 50 contagios)", value: "Days from 50 Cases"};
     } else if (progressStatSelected.id === "Daily Deaths" || progressStatSelected.id === "Accum Deaths") {
       const statsToKeep = ["Time ID", "Time", "Location ID", "Location", "Division", "Daily Deaths", "Accum Deaths", "AVG 7 Days Daily Deaths", "AVG 7 Days Accum Deaths", "Rate Daily Deaths", "Rate Accum Deaths", "Days from 10 Deaths"];
       progressStatData = this.keepElementsInData(progressStatDataLocations, statsToKeep);
       progressStatTooltip = {
-        Daily: {name: "Defunciones Diarias", value: "Daily Deaths"},
-        Accum: {name: "Defunciones Acumuladas", value: "Accum Deaths"},
-        RateDaily: {name: "Defunciones Diarias por cada 100 mil habitantes", value: "Rate Daily Deaths"},
-        RateAccum: {name: "Defunciones Acumuladas por cada 100 mil habitantes", value: "Rate Accum Deaths"},
+        Daily: {name: t("Daily Deaths"), value: "Daily Deaths"},
+        Accum: {name: t("Accum Deaths"), value: "Accum Deaths"},
+        RateDaily: {name: t("Rate Daily Deaths"), value: "Rate Daily Deaths"},
+        RateAccum: {name: t("Rate Accum Deaths"), value: "Rate Accum Deaths"},
       };
       progressStatTimeScale = {name: "Días (eje inicia con al menos 10 fallecidos)", value: "Days from 10 Deaths"};
     }
@@ -324,7 +325,7 @@ class Covid extends Component {
         },
         tbody: d => {
           const tBody = [
-            ["Fecha", d["Time"]],
+            [t("Date"), d["Time"]],
             [progressStatTooltip.Daily.name, commas(d[progressStatTooltip.Daily.value])],
             [progressStatTooltip.Accum.name, commas(d[progressStatTooltip.Accum.value])],
             [progressStatTooltip.RateDaily.name, formatAbbreviate(d[progressStatTooltip.RateDaily.value])],
@@ -332,7 +333,7 @@ class Covid extends Component {
           ];
           return tBody;
         },
-        footer: d => d["Type"] * 1 === 1 ? "Datos preliminares a la fecha" : ""
+        footer: d => d["Type"] * 1 === 1 ? t("Data Warning") : ""
       },
       shapeConfig: {
         Line: {
@@ -392,12 +393,12 @@ class Covid extends Component {
       x: "Age Range",
       xSort: (a, b) => a["Age Range ID"] - b["Age Range ID"],
       xConfig: {
-        title: "Rango de Edad"
+        title: t("Age Range")
       },
       sum: "Cases",
       y: "Cases",
       yConfig: {
-        title: "Casos"
+        title: t("Cases")
       },
       aggs: {
         "Age Range ID": mean,
@@ -411,8 +412,8 @@ class Covid extends Component {
       stackOrder: "ascending",
       tooltipConfig: {
         tbody: [
-          ["Casos", d => commas(d["Cases"])],
-          ["Rango de edad", d => d["Age Range"]]
+          [t("Cases"), d => commas(d["Cases"])],
+          [t("Age Range"), d => d["Age Range"]]
         ]
       },
       legendConfig: {
@@ -422,23 +423,23 @@ class Covid extends Component {
 
     const overlayContent = <div className="covid-overlay-content">
       <div className="covid-overlay-card-header">
-        <h3>Nota Metodológica</h3>
+        <h3>{t("Covid Profile.Overlay.Title")}</h3>
       </div>
       <div className="covid-overlay-card-body">
-        <p>Los datos presentados para la evolución de COVID-19 en México utilizan la <a href="https://www.gob.mx/salud/documentos/datos-abiertos-152127">base de datos de COVID-19</a> más reciente.</p>
-        <h4>Casos positivos:</h4>
-        <p>Los casos positivos son todos aquellos positivos a SARS-CoV-2.</p>
+        <p dangerouslySetInnerHTML={{__html: t("Covid Profile.Overlay.Subtitle")}} />
+        <h4>{t("Covid Profile.Overlay.Positive Cases Title")}</h4>
+        <p>{t("Covid Profile.Overlay.Positive Cases Subtitle")}</p>
         <ul>
-          <li>Se filtran todos los casos positivos (RESULTADO valor “1”) registrados en la base de datos.</li>
-          <li>Las series temporales consideran la fecha de ingreso (FECHA_INGRESO) como fecha en que se contabiliza un nuevo caso positivo.</li>
-          <li>Los casos se contabilizan en el lugar de residencia de los pacientes reportados (ENTIDAD_RES y MUNICIPIO_RES).</li>
+          <li>{t("Covid Profile.Overlay.Positive Cases 1")}</li>
+          <li>{t("Covid Profile.Overlay.Positive Cases 2")}</li>
+          <li>{t("Covid Profile.Overlay.Positive Cases 3")}</li>
         </ul>
-        <h4>Defunciones:</h4>
-        <p>Las defunciones corresponden a todos aquellos positivos a SARS-CoV-2 y que registran fecha de defunción.</p>
+        <h4>{t("Covid Profile.Overlay.Death Cases Title")}</h4>
+        <p>{t("Covid Profile.Overlay.Death Cases Subtitle")}</p>
         <ul>
-          <li>Se filtran todos los casos positivos (RESULTADO valor “1”) registrados en la base de datos y que tengan fecha de defunción notificada (FECHA_DEF distinta de “99-99-9999”).</li>
-          <li>Las series temporales consideran la fecha de defunción (FECHA_DEF) como fecha en que se contabiliza un nuevo fallecido.</li>
-          <li>Los casos se contabilizan en el lugar de residencia de fallecidos (ENTIDAD_RES y MUNICIPIO_RES)</li>
+          <li>{t("Covid Profile.Overlay.Death Cases 1")}</li>
+          <li>{t("Covid Profile.Overlay.Death Cases 2")}</li>
+          <li>{t("Covid Profile.Overlay.Death Cases 3")}</li>
         </ul>
       </div>
     </div>
@@ -467,7 +468,7 @@ class Covid extends Component {
             resetBaseLocation={this.resetBaseLocation}
           />
           <div className="covid-header-info">
-            <h4 className="covid-header-info-date">{`Datos actualizados al ${showDate}`}</h4>
+            <h4 className="covid-header-info-date">{t("Data Actualization", {date: showDate})}</h4>
           </div>
           <div className="covid-header-stats">
             {locationStats.map((d, i) => (
@@ -485,11 +486,8 @@ class Covid extends Component {
         <div className="covid-body container">
           <CovidCard
             cardInformation={{
-              title: "Nuevos casos diarios",
-              description: <div className="card-description">
-                <p>La fecha a la que son asignados los casos corresponde al día en que fue tomado el test.</p>
-                <p className="italic">La línea punteada indica datos preliminares que serán confirmados durante los próximos 7 días.</p>
-              </div>,
+              title: t("Covid Profile.Card.Daily Cases.Title"),
+              description: <p dangerouslySetInnerHTML={{__html: t("Covid Profile.Card.Daily Cases.Description")}}/>,
               source: [{name: "Secretaria de Salud", link: "https://www.gob.mx/salud/documentos/datos-abiertos-152127"}]
             }}
             overlay={
@@ -507,8 +505,8 @@ class Covid extends Component {
             baseSelector={
               <DMXCheckbox
                 items={[
-                  {name: "Promedio de 7 Dias", value: "AVG 7 Days", unique: true, id: "baseUnique"},
-                  {name: "Per Capita", value: "Rate", unique: true, id: "baseUnique"}
+                  {name: t("AVG 7 Days"), value: "AVG 7 Days", unique: true, id: "baseUnique"},
+                  {name: t("Per Capita"), value: "Rate", unique: true, id: "baseUnique"}
                 ]}
                 variable={"progressBaseSelected"}
                 selected={progressBaseSelected}
@@ -517,7 +515,7 @@ class Covid extends Component {
             }
             scaleSelector={
               <DMXButtonGroup
-                title={"Escala Eje-Y"}
+                title={t("Y Axis")}
                 items={progressScaleOptions}
                 selected={progressScaleSelected}
                 callback={progressScaleSelected => this.setState({progressScaleSelected})}
@@ -525,7 +523,7 @@ class Covid extends Component {
             }
             timeScaleSelector={
               <DMXButtonGroup
-                title={"Escala Temporal"}
+                title={t("Time Scale")}
                 items={progressTimeScaleOptions}
                 selected={progressTimeScaleSelected}
                 callback={progressTimeScaleSelected => this.setState({progressTimeScaleSelected})}
@@ -533,7 +531,7 @@ class Covid extends Component {
             }
             indicatorSelector={
               <DMXSelect
-                title={"Indicador"}
+                title={t("Measure")}
                 items={progressStatOptions}
                 selectedItem={progressStatSelected}
                 callback={progressStatSelected => this.setState({progressStatSelected})}
@@ -543,7 +541,7 @@ class Covid extends Component {
           />
           <CovidCard
             cardInformation={{
-              title: "Rangos de edad",
+              title: t("Covid Profile.Card.Age Range.Title"),
               description: <div className="card-description">
                 <p>Los gráficos muestran el número de casos según la edad de los y las pacientes, acumulados hasta {showDate}.</p>
                 {locationDivisions.includes("Nation")
@@ -574,7 +572,7 @@ class Covid extends Component {
             }
             indicatorSelector={
               <DMXSelect
-                title={"Indicador"}
+                title={t("Measure")}
                 items={ageRangesStatOptions}
                 selectedItem={ageRangesStatSelected}
                 callback={ageRangesStatSelected => this.setState({ageRangesStatSelected})}

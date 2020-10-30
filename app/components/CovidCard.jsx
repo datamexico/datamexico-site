@@ -1,8 +1,8 @@
+import * as d3plus from "d3plus-react";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
-import * as d3plus from "d3plus-react";
-import {withNamespaces} from "react-i18next";
 import {formatAbbreviate} from "d3plus-format";
+import {withNamespaces} from "react-i18next";
 
 import "./CovidCard.css";
 

@@ -45,7 +45,7 @@ class DMXSearchLocation extends Component {
     const filterLocationResult =
       <div className="dmx-search-component">
         <InputGroup
-          placeholder="Search location..."
+          placeholder={t("Search location")}
           className={"dmx-search-component-input"}
           value={filterValue}
           leftIcon="search"
@@ -67,7 +67,7 @@ class DMXSearchLocation extends Component {
               </div>
             )
             : <div className="dmx-search-component-results-box">
-              <span className="dmx-search-component-results-box-no-options dmx-results-row">{`No options for that search`}</span>
+              <span className="dmx-search-component-results-box-no-options dmx-results-row">{t("No results found")}</span>
             </div>
           }
         </div>
