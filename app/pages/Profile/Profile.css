@@ -66,7 +66,7 @@
   /* about section overrides */
   & .cp-grouping:first-child {
     @mixin text-shadow;
-    background-color: var(--dark-4) !important;
+    background-color: var(--dark-4);
 
     /* bring about section closer to hero */
     & .cp-section {
@@ -131,16 +131,17 @@
       flex: 2 1 !important;
     }
     & .cp-stat-label-text {
-      color: var(--light-3) !important;
-      font-size: var(--font-xxs) !important;
-      max-width: 100px !important;
+      color: var(--light-3);
+      font-size: var(--font-xxs);
+      max-width: 100px;
     }
     & .cp-stat-value-text {
-      font-weight: 300 !important;
+      color: var(--gmx-yellow-1);
+      font-weight: 300;
     }
     & .cp-stat-subtitle {
-      color: var(--light-2) !important;
-      font-size: var(--font-xs) !important;
+      color: var(--light-2);
+      font-size: var(--font-xs);
     }
   }
 }
@@ -148,17 +149,18 @@
 /* grouping headings */
 .cp-grouping-section-heading {
   @mixin display;
-  color: var(--white) !important;
-  margin-bottom: 0;
+  color: var(--white);
+  font-size: 2.25rem;
+  margin-bottom: 0 !important;
   font-family: var(--base-font-stack-condensed);
 }
 
 .cp-viz-title {
   font-family: var(--base-font-stack-condensed) !important;
-  font-size: var(--font-md) !important;
-  margin: 0 var(--gutter-sm) !important;
-  text-align: center !important;
-  width: 100%;
+  font-weight: 600;
+  font-size: var(--font-md);
+  margin: 0 var(--gutter-sm);
+  text-align: center;
   & .dmx-click2select {
     color: var(--gmx-red-1) !important;
     font-size: var(--font-sm) !important;
@@ -202,10 +204,10 @@
 }
 
 .cp-hero {
-  min-height: calc(100vh - 300px) !important;
+  min-height: calc(100vh - 300px);
 }
 .cp-hero-inner {
-  padding-bottom: 3rem !important;
+  padding-bottom: 3rem;
 }
 
 .cp-single-column-section-caption .cp-viz-container { margin-top: auto; }

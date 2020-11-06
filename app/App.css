@@ -52,7 +52,7 @@ p:last-of-type {
 }
 
 .cp-main > *:nth-child(even) {
-  background-color: #eeeeee !important;
+  background-color: #eeeeee;
 }
 
 .cp-stat-group-wrapper .cp-stat:not(:only-child) {
@@ -64,7 +64,7 @@ p:last-of-type {
 }
 
 .cp-main > *:nth-child(odd):not(.cp-grouping-section) {
-  background-color: var(--white) !important;
+  background-color: var(--white);
 }
 
 .cp-stat-group-wrapper {
@@ -97,9 +97,9 @@ p:last-of-type {
 }
 
 .cp-subnav-link.is-active {
-  color: var(--gmx-yellow-1) !important;
+  color: var(--gmx-yellow-1);
   &::after {
-    background-color: var(--gmx-yellow-1) !important;
+    background-color: var(--gmx-yellow-1);
     height: 3px;
   }
 }
@@ -110,7 +110,7 @@ p:last-of-type {
   }
 }
 
-.ReactTable .rt-tbody { overflow-y: hidden !important; }
+.ReactTable .rt-tbody { overflow-y: hidden; }
 
 .cp-viz-container > .cp-viz-header {
   justify-content: center;
@@ -163,7 +163,7 @@ p:last-of-type {
 
 @media (min-width: 768px) {
   .cp-default-section-figure {
-    width: calc(100% - 17rem - 1.5rem) !important;
+    width: calc(100% - 17rem - 1.5rem);
   }
 
   .cp-multicolumn-default-section-figure {
