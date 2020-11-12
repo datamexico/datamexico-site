@@ -575,3 +575,7 @@ p:last-of-type {
   fill: var(--gmx-red-1);
 }
 
+.cp-hero-pdf {
+  display: none
+}
+
