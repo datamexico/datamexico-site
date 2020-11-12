@@ -13,10 +13,12 @@ const CancelToken = axios.CancelToken;
 let cancel;
 
 const pathParser = (params, path) => {
+  let new_path = path.replace(/\(|\)/g, '')
   Object.entries(params).forEach(d => {
-    path = path.replace(d[0], d[1]);
+    new_path = new_path.replace(d[0], d[1]);
   });
-  return path;
+  console.log(new_path);
+  return new_path;
 };
 
 class Nav extends React.Component {
@@ -106,10 +108,10 @@ class Nav extends React.Component {
         <span className="nav-subtitle">{title}</span>
       </div>
       <div className="nav-right">
-        {/* <ul className="langs">
+        <ul className="langs">
           <li><a data-refresh="true" href={pathParser({...params, ":lang": "es"}, routePath)}>ES</a></li>
           <li><a data-refresh="true" href={pathParser({...params, ":lang": "en"}, routePath)}>EN</a></li>
-        </ul> */}
+        </ul>
         <div className={classnames("search-button", "search-nav", {active: isSearchOpen})}>
           <Icon icon="search" className="click" onClick={() => this.setState({isSearchOpen: !isSearchOpen})} />
           <InputGroup
