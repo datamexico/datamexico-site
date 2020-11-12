@@ -22,7 +22,7 @@
   "Coronavirus": "Coronavirus",
   "Daily Cases": "Daily Cases",
   "Daily Deaths": "Daily Deaths",
-  "Data Actualization": "Updated data at {{date}}",
+  "Data Actualization": "Updated data at {{day}} of {{month}} of {{year}}",
   "Data Warning": "Preliminary data to date",
   "Data sources": "Data sources",
   "Data": "Data",
@@ -160,12 +160,16 @@
   "Covid Profile": {
     "Card": {
       "Age Range": {
-        "Title": "Age range"
+        "Title": "Age range",
+        "Date": "The graphs show the number of cases according to the age of the patients, accumulated up to {{day}} of {{month}} of {{year}}.",
+        "Nation": "Statistics represent data from the <a href='{{lng}}/profile/geo/mex'>country.</a>",
+        "States": "Statistics represent data from the selected states"
       },
       "Daily Cases": {
         "Title": "New daily cases",
         "Description": "The date to which the cases are assigned corresponds to the day the test was taken.<p className='italic'>The dotted line indicates preliminary data that will be confirmed during the next 7 days.</p>"
-      }
+      },
+      "Source": "Source:"
     },
     "Overlay": {
       "Death Cases 1": "All positive cases (RESULT value '1') registered in the database and that have a notified death date (FECHA_DEF other than '99-99-9999') are filtered.",

@@ -185,7 +185,7 @@ class Covid extends Component {
     const year = fullDate.getFullYear();
     const hour = fullDate.getHours();
     // return `${t(days[day])} ${date} ${t(months[month])} ${year} ${hour}:00`
-    return `${date} de ${months[month]} de ${year}`;
+    return {day: date, month , year};
   }
 
   calculateStats = (dataset, divisionArray, stats) => {
@@ -349,7 +349,7 @@ class Covid extends Component {
       progressStatVisConfig.x = "Time";
       progressStatVisConfig.xConfig = {};
       progressStatVisConfig.xConfig.tickFormat = undefined;
-      progressStatVisConfig.xConfig.title = "Fecha";
+      progressStatVisConfig.xConfig.title = t("Date");
       delete progressStatVisConfig.discrete;
       delete progressStatVisConfig.xSort;
     } else {
@@ -468,7 +468,7 @@ class Covid extends Component {
             resetBaseLocation={this.resetBaseLocation}
           />
           <div className="covid-header-info">
-            <h4 className="covid-header-info-date">{t("Data Actualization", {date: showDate})}</h4>
+            <h4 className="covid-header-info-date">{t("Data Actualization", {day: showDate.day, month: showDate.month, year: showDate.year})}</h4>
           </div>
           <div className="covid-header-stats">
             {locationStats.map((d, i) => (
@@ -543,16 +543,11 @@ class Covid extends Component {
             cardInformation={{
               title: t("Covid Profile.Card.Age Range.Title"),
               description: <div className="card-description">
-                <p>Los gráficos muestran el número de casos según la edad de los y las pacientes, acumulados hasta {showDate}.</p>
+                <p>{t("Covid Profile.Card.Age Range.Date", {day: showDate.day, month: showDate.month, year: showDate.year})}</p>
                 {locationDivisions.includes("Nation")
-                  ? <p>Las estadísticas representan los datos del <a href={`${lng}/profile/geo/mex`}>país.</a></p>
+                  ? <p dangerouslySetInnerHTML={{__html: t("Covid Profile.Card.Age Range.Nation", {lng: lng})}}/>
                   : locationDivisions.includes("State")
-                    ? <p>Las estadísticas representan los datos de
-                      {locationSelectedArray.map((d, k, array) => (
-                      <a href={`/${lng}/profile/geo/${d["Location ID"]}`} key={`card_statistic_geo_${k}`}>
-                        {` ${array.length - k > 1 ? `${d.Location},` : `${d.Location}.`}`}
-                      </a>
-                    ))}</p>
+                    ? <p dangerouslySetInnerHTML={{__html: t("Covid Profile.Card.Age Range.States")}}/>
                     : <p> </p>
                 }
               </div>,

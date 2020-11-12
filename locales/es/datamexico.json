@@ -22,7 +22,7 @@
   "Coronavirus": "Coronavirus",
   "Daily Cases": "Contagios Diarios",
   "Daily Deaths": "Defunciones Diarias",
-  "Data Actualization": "Datos actualizados al {{date}}",
+  "Data Actualization": "Datos actualizados al {{day}} del {{month}} de {{year}}",
   "Data Warning": "Datos preliminares a la fecha",
   "Data sources": "Fuentes de datos",
   "Data": "Datos",
@@ -160,12 +160,16 @@
   "Covid Profile": {
     "Card": {
       "Age Range": {
-        "Title": "Rangos de edad"
+        "Title": "Rangos de edad",
+        "Date": "Los gráficos muestran el número de casos según la edad de los y las pacientes, acumulados hasta {{day}} del {{month}} de {{year}}.",
+        "Nation": "Las estadísticas representan los datos del <a href='{{lng}}/profile/geo/mex'>país.</a>",
+        "States": "Las estadísticas representan los datos de los estados seleccionados"
       },
       "Daily Cases": {
         "Title": "Nuevos casos diarios",
         "Description": "La fecha a la que son asignados los casos corresponde al día en que fue tomado el test.<p className='italic'>La línea punteada indica datos preliminares que serán confirmados durante los próximos 7 días.</p>"
-      }
+      },
+      "Source": "Fuente:"
     },
     "Overlay": {
       "Death Cases 1": "Se filtran todos los casos positivos (RESULTADO valor “1”) registrados en la base de datos y que tengan fecha de defunción notificada (FECHA_DEF distinta de “99-99-9999”).",

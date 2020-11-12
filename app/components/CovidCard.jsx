@@ -43,7 +43,8 @@ class CovidCard extends Component {
       overlay,
       scaleSelector,
       timeScaleSelector,
-      visualization
+      visualization,
+      t
     } = this.props;
 
     const viz = this.createViz(visualization);
@@ -95,7 +96,7 @@ class CovidCard extends Component {
           )}
           {cardInformation.source && (
             <div className="covid-card-information-sources">
-              <span className="covid-card-information-sources-title">{"Fuente:"}</span>
+              <span className="covid-card-information-sources-title">{t("Covid Profile.Card.Source")}</span>
               {cardInformation.source.map((d, k, {length}) => {
                 return <div className="covid-card-information-sources-source">
                   <a href={d.link} target="_blank" rel="noopener noreferrer">{d.name}</a>
