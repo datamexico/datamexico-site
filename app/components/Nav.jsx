@@ -17,7 +17,6 @@ const pathParser = (params, path) => {
   Object.entries(params).forEach(d => {
     new_path = new_path.replace(d[0], d[1]);
   });
-  console.log(new_path);
   return new_path;
 };
 
