@@ -88,7 +88,8 @@ const axisConfig = {
   // main bar lines
   maxSize: 100,
   barConfig: {
-    stroke: "transparent"
+    stroke: "transparent",
+    strokeWidth: 0
   },
   // secondary grid lines
   gridConfig: {
@@ -170,7 +171,8 @@ export default {
       fontSize: () => fontSizeLg,
       fontFamily: () => typeface
     },
-    stroke: "transparent"
+    stroke: "transparent",
+    strokeWidth: 0
   },
 
   // color scale
@@ -209,7 +211,8 @@ export default {
       shapeConfig: {
         height: shapeLegend,
         width: shapeLegend,
-        stroke: "transparent"
+        stroke: "transparent",
+        strokeWidth: 0
       }
     },
     rectConfig: {
@@ -264,7 +267,7 @@ export default {
       },
       textAlign: "left",
       stroke: "transparent",
-      strokeWidth: d => 1
+      strokeWidth: 0
     },
     // line charts
     Line: {

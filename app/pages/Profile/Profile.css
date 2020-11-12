@@ -125,7 +125,6 @@
 }
 
 .cp-grouping-section {
-  background: var(--dark-4);
   & .cp-section-content {
     margin: 1rem auto;
     & .cp-stat-group {
@@ -157,14 +156,14 @@
 }
 
 .cp-viz-title {
-  font-family: var(--base-font-stack-condensed);
+  font-family: var(--base-font-stack-condensed) !important;
   font-weight: 600;
   font-size: var(--font-md);
   margin: 0 var(--gutter-sm);
   text-align: center;
   & .dmx-click2select {
-    color: var(--gmx-red-1);
-    font-size: var(--font-sm);
+    color: var(--gmx-red-1) !important;
+    font-size: var(--font-sm) !important;
   }
 }
 

@@ -110,7 +110,7 @@ p:last-of-type {
   }
 }
 
-.ReactTable .rt-tbody { overflow-y: hidden !important; }
+.ReactTable .rt-tbody { overflow-y: hidden; }
 
 .cp-viz-container > .cp-viz-header {
   justify-content: center;
