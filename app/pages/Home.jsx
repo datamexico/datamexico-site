@@ -11,7 +11,7 @@ import Nav from "../components/Nav";
 import TileV2 from "../components/TileV2";
 
 import homeTiles from "helpers/homeTiles";
-import tilesEN from "../../static/tiles/es.json";
+import tilesEN from "../../static/tiles/en.json";
 import tilesES from "../../static/tiles/es.json";
 import {LOGOS, HOME_NAV} from "helpers/consts.js";
 import {backgroundID} from "helpers/utils";
