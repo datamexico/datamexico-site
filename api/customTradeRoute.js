@@ -2,7 +2,7 @@ const axios = require("axios");
 
 let {CANON_CMS_CUBES} = process.env;
 if (CANON_CMS_CUBES.substr(-1) === "/") CANON_CMS_CUBES = CANON_CMS_CUBES.substr(0, CANON_CMS_CUBES.length - 1);
-const BASE_API = CANON_CMS_CUBES + "/data";
+let BASE_API = CANON_CMS_CUBES + "/data";
 
 
 // Dictionary of equivalences.
@@ -23,13 +23,16 @@ module.exports = function (app) {
   app.get("/api/trade/data", async(req, res) => {
     const queryObject = query => Object.keys(query).map(d => `${d}=${query[d]}`).join("&");
     const {query} = req;
-    const {drilldowns, measures} = query;
+    const {drilldowns, measures, growth} = query;
     const queryString = queryObject(query);
 
     // Defines the cube to use.
     // Options are "economy_foreign_trade_ent" and "economy_foreign_trade_mun".
     const isMunLevel = ["Metro Area", "Municipality"].some(d => queryString.includes(d)) || (query.Level && query.Level === "2");
-    const cube = `economy_foreign_trade_${isMunLevel ? "mun" : "ent"}`;
+
+    // Custom tesseract endpoint logic
+    const isGrowth = growth ? true : false;
+    const cube = isGrowth ? `economy_foreign_trade_unanonymized_${isMunLevel ? "mun" : "ent"}` : `economy_foreign_trade_${isMunLevel ? "mun" : "ent"}`;
 
     // Generates an object using drilldown names defined in the query.
     // Replaces each key with the drilldown name used on the cube.
@@ -68,7 +71,8 @@ module.exports = function (app) {
     const params = Object.assign(params1, params2);
 
     // Gets data from API.
-    const data = await axios.get(BASE_API, {params})
+    // Custom tesseract endpoint, private values of foreign trade
+    const data = await axios.get(isGrowth ? CANON_CMS_CUBES + "/custom/data" : BASE_API, {params})
       .then(resp => resp.data)
       .catch(error => ({data: [], error: error.toString()}));
 
