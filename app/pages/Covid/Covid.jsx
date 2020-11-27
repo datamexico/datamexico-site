@@ -241,7 +241,9 @@ class Covid extends Component {
       ageRangesStatOptions,
       ageRangesStatSelected
     } = this.state;
-    const {t, lng} = this.props;
+    const {t, lng, route, routeParams} = this.props;
+
+    console.log(route, routeParams);
 
     if (!_dataLoaded) return <Loading />;
 
@@ -455,8 +457,8 @@ class Covid extends Component {
       <Nav
         className={"background"}
         logo={false}
-        routeParams={this.props.router.params}
-        routePath={"/:lang"}
+        routePath={route.path}
+        routeParams={routeParams}
         title={""}
       />
 

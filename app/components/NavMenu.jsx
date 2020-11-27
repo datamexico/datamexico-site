@@ -14,6 +14,17 @@ class NavMenu extends React.Component {
     const {lng, isOpen} = this.props;
     const {dialogClassName, t} = this.props;
 
+    const NAV = SIDEBAR_NAV.map(column => {
+      column.url = column.url.includes(":lng") ? column.url.replace(":lng", lng) : column.url;
+      let items = column.items;
+      if (items) {
+        items.forEach(item => {
+          item.url = item.url.includes(":lng") ? item.url.replace(":lng", lng) : item.url;
+        })
+      }
+      return column;
+    });
+
     return <Dialog
       className={`${dialogClassName} nav-menu`}
       isOpen={isOpen}
@@ -32,13 +43,13 @@ class NavMenu extends React.Component {
         {/* nav */}
         <nav className="nav-menu-nav">
           {/* logo / home page link */}
-          <a className="nav-menu-logo" href="/">
+          <a className="nav-menu-logo" href={`/${lng}`}>
             <img className="nav-menu-logo-img" src="/icons/logo-horizontal.png" alt={t("Home")} />
           </a>
 
           {/* main list */}
           <ul className="nav-menu-list">
-            {SIDEBAR_NAV.map(link =>
+            {NAV.map(link =>
               <li className="nav-menu-item" key={link.title}>
                 <a className="nav-menu-link" href={link.url}>
                   {t(link.title)}

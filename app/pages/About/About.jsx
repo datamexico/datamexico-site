@@ -30,7 +30,7 @@ class About extends Component {
   }
 
   render() {
-    const {t} = this.props;
+    const {t, route, routeParams} = this.props;
     const {lang, page} = this.props.params;
     const {data} = this.state;
     const site = page ? page : "background";
@@ -86,8 +86,8 @@ class About extends Component {
         <Nav
           className="background"
           logo={false}
-          routeParams={this.props.router && this.props.router.params ? this.props.router.params : null}
-          routePath="/:lang"
+          routePath={route.path}
+          routeParams={routeParams}
           title=""
         />
 

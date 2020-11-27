@@ -10,7 +10,7 @@ import "./Error.css";
 
 class Error extends Component {
   render() {
-    const {t, errorType, locale} = this.props;
+    const {t, errorType, locale, route, routeParams} = this.props;
 
     // if (errorType === "stub") {
     //   text = "This page is currently under construction.";
@@ -24,8 +24,9 @@ class Error extends Component {
         <Nav
           className="background"
           logo={false}
-          routeParams={this.props.router && this.props.router.params ? this.props.router.params : null}
-          routePath="/:lang"
+          routePath={route.path}
+          routeParams={routeParams}
+          //routeParams={this.props.router && this.props.router.params ? this.props.router.params : null}
           title=""
         />
         <div className="error-header container">

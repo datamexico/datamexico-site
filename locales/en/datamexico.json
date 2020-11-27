@@ -221,7 +221,7 @@
     "MaxResults": "Query exceeds 100 results, try entering additional filters to refine your search.",
     "No data available": "Sorry, there are no results for this search. Try other parameters or other sections.",
     "Search Placeholder": "Search profiles...",
-    "Title": "Explore"
+    "Title": "Explorer"
   },
   "Footer": {
     "Mail": "Your e-mail",

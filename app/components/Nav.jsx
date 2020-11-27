@@ -13,7 +13,7 @@ const CancelToken = axios.CancelToken;
 let cancel;
 
 const pathParser = (params, path) => {
-  let new_path = path.replace(/\(|\)/g, '')
+  let new_path = path.replace(/\(|\)/g, '');
   Object.entries(params).forEach(d => {
     new_path = new_path.replace(d[0], d[1]);
   });
@@ -77,7 +77,7 @@ class Nav extends React.Component {
   }
 
   render() {
-    const {className, logo, routePath, routeParams, title, t} = this.props;
+    const {className, logo, routePath, routeParams, title, t, lng} = this.props;
     const {isOpen, isSearchOpen, resultsFilter} = this.state;
 
     let params;
@@ -103,7 +103,7 @@ class Nav extends React.Component {
         </button>
       </div>
       <div className={classnames("nav-center", {"active-searchbar": isSearchOpen})}>
-        {(logo || className === "background") && <a className="profile-logo" href="/" data-refresh="true"><img src="/icons/logo-horizontal.png" alt="" /></a>}
+        {(logo || className === "background") && <a className="profile-logo" href={`/${lng}`} data-refresh="true"><img src="/icons/logo-horizontal.png" alt="" /></a>}
         <span className="nav-subtitle">{title}</span>
       </div>
       <div className="nav-right">

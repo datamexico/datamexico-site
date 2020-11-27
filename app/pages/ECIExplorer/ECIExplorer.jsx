@@ -285,7 +285,7 @@ class ECIExplorer extends React.Component {
       timeSelected,
     } = this.state;
 
-    const {lng, t} = this.props;
+    const {lng, t, route, routeParams} = this.props;
 
     const eciMeasure = `${measureSelected.id} ECI`;
     const pciMeasure = `${measureSelected.id} PCI`;
@@ -330,8 +330,8 @@ class ECIExplorer extends React.Component {
       <Nav
         className={"background"}
         logo={false}
-        routeParams={this.props.router.params}
-        routePath={"/:lang"}
+        routePath={route.path}
+        routeParams={routeParams}
         title={""}
       />
       <div className="container eci-container">

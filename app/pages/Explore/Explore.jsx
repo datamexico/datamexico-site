@@ -197,7 +197,7 @@ class Explore extends React.Component {
 
   render() {
     const {query, tab, profile, results, resultsNest, totalsNest, loading} = this.state;
-    const {t} = this.props;
+    const {t, route, routeParams} = this.props;
 
     const clearButton = query !== '' ? <Button onClick={() => this.clearSearch()} minimal={true} className="ep-clear-btn" icon="cross" large={true} outlined={true}>{t('Explore.Clear Filters')}</Button> : <span></span>
 
@@ -214,8 +214,8 @@ class Explore extends React.Component {
       <Nav
         className={"background"}
         logo={false}
-        routeParams={this.props.router.params}
-        routePath={"/:lang"}
+        routePath={route.path}
+        routeParams={routeParams}
         title={""}
       />
 
@@ -281,11 +281,11 @@ class Explore extends React.Component {
   }
 }
 
+Explore.need = []
+
 Explore.contextTypes = {
   router: PropTypes.object
 };
-
-Explore.need = []
 
 export default withNamespaces()(
   connect(state => ({

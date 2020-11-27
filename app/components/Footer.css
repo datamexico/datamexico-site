@@ -148,6 +148,12 @@
         }
       }
     }
+    & .footer-translate-disclaimer {
+      font-style: italic;
+      font-weight: var(--light-weight);
+      text-align: center;
+      width: 270px;
+    }
   }
 
   & .footer-logo-list {

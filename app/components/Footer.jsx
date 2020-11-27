@@ -57,7 +57,20 @@ class Footer extends React.Component {
   };
 
   render() {
-    const {t} = this.props;
+    const {t, lng} = this.props;
+
+    const NAV = FOOTER_NAV.map(column => {
+      let items = column.items;
+      items.forEach(item => {
+        item.url = item.url.includes(":lng") ? item.url.replace(":lng", lng) : item.url;
+      });
+      return column
+    });
+
+    console.log(lng);
+    const translate_disclaimer = {
+      en: "The translations presented on the site were made automatically through the Google Translate API"
+    };
 
     return <footer className="footer container">
       <div className="columns">
@@ -72,12 +85,18 @@ class Footer extends React.Component {
               </div>
             ))}
           </div>
+          {lng !== "es" && (
+            <div className="footer-translate-disclaimer">
+              <span>{translate_disclaimer[lng]}</span>
+            </div>
+          )}
         </div>
+
         <div className="column">
           <div className="footer-links">
             <nav className="footer-columns">
               <h2 className="u-visually-hidden">Site navigation</h2>
-              {FOOTER_NAV.map(col =>
+              {NAV.map(col =>
                 <div className="footer-column" key={col.title}>
                   <h3 className="footer-heading display u-font-sm">{t(col.title)}</h3>
                   <ul>
