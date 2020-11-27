@@ -67,7 +67,6 @@ class Footer extends React.Component {
       return column
     });
 
-    console.log(lng);
     const translate_disclaimer = {
       en: "The translations presented on the site were made automatically through the Google Translate API"
     };
