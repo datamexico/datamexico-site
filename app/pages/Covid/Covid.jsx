@@ -243,7 +243,7 @@ class Covid extends Component {
     } = this.state;
     const {t, lng, route, routeParams} = this.props;
 
-    console.log(route, routeParams);
+    const routePath = !routeParams.slug ? route.path.split("(")[0] : route.path;
 
     if (!_dataLoaded) return <Loading />;
 
@@ -457,7 +457,7 @@ class Covid extends Component {
       <Nav
         className={"background"}
         logo={false}
-        routePath={route.path}
+        routePath={routePath}
         routeParams={routeParams}
         title={""}
       />
