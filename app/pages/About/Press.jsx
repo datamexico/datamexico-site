@@ -7,7 +7,11 @@ import "./About.css";
 
 class Press extends Component {
   render() {
-    const {t, press} = this.props;
+    const {t, lng, press} = this.props;
+    const connector = {
+      en: "sobre",
+      en: "about"
+    }
     press.sort((a, b) => b["Date ID"] - a["Date ID"]);
     return (
       <div className="about-press">
@@ -18,7 +22,7 @@ class Press extends Component {
             {d.Picture && (<img src={d.Picture} alt="Picture" className="news-picture" />)}
             <div className="press-media">
               <a href={d.URL} target="_blank" rel="noopener noreferrer">{d.Media}</a>
-              <h6>{`sobre ${d.Platform}`}</h6>
+              <h6>{`${connector[lng]} ${d.Platform}`}</h6>
             </div>
             <h4>{d.Title}</h4>
             <p>{d.Text}</p>
