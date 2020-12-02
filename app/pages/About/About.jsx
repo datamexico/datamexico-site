@@ -24,7 +24,8 @@ class About extends Component {
   };
 
   componentDidMount = () => {
-    axios.get("/api/about").then(resp => {
+    const {lng} = this.props;
+    axios.get(`/api/about/${lng}`).then(resp => {
       this.setState({data: resp.data});
     });
   }
