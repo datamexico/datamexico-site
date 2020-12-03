@@ -78,7 +78,6 @@ class Nav extends React.Component {
 
   render() {
     const {className, lng, logo, routeParams, routePath, t, title} = this.props;
-    console.log("props", this.props);
     const {isOpen, isSearchOpen, resultsFilter} = this.state;
 
     let params;
