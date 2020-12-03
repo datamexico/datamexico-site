@@ -77,7 +77,8 @@ class Nav extends React.Component {
   }
 
   render() {
-    const {className, logo, routePath, routeParams, title, t, lng} = this.props;
+    const {className, lng, logo, routeParams, routePath, t, title} = this.props;
+    console.log("props", this.props);
     const {isOpen, isSearchOpen, resultsFilter} = this.state;
 
     let params;
@@ -93,8 +94,8 @@ class Nav extends React.Component {
     return <div className={`${className} nav container`}>
       <NavMenu
         isOpen={isOpen}
-        dialogClassName={isOpen ? "slide-enter" : "slide-exit"}
         run={isOpen => this.setState({isOpen})}
+        dialogClassName={isOpen ? "slide-enter" : "slide-exit"}
       />
       <div className="nav-left">
         <button className="nav-button" onClick={() => this.setState({isOpen: !isOpen})}>
@@ -111,24 +112,26 @@ class Nav extends React.Component {
           <li><a data-refresh="true" href={pathParser({...params, ":lang": "es"}, routePath)}>ES</a></li>
           <li><a data-refresh="true" href={pathParser({...params, ":lang": "en"}, routePath)}>EN</a></li>
         </ul>
-        <div className={classnames("search-button", "search-nav", {active: isSearchOpen})}>
-          <Icon icon="search" className="click" onClick={() => this.setState({isSearchOpen: !isSearchOpen})} />
-          <InputGroup
-            placeholder={t("Search profiles")}
-            className={classnames({active: isSearchOpen})}
-            autoFocus={true}
-            onChange={this.handleSearch}
-          />
-          <ul className={classnames("results", {active: isSearchOpen})}>
-            {resultsFilter.map((d, i) => <SearchResult
-              key={`search_result_${d.id}_${i}`}
-              id={d.id}
-              slug={d.slug}
-              title={d.name}
-              level={d.level}
-            />)}
-          </ul>
-        </div>
+        {routePath !== "/:lang" && (
+          <div className={classnames("search-button", "search-nav", {active: isSearchOpen})}>
+            <Icon icon="search" className="click" onClick={() => this.setState({isSearchOpen: !isSearchOpen})} />
+            <InputGroup
+              placeholder={t("Search profiles")}
+              className={classnames({active: isSearchOpen})}
+              autoFocus={true}
+              onChange={this.handleSearch}
+            />
+            <ul className={classnames("results", {active: isSearchOpen})}>
+              {resultsFilter.map((d, i) => <SearchResult
+                key={`search_result_${d.id}_${i}`}
+                id={d.id}
+                slug={d.slug}
+                title={d.name}
+                level={d.level}
+              />)}
+            </ul>
+          </div>
+        )}
       </div>
     </div>;
   }
