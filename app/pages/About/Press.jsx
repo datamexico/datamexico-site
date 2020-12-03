@@ -9,7 +9,7 @@ class Press extends Component {
   render() {
     const {t, lng, press} = this.props;
     const connector = {
-      en: "sobre",
+      es: "sobre",
       en: "about"
     }
     press.sort((a, b) => b["Date ID"] - a["Date ID"]);
