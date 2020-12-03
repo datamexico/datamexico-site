@@ -43,6 +43,8 @@ class About extends Component {
       "versions": "Versions"
     };
 
+    routeParams.page = routeParams.page ? routeParams.page : site
+
     const valid = Object.keys(pages).includes(site);
     if (!valid) {return <Error />;}
 
@@ -64,11 +66,6 @@ class About extends Component {
         case "versions":
           childComponent = <Versions versions={data.version} />;
           break;
-        /*
-      case "methodology":
-        childComponent = <Methodology />;
-        break;
-        */
         default:
           childComponent = <Background background={data.background} />;
           break;
