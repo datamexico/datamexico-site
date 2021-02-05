@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {withNamespaces} from "react-i18next";
 import {hot} from "react-hot-loader/root";
 import axios from "axios";
-import {event, select} from "d3-selection";
+import {select} from "d3-selection";
 import {Icon} from "@blueprintjs/core";
 import {encodeChars} from "@datawheel/canon-core";
 
@@ -29,7 +29,7 @@ class HeroSearch extends Component {
     }
 
     // fake tab via up/down keys
-    select(document).on(`keydown.${id}`, () => {
+    select(document).on(`keydown.${id}`, event => {
       const {router} = this.props;
       const {searchActive} = this.state;
       const key = event.keyCode;

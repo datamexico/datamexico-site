@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {Helmet} from "react-helmet";
+import {Helmet} from "react-helmet-async";
 import {withNamespaces} from "react-i18next";
 
 import Footer from "../../components/Footer";
@@ -26,7 +26,7 @@ class Error extends Component {
           logo={false}
           routePath={route.path}
           routeParams={routeParams}
-          //routeParams={this.props.router && this.props.router.params ? this.props.router.params : null}
+          // routeParams={this.props.router && this.props.router.params ? this.props.router.params : null}
           title=""
         />
         <div className="error-header container">
@@ -35,7 +35,7 @@ class Error extends Component {
         </div>
         <div className="error-container container">
           <p className="u-font-lg">{t("Error.Text")}</p>
-          <p className="u-font-lg" dangerouslySetInnerHTML={{__html: t("Error.Redirection", {locale: locale}) }}></p>
+          <p className="u-font-lg" dangerouslySetInnerHTML={{__html: t("Error.Redirection", {locale})}}></p>
         </div>
         <Footer />
       </div>
