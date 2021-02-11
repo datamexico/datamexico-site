@@ -174,6 +174,8 @@ export default {
     stroke: "transparent",
     strokeWidth: 0
   },
+  legend: (config, arr) => arr.length > 1,
+  legendPosition: "bottom",
 
   // color scale
   colorScaleConfig: {
@@ -233,6 +235,7 @@ export default {
     },
     tbody: []
   },
+  colorScalePosition: "bottom",
 
   // geomaps
   ocean: "transparent",

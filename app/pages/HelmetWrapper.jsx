@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Helmet} from "react-helmet";
+import {Helmet} from "react-helmet-async";
 import {withNamespaces} from "react-i18next";
 import {connect} from "react-redux";
 
@@ -16,7 +16,7 @@ class HelmetWrapper extends Component {
       img: info && info.img ? info.img : `${baseUrl}/images/share/share-${lang}.jpg`,
       url: `${baseUrl}${path}`,
       locale: lang
-    }
+    };
 
     return (
       <Helmet title={defaults.title}>
@@ -40,12 +40,10 @@ class HelmetWrapper extends Component {
 }
 
 export default withNamespaces()(
-  connect(state => {
-    return {
-      baseUrl: state.env.CANON_API,
-      lang: state.i18n.locale === 'en' ? 'en' : 'es',
-      path: state.location.pathname
-    }
-  })(HelmetWrapper)
+  connect(state => ({
+    baseUrl: state.env.CANON_API,
+    lang: state.i18n.locale === "en" ? "en" : "es",
+    path: state.location.pathname
+  }))(HelmetWrapper)
 );
 
