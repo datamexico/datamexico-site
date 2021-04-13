@@ -37,9 +37,10 @@ module.exports = {
       title: "About.Title", items: [
         // {title: "Background",       url: `/${locale}/about`},
         {title: "About.In the press", url: `/${locale}/about/press`},
+        {title: "About.Data", url: `/${locale}/about/infoapi`},
         {title: "About.Glossary", url: `/${locale}/about/glossary`},
         {title: "About.Terms of use", url: `/${locale}/about/legal`},
-        {title: "About.Contact us", url: "mailto:datamexico@datawheel.us?subject=Contacto equipo DataMéxico"}
+        {title: "About.Contact us", url: "mailto:datamexico@economia.gob.mx?subject=Contacto equipo DataMéxico"}
       ]
     }
   ],
