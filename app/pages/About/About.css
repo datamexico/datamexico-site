@@ -162,3 +162,26 @@
     margin-bottom: var(--gutter-lg);
   }
 }
+
+.about-challenge {
+  & a {
+    color: #2EBEA5;
+  }
+  & li {
+    font-weight: var(--light-weight);
+    font-weight: bold;
+    font-size: 1rem
+  }
+}
+
+.about-infoapi {
+  & a {
+    color: #2EBEA5;
+    font-weight: bold;
+  }
+  & li {
+    font-weight: var(--light-weight);
+    font-weight: bold;
+    font-size: 1rem
+  }
+}

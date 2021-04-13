@@ -15,6 +15,8 @@ import Legal from "./Legal";
 import Nav from "components/Nav";
 import Press from "./Press";
 import Versions from "./Versions";
+import Challenges from "./Challenges";
+import Infoapi from "./Infoapi";
 
 import "./About.css";
 
@@ -40,7 +42,9 @@ class About extends Component {
       "press": "In the press",
       "glossary": "Glossary",
       "legal": "Terms of use",
-      "versions": "Versions"
+      "versions": "Versions",
+      "challenges": "Challenges",
+      "infoapi": "Data"
     };
 
     routeParams.page = routeParams.page ? routeParams.page : site
@@ -65,6 +69,12 @@ class About extends Component {
           break;
         case "versions":
           childComponent = <Versions versions={data.version} />;
+          break;
+        case "challenges":
+          childComponent = <Challenges challenges={data.challenge} />;
+          break;
+        case "infoapi":
+          childComponent = <Infoapi infoapi={data.infoapi} />;
           break;
         default:
           childComponent = <Background background={data.background} />;
