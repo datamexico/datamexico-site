@@ -81,7 +81,7 @@ module.exports = function (app) {
       const foreignTradeLatestYear = tradeLatestYear;
       const foreignTradePrevYear = tradeLatestYear - 1;
       const foreignTradeLatestQuarter = tradeLatestQuarter;
-      const foreignTradeLatestMonth = data[0]["Month ID"];
+      const foreignTradeLatestMonth = data[0] ? data[0]["Month ID"] : undefined;
 
       return {foreignTradeLatestMonth, foreignTradeLatestQuarter, foreignTradeLatestYear, foreignTradePrevYear};
     };
