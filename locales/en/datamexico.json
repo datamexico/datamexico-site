@@ -107,7 +107,9 @@
     "Versions": "Versions",
     "Challenges": "Challenges",
     "Data": "Data",
-    "Access to data": "Access to data"
+    "Access to data": "Access to data",
+    "IntroAPI1": "To quickly and dynamically access the data available in dataMéxico, Tesseract UI is used, a dynamic API's explorer available al the following link: ",
+    "IntroAPI2": "Tesseract UI allows you to view the queried data in its interface and gives you the possibility to download the data for your own analysis in CSV, JSON Tidy and JSON Arrays formats."
   },
   "CMS": {
     "Options": {

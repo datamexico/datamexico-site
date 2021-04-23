@@ -165,23 +165,21 @@
 
 .about-challenge {
   & a {
-    color: #2EBEA5;
+  color: var(--links)
   }
   & li {
-    font-weight: var(--light-weight);
-    font-weight: bold;
-    font-size: 1rem
+    font-weight: var(--light-bold-weight);
+    font-size: var(--font-md)
   }
 }
 
 .about-infoapi {
   & a {
-    color: #2EBEA5;
-    font-weight: bold;
+    color: var(--links);
+    font-weight: var(--light-bold-weight)
   }
   & li {
-    font-weight: var(--light-weight);
-    font-weight: bold;
-    font-size: 1rem
+    font-weight: var(--light-bold-weight);
+    font-size: var(--font-md)
   }
 }
