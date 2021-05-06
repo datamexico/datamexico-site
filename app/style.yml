@@ -67,6 +67,8 @@ type-boolean-dark:  "#7F6516"
 type-error:         "#DB64A6"
 type-error-dark:    "#75224D"
 
+links:              "#2EBEA5"
+
 # measurements
 cms-nav-height:     "3.125rem"
 sidebar-width:      "17rem"
