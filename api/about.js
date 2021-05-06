@@ -21,10 +21,10 @@ const VERSIONS = {
 	es: "https://docs.google.com/spreadsheets/u/1/d/1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs/export?format=tsv&id=1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs&gid=257728479",
 	en: "https://docs.google.com/spreadsheets/u/1/d/1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs/export?format=tsv&id=1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs&gid=1810252159"
 }
-const CHALLENGES = {
+/*const CHALLENGES = {
 	es: "https://docs.google.com/spreadsheets/u/1/d/1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs/export?format=tsv&id=1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs&gid=180037722",
 	en: "https://docs.google.com/spreadsheets/u/1/d/1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs/export?format=tsv&id=1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs&gid=1222752537"
-}
+}*/
 const INFOAPI = {
 	es: "https://docs.google.com/spreadsheets/u/1/d/1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs/export?format=tsv&id=1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs&gid=2067915636",
 	en: "https://docs.google.com/spreadsheets/u/1/d/1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs/export?format=tsv&id=1al8qMBhGOjRU2rGLzetj_uPjE4jmNJ9MWl-hVOlQPPs&gid=1686248389"
@@ -35,7 +35,7 @@ module.exports = function (app) {
 		const lng = req.params.lng;
 		try {
 			await axios
-				.all([axios.get(BACKGROUND[lng]), axios.get(PRESS[lng]), axios.get(GLOSSARY[lng]), axios.get(LEGAL[lng]), axios.get(VERSIONS[lng]), axios.get(CHALLENGES[lng]), axios.get(INFOAPI[lng])])
+				.all([axios.get(BACKGROUND[lng]), axios.get(PRESS[lng]), axios.get(GLOSSARY[lng]), axios.get(LEGAL[lng]), axios.get(VERSIONS[lng]), axios.get(INFOAPI[lng])])
 				.then(axios.spread((...resp) => {
 					const dictionary = {
 						0: {Texto: "Text"},
@@ -43,8 +43,8 @@ module.exports = function (app) {
 						2: {Concepto: "Concept", Descripción: "Description"},
 						3: {Título: "Title", Descripción: "Description"},
 						4: {Versión: "Version", Caracteristicas: "Features", Descripción: "Description"},
-						5: {Desafío: "Challenge", Descripción: "Description", Lugar: "Position", Proyectos: "Project", Explicación: "Explanation", URL: "URL"},
-						6: {Texto: "Text", Concepto: "Concept", Descripción: "Description", Link: "Link"},
+					//	5: {Desafío: "Challenge", Descripción: "Description", Lugar: "Position", Proyectos: "Project", Explicación: "Explanation", URL: "URL"},
+						5: {Texto: "Text", Concepto: "Concept", Descripción: "Description", Link: "Link"},
 					}
 					const respData = resp.map(d => d.data);
 					const csvData = respData.map((respItem, respIndex) => {
@@ -75,8 +75,8 @@ module.exports = function (app) {
 						glossary: csvData[2],
 						terms: csvData[3],
 						version: csvData[4],
-						challenge: csvData[5],
-						infoapi: csvData[6]
+						//challenge: csvData[5],
+						infoapi: csvData[5]
 					});
 				}));
 		} catch (e) {

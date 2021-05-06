@@ -15,7 +15,7 @@ import Legal from "./Legal";
 import Nav from "components/Nav";
 import Press from "./Press";
 import Versions from "./Versions";
-import Challenges from "./Challenges";
+//import Challenges from "./Challenges";
 import Infoapi from "./Infoapi";
 
 import "./About.css";
@@ -43,7 +43,7 @@ class About extends Component {
       "glossary": "Glossary",
       "legal": "Terms of use",
       "versions": "Versions",
-      "challenges": "Challenges",
+      //"challenges": "Challenges",
       "infoapi": "Data"
     };
 
@@ -70,9 +70,9 @@ class About extends Component {
         case "versions":
           childComponent = <Versions versions={data.version} />;
           break;
-        case "challenges":
+        /*case "challenges":
           childComponent = <Challenges challenges={data.challenge} />;
-          break;
+          break;*/
         case "infoapi":
           childComponent = <Infoapi infoapi={data.infoapi} />;
           break;
