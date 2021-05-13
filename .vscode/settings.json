@@ -7,7 +7,6 @@
   },
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
-  "python.pythonPath": "venv/bin/python3.7",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   }
