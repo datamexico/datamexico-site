@@ -190,6 +190,14 @@ module.exports = function (app) {
               ? "coneval_gini_ent"
               : "coneval_gini_mun";
 
+        //Foreign Trade Cube customAttributes
+        const customForeignTradeCube =
+        hierarchy1 === "Nation"
+          ? "economy_foreign_trade_nat"
+          : hierarchy1 === "State"
+            ? "economy_foreign_trade_ent"
+            : "economy_foreign_trade_mun";
+
         return res.json({
           customCovidCube:
             hierarchy1 === "State"
@@ -200,7 +208,7 @@ module.exports = function (app) {
 
           customSocialLagCube: `coneval_social_lag_${isState ? "ent" : "mun"}`,
           customGiniCube,
-          customForeignTradeCube: isState ? "economy_foreign_trade_ent" : "economy_foreign_trade_mun",
+          customForeignTradeCube, //: isState ? "economy_foreign_trade_ent" : "economy_foreign_trade_mun",
           customHierarchy,
           customId,
           customName,
