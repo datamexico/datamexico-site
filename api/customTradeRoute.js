@@ -9,8 +9,8 @@ let BASE_API = CANON_CMS_CUBES + "/data";
 // Keys are names defined in the query.
 // Values are names defined on the cube.
 const replaces = {
-  "Chapter": "Chapter 4 Digit",
-  "HS2": "HS2 4 Digit",
+  "Chapter": "Chapter 2 Digit",
+  "HS2": "HS2 2 Digit",
   "HS4": "HS4 4 Digit",
   "Year": "Date Year"
 }
@@ -29,10 +29,11 @@ module.exports = function (app) {
     // Defines the cube to use.
     // Options are "economy_foreign_trade_ent" and "economy_foreign_trade_mun".
     const isMunLevel = ["Metro Area", "Municipality"].some(d => queryString.includes(d)) || (query.Level && query.Level === "2");
+    const isStateLevel = ["State"].some(d => queryString.includes(d)) || (query.Level && query.Level === "1");
 
     // Custom tesseract endpoint logic
     const isGrowth = growth ? true : false;
-    const cube = isGrowth ? `economy_foreign_trade_unanonymized_${isMunLevel ? "mun" : "ent"}` : `economy_foreign_trade_${isMunLevel ? "mun" : "ent"}`;
+    const cube = isGrowth ? `economy_foreign_trade_unanonymized_${isMunLevel ? "mun" : isStateLevel ? "ent" : "nat"}` : `economy_foreign_trade_${isMunLevel ? "mun" : isStateLevel ? "ent" : "nat"}`;
 
     // Generates an object using drilldown names defined in the query.
     // Replaces each key with the drilldown name used on the cube.
@@ -65,7 +66,7 @@ module.exports = function (app) {
 
     // If the user didn't define "Product Level" and "Level" in the query, it includes them on params2.
     if (!params1["Product Level"]) params2["Product Level"] = productLevel;
-    if (!params1.Level) params2.Level = isMunLevel ? 2 : drilldowns.includes("Nation") ? 1 : 1; // TODO
+   // if (!params1.Level) params2.Level = isMunLevel ? 2 : drilldowns.includes("Nation") ? 1 : 1; // TODO
 
     // Join both objects.
     const params = Object.assign(params1, params2);
