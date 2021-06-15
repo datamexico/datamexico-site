@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {withNamespaces} from "react-i18next";
-import {hot} from "react-hot-loader/root";
 import axios from "axios";
 import {select} from "d3-selection";
 import {Icon} from "@blueprintjs/core";
@@ -199,4 +198,4 @@ HeroSearch.defaultProps = {
   locale: "es"
 };
 
-export default withNamespaces()(hot(HeroSearch));
+export default withNamespaces()(HeroSearch);

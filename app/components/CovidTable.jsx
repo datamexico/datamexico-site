@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import {nest} from "d3-collection";
 import ReactTable from "react-table";
-import {hot} from "react-hot-loader/root";
 import {withNamespaces} from "react-i18next";
 import {Sparklines, SparklinesLine, SparklinesSpots} from "react-sparklines";
 import colors from "../../static/data/colors.json";
@@ -164,4 +163,4 @@ class CovidTable extends React.Component {
   }
 }
 
-export default withNamespaces()(hot(CovidTable));
+export default withNamespaces()(CovidTable);
