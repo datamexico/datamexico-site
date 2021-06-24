@@ -6,8 +6,6 @@ import {connect} from "react-redux";
 import {formatAbbreviate} from "d3plus-format";
 import {mean} from "d3-array";
 import {withNamespaces} from "react-i18next";
-// import {hot} from "react-hot-loader/root";
-// import classnames from "classnames";
 
 import CovidCard from "components/CovidCard";
 import CovidTable from "components/CovidTable";

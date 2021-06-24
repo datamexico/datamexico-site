@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {hot} from "react-hot-loader/root";
 import {withNamespaces} from "react-i18next";
 
 import CustomTile from "../components/CustomTile";
@@ -144,4 +143,4 @@ class Home extends Component {
   }
 }
 
-export default withNamespaces()(hot(Home));
+export default withNamespaces()(Home);

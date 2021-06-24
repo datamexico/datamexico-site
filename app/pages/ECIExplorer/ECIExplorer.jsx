@@ -5,7 +5,6 @@ import axios from "axios";
 import {Geomap, Plot, Treemap} from "d3plus-react";
 import {Switch, Slider, InputGroup, Button, Label} from "@blueprintjs/core";
 import {formatAbbreviate} from "d3plus-format";
-import {hot} from "react-hot-loader/root";
 import {saveAs} from "file-saver";
 import {strip} from "d3plus-text";
 import {withNamespaces} from "react-i18next";
@@ -545,4 +544,4 @@ class ECIExplorer extends React.Component {
   }
 }
 
-export default withNamespaces()(hot(ECIExplorer));
+export default withNamespaces()(ECIExplorer);
