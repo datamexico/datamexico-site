@@ -3,7 +3,6 @@ import HelmetWrapper from "../HelmetWrapper";
 import PropTypes from "prop-types";
 import axios from "axios";
 import classnames from "classnames";
-import {hot} from "react-hot-loader/root";
 import {withNamespaces} from "react-i18next";
 
 // import Methodology from "./Methodology";
@@ -124,4 +123,4 @@ About.contextTypes = {
   router: PropTypes.object
 };
 
-export default withNamespaces()(hot(About));
+export default withNamespaces()(About);
