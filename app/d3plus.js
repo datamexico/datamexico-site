@@ -12,7 +12,7 @@ const fontSizeLg = 16;
 const labelPadding = 5;
 const shapeLegend = 25;
 
-const icons = ["Affected Legal Good", "State", "Area", "Category", "Chapter", "Continent", "Country", "Flow", "Investment Type", "Sector", "Sex", "Crime Type", "Work Mean", "Confidence", "Classification of Formal and Informal Jobs of the First Activity", "Status", "Basic Services", "Poverty", "Social Deficiencies", "Patient Type", "Norma", "Migration Cause", "Academic Degree", "Imperiment", "Cause", "Indigenous Dialect", "Company Problem", "Staff Age", "Staff Education", "Staff Mobility", "Staff Training", "Financing", "Bank Access", "Credit Access", "Internet Access", "Computer Access", "Transaction", "Accounting System", "Accounting Type", "Environmental Process", "Innovation Process", "Innovation Year"];
+const icons = ["Affected Legal Good", "State", "Area", "Category", "Chapter", "Continent", "Country", "Flow", "Investment Type", "Sector", "Sex", "Crime Type", "Work Mean", "Ed Facility Mean", "Confidence", "Classification of Formal and Informal Jobs of the First Activity", "Status", "Basic Services", "Poverty", "Social Deficiencies", "Patient Type", "Norma", "Migration Cause", "Academic Degree", "Imperiment", "Cause", "Indigenous Dialect", "Company Problem", "Staff Age", "Staff Education", "Staff Mobility", "Staff Training", "Financing", "Bank Access", "Credit Access", "Internet Access", "Computer Access", "Transaction", "Accounting System", "Accounting Type", "Environmental Process", "Innovation Process", "Innovation Year"];
 
 const getTooltipTitle = (d3plusConfig, d) => {
   const len = d3plusConfig._groupBy.length;
