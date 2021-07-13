@@ -368,6 +368,7 @@ module.exports = function (app) {
           customHierarchy: isDeepestLevel ? "Industry Group" : hierarchy1,
           sectorId,
           sectorName,
+          customCensusLevel: hierarchy1 === "Sector" ? 1 : hierarchy1 === "Subsector" ? 2 : 3,
           enoeLatestQuarter,
           enoePrevQuarter,
           enoePrevYear,
